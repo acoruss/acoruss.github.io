@@ -1,2 +1,2 @@
-# acorus.github.io
+# acoruss.github.io
 We craft software solutions that empower businesses globally.

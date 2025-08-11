@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/acoruss/acoruss.github.io/compare/v1.0.1...v1.0.2) (2025-08-11)
+
+
+### Bug Fixes
+
+* streamline GitHub Actions workflow for GitHub Pages deployment ([187e3fb](https://github.com/acoruss/acoruss.github.io/commit/187e3fb95bd7031f085c90681bb01216af407663))
+* streamline GitHub Actions workflow for GitHub Pages deployment ([86dbee6](https://github.com/acoruss/acoruss.github.io/commit/86dbee6321b9611afc2369ff9a3c0f3d2d9d8509))
+
 ## [1.0.1](https://github.com/acoruss/acoruss.github.io/compare/v1.0.0...v1.0.1) (2025-08-11)
 
 

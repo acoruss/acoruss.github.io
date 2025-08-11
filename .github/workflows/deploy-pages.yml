@@ -26,22 +26,22 @@ jobs:
           jq '.head_commit.message? // empty' "$GITHUB_EVENT_PATH" || true
 
   build:
-    if: ${{ github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(main): release acoruss-website') }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith((github.event.head_commit.message || ''), 'chore(main): release acoruss-website') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-          
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
   deploy:
-    if: ${{ github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(main): release acoruss-website') }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith((github.event.head_commit.message || ''), 'chore(main): release acoruss-website') }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

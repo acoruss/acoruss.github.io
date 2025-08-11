@@ -1,0 +1,20 @@
+name: release-please (tag)
+on:
+  push:
+    branches:
+      - releases
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: simple
+          target-branch: releases
+          # only create the GitHub release (no PRs in this job)
+          skip-github-pull-request: true

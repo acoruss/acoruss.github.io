@@ -28,20 +28,20 @@ jobs:
           echo "GITHUB_REF=${{ github.ref }}"
           echo "COMMIT_MESSAGE=$(jq -r '.head_commit.message // empty' "$GITHUB_EVENT_PATH")"
 
-  # build:
-  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith((github.event.head_commit.message || ''), 'chore(main): release acoruss-website') }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  build:
+    if: github.ref == 'refs/heads/main' && ${{ endsWith(github.event.head_commit.message, 'acoruss/release-please--branches--main--components--acoruss-website') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: '.'
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
 
   # deploy:
   #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith((github.event.head_commit.message || ''), 'chore(main): release acoruss-website') }}

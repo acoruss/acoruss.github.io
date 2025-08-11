@@ -16,8 +16,17 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump context
+        run: |
+          echo "ref=$GITHUB_REF"
+          echo "event_name=$GITHUB_EVENT_NAME"
+          jq '.head_commit.message? // empty' "$GITHUB_EVENT_PATH" || true
+
   build:
-    if: startsWith(github.event.head_commit.message, 'chore(main): release acoruss-website')
+    if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore(main): release acoruss-website')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

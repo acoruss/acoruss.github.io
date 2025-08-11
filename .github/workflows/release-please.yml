@@ -10,6 +10,7 @@ permissions:
   pull-requests: write
 
 jobs:
+  if: github.ref != 'refs/heads/release-please--branches--main'
   release-please:
     runs-on: ubuntu-latest
     outputs:
@@ -19,8 +20,6 @@ jobs:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
-          # This will use the configuration files we created
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-          # Optional: Use a PAT if you want other workflows to trigger on releases
           token: ${{ secrets.RELEASE_PLEASE }}

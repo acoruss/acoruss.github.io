@@ -34,6 +34,25 @@
     <footer class="footer">
         Copyright &copy;
         <script type="text/JavaScript">document.write(new Date().getFullYear());</script>
+        <p id="version">Version: Loading...</p>
+        <script>
+            // Check if we're running locally or on a server
+            if (window.location.protocol === 'file:') {
+                // Fallback for local file access
+                document.getElementById('version').textContent = 'Version 0.0.2';
+            } else {
+                // Use fetch when served from a web server
+                fetch('./version.txt')
+                    .then(response => response.text())
+                    .then(version => {
+                        document.getElementById('version').textContent = 'Version ' + version.trim();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching version:', error);
+                        document.getElementById('version').textContent = 'Version: Unknown';
+                    });
+            }
+        </script>
     </footer>
 </body>
 

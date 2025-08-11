@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  if: github.ref == 'refs/heads/release-please--branches--main'
   build:
+    if: github.ref == 'refs/heads/release-please--branches--main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,6 +32,7 @@ jobs:
           path: '.'
 
   deploy:
+    if: github.ref == 'refs/heads/release-please--branches--main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

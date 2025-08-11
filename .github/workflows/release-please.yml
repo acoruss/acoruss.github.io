@@ -10,8 +10,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  if: github.ref != 'refs/heads/release-please--branches--main'
   release-please:
+    if: github.ref != 'refs/heads/release-please--branches--main'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}

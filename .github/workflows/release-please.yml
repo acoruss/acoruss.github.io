@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   release-please:
-    if: github.ref != 'refs/heads/release-please--branches--main'
+    if: github.ref != 'refs/heads/release-please--branches--main--components--acoruss-website'
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}

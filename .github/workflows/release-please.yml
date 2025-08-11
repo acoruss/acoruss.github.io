@@ -21,3 +21,4 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_PLEASE }}
           release-type: simple
+          target-branch: releases

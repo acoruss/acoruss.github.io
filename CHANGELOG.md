@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.2](https://github.com/acoruss/acoruss.github.io/compare/acoruss-website-v1.1.1...acoruss-website-v1.1.2) (2025-08-11)
+
+
+### Bug Fixes
+
+* add context job to GitHub Pages deployment workflow ([60b6e14](https://github.com/acoruss/acoruss.github.io/commit/60b6e147bf53a5ed1c17c2e0c7acf4ca99584c35))
+* add context job to GitHub Pages deployment workflow ([8d9ec7f](https://github.com/acoruss/acoruss.github.io/commit/8d9ec7f7afbb0af57b129ba9b5b44fc555d5f40d))
+* add initial setup for GitHub Pages deployment workflow ([d542691](https://github.com/acoruss/acoruss.github.io/commit/d542691dc1d0bf1dbbc3a69fede16e4a79826548))
+* comment out build and deploy jobs in GitHub Pages workflow ([8be08c5](https://github.com/acoruss/acoruss.github.io/commit/8be08c54a9095468b84c7e9b4e589d476a483939))
+* remove unnecessary workflow triggers and permissions from GitHub Pages deployment ([d0ed5b9](https://github.com/acoruss/acoruss.github.io/commit/d0ed5b9e3e3e457b1fb6ce35887b559c54ff037f))
+* update condition syntax for build and deploy jobs in GitHub Pages workflow ([2d0315e](https://github.com/acoruss/acoruss.github.io/commit/2d0315ec12ac323cf5e7c7567f0315bcf1a7ba87))
+* update condition syntax for build and deploy jobs in GitHub Pages workflow ([5f21619](https://github.com/acoruss/acoruss.github.io/commit/5f216193eddca330b421cf1071aa176c29fca355))
+* update conditions for GitHub Pages deployment to use commit message ([c741898](https://github.com/acoruss/acoruss.github.io/commit/c7418984ec65ea4f5017d1ece6bae7c9f69bd423))
+* update conditions for GitHub Pages deployment to use commit message ([1090924](https://github.com/acoruss/acoruss.github.io/commit/10909241abc70f8b92605a579db7796308c69493))
+
 ## [1.1.1](https://github.com/acoruss/acoruss.github.io/compare/acoruss-website-v1.1.0...acoruss-website-v1.1.1) (2025-08-11)
 
 

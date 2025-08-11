@@ -1,0 +1,134 @@
+name: Sync Releases to Main
+
+on:
+  # Trigger when a release is published
+  release:
+    types: [published]
+  # Trigger when changes are pushed to releases branch
+  push:
+    branches:
+      - releases
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force sync even if branches are diverged'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+      - name: Check branch status
+        id: check
+        run: |
+          git fetch origin main releases
+          
+          # Check if main is behind releases
+          MAIN_COMMIT=$(git rev-parse origin/main)
+          RELEASES_COMMIT=$(git rev-parse origin/releases)
+          
+          echo "main_commit=$MAIN_COMMIT" >> $GITHUB_OUTPUT
+          echo "releases_commit=$RELEASES_COMMIT" >> $GITHUB_OUTPUT
+          
+          if [ "$MAIN_COMMIT" = "$RELEASES_COMMIT" ]; then
+            echo "Branches are already in sync"
+            echo "needs_sync=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check if main is an ancestor of releases (can fast-forward)
+          if git merge-base --is-ancestor origin/main origin/releases; then
+            echo "Fast-forward merge possible"
+            echo "can_fast_forward=true" >> $GITHUB_OUTPUT
+            echo "needs_sync=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branches have diverged - will need manual intervention"
+            echo "can_fast_forward=false" >> $GITHUB_OUTPUT
+            echo "needs_sync=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Fast-forward main to releases
+        if: steps.check.outputs.needs_sync == 'true' && steps.check.outputs.can_fast_forward == 'true'
+        run: |
+          git checkout main
+          git reset --hard origin/releases
+          git push origin main
+          echo "✅ Successfully fast-forwarded main to match releases"
+          
+      - name: Create sync PR for diverged branches
+        if: steps.check.outputs.needs_sync == 'true' && steps.check.outputs.can_fast_forward == 'false' && inputs.force_sync != 'true'
+        run: |
+          BRANCH_NAME="sync/releases-to-main-$(date +%Y%m%d-%H%M%S)"
+          
+          # Create a new branch from releases
+          git checkout -b $BRANCH_NAME origin/releases
+          git push origin $BRANCH_NAME
+          
+          # Create PR using GitHub CLI
+          gh pr create \
+            --title "🔄 Sync releases branch to main" \
+            --body "## Branch Sync Required
+          
+          The \`releases\` and \`main\` branches have diverged and cannot be automatically synchronized.
+          
+          **This PR contains:**
+          - Latest release changes from \`releases\` branch
+          - Updated version files and changelog
+          
+          **Please review and merge** to keep branches synchronized.
+          
+          **Commits in releases not in main:**
+          \`\`\`
+          $(git log --oneline origin/main..origin/releases)
+          \`\`\`
+          
+          **Commits in main not in releases:**
+          \`\`\`
+          $(git log --oneline origin/releases..origin/main)
+          \`\`\`" \
+            --base main \
+            --head $BRANCH_NAME \
+            --label "sync" \
+            --label "automated"
+            
+          echo "⚠️ Created PR for manual review due to diverged branches"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Force sync (if requested)
+        if: steps.check.outputs.needs_sync == 'true' && steps.check.outputs.can_fast_forward == 'false' && inputs.force_sync == 'true'
+        run: |
+          git checkout main
+          git reset --hard origin/releases
+          git push origin main --force
+          echo "⚠️ Force-pushed releases to main (potentially destructive)"
+          
+      - name: Summary
+        run: |
+          if [ "${{ steps.check.outputs.needs_sync }}" = "false" ]; then
+            echo "✅ Branches are already synchronized"
+          elif [ "${{ steps.check.outputs.can_fast_forward }}" = "true" ]; then
+            echo "✅ Fast-forward sync completed successfully"
+          elif [ "${{ inputs.force_sync }}" = "true" ]; then
+            echo "⚠️ Force sync completed - please verify no important changes were lost"
+          else
+            echo "📋 Created PR for manual review - branches have diverged"
+          fi

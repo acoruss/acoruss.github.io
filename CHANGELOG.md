@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.1](https://github.com/acoruss/acoruss.github.io/compare/acoruss-website-v1.1.0...acoruss-website-v1.1.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* ensure conditional checks for GitHub Pages and Release Please ([5f6fa15](https://github.com/acoruss/acoruss.github.io/commit/5f6fa1587f88f7ee1474ddd242d55a0df457a403))
+* ensure conditional checks for GitHub Pages and Release Please workflows ([8f422f5](https://github.com/acoruss/acoruss.github.io/commit/8f422f5290bb117f7c09a3df22297905659d8450))
+* update branch references for GitHub Pages and Release Please ([b0b116d](https://github.com/acoruss/acoruss.github.io/commit/b0b116dbf5082e564ecdaba1f6e3386eac4924ef))
+* update branch references for GitHub Pages and Release Please workflows ([665bad3](https://github.com/acoruss/acoruss.github.io/commit/665bad3fb35b6cc5604c1b344d6ff4341b12c783))
+* update GitHub Actions workflows for release creation and deployment ([b8db3ed](https://github.com/acoruss/acoruss.github.io/commit/b8db3edbaaa0bcee4ec8fb0ece92fb8780169705))
+
 ## [1.1.0](https://github.com/acoruss/acoruss.github.io/compare/acoruss-website-v1.0.0...acoruss-website-v1.1.0) (2025-08-11)
 
 

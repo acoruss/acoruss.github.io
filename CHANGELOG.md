@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/acoruss/acoruss.github.io/compare/v1.0.2...v1.1.0) (2025-08-15)
+
+
+### Features
+
+* add new logos and update favicon ([5eb816f](https://github.com/acoruss/acoruss.github.io/commit/5eb816fcc7564326f91deba68d383d6f1e9d3437))
+
 ## [1.0.2](https://github.com/acoruss/acoruss.github.io/compare/v1.0.1...v1.0.2) (2025-08-11)
 
 

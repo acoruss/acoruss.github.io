@@ -1,99 +1,109 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acoruss &mdash; Empowering Businesses Through Technology</title>
-  <meta name="description" content="Acoruss helps businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth." />
-  
-  <link rel="icon" href="./public/images/logos/dark-rounded-bg.png" type="image/png" />
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Acoruss &mdash; Empowering Businesses Through Technology</title>
+    <meta name="description"
+        content="Acoruss helps businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth." />
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Tailwind config with brand tokens
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji'] },
-          colors: {
-            brand: {
-              900: '#590303', // primary
-              700: '#732D2D',
-              300: '#A68080',
-            },
-            neutralx: { 900: '#0D0D0D', 50: '#F2F2F2' },
-            accent: {
-              800: '#065F46', // secondary button
-              700: '#115E59',
-              600: '#16A34A', // links on white (use dark text)
-              500: '#14B8A6',
-              300: '#A7D7C5'
+    <link rel="icon" href="./public/images/logos/dark-rounded-bg.png" type="image/png" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind config with brand tokens
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji'] },
+                    colors: {
+                        brand: {
+                            900: '#590303', // primary
+                            700: '#732D2D',
+                            300: '#A68080',
+                        },
+                        neutralx: { 900: '#0D0D0D', 50: '#F2F2F2' },
+                        accent: {
+                            800: '#065F46', // secondary button
+                            700: '#115E59',
+                            600: '#16A34A', // links on white (use dark text)
+                            500: '#14B8A6',
+                            300: '#A7D7C5'
+                        }
+                    },
+                    boxShadow: {
+                        card: '0 6px 24px rgba(0,0,0,0.06)',
+                    },
+                    maxWidth: {
+                        prose: '76ch'
+                    }
+                }
             }
-          },
-          boxShadow: {
-            card: '0 6px 24px rgba(0,0,0,0.06)',
-          },
-          maxWidth: {
-            prose: '76ch'
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    html { 
-      scroll-behavior: smooth; 
-      scroll-snap-type: y mandatory;
-    }
-    section {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-    }
-    /* Ensure footer is accessible */
-    footer {
-      scroll-snap-align: end;
-    }
-    /* Adjust contact section to allow footer visibility */
-    #contact {
-      min-height: calc(100vh - 80px);
-    }
-    /* Consistent section spacing and header positioning */
-    section:not(#home) {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-    }
-    section:not(#home) header {
-      margin-top: 0;
-      padding-top: 0;
-    }
-    @media (min-width: 640px) {
-      section:not(#home) {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
-      }
-    }
-    @media (min-width: 1024px) {
-      section:not(#home) {
-        padding-top: 8rem;
-        padding-bottom: 8rem;
-      }
-    }
-  </style>
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Acoruss — Empowering Businesses Through Technology">
-  <meta property="og:description" content="We help businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://acoruss.com">
-  <meta property="og:image" content="https://acoruss.com/public/images/logos/dark.png">
+        section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
 
-  <!-- JSON-LD Organization -->
-  <script type="application/ld+json">
+        /* Ensure footer is accessible */
+        footer {
+            scroll-snap-align: end;
+        }
+
+        /* Adjust contact section to allow footer visibility */
+        #contact {
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Consistent section spacing and header positioning */
+        section:not(#home) {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        section:not(#home) header {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        @media (min-width: 640px) {
+            section:not(#home) {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            section:not(#home) {
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+            }
+        }
+    </style>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Acoruss — Empowering Businesses Through Technology">
+    <meta property="og:description"
+        content="We help businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://acoruss.com">
+    <meta property="og:image" content="https://acoruss.com/public/images/logos/dark.png">
+
+    <!-- JSON-LD Organization -->
+    <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -112,510 +122,656 @@
 </head>
 
 <body class="font-sans text-neutralx-900 bg-white">
-  <!-- Skip link -->
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-neutralx-50 text-neutralx-900 px-3 py-2 rounded">Skip to content</a>
+    <!-- Skip link -->
+    <a href="#main"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-neutralx-50 text-neutralx-900 px-3 py-2 rounded">Skip
+        to content</a>
 
-  <!-- NAV -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <!-- Replace with your real logo image or inline SVG -->
-        <img src="./public/images/logos/dark.png" alt="Acoruss Logo" class="h-8 w-8 rounded-full object-contain" />
-        <span class="font-semibold">Acoruss</span>
-      </a>
+    <!-- NAV -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3">
+                <!-- Replace with your real logo image or inline SVG -->
+                <img src="./public/images/logos/dark.png" alt="Acoruss Logo"
+                    class="h-8 w-8 rounded-full object-contain" />
+                <span class="font-semibold">Acoruss</span>
+            </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm">
-        <a href="#home" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
-        <a href="#services" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
-        <a href="#how-we-work" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We Work</a>
-        <a href="#projects" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
-        <a href="#about" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
-        <a href="#blog" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
-        <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
-      </nav>
+            <nav class="hidden md:flex items-center gap-8 text-sm">
+                <a href="#home"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
+                <a href="#services"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
+                <a href="#how-we-work"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We
+                    Work</a>
+                <a href="#projects"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
+                <a href="#about"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
+                <a href="#blog"
+                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
+                <a href="#contact"
+                    class="inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
+                    a Discovery Call</a>
+            </nav>
 
-      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border hover:bg-neutralx-50" aria-label="Open menu">
-        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
-      </button>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t">
-      <div class="px-4 py-3 flex flex-col gap-3">
-        <a href="#home" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
-        <a href="#services" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
-        <a href="#how-we-work" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We Work</a>
-        <a href="#projects" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
-        <a href="#about" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
-        <a href="#blog" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
-        <a href="#contact" class="inline-flex items-center justify-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="main">
-
-    <!-- HERO -->
-    <section id="home" class="relative overflow-hidden min-h-screen flex items-center">
-      <div class="absolute inset-0 -z-10 bg-[radial-gradient(60rem_60rem_at_50%_-10%,rgba(166,128,128,0.18),rgba(255,255,255,0))]"></div>
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
-        <div class="max-w-prose">
-          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-900">
-            Empowering Businesses Through Technology
-          </h1>
-          <p class="mt-6 text-lg text-neutral-700">
-            We help businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch.
-            From advisory to implementation, we simplify operations and drive sustainable growth.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
-            <a href="#how-we-work" class="inline-flex items-center rounded-lg bg-accent-800 px-5 py-3 text-white hover:bg-accent-700 transition">Learn How We Work</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="bg-neutralx-50 min-h-screen flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 class="text-3xl font-bold text-brand-900">Our Services</h2>
-          <p class="mt-3 text-neutral-700">Practical solutions designed to empower your business.</p>
-        </header>
-
-        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Custom Software Development -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Custom Software Development</h3>
-            <p class="mt-3 text-neutral-700">We design and build software tailored to your needs &mdash; web apps, internal systems, and tools that scale, simplify operations, and deliver measurable results.</p>
-          </article>
-
-          <!-- AI & Automation -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">AI &amp; Automation Solutions</h3>
-            <p class="mt-3 text-neutral-700">Harness AI and automation to save time, cut costs, and make smarter decisions. From chatbots to workflow automation, we fit solutions to your processes.</p>
-          </article>
-
-          <!-- Strategy & Consulting -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Technology Strategy &amp; Consulting</h3>
-            <p class="mt-3 text-neutral-700">We assess your setup, identify gaps, and design a strategy that aligns with your goals &mdash; reducing risk, avoiding wasted spend, and building a competitive edge.</p>
-          </article>
-
-          <!-- Security & Trust -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Security &amp; Trust Engineering</h3>
-            <p class="mt-3 text-neutral-700">We help businesses protect their infrastructure, data, and applications through secure design, access controls, and resilient workflows. Our expertise also extends to AI and SDK security, addressing modern risks like data leaks, prompt injection, and misuse of permissions.</p>
-          </article>
-          
-          <!-- Process Optimization -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Process Optimization &amp; Cost Reduction</h3>
-            <p class="mt-3 text-neutral-700">We analyze how you work and recommend tools, integrations, and workflows that make operations leaner &mdash; lower overheads, faster delivery, and more time for growth.</p>
-          </article>
-
-          <!-- Open Source -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Open Source Development</h3>
-            <p class="mt-3 text-neutral-700">We build and share open-source SDKs and utilities. Reusable building blocks lower project costs, speed delivery, and increase long-term confidence.</p>
-          </article>
-
-        <div class="sm:col-span-3 flex flex-col items-center justify-center mt-6">
-            <p class="mt-3 text-sm text-neutral-600 text-center"><em>Every engagement follows OWASP-aligned practices, least-privilege access, and CI/CD checks.</em></p>
-            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
-        </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW WE WORK -->
-    <section id="how-we-work" class="min-h-screen flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 class="text-3xl font-bold text-brand-900">How We Work</h2>
-          <p class="mt-3 text-neutral-700">A clear process that keeps projects secure, focused, and predictable.</p>
-        </header>
-
-        <ol class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <li class="bg-accent-300/40 rounded-xl p-6 h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 1 &ndash; Reach Out</h3>
-            <p class="mt-2 text-neutral-700">Tell us about your goals and context.</p>
-          </li>
-          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 2 &ndash; Discovery Call (60 mins)</h3>
-            <p class="mt-2 text-neutral-700">Deep-dive on needs, constraints, and success metrics. <em>A small discovery fee applies and is fully credited if you proceed.</em></p>
-          </li>
-          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 3 &ndash; Proposal &amp; Engagement Plan</h3>
-            <p class="mt-2 text-neutral-700">Scope, timeline, pricing, risks &amp; mitigations (incl. security).</p>
-          </li>
-          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 4 &ndash; Kickoff</h3>
-            <p class="mt-2 text-neutral-700">Finalize SOW, deposit invoice, comms rhythm, and security baselines.</p>
-          </li>
-          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 5 &ndash; Build &amp; Iterate</h3>
-            <p class="mt-2 text-neutral-700">Short sprints with demos. Security baked in: OWASP coding, dep checks, CI/CD hardening.</p>
-          </li>
-          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-            <h3 class="font-semibold">Step 6 &ndash; Delivery &amp; Handover</h3>
-            <p class="mt-2 text-neutral-700">UAT, docs, training, and security review of access &amp; data handling.</p>
-          </li>
-        </ol>
-
-        <div class="mt-8 text-neutral-700">
-          <h4 class="font-semibold">Step 7 &ndash; Ongoing Support</h4>
-          <ul class="list-disc pl-5 mt-2 space-y-1">
-            <li><strong>Maintenance</strong> &mdash; updates, fixes, optimizations, security patches.</li>
-            <li><strong>Implementation</strong> &mdash; executing consulting outcomes or rolling out new tech with the right controls.</li>
-          </ul>
-          <p class="mt-4"><a href="#contact" class="text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Prefer a quick fit check? Book a free 15-minute intro.</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="bg-neutralx-50 min-h-screen flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 class="text-3xl font-bold text-brand-900">Our Projects</h2>
-          <p class="mt-3 text-neutral-700">Real work that shows how we design, build, and ship.</p>
-        </header>
-
-        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Project 1 -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Martin &amp; Loice Wedding Website</h3>
-            <p class="mt-2 text-neutral-700"><strong>Role:</strong> UX/UI, frontend, deployment, performance/SEO.</p>
-            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Static-first, image optimization, analytics.</p>
-            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Fast, elegant, mobile-first guest experience with clear CTAs.</p>
-            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Build a Custom Site Like This</a>
-          </article>
-
-          <!-- Project 2 -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">Wedding Registry Web App</h3>
-            <p class="mt-2 text-neutral-700"><strong>Role:</strong> Product design, backend &amp; frontend, payments, admin.</p>
-            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Secure auth, M-Pesa/Stripe, notifications, reporting.</p>
-            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Smooth gifting flows and trackable processes.</p>
-            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Launch a Product Like This</a>
-          </article>
-
-          <!-- Project 3 -->
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="text-xl font-semibold">SDKs for developers.go.ke</h3>
-            <p class="mt-2 text-neutral-700"><strong>Role:</strong> API design, cross-language libs (Python/TS/Java), docs, CI.</p>
-            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Idiomatic patterns, robust error handling, semver, tests &amp; releases.</p>
-            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Faster integrations, fewer bugs, maintainable codebases.</p>
-            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Need an SDK or Integration?</a>
-          </article>
+            <button id="menuBtn"
+                class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border hover:bg-neutralx-50"
+                aria-label="Open menu">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h14M3 10h14M3 14h14" />
+                </svg>
+            </button>
         </div>
 
-        <div class="mt-8">
-          <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t">
+            <div class="px-4 py-3 flex flex-col gap-3">
+                <a href="#home"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
+                <a href="#services"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
+                <a href="#how-we-work"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We
+                    Work</a>
+                <a href="#projects"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
+                <a href="#about"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
+                <a href="#blog"
+                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
+                <a href="#contact"
+                    class="inline-flex items-center justify-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
+                    a Discovery Call</a>
+            </div>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <!-- ABOUT -->
-    <section id="about" class="bg-neutralx-50 min-h-screen flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 class="text-3xl font-bold text-brand-900">About Us</h2>
-          <p class="mt-3 text-neutral-700">Building technology that empowers businesses and people.</p>
-        </header>
+    <main id="main">
 
-        <div class="mt-10">
-          <!-- Mission / Vision / Values -->
-          <div class="space-y-8">
-            <div class="bg-white rounded-xl p-6 shadow-card">
-              <div class="space-y-6">
-                <div>
-                  <h3 class="text-xl font-semibold">Our Mission</h3>
-                  <p class="mt-2 text-neutral-700">We empower and <strong>secure</strong> businesses through technology by making powerful tools accessible to all. We help small businesses and individuals harness innovations like AI safely and cost-effectively, while enabling organizations to safeguard data, reduce risk, optimize processes, and implement smarter strategies.</p>
+        <!-- HERO -->
+        <section id="home" class="relative overflow-hidden min-h-screen flex items-center">
+            <div
+                class="absolute inset-0 -z-10 bg-[radial-gradient(60rem_60rem_at_50%_-10%,rgba(166,128,128,0.18),rgba(255,255,255,0))]">
+            </div>
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
+                <div class="max-w-prose">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-900">
+                        Empowering Businesses Through Technology
+                    </h1>
+                    <p class="mt-6 text-lg text-neutral-700">
+                        We help businesses and individuals harness software, AI, and strategic technology &mdash;
+                        without the heavy costs of building from scratch.
+                        From advisory to implementation, we simplify operations and drive sustainable growth.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="#contact"
+                            class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book
+                            a Discovery Call</a>
+                        <a href="#how-we-work"
+                            class="inline-flex items-center rounded-lg bg-accent-800 px-5 py-3 text-white hover:bg-accent-700 transition">Learn
+                            How We Work</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" class="bg-neutralx-50 min-h-screen flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-3xl font-bold text-brand-900">Our Services</h2>
+                    <p class="mt-3 text-neutral-700">Practical solutions designed to empower your business.</p>
+                </header>
+
+                <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Custom Software Development -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Custom Software Development</h3>
+                        <p class="mt-3 text-neutral-700">We design and build software tailored to your needs &mdash; web
+                            apps, internal systems, and tools that scale, simplify operations, and deliver measurable
+                            results.</p>
+                    </article>
+
+                    <!-- AI & Automation -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">AI &amp; Automation Solutions</h3>
+                        <p class="mt-3 text-neutral-700">Harness AI and automation to save time, cut costs, and make
+                            smarter decisions. From chatbots to workflow automation, we fit solutions to your processes.
+                        </p>
+                    </article>
+
+                    <!-- Strategy & Consulting -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Technology Strategy &amp; Consulting</h3>
+                        <p class="mt-3 text-neutral-700">We assess your setup, identify gaps, and design a strategy that
+                            aligns with your goals &mdash; reducing risk, avoiding wasted spend, and building a
+                            competitive edge.</p>
+                    </article>
+
+                    <!-- Security & Trust -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Security &amp; Trust Engineering</h3>
+                        <p class="mt-3 text-neutral-700">We help businesses protect their infrastructure, data, and
+                            applications through secure design, access controls, and resilient workflows. Our expertise
+                            also extends to AI and SDK security, addressing modern risks like data leaks, prompt
+                            injection, and misuse of permissions.</p>
+                    </article>
+
+                    <!-- Process Optimization -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Process Optimization &amp; Cost Reduction</h3>
+                        <p class="mt-3 text-neutral-700">We analyze how you work and recommend tools, integrations, and
+                            workflows that make operations leaner &mdash; lower overheads, faster delivery, and more
+                            time for growth.</p>
+                    </article>
+
+                    <!-- Open Source -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Open Source Development</h3>
+                        <p class="mt-3 text-neutral-700">We build and share open-source SDKs and utilities. Reusable
+                            building blocks lower project costs, speed delivery, and increase long-term confidence.</p>
+                    </article>
+
+                    <div class="sm:col-span-3 flex flex-col items-center justify-center mt-6">
+                        <p class="mt-3 text-sm text-neutral-600 text-center"><em>Every engagement follows OWASP-aligned
+                                practices, least-privilege access, and CI/CD checks.</em></p>
+                        <a href="#contact"
+                            class="mt-4 inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
+                            a Discovery Call</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW WE WORK -->
+        <section id="how-we-work" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-3xl font-bold text-brand-900">How We Work</h2>
+                    <p class="mt-3 text-neutral-700">A clear process that keeps projects secure, focused, and
+                        predictable.</p>
+                </header>
+
+                <ol class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <li class="bg-accent-300/40 rounded-xl p-6 h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 1 &ndash; Reach Out</h3>
+                        <p class="mt-2 text-neutral-700">Tell us about your goals and context.</p>
+                    </li>
+                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 2 &ndash; Discovery Call (60 mins)</h3>
+                        <p class="mt-2 text-neutral-700">Deep-dive on needs, constraints, and success metrics. <em>A
+                                small discovery fee applies and is fully credited if you proceed.</em></p>
+                    </li>
+                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 3 &ndash; Proposal &amp; Engagement Plan</h3>
+                        <p class="mt-2 text-neutral-700">Scope, timeline, pricing, risks &amp; mitigations (incl.
+                            security).</p>
+                    </li>
+                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 4 &ndash; Kickoff</h3>
+                        <p class="mt-2 text-neutral-700">Finalize SOW, deposit invoice, comms rhythm, and security
+                            baselines.</p>
+                    </li>
+                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 5 &ndash; Build &amp; Iterate</h3>
+                        <p class="mt-2 text-neutral-700">Short sprints with demos. Security baked in: OWASP coding, dep
+                            checks, CI/CD hardening.</p>
+                    </li>
+                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+                        <h3 class="font-semibold">Step 6 &ndash; Delivery &amp; Handover</h3>
+                        <p class="mt-2 text-neutral-700">UAT, docs, training, and security review of access &amp; data
+                            handling.</p>
+                    </li>
+                </ol>
+
+                <div class="mt-8 text-neutral-700">
+                    <h4 class="font-semibold">Step 7 &ndash; Ongoing Support</h4>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Maintenance</strong> &mdash; updates, fixes, optimizations, security patches.</li>
+                        <li><strong>Implementation</strong> &mdash; executing consulting outcomes or rolling out new
+                            tech with the right controls.</li>
+                    </ul>
+                    <p class="mt-4"><a href="#contact"
+                            class="text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Prefer
+                            a quick fit check? Book a free 15-minute intro.</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="bg-neutralx-50 min-h-screen flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-3xl font-bold text-brand-900">Our Projects</h2>
+                    <p class="mt-3 text-neutral-700">Real work that shows how we design, build, and ship.</p>
+                </header>
+
+                <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <!-- Project 1 -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Martin &amp; Loice Wedding Website</h3>
+                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> UX/UI, frontend, deployment,
+                            performance/SEO.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Static-first, image optimization,
+                            analytics.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Fast, elegant, mobile-first guest
+                            experience with clear CTAs.</p>
+                        <a href="#contact"
+                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Build
+                            a Custom Site Like This</a>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">Wedding Registry Web App</h3>
+                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> Product design, backend &amp; frontend,
+                            payments, admin.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Secure auth, M-Pesa/Stripe,
+                            notifications, reporting.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Smooth gifting flows and trackable
+                            processes.</p>
+                        <a href="#contact"
+                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Launch
+                            a Product Like This</a>
+                    </article>
+
+                    <!-- Project 3 -->
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="text-xl font-semibold">SDKs for developers.go.ke</h3>
+                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> API design, cross-language libs
+                            (Python/TS/Java), docs, CI.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Idiomatic patterns, robust error
+                            handling, semver, tests &amp; releases.</p>
+                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Faster integrations, fewer bugs,
+                            maintainable codebases.</p>
+                        <a href="#contact"
+                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Need
+                            an SDK or Integration?</a>
+                    </article>
+                </div>
+
+                <div class="mt-8">
+                    <a href="#contact"
+                        class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book
+                        a Discovery Call</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="min-h-screen flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-3xl font-bold text-brand-900">About Us</h2>
+                    <p class="mt-3 text-neutral-700">Building technology that empowers businesses and people.</p>
+                </header>
+
+                <div class="mt-10">
+                    <!-- Mission / Vision / Values -->
+                    <div class="space-y-8">
+                        <div class="bg-white rounded-xl p-6 shadow-card">
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-semibold">Our Mission</h3>
+                                    <p class="mt-2 text-neutral-700">We empower and <strong>secure</strong> businesses
+                                        through technology by making powerful tools accessible to all. We help small
+                                        businesses and individuals harness innovations like AI safely and
+                                        cost-effectively, while enabling organizations to safeguard data, reduce risk,
+                                        optimize processes, and implement smarter strategies.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Our Vision</h3>
+                                    <p class="mt-2 text-neutral-700">To be a global leader in secure, practical
+                                        technology adoption, where businesses of all sizes confidently innovate to grow,
+                                        protect trust, and create more time for what truly matters.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Our Values</h3>
+                                    <p class="mt-1 text-sm text-neutral-600">Click to explore our core values in detail.
+                                    </p>
+                                    <div class="mt-6 divide-y divide-gray-200">
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Delight our customers</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Create trust and lasting impact.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Team is key</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Collaboration fuels growth.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Quality over quantity</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Depth and reliability.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Simplicity matters</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Tech should simplify business and life.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Innovation with purpose</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Empower people, not just showcase tech.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Integrity, trust, and security</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>Privacy-by-design and responsible data handling.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                        <details class="py-2 group">
+                                            <summary
+                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
+                                                <span>Security by default</span>
+                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M18 12H6"></path>
+                                                    <path class="group-open:hidden" d="M12 6v12"></path>
+                                                </svg>
+                                            </summary>
+                                            <div class="pb-2 pt-2">
+                                                <div
+                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
+                                                    <p>OWASP-aligned practices and continuous risk reduction.</p>
+                                                </div>
+                                            </div>
+                                        </details>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team -->
+                    <div class="mt-10 grid gap-8 lg:grid-cols-2">
+                        <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
+                            <h3 class="text-xl font-semibold">Loice Andia &mdash; Co-Founder &amp; Managing Director
+                            </h3>
+                            <p class="mt-2 text-neutral-700">
+                                <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="https://www.linkedin.com/in/loice-andia/">LinkedIn</a> •
+                                <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="https://github.com/lakivisi">GitHub</a>
+                            </p>
+                            <p class="mt-2 text-neutral-700">Leads strategy and operations while pursuing an MSc in
+                                Engineering Business Management (University of Bath). Bridges technical innovation with
+                                organizational impact; strengths in data governance, access policy, and risk management.
+                            </p>
+                        </div>
+
+                        <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
+                            <h3 class="text-xl font-semibold">Martin Musale &mdash; Co-Founder &amp; Director of
+                                Technology</h3>
+                            <p class="mt-2 text-neutral-700">
+                                <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="https://linkedin.com/in/musalemartin">LinkedIn</a> •
+                                <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="https://github.com/musale">GitHub</a>
+                            </p>
+                            <p class="mt-2 text-neutral-700">Passionate about developer tools and secure software. Focus
+                                on secure architecture, IAM/RBAC, supply-chain security, CI/CD hardening, and threat
+                                modeling for web and AI systems &mdash; embedding security at every stage.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOG -->
+        <section id="blog" class="bg-neutralx-50 min-h-screen flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <h2 class="text-3xl font-bold text-brand-900">Latest from the Blog</h2>
+                    <p class="mt-3 text-neutral-700">Practical insights on software, AI, security, and smart tech
+                        adoption.</p>
+                </header>
+
+                <div class="mt-10 grid gap-6 md:grid-cols-3">
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="font-semibold">[Post Title 1]</h3>
+                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
+                                class="text-neutral-500">(Date • ~X min read)</span></p>
+                        <a href="#"
+                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
+                            on Substack →</a>
+                    </article>
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="font-semibold">[Post Title 2]</h3>
+                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
+                                class="text-neutral-500">(Date • ~X min read)</span></p>
+                        <a href="#"
+                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
+                            on Substack →</a>
+                    </article>
+                    <article class="bg-white rounded-xl p-6 shadow-card">
+                        <h3 class="font-semibold">[Post Title 3]</h3>
+                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
+                                class="text-neutral-500">(Date • ~X min read)</span></p>
+                        <a href="#"
+                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
+                            on Substack →</a>
+                    </article>
+                </div>
+
+                <p class="mt-6 text-neutral-700">No recent posts? Show evergreen resources hosted on your domain.</p>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="py-20 flex items-center">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+                <header class="max-w-prose">
+                    <h2 class="text-3xl font-bold text-brand-900">Contact Us</h2>
+                    <p class="mt-3 text-neutral-700">Let’s build something together.</p>
+                </header>
+
+                <div class="mt-10 grid gap-8 lg:grid-cols-3">
+                    <!-- Form -->
+                    <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
+                        action="https://formspree.io/f/your-form-id" method="post">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="contact-name" class="block text-sm font-medium">Full Name</label>
+                                <input type="text" id="contact-name" name="name" required
+                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                            </div>
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium">Email Address</label>
+                                <input type="email" id="contact-email" name="email" required
+                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="contact-company" class="block text-sm font-medium">Company
+                                    (optional)</label>
+                                <input type="text" id="contact-company" name="company"
+                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="contact-message" class="block text-sm font-medium">Message</label>
+                                <textarea id="contact-message" name="message" rows="5" required
+                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="mt-6 inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Send
+                            Message</button>
+                        <p class="mt-3 text-xs text-neutral-600">We’ll use your information to respond to your inquiry.
+                            See our <a href="#" class="text-accent-600 underline hover:text-accent-700">Privacy
+                                Policy</a>.</p>
+                    </form>
+
+                    <!-- Direct contact -->
+                    <aside class="bg-neutralx-50 rounded-xl p-6 border">
+                        <h3 class="font-semibold">Direct Contact</h3>
+                        <ul class="mt-3 space-y-2 text-neutral-700">
+                            <li><strong>Email:</strong> <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="mailto:info@acoruss.com">info@acoruss.com</a></li>
+                            <li><strong>Location:</strong> Nairobi, Kenya</li>
+                            <li><strong>Socials:</strong> <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="#">LinkedIn</a> • <a class="text-accent-600 underline hover:text-accent-700"
+                                    href="#">GitHub</a></li>
+                        </ul>
+                        <div class="mt-6">
+                            <a href="#contact"
+                                class="inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Book
+                                a Discovery Call</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t bg-neutralx-50">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid gap-8 md:grid-cols-4">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3">
+                        <img src="./public/images/logos/dark.png" alt="Acoruss Logo"
+                            class="h-8 w-8 rounded-full object-contain" />
+                        <h4 class="font-semibold">Acoruss</h4>
+                    </div>
+                    <p class="mt-3 max-w-prose text-neutral-700">
+                        We build software and open-source tools that help businesses adopt technology with confidence.
+                        From advisory to implementation, we simplify complexity, reduce costs, and protect trust.
+                    </p>
                 </div>
                 <div>
-                  <h3 class="text-xl font-semibold">Our Vision</h3>
-                  <p class="mt-2 text-neutral-700">To be a global leader in secure, practical technology adoption, where businesses of all sizes confidently innovate to grow, protect trust, and create more time for what truly matters.</p>
+                    <h5 class="font-semibold">Quick Links</h5>
+                    <ul class="mt-3 space-y-2">
+                        <li><a href="#services" class="hover:text-brand-900">Services</a></li>
+                        <li><a href="#how-we-work" class="hover:text-brand-900">How We Work</a></li>
+                        <li><a href="#projects" class="hover:text-brand-900">Projects</a></li>
+                        <li><a href="#contact" class="hover:text-brand-900">Contact</a></li>
+                    </ul>
                 </div>
                 <div>
-                  <h3 class="text-xl font-semibold">Our Values</h3>
-                  <p class="mt-1 text-sm text-neutral-600">Click to explore our core values in detail.</p>
-                  <div class="mt-6 divide-y divide-gray-200">
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Delight our customers</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Create trust and lasting impact.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Team is key</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Collaboration fuels growth.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Quality over quantity</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Depth and reliability.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Simplicity matters</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Tech should simplify business and life.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Innovation with purpose</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Empower people, not just showcase tech.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Integrity, trust, and security</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>Privacy-by-design and responsible data handling.</p>
-                        </div>
-                      </div>
-                    </details>
-                    <details class="py-2 group">
-                      <summary class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                        <span>Security by default</span>
-                        <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 12H6"></path>
-                          <path class="group-open:hidden" d="M12 6v12"></path>
-                        </svg>
-                      </summary>
-                      <div class="pb-2 pt-2">
-                        <div class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                          <p>OWASP-aligned practices and continuous risk reduction.</p>
-                        </div>
-                      </div>
-                    </details>
-                  </div>
+                    <h5 class="font-semibold">Resources</h5>
+                    <ul class="mt-3 space-y-2">
+                        <li><a href="#blog" class="hover:text-brand-900">Latest Blog</a></li>
+                        <li><a href="#" class="hover:text-brand-900">Open Source on GitHub</a></li>
+                        <li><a href="#" class="hover:text-brand-900">Our Open Source SDKs</a></li>
+                    </ul>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Team -->
-          <div class="mt-10 grid gap-8 lg:grid-cols-2">
-            <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
-              <h3 class="text-xl font-semibold">Loice Andia &mdash; Co-Founder &amp; Managing Director</h3>
-              <p class="mt-2 text-neutral-700">
-                <a class="text-accent-600 underline hover:text-accent-700" href="https://www.linkedin.com/in/loice-andia/">LinkedIn</a> •
-                <a class="text-accent-600 underline hover:text-accent-700" href="https://github.com/lakivisi">GitHub</a>
-              </p>
-              <p class="mt-2 text-neutral-700">Leads strategy and operations while pursuing an MSc in Engineering Business Management (University of Bath). Bridges technical innovation with organizational impact; strengths in data governance, access policy, and risk management.</p>
             </div>
 
-            <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
-              <h3 class="text-xl font-semibold">Martin Musale &mdash; Co-Founder &amp; Director of Technology</h3>
-              <p class="mt-2 text-neutral-700">
-                <a class="text-accent-600 underline hover:text-accent-700" href="https://linkedin.com/in/musalemartin">LinkedIn</a> •
-                <a class="text-accent-600 underline hover:text-accent-700" href="https://github.com/musale">GitHub</a>
-              </p>
-              <p class="mt-2 text-neutral-700">Passionate about developer tools and secure software. Focus on secure architecture, IAM/RBAC, supply-chain security, CI/CD hardening, and threat modeling for web and AI systems &mdash; embedding security at every stage.</p>
+            <div
+                class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-neutral-600">
+                <div class="flex items-center gap-2">
+                    <span>© 2025 Acoruss. All rights reserved.</span>
+                    <span class="hidden sm:inline">•</span>
+                    <span>v1.0.1 • <a href="#" class="underline">Changelog</a></span>
+                </div>
+                <div class="space-x-4">
+                    <a href="#" class="hover:text-brand-900">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-900">Terms of Service</a>
+                </div>
             </div>
-          </div>
         </div>
+    </footer>
 
-      </div>
-    </section>
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('menuBtn');
+        const menu = document.getElementById('mobileMenu');
 
-     <!-- BLOG -->
-    <section id="blog" class="min-h-screen flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 class="text-3xl font-bold text-brand-900">Latest from the Blog</h2>
-          <p class="mt-3 text-neutral-700">Practical insights on software, AI, security, and smart tech adoption.</p>
-        </header>
+        // Toggle menu when button is clicked
+        btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
 
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="font-semibold">[Post Title 1]</h3>
-            <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
-            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
-          </article>
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="font-semibold">[Post Title 2]</h3>
-            <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
-            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
-          </article>
-          <article class="bg-white rounded-xl p-6 shadow-card">
-            <h3 class="font-semibold">[Post Title 3]</h3>
-            <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
-            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
-          </article>
-        </div>
-
-        <p class="mt-6 text-neutral-700">No recent posts? Show evergreen resources hosted on your domain.</p>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="bg-neutralx-50 py-20 flex items-center">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="max-w-prose">
-          <h2 class="text-3xl font-bold text-brand-900">Contact Us</h2>
-          <p class="mt-3 text-neutral-700">Let’s build something together.</p>
-        </header>
-
-        <div class="mt-10 grid gap-8 lg:grid-cols-3">
-          <!-- Form -->
-          <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
-                action="https://formspree.io/f/your-form-id" method="post">
-            <div class="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label for="contact-name" class="block text-sm font-medium">Full Name</label>
-                <input type="text" id="contact-name" name="name" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-              </div>
-              <div>
-                <label for="contact-email" class="block text-sm font-medium">Email Address</label>
-                <input type="email" id="contact-email" name="email" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-              </div>
-              <div class="sm:col-span-2">
-                <label for="contact-company" class="block text-sm font-medium">Company (optional)</label>
-                <input type="text" id="contact-company" name="company" class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-              </div>
-              <div class="sm:col-span-2">
-                <label for="contact-message" class="block text-sm font-medium">Message</label>
-                <textarea id="contact-message" name="message" rows="5" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
-              </div>
-            </div>
-
-            <button type="submit" class="mt-6 inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Send Message</button>
-            <p class="mt-3 text-xs text-neutral-600">We’ll use your information to respond to your inquiry. See our <a href="#" class="text-accent-600 underline hover:text-accent-700">Privacy Policy</a>.</p>
-          </form>
-
-          <!-- Direct contact -->
-          <aside class="bg-neutralx-50 rounded-xl p-6 border">
-            <h3 class="font-semibold">Direct Contact</h3>
-            <ul class="mt-3 space-y-2 text-neutral-700">
-              <li><strong>Email:</strong> <a class="text-accent-600 underline hover:text-accent-700" href="mailto:info@acoruss.com">info@acoruss.com</a></li>
-              <li><strong>Location:</strong> Nairobi, Kenya</li>
-              <li><strong>Socials:</strong> <a class="text-accent-600 underline hover:text-accent-700" href="#">LinkedIn</a> • <a class="text-accent-600 underline hover:text-accent-700" href="#">GitHub</a></li>
-            </ul>
-            <div class="mt-6">
-              <a href="#contact" class="inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Book a Discovery Call</a>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="border-t bg-white">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid gap-8 md:grid-cols-4">
-        <div class="md:col-span-2">
-          <div class="flex items-center gap-3">
-            <img src="./public/images/logos/dark.png" alt="Acoruss Logo" class="h-8 w-8 rounded-full object-contain" />
-            <h4 class="font-semibold">Acoruss</h4>
-          </div>
-          <p class="mt-3 max-w-prose text-neutral-700">
-            We build software and open-source tools that help businesses adopt technology with confidence.
-            From advisory to implementation, we simplify complexity, reduce costs, and protect trust.
-          </p>
-        </div>
-        <div>
-          <h5 class="font-semibold">Quick Links</h5>
-          <ul class="mt-3 space-y-2">
-            <li><a href="#services" class="hover:text-brand-900">Services</a></li>
-            <li><a href="#how-we-work" class="hover:text-brand-900">How We Work</a></li>
-            <li><a href="#projects" class="hover:text-brand-900">Projects</a></li>
-            <li><a href="#contact" class="hover:text-brand-900">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5 class="font-semibold">Resources</h5>
-          <ul class="mt-3 space-y-2">
-            <li><a href="#blog" class="hover:text-brand-900">Latest Blog</a></li>
-            <li><a href="#" class="hover:text-brand-900">Open Source on GitHub</a></li>
-            <li><a href="#" class="hover:text-brand-900">Our Open Source SDKs</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-neutral-600">
-        <div class="flex items-center gap-2">
-          <span>© 2025 Acoruss. All rights reserved.</span>
-          <span class="hidden sm:inline">•</span>
-          <span>v1.0.1 • <a href="#" class="underline">Changelog</a></span>
-        </div>
-        <div class="space-x-4">
-          <a href="#" class="hover:text-brand-900">Privacy Policy</a>
-          <a href="#" class="hover:text-brand-900">Terms of Service</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Mobile menu toggle
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    
-    // Toggle menu when button is clicked
-    btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
-    
-    // Close menu when any menu item is clicked
-    const menuLinks = menu?.querySelectorAll('a');
-    menuLinks?.forEach(link => {
-      link.addEventListener('click', () => {
-        menu.classList.add('hidden');
-      });
-    });
-  </script>
+        // Close menu when any menu item is clicked
+        const menuLinks = menu?.querySelectorAll('a');
+        menuLinks?.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
+
 </html>

@@ -4,7 +4,8 @@
             "release-type": "simple",
             "component": "acoruss-website",
             "extra-files": [
-                "index.html"
+                "index.html",
+                "version.txt"
             ]
         }
     }

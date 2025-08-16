@@ -1,388 +1,506 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Acoruss — Empowering Businesses Through Technology</title>
-  <meta name="description" content="We build software, AI solutions, and open-source tools that help organizations adopt technology safely, reduce costs, and move faster." />
+  <title>Acoruss PLC — Empowering Businesses Through Technology</title>
+  <meta name="description" content="Acoruss helps businesses and individuals harness software, AI, and strategic technology—without the heavy costs of building from sc    <!-- CONTACT -->
+    <section id="contact" class="py-20 flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">Contact Us</h2>
+          <p class="mt-3 text-neutral-700">Let's build something together.</p>
+        </header>From advisory to implementation, we simplify operations and drive sustainable growth." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style> :root{ color-scheme: light dark } body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji" } </style>
+  <script>
+    // Tailwind config with brand tokens
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji'] },
+          colors: {
+            brand: {
+              900: '#590303', // primary
+              700: '#732D2D',
+              300: '#A68080',
+            },
+            neutralx: { 900: '#0D0D0D', 50: '#F2F2F2' },
+            accent: {
+              800: '#065F46', // secondary button
+              700: '#115E59',
+              600: '#16A34A', // links on white (use dark text)
+              500: '#14B8A6',
+              300: '#A7D7C5'
+            }
+          },
+          boxShadow: {
+            card: '0 6px 24px rgba(0,0,0,0.06)',
+          },
+          maxWidth: {
+            prose: '76ch'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { 
+      scroll-behavior: smooth; 
+      scroll-snap-type: y mandatory;
+    }
+    section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+    /* Ensure footer is accessible */
+    footer {
+      scroll-snap-align: end;
+    }
+    /* Adjust contact section to allow footer visibility */
+    #contact {
+      min-height: calc(100vh - 80px);
+    }
+  </style>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Acoruss PLC — Empowering Businesses Through Technology">
+  <meta property="og:description" content="From advisory to implementation, we simplify operations and drive sustainable growth.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://acoruss.com">
+  <!-- <meta property="og:image" content="https://your-cdn/logo.png"> -->
+
+  <!-- JSON-LD Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Acoruss PLC",
+    "url": "https://acoruss.com",
+    "logo": "https://acoruss.com/logo.png",
+    "sameAs": ["https://www.linkedin.com/company/acoruss","https://github.com/acoruss"],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "email": "info@acoruss.com",
+      "contactType": "customer service",
+      "areaServed": "KE"
+    }]
+  }
+  </script>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
-  <!-- Header / Navbar -->
-  <header class="sticky top-0 z-50 border-b border-gray-200/70 dark:border-gray-800/70 backdrop-blur bg-white/80 dark:bg-gray-950/80">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <a href="#home" class="flex items-center gap-2 font-semibold tracking-tight">
-          <img src="public/images/logos/dark-rounded-bg.png" alt="Acoruss Logo" class="inline-block h-8 w-8 rounded-xl bg-gray-900 dark:bg-white object-cover" />
-          <span class="text-lg">Acoruss</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-          <a href="#services" class="hover:underline">Services</a>
-          <a href="#how-we-work" class="hover:underline">How We Work</a>
-          <a href="#projects" class="hover:underline">Projects</a>
-          <a href="#about" class="hover:underline">About</a>
-          <a href="#blog" class="hover:underline">Blog</a>
-          <a href="#contact" class="hover:underline">Contact</a>
-        </nav>
-        <div class="hidden md:block">
-          <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-transparent bg-gray-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-        </div>
-        <!-- Mobile menu button -->
-        <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl p-2 ring-1 ring-gray-300 dark:ring-gray-700" aria-label="Open menu">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-        </button>
-      </div>
-      <!-- Mobile menu -->
-      <div id="mobileMenu" class="md:hidden hidden pb-4">
-        <nav class="flex flex-col gap-3 text-sm">
-          <a href="#services" class="hover:underline">Services</a>
-          <a href="#how-we-work" class="hover:underline">How We Work</a>
-          <a href="#projects" class="hover:underline">Projects</a>
-          <a href="#about" class="hover:underline">About</a>
-          <a href="#blog" class="hover:underline">Blog</a>
-          <a href="#contact" class="hover:underline">Contact</a>
-          <a href="#contact" class="inline-flex items-center justify-center rounded-lg border border-gray-300 dark:border-gray-700 px-3 py-2">Book a Discovery Call</a>
-        </nav>
+
+<body class="font-sans text-neutralx-900 bg-white">
+  <!-- Skip link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-neutralx-50 text-neutralx-900 px-3 py-2 rounded">Skip to content</a>
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <!-- Replace with your real logo image or inline SVG -->
+        <div class="h-8 w-8 rounded-full bg-brand-900 flex items-center justify-center text-white font-bold">A</div>
+        <span class="font-semibold">Acoruss</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#home" class="hover:text-brand-900">Home</a>
+        <a href="#services" class="hover:text-brand-900">Services</a>
+        <a href="#how-we-work" class="hover:text-brand-900">How We Work</a>
+        <a href="#projects" class="hover:text-brand-900">Projects</a>
+        <a href="#about" class="hover:text-brand-900">About</a>
+        <a href="#blog" class="hover:text-brand-900">Blog</a>
+        <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border hover:bg-neutralx-50" aria-label="Open menu">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h14M3 10h14M3 14h14"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t">
+      <div class="px-4 py-3 flex flex-col gap-3">
+        <a href="#home" class="py-2">Home</a>
+        <a href="#services" class="py-2">Services</a>
+        <a href="#how-we-work" class="py-2">How We Work</a>
+        <a href="#projects" class="py-2">Projects</a>
+        <a href="#about" class="py-2">About</a>
+        <a href="#blog" class="py-2">Blog</a>
+        <a href="#contact" class="inline-flex items-center justify-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="relative isolate">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-      <div class="max-w-3xl">
-        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Empowering Businesses Through Technology</h1>
-        <p class="mt-6 text-lg text-gray-600 dark:text-gray-300">We build software, AI solutions, and open‑source tools that help organizations adopt technology safely, reduce costs, and move faster.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-          <a href="#how-we-work" class="inline-flex items-center justify-center rounded-xl ring-1 ring-inset ring-gray-300 px-5 py-3 text-sm font-medium hover:bg-gray-50 dark:ring-gray-700 dark:hover:bg-gray-900">Learn How We Work</a>
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="home" class="relative overflow-hidden min-h-screen flex items-center">
+      <div class="absolute inset-0 -z-10 bg-[radial-gradient(60rem_60rem_at_50%_-10%,rgba(166,128,128,0.18),rgba(255,255,255,0))]"></div>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
+        <div class="max-w-prose">
+          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-900">
+            Empowering Businesses Through Technology
+          </h1>
+          <p class="mt-6 text-lg text-neutral-700">
+            We help businesses and individuals harness software, AI, and strategic technology—without the heavy costs of building from scratch.
+            From advisory to implementation, we simplify operations and drive sustainable growth.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
+            <a href="#how-we-work" class="inline-flex items-center rounded-lg bg-accent-800 px-5 py-3 text-white hover:bg-accent-700 transition">Learn How We Work</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Services -->
-  <section id="services" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight">Our Services</h2>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">Practical solutions designed to empower your business.</p>
+    <!-- SERVICES -->
+    <section id="services" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">Our Services</h2>
+          <p class="mt-3 text-neutral-700">Practical solutions designed to empower your business.</p>
+        </header>
+
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Custom Software Development -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Custom Software Development</h3>
+            <p class="mt-3 text-neutral-700">We design and build software tailored to your needs—web apps, internal systems, and tools that scale, simplify operations, and deliver measurable results.</p>
+          </article>
+
+          <!-- AI & Automation -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">AI &amp; Automation Solutions</h3>
+            <p class="mt-3 text-neutral-700">Harness AI and automation to save time, cut costs, and make smarter decisions. From chatbots to workflow automation, we fit solutions to your processes.</p>
+          </article>
+
+          <!-- Strategy & Consulting -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Technology Strategy &amp; Consulting</h3>
+            <p class="mt-3 text-neutral-700">We assess your setup, identify gaps, and design a strategy that aligns with your goals—reducing risk, avoiding wasted spend, and building a competitive edge.</p>
+          </article>
+
+          <!-- Security & Trust -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Security &amp; Trust Engineering</h3>
+            <p class="mt-3 text-neutral-700">We help businesses protect their infrastructure, data, and applications through secure design, access controls, and resilient workflows. Our expertise also extends to AI and SDK security, addressing modern risks like data leaks, prompt injection, and misuse of permissions.</p>
+          </article>
+          
+          <!-- Process Optimization -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Process Optimization &amp; Cost Reduction</h3>
+            <p class="mt-3 text-neutral-700">We analyze how you work and recommend tools, integrations, and workflows that make operations leaner—lower overheads, faster delivery, and more time for growth.</p>
+          </article>
+
+          <!-- Open Source -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Open Source Development</h3>
+            <p class="mt-3 text-neutral-700">We build and share open-source SDKs and utilities. Reusable building blocks lower project costs, speed delivery, and increase long-term confidence.</p>
+          </article>
+
+        <div class="sm:col-span-3 flex flex-col items-center justify-center mt-6">
+            <p class="mt-3 text-sm text-neutral-600 text-center"><em>Every engagement follows OWASP-aligned practices, least-privilege access, and CI/CD checks.</em></p>
+            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
+        </div>
+        </div>
       </div>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Service cards -->
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">Custom Software Development</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">We design and build software tailored to your needs. From web apps to internal systems, we create tools that scale, simplify operations, and deliver measurable results.</p>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">AI & Automation Solutions</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Harness AI and automation to save time, cut costs, and make smarter decisions. From chatbots to workflow automation, we deliver practical solutions that fit your processes.</p>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">Technology Strategy & Consulting</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">We assess your current setup, identify gaps, and design a strategy that aligns with your goals—reducing risk, avoiding wasted spend, and building a competitive edge.</p>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">Process Optimization & Cost Reduction</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">We recommend tools, integrations, and workflows that make operations leaner—lower overheads, faster delivery, and more time for growth.</p>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">Open Source Development</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">We create and share free, open‑source SDKs and utilities. Reusable building blocks lower project costs and speed delivery.</p>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-lg font-semibold">Security & Trust Engineering</h3>
-          <ul class="mt-2 text-sm text-gray-600 dark:text-gray-300 list-disc pl-5 space-y-1">
-            <li>Cloud & infra reviews (IAM, boundaries, secrets, posture)</li>
-            <li>Access & data protection (RBAC/ABAC, least privilege)</li>
-            <li>Secure SDLC (OWASP‑aligned coding, CI/CD hardening, SBOM)</li>
-            <li>App/SDK security (auth, tokens, input validation, rate limits)</li>
-            <li>AI security (prompt injection, data exfil, agent permissions)</li>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section id="how-we-work" class="py-20 min-h-screen flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">How We Work</h2>
+          <p class="mt-3 text-neutral-700">A clear process that keeps projects secure, focused, and predictable.</p>
+        </header>
+
+        <ol class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <li class="bg-accent-300/40 rounded-xl p-6 h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 1 – Reach Out</h3>
+            <p class="mt-2 text-neutral-700">Tell us about your goals and context.</p>
+          </li>
+          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 2 – Discovery Call (60 mins)</h3>
+            <p class="mt-2 text-neutral-700">Deep-dive on needs, constraints, and success metrics. <em>A small discovery fee applies and is fully credited if you proceed.</em></p>
+          </li>
+          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 3 – Proposal &amp; Engagement Plan</h3>
+            <p class="mt-2 text-neutral-700">Scope, timeline, pricing, risks &amp; mitigations (incl. security).</p>
+          </li>
+          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 4 – Kickoff</h3>
+            <p class="mt-2 text-neutral-700">Finalize SOW, deposit invoice, comms rhythm, and security baselines.</p>
+          </li>
+          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 5 – Build &amp; Iterate</h3>
+            <p class="mt-2 text-neutral-700">Short sprints with demos. Security baked in: OWASP coding, dep checks, CI/CD hardening.</p>
+          </li>
+          <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
+            <h3 class="font-semibold">Step 6 – Delivery &amp; Handover</h3>
+            <p class="mt-2 text-neutral-700">UAT, docs, training, and security review of access &amp; data handling.</p>
+          </li>
+        </ol>
+
+        <div class="mt-8 text-neutral-700">
+          <h4 class="font-semibold">Step 7 – Ongoing Support</h4>
+          <ul class="list-disc pl-5 mt-2 space-y-1">
+            <li><strong>Maintenance</strong> — updates, fixes, optimizations, security patches.</li>
+            <li><strong>Implementation</strong> — executing consulting outcomes or rolling out new tech with the right controls.</li>
           </ul>
-        </article>
+          <p class="mt-4"><a href="#contact" class="text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Prefer a quick fit check? Book a free 15-minute intro.</a></p>
+        </div>
       </div>
-      <p class="mt-6 text-sm text-gray-600 dark:text-gray-300">Every engagement follows <strong>OWASP‑aligned</strong> practices, least‑privilege access, and CI/CD checks.</p>
-      <div class="mt-8">
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- How We Work -->
-  <section id="how-we-work" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight">How We Work</h2>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">A clear process that keeps projects secure, focused, and predictable.</p>
-      </div>
-      <ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 list-decimal list-inside">
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Reach Out</span> — Tell us about your goals and context.</li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Discovery Call (60 mins)</span> — Deep‑dive on needs and success metrics. <em>Small fee credited if you proceed.</em></li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Proposal & Engagement Plan</span> — Scope, timeline, pricing, and risks (incl. security).</li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Kickoff</span> — Sign SOW, deposit, comms rhythm, access & data handling baselines.</li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Build & Iterate</span> — Short sprints, demos, OWASP‑aligned coding, CI/CD checks.</li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Delivery & Handover</span> — UAT, docs, training, and security review.</li>
-        <li class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6"><span class="font-semibold">Ongoing Support</span> — Maintenance and implementation with controls.</li>
-      </ol>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl ring-1 ring-inset ring-gray-300 px-5 py-3 text-sm font-medium hover:bg-gray-50 dark:ring-gray-700 dark:hover:bg-gray-900">Free 15‑min Intro</a>
-      </div>
-    </div>
-  </section>
+    <!-- PROJECTS -->
+    <section id="projects" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">Our Projects</h2>
+          <p class="mt-3 text-neutral-700">Real work that shows how we design, build, and ship.</p>
+        </header>
 
-  <!-- Projects -->
-  <section id="projects" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight">Our Projects</h2>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">Real work that shows how we design, build, and ship.</p>
-      </div>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Project Card 1 -->
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6 flex flex-col">
-          <h3 class="text-lg font-semibold">Martin & Loice Wedding Website</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Bespoke event site with RSVP, schedule, venue info, and media gallery. Static‑first, image‑optimized, mobile‑fast.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Perf: target &lt;1s LCP • SEO‑friendly</div>
-          <div class="mt-4 flex-1"></div>
-          <div class="mt-4 flex items-center gap-3">
-            <a href="https://wedding.martinandloice.life" target="_blank" rel="noopener noreferrer" class="text-sm underline">View</a>
-            <a href="#contact" class="text-sm underline">Build a Custom Site Like This</a>
-          </div>
-        </article>
-        <!-- Project Card 2 -->
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6 flex flex-col">
-          <h3 class="text-lg font-semibold">Wedding Registry Web App</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Product design, backend & frontend, payments, and admin dashboard. Secure auth, M‑Pesa/Stripe integration, notifications, reporting.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Outcomes: add “X gifts processed / Y transactions”</div>
-          <div class="mt-4 flex-1"></div>
-          <a href="#contact" class="mt-4 text-sm underline">Launch a Product Like This</a>
-        </article>
-        <!-- Project Card 3 -->
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6 flex flex-col">
-          <h3 class="text-lg font-semibold">SDKs for developers.go.ke (Py/TS/Java)</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Open‑source SDKs for Kenya’s public APIs. Idiomatic clients, robust errors, semver, tests, CI.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Add “stars/downloads” once available</div>
-          <div class="mt-4 flex-1"></div>
-          <a href="#contact" class="mt-4 text-sm underline">Need an SDK or Integration?</a>
-        </article>
-      </div>
-      <div class="mt-8">
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-      </div>
-    </div>
-  </section>
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Project 1 -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Martin &amp; Loice Wedding Website</h3>
+            <p class="mt-2 text-neutral-700"><strong>Role:</strong> UX/UI, frontend, deployment, performance/SEO.</p>
+            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Static-first, image optimization, analytics.</p>
+            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Fast, elegant, mobile-first guest experience with clear CTAs.</p>
+            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Build a Custom Site Like This</a>
+          </article>
 
-  <!-- Blog -->
-  <section id="blog" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight">Latest from the Blog</h2>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">Practical insights on software, AI, security, and smart tech adoption.</p>
-      </div>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Repeatable Blog Card (static placeholders) -->
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-base font-semibold line-clamp-2">[Post Title 1]</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">1–2 sentence summary of the post.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Aug 16, 2025 • ~5 min read</div>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm underline">Read on Substack →</a>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-base font-semibold line-clamp-2">[Post Title 2]</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">1–2 sentence summary of the post.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Aug 05, 2025 • ~7 min read</div>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm underline">Read on Substack →</a>
-        </article>
-        <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-          <h3 class="text-base font-semibold line-clamp-2">[Post Title 3]</h3>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">1–2 sentence summary of the post.</p>
-          <div class="mt-3 text-xs text-gray-500 dark:text-gray-400">Jul 21, 2025 • ~6 min read</div>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm underline">Read on Substack →</a>
-        </article>
-      </div>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl ring-1 ring-inset ring-gray-300 px-5 py-3 text-sm font-medium hover:bg-gray-50 dark:ring-gray-700 dark:hover:bg-gray-900">Book a Discovery Call</a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Subscribe on Substack</a>
-      </div>
-    </div>
-  </section>
+          <!-- Project 2 -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">Wedding Registry Web App</h3>
+            <p class="mt-2 text-neutral-700"><strong>Role:</strong> Product design, backend &amp; frontend, payments, admin.</p>
+            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Secure auth, M-Pesa/Stripe, notifications, reporting.</p>
+            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Smooth gifting flows and trackable processes.</p>
+            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Launch a Product Like This</a>
+          </article>
 
-  <!-- About -->
-  <section id="about" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="grid gap-12 lg:grid-cols-2">
-        <div>
-          <h2 class="text-3xl font-bold tracking-tight">About Us</h2>
-          <p class="mt-2 text-gray-600 dark:text-gray-300">Building technology that empowers businesses and people.</p>
-          <div class="mt-8 space-y-6 text-sm text-gray-700 dark:text-gray-300">
+          <!-- Project 3 -->
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="text-xl font-semibold">SDKs for developers.go.ke</h3>
+            <p class="mt-2 text-neutral-700"><strong>Role:</strong> API design, cross-language libs (Python/TS/Java), docs, CI.</p>
+            <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Idiomatic patterns, robust error handling, semver, tests &amp; releases.</p>
+            <p class="mt-2 text-neutral-700"><strong>Value:</strong> Faster integrations, fewer bugs, maintainable codebases.</p>
+            <a href="#contact" class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Need an SDK or Integration?</a>
+          </article>
+        </div>
+
+        <div class="mt-8">
+          <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog" class="py-20 min-h-screen flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">Latest from the Blog</h2>
+          <p class="mt-3 text-neutral-700">Practical insights on software, AI, security, and smart tech adoption.</p>
+        </header>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="font-semibold">[Post Title 1]</h3>
+            <p class="mt-2 text-neutral-700">1–2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
+            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
+          </article>
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="font-semibold">[Post Title 2]</h3>
+            <p class="mt-2 text-neutral-700">1–2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
+            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
+          </article>
+          <article class="bg-white rounded-xl p-6 shadow-card">
+            <h3 class="font-semibold">[Post Title 3]</h3>
+            <p class="mt-2 text-neutral-700">1–2 sentence summary. <span class="text-neutral-500">(Date • ~X min read)</span></p>
+            <a href="#" class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read on Substack →</a>
+          </article>
+        </div>
+
+        <p class="mt-6 text-neutral-700">No recent posts? Show evergreen resources hosted on your domain.</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-brand-900">About Us</h2>
+          <p class="mt-3 text-neutral-700">Building technology that empowers businesses and people.</p>
+        </header>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+          <!-- Mission / Vision / Values -->
+          <div class="space-y-8">
             <div>
-              <h3 class="font-semibold">Our Mission</h3>
-              <p class="mt-1">We empower and <strong>secure</strong> businesses through technology by making powerful tools accessible to all...</p>
+              <h3 class="text-xl font-semibold">Our Mission</h3>
+              <p class="mt-2 text-neutral-700">We empower and <strong>secure</strong> businesses through technology by making powerful tools accessible to all. We help small businesses and individuals harness innovations like AI safely and cost-effectively, while enabling organizations to safeguard data, reduce risk, optimize processes, and implement smarter strategies.</p>
             </div>
             <div>
-              <h3 class="font-semibold">Our Vision</h3>
-              <p class="mt-1">To be a global leader in <strong>secure, practical technology adoption</strong>...</p>
+              <h3 class="text-xl font-semibold">Our Vision</h3>
+              <p class="mt-2 text-neutral-700">To be a global leader in secure, practical technology adoption, where businesses of all sizes confidently innovate to grow, protect trust, and create more time for what truly matters.</p>
             </div>
             <div>
-              <h3 class="font-semibold">Our Values</h3>
-              <ul class="mt-2 list-disc pl-5 space-y-1">
-                <li>Delight our customers</li>
-                <li>Team is key</li>
-                <li>Quality over quantity</li>
-                <li>Simplicity matters</li>
-                <li>Innovation with purpose</li>
-                <li>Integrity, trust, and security</li>
-                <li>Security by default</li>
+              <h3 class="text-xl font-semibold">Our Values</h3>
+              <ul class="mt-2 list-disc pl-5 text-neutral-700 space-y-1">
+                <li><strong>Delight our customers</strong> — create trust and lasting impact.</li>
+                <li><strong>Team is key</strong> — collaboration fuels growth.</li>
+                <li><strong>Quality over quantity</strong> — depth and reliability.</li>
+                <li><strong>Simplicity matters</strong> — tech should simplify business and life.</li>
+                <li><strong>Innovation with purpose</strong> — empower people, not just showcase tech.</li>
+                <li><strong>Integrity, trust, and security</strong> — privacy-by-design and responsible data handling.</li>
+                <li><strong>Security by default</strong> — OWASP-aligned practices and continuous risk reduction.</li>
               </ul>
             </div>
           </div>
-        </div>
-        <div class="grid gap-6 sm:grid-cols-2">
-          <!-- Martin -->
-          <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-            <h3 class="text-lg font-semibold">Martin Musale — Co‑Founder & Director of Technology</h3>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Developer tools, backend systems, and AI tooling. Focused on secure architecture and OWASP‑aligned coding—IAM/RBAC, supply‑chain security, CI/CD hardening, and threat modeling for web & AI systems.</p>
-            <div class="mt-3 text-sm">
-              <a class="underline" href="https://linkedin.com/in/musalemartin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <span class="mx-2">•</span>
-              <a class="underline" href="https://github.com/musale" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-          </article>
-          <!-- Loice -->
-          <article class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-800 p-6">
-            <h3 class="text-lg font-semibold">Loice Andia — Co‑Founder & Managing Director</h3>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Engineering Business Management (MSc, Bath). Leads strategy and operations; expertise in data governance, access policy, risk management, incident readiness, and secure business practices.</p>
-            <div class="mt-3 text-sm">
-              <a class="underline" href="https://www.linkedin.com/in/loice-andia/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <span class="mx-2">•</span>
-              <a class="underline" href="https://github.com/lakivisi" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-          </article>
-        </div>
-      </div>
-      <div class="mt-10">
-        <a href="#contact" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Book a Discovery Call</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Contact -->
-  <section id="contact" class="border-t border-gray-200 dark:border-gray-800">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight">Contact Us</h2>
-        <p class="mt-2 text-gray-600 dark:text-gray-300">Let’s build something together.</p>
-      </div>
-      <div class="mt-10 grid gap-10 lg:grid-cols-2">
-        <!-- Form (static placeholder) -->
-        <form class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium" for="name">Full Name</label>
-            <input id="name" type="text" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2" required />
-          </div>
-          <div>
-            <label class="block text-sm font-medium" for="email">Email Address</label>
-            <input id="email" type="email" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2" required />
-          </div>
-          <div>
-            <label class="block text-sm font-medium" for="company">Company / Organization (optional)</label>
-            <input id="company" type="text" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium" for="message">Message</label>
-            <textarea id="message" rows="5" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2" required></textarea>
-          </div>
-          <p class="text-xs text-gray-500 dark:text-gray-400">We’ll use your information to respond to your inquiry. See our <a class="underline" href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
-          <button type="submit" class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100">Send Message</button>
-        </form>
-        <!-- Direct contact -->
-        <div class="space-y-4">
-          <div>
-            <div class="text-sm font-semibold">Email</div>
-            <a class="underline" href="mailto:info@acoruss.com">info@acoruss.com</a>
-          </div>
-          <div>
-            <div class="text-sm font-semibold">Location</div>
-            <div>Nairobi, Kenya</div>
-          </div>
-          <div>
-            <div class="text-sm font-semibold">Socials</div>
-            <div class="space-x-3">
-              <a class="underline" href="https://linkedin.com/company/acoruss" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a class="underline" href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <!-- Team -->
+          <div class="space-y-8">
+            <div class="bg-white rounded-xl p-6 shadow-card">
+              <h3 class="text-xl font-semibold">Loice Andia — Co-Founder &amp; Managing Director</h3>
+              <p class="mt-2 text-neutral-700">
+                <a class="text-accent-600 underline hover:text-accent-700" href="https://www.linkedin.com/in/loice-andia/">LinkedIn</a> •
+                <a class="text-accent-600 underline hover:text-accent-700" href="https://github.com/lakivisi">GitHub</a>
+              </p>
+              <p class="mt-2 text-neutral-700">Leads strategy and operations while pursuing an MSc in Engineering Business Management (University of Bath). Bridges technical innovation with organizational impact; strengths in data governance, access policy, and risk management.</p>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-card">
+              <h3 class="text-xl font-semibold">Martin Musale — Co-Founder &amp; Director of Technology</h3>
+              <p class="mt-2 text-neutral-700">
+                <a class="text-accent-600 underline hover:text-accent-700" href="https://linkedin.com/in/musalemartin">LinkedIn</a> •
+                <a class="text-accent-600 underline hover:text-accent-700" href="https://github.com/musale">GitHub</a>
+              </p>
+              <p class="mt-2 text-neutral-700">Passionate about developer tools and secure software. Focus on secure architecture, IAM/RBAC, supply-chain security, CI/CD hardening, and threat modeling for web and AI systems—embedding security at every stage.</p>
             </div>
           </div>
-          <div class="pt-2">
-            <a href="#contact" class="inline-flex items-center justify-center rounded-xl ring-1 ring-inset ring-gray-300 px-5 py-3 text-sm font-medium hover:bg-gray-50 dark:ring-gray-700 dark:hover:bg-gray-900">Book a Discovery Call</a>
-          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 flex items-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <header class="max-w-prose">
+          <h2 class="text-3xl font-bold text-brand-900">Contact Us</h2>
+          <p class="mt-3 text-neutral-700">Let’s build something together.</p>
+        </header>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-3">
+          <!-- Form -->
+          <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
+                action="#" method="post">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium">Full Name</label>
+                <input type="text" name="name" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium">Email Address</label>
+                <input type="email" name="email" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium">Company (optional)</label>
+                <input type="text" name="company" class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-sm font-medium">Message</label>
+                <textarea name="message" rows="5" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="mt-6 inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Send Message</button>
+            <p class="mt-3 text-xs text-neutral-600">We’ll use your information to respond to your inquiry. See our <a href="#" class="text-accent-600 underline hover:text-accent-700">Privacy Policy</a>.</p>
+          </form>
+
+          <!-- Direct contact -->
+          <aside class="bg-neutralx-50 rounded-xl p-6 border">
+            <h3 class="font-semibold">Direct Contact</h3>
+            <ul class="mt-3 space-y-2 text-neutral-700">
+              <li><strong>Email:</strong> <a class="text-accent-600 underline hover:text-accent-700" href="mailto:info@acoruss.com">info@acoruss.com</a></li>
+              <li><strong>Location:</strong> Nairobi, Kenya</li>
+              <li><strong>Socials:</strong> <a class="text-accent-600 underline hover:text-accent-700" href="#">LinkedIn</a> • <a class="text-accent-600 underline hover:text-accent-700" href="#">GitHub</a></li>
+            </ul>
+            <div class="mt-6">
+              <a href="#contact" class="inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Book a Discovery Call</a>
+            </div>
+          </aside>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-gray-200 dark:border-gray-800">
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t bg-white">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid gap-10 md:grid-cols-4">
-        <div>
-          <a href="#home" class="inline-flex items-center gap-2">
-            <span class="inline-block h-8 w-8 rounded-xl bg-gray-900 dark:bg-white"></span>
-            <span class="text-xl font-semibold tracking-tight">Acoruss</span>
-          </a>
-          <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">We build software and open‑source tools that help businesses adopt technology with confidence. From advisory to implementation, we simplify complexity, reduce costs, and protect trust.</p>
+      <div class="grid gap-8 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <h4 class="font-semibold">Acoruss</h4>
+          <p class="mt-3 max-w-prose text-neutral-700">
+            We build software and open-source tools that help businesses adopt technology with confidence.
+            From advisory to implementation, we simplify complexity, reduce costs, and protect trust.
+          </p>
         </div>
-        <nav aria-label="Quick links">
-          <h3 class="text-sm font-semibold tracking-wide">Quick Links</h3>
-          <ul class="mt-4 space-y-3 text-sm">
-            <li><a class="hover:underline" href="#services">Services</a></li>
-            <li><a class="hover:underline" href="#how-we-work">How We Work</a></li>
-            <li><a class="hover:underline" href="#projects">Projects</a></li>
-            <li><a class="hover:underline" href="#about">About</a></li>
-            <li><a class="hover:underline" href="#contact">Contact</a></li>
+        <div>
+          <h5 class="font-semibold">Quick Links</h5>
+          <ul class="mt-3 space-y-2">
+            <li><a href="#services" class="hover:text-brand-900">Services</a></li>
+            <li><a href="#how-we-work" class="hover:text-brand-900">How We Work</a></li>
+            <li><a href="#projects" class="hover:text-brand-900">Projects</a></li>
+            <li><a href="#contact" class="hover:text-brand-900">Contact</a></li>
           </ul>
-        </nav>
-        <nav aria-label="Resources">
-          <h3 class="text-sm font-semibold tracking-wide">Resources</h3>
-          <ul class="mt-4 space-y-3 text-sm">
-            <li><a class="hover:underline" href="#blog">Latest Blog on Substack</a></li>
-            <li><a class="hover:underline" href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer">Open Source on GitHub</a></li>
-            <li><a class="hover:underline" href="https://developers.go.ke" target="_blank" rel="noopener noreferrer">developers.go.ke APIs</a></li>
+        </div>
+        <div>
+          <h5 class="font-semibold">Resources</h5>
+          <ul class="mt-3 space-y-2">
+            <li><a href="#blog" class="hover:text-brand-900">Latest Blog</a></li>
+            <li><a href="#" class="hover:text-brand-900">Open Source on GitHub</a></li>
+            <li><a href="#" class="hover:text-brand-900">developers.go.ke APIs</a></li>
           </ul>
-        </nav>
-        <div aria-label="Contact">
-          <h3 class="text-sm font-semibold tracking-wide">Contact</h3>
-          <ul class="mt-4 space-y-3 text-sm">
-            <li><a class="hover:underline" href="mailto:info@acoruss.com">info@acoruss.com</a></li>
-            <li>Nairobi, Kenya</li>
-          </ul>
-          <div class="mt-6 flex items-center gap-4 text-sm">
-            <a class="underline" href="https://linkedin.com/company/acoruss" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a class="underline" href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
         </div>
       </div>
-      <div class="my-10 border-t border-gray-200 dark:border-gray-800"></div>
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-gray-500 dark:text-gray-400">
-        <p>© <span id="year"></span> Acoruss. All rights reserved. • v1.0.1 • <a class="underline" href="#">Changelog</a></p>
-        <div class="flex items-center gap-6">
-          <a href="#" class="hover:underline">Privacy Policy</a>
-          <a href="#" class="hover:underline">Terms of Service</a>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-neutral-600">
+        <div class="flex items-center gap-2">
+          <span>© 2025 Acoruss. All rights reserved.</span>
+          <span class="hidden sm:inline">•</span>
+          <span>v1.0.1 • <a href="#" class="underline">Changelog</a></span>
+        </div>
+        <div class="space-x-4">
+          <a href="#" class="hover:text-brand-900">Privacy Policy</a>
+          <a href="#" class="hover:text-brand-900">Terms of Service</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Mobile menu toggle & dynamic year
-    document.getElementById('menuBtn').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+    // Mobile menu toggle
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    
+    // Toggle menu when button is clicked
+    btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+    
+    // Close menu when any menu item is clicked
+    const menuLinks = menu?.querySelectorAll('a');
+    menuLinks?.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+      });
     });
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

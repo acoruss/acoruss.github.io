@@ -9,7 +9,7 @@
 # Hero
 
 **Empowering Businesses Through Technology**  
-We build software, AI solutions, and open-source tools that help organizations adopt technology safely, reduce costs, and move faster.  
+We help businesses and individuals harness software, AI, and strategic technology—without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth.
 [Book a Discovery Call](#contact) • [Learn How We Work](#how-we-work)
 
 ---

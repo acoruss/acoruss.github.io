@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.1](https://github.com/acoruss/acoruss.github.io/compare/v1.2.0...v1.2.1) (2025-08-16)
+
+
+### Bug Fixes
+
+* enhance mission, vision, and values sections with improved styling and structure ([222d2ca](https://github.com/acoruss/acoruss.github.io/commit/222d2cad5d68af2d9667905e20161294b993975f))
+* enhance navigation link styles for better visibility and accessibility ([816eb03](https://github.com/acoruss/acoruss.github.io/commit/816eb038359d205f64d494a034dc87631b0d9559))
+* enhance values section with interactive details for improved engagement ([29b4a0e](https://github.com/acoruss/acoruss.github.io/commit/29b4a0ee28752b79b041a763af7defb8d228ed4e))
+* refine values section layout and spacing for improved readability ([a3f8900](https://github.com/acoruss/acoruss.github.io/commit/a3f8900a50faa0938e886295ff595754e7927a6f))
+* replace en dashes with HTML entities for consistency in step headings and summaries ([684eeb9](https://github.com/acoruss/acoruss.github.io/commit/684eeb9a060c1c7a4e734e3cc07ddd82b1f4b16b))
+* replace hyphens with em dashes in text content for consistency ([d3a869a](https://github.com/acoruss/acoruss.github.io/commit/d3a869abf41eb393ef9eda3c34c8446254419647))
+* replace hyphens with em dashes in text content for consistency ([1204f96](https://github.com/acoruss/acoruss.github.io/commit/1204f9695f84952930c3f30958763f956fd05e8c))
+* restore blog section with updated structure and content ([40f144c](https://github.com/acoruss/acoruss.github.io/commit/40f144cf3c0660b0a9d82db2ee5dc7c48e1d7c05))
+* restore blog section with updated structure and content ([38e8387](https://github.com/acoruss/acoruss.github.io/commit/38e8387521c7a201ae1794ab29c912ff0266f5fe))
+* update company name from "Acoruss PLC" to "Acoruss" for consistency in title and metadata ([0bb33bb](https://github.com/acoruss/acoruss.github.io/commit/0bb33bbf5d275423066165fa9fff47da26c5878a))
+* update hover text color for navigation links to accent color for better visibility ([990a659](https://github.com/acoruss/acoruss.github.io/commit/990a6594b1822f2b1bfc2b59620d2cbd1357a503))
+
 ## [1.2.0](https://github.com/acoruss/acoruss.github.io/compare/v1.1.0...v1.2.0) (2025-08-16)
 
 

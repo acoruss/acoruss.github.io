@@ -125,12 +125,12 @@
       </a>
 
       <nav class="hidden md:flex items-center gap-8 text-sm">
-        <a href="#home" class="hover:text-accent-600">Home</a>
-        <a href="#services" class="hover:text-accent-600">Services</a>
-        <a href="#how-we-work" class="hover:text-accent-600">How We Work</a>
-        <a href="#projects" class="hover:text-accent-600">Projects</a>
-        <a href="#about" class="hover:text-accent-600">About</a>
-        <a href="#blog" class="hover:text-accent-600">Blog</a>
+        <a href="#home" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
+        <a href="#services" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
+        <a href="#how-we-work" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We Work</a>
+        <a href="#projects" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
+        <a href="#about" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
+        <a href="#blog" class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
         <a href="#contact" class="inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
       </nav>
 
@@ -142,12 +142,12 @@
     <!-- Mobile menu -->
     <div id="mobileMenu" class="md:hidden hidden border-t">
       <div class="px-4 py-3 flex flex-col gap-3">
-        <a href="#home" class="py-2 hover:text-accent-600">Home</a>
-        <a href="#services" class="py-2 hover:text-accent-600">Services</a>
-        <a href="#how-we-work" class="py-2 hover:text-accent-600">How We Work</a>
-        <a href="#projects" class="py-2 hover:text-accent-600">Projects</a>
-        <a href="#about" class="py-2 hover:text-accent-600">About</a>
-        <a href="#blog" class="py-2 hover:text-accent-600">Blog</a>
+        <a href="#home" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
+        <a href="#services" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
+        <a href="#how-we-work" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We Work</a>
+        <a href="#projects" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
+        <a href="#about" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
+        <a href="#blog" class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
         <a href="#contact" class="inline-flex items-center justify-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book a Discovery Call</a>
       </div>
     </div>
@@ -416,25 +416,23 @@
         <div class="mt-10 grid gap-8 lg:grid-cols-3">
           <!-- Form -->
           <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
-                action="#" method="post">
-          <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
                 action="https://formspree.io/f/your-form-id" method="post">
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-medium">Full Name</label>
-                <input type="text" name="name" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                <label for="contact-name" class="block text-sm font-medium">Full Name</label>
+                <input type="text" id="contact-name" name="name" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
               </div>
               <div>
-                <label class="block text-sm font-medium">Email Address</label>
-                <input type="email" name="email" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                <label for="contact-email" class="block text-sm font-medium">Email Address</label>
+                <input type="email" id="contact-email" name="email" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
               </div>
               <div class="sm:col-span-2">
-                <label class="block text-sm font-medium">Company (optional)</label>
-                <input type="text" name="company" class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
+                <label for="contact-company" class="block text-sm font-medium">Company (optional)</label>
+                <input type="text" id="contact-company" name="company" class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
               </div>
               <div class="sm:col-span-2">
-                <label class="block text-sm font-medium">Message</label>
-                <textarea name="message" rows="5" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
+                <label for="contact-message" class="block text-sm font-medium">Message</label>
+                <textarea id="contact-message" name="message" rows="5" required class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
               </div>
             </div>
 

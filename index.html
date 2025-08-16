@@ -746,7 +746,7 @@
                 <div class="flex items-center gap-2">
                     <span>© 2025 Acoruss. All rights reserved.</span>
                     <span class="hidden sm:inline">•</span>
-                    <span>v1.0.1 • <a href="#" class="underline">Changelog</a></span>
+                    <span id="site-version"></span>
                 </div>
                 <div class="space-x-4">
                     <a href="#" class="hover:text-brand-900">Privacy Policy</a>
@@ -756,6 +756,15 @@
         </div>
     </footer>
 
+    <script>
+        fetch('./version.txt')
+            .then(res => res.ok ? res.text() : '')
+            .then(version => {
+                if (version) {
+                    document.getElementById('site-version').textContent = `v${version.trim()}`;
+                }
+            });
+    </script>
     <script>
         // Mobile menu toggle
         const btn = document.getElementById('menuBtn');

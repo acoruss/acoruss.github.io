@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.1](https://github.com/acoruss/acoruss.github.io/compare/v1.3.0...v1.3.1) (2025-08-16)
+
+
+### Bug Fixes
+
+* add manifest file parameter to release-please action ([8d1ad27](https://github.com/acoruss/acoruss.github.io/commit/8d1ad270c0d61122b21354a804698615d85560f1))
+* add manifest file parameter to release-please action ([177e308](https://github.com/acoruss/acoruss.github.io/commit/177e308d3a184a4472284762eabcbdd3b6d7b83f))
+* update site version display and release-please configuration ([0dbf4bf](https://github.com/acoruss/acoruss.github.io/commit/0dbf4bf8082b7c945105da0042c2113077683b41))
+* update site version display and release-please configuration ([e76bf81](https://github.com/acoruss/acoruss.github.io/commit/e76bf81ae7969efa4df737952f3feacafc479bcb))
+* update site version display format in footer ([b556f58](https://github.com/acoruss/acoruss.github.io/commit/b556f58f18df4e90bfb3595a0e9c152b95b40620))
+* update site version display format in footer ([4db1f36](https://github.com/acoruss/acoruss.github.io/commit/4db1f36b36d7877c99793f4f5fa73cde04f5e5be))
+
 ## [1.3.0](https://github.com/acoruss/acoruss.github.io/compare/v1.2.2...v1.3.0) (2025-08-16)
 
 

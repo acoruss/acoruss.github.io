@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/acoruss/acoruss.github.io/compare/v1.1.0...v1.2.0) (2025-08-16)
+
+
+### Features
+
+* **docs:** add website information and links sections ([2cc4b97](https://github.com/acoruss/acoruss.github.io/commit/2cc4b9758329210cc4d8c85f79dc202694c0d194))
+* **docs:** add website information and links sections ([a74c282](https://github.com/acoruss/acoruss.github.io/commit/a74c282653d298e1b12eba3e41ef5bf71c0846bb))
+* enhance layout with consistent section spacing and improved header positioning ([d839414](https://github.com/acoruss/acoruss.github.io/commit/d839414815f13f15f878408720e2e99f4573636e))
+* overhaul index.html with new layout, improved accessibility, and enhanced content sections ([6e4c006](https://github.com/acoruss/acoruss.github.io/commit/6e4c006ce1a179936c9819b4a8f6eda0b041bfd8))
+* overhaul the website information ([21ccda2](https://github.com/acoruss/acoruss.github.io/commit/21ccda2263089edc2c36ddc99e327a381cd7b846))
+* update footer link text to reflect open source SDKs ([1be9c04](https://github.com/acoruss/acoruss.github.io/commit/1be9c04f4455506c9901f0b6b49bc87aaef35fe9))
+* update meta tags and improve logo display in footer and header ([4dd7d88](https://github.com/acoruss/acoruss.github.io/commit/4dd7d88542234a744b37847bac795153fadcea17))
+
 ## [1.1.0](https://github.com/acoruss/acoruss.github.io/compare/v1.0.2...v1.1.0) (2025-08-15)
 
 

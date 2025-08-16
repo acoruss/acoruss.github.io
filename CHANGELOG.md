@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.2](https://github.com/acoruss/acoruss.github.io/compare/v1.2.1...v1.2.2) (2025-08-16)
+
+
+### Bug Fixes
+
+* update bg colors of sections ([0d6ee14](https://github.com/acoruss/acoruss.github.io/commit/0d6ee146bc2f0b787f9289246dfd37720f9bf144))
+* update bg colors of sections ([ccf5780](https://github.com/acoruss/acoruss.github.io/commit/ccf57806f23e00e4930fe776ebfca02ad3f42f67))
+* update release-please configuration and remove target branch ([9a8b185](https://github.com/acoruss/acoruss.github.io/commit/9a8b185c6f6acea831031962ab29cac18dccb489))
+* update release-please configuration and remove target branch ([a4a597c](https://github.com/acoruss/acoruss.github.io/commit/a4a597c2851554741e1173afa6ead4cd2c47507f))
+
 ## [1.2.1](https://github.com/acoruss/acoruss.github.io/compare/v1.2.0...v1.2.1) (2025-08-16)
 
 

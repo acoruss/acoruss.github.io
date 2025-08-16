@@ -6,7 +6,7 @@
             "extra-files": [
                 {
                     "path": "index.html",
-                    "version_regex": "<span id=\"site-version\">(.*)</span>"
+                    "version_regex": "<span id=\\\"site-version\\\">(.*)</span>"
                 }
             ]
         }

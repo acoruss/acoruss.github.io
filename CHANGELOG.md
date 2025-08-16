@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.3.0](https://github.com/acoruss/acoruss.github.io/compare/v1.2.2...v1.3.0) (2025-08-16)
+
+
+### Features
+
+* dynamically display site version from version.txt ([13fe8bb](https://github.com/acoruss/acoruss.github.io/commit/13fe8bbf6ae9723f51a7cf764f088518adb20ed3))
+* dynamically display site version from version.txt ([6e0d2ac](https://github.com/acoruss/acoruss.github.io/commit/6e0d2ac45de9dfc74928f2422eda49a2d2d1fb52))
+
+
+### Bug Fixes
+
+* add extra-files configuration for release-please ([cb12cf5](https://github.com/acoruss/acoruss.github.io/commit/cb12cf59c8964d307f1cc83f44cc90a2d6b81f91))
+* add extra-files configuration for release-please ([6fc5e72](https://github.com/acoruss/acoruss.github.io/commit/6fc5e72bbbee892854e9f26c241eab4e6c5dadda))
+* escape double quotes in version regex for index.html ([c82f832](https://github.com/acoruss/acoruss.github.io/commit/c82f83231348d9c46a53aab421a4645747a92262))
+* hardcode site version in footer and remove dynamic fetch script ([e314909](https://github.com/acoruss/acoruss.github.io/commit/e314909ad8b5203d59ccecb9fdd200e2d24d7a9d))
+* update site version element for release-please integration ([2e10817](https://github.com/acoruss/acoruss.github.io/commit/2e108173de1a8a0bf46efa9edb01bd9946ddd785))
+* update site version element for release-please integration ([dddb54f](https://github.com/acoruss/acoruss.github.io/commit/dddb54fbf6c4ca9eac515f16a2767915f5c7e4f0))
+* update site version in footer to 1.2.2 ([6344ec0](https://github.com/acoruss/acoruss.github.io/commit/6344ec0b6bd72559304cf6f8faefc419a029aa0d))
+* update site version in footer to 1.2.2 ([c410ff7](https://github.com/acoruss/acoruss.github.io/commit/c410ff7090aa91f62e07223f138a6e06f80c1705))
+
 ## [1.2.2](https://github.com/acoruss/acoruss.github.io/compare/v1.2.1...v1.2.2) (2025-08-16)
 
 

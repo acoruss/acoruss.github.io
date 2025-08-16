@@ -4,6 +4,5 @@
             "release-type": "simple",
             "component": "acoruss-website"
         }
-    },
-    "target-branch": "releases"
+    }
 }

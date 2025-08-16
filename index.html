@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Acoruss PLC — Empowering Businesses Through Technology</title>
   <meta name="description" content="Acoruss helps businesses and individuals harness software, AI, and strategic technology—without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth." />
-    <link rel="icon" href="./public/images/logos/dark-rounded-bg.png" type="image/png" />
+  
+  <link rel="icon" href="./public/images/logos/dark-rounded-bg.png" type="image/png" />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,6 +61,27 @@
     /* Adjust contact section to allow footer visibility */
     #contact {
       min-height: calc(100vh - 80px);
+    }
+    /* Consistent section spacing and header positioning */
+    section:not(#home) {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+    section:not(#home) header {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    @media (min-width: 640px) {
+      section:not(#home) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      section:not(#home) {
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+      }
     }
   </style>
 
@@ -154,9 +176,9 @@
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+    <section id="services" class="bg-neutralx-50 min-h-screen flex items-center">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-16">
+        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 class="text-3xl font-bold text-brand-900">Our Services</h2>
           <p class="mt-3 text-neutral-700">Practical solutions designed to empower your business.</p>
         </header>
@@ -207,9 +229,9 @@
     </section>
 
     <!-- HOW WE WORK -->
-    <section id="how-we-work" class="py-20 min-h-screen flex items-center">
+    <section id="how-we-work" class="min-h-screen flex items-center">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-16">
+        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 class="text-3xl font-bold text-brand-900">How We Work</h2>
           <p class="mt-3 text-neutral-700">A clear process that keeps projects secure, focused, and predictable.</p>
         </header>
@@ -253,9 +275,9 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+    <section id="projects" class="bg-neutralx-50 min-h-screen flex items-center">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-16">
+        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 class="text-3xl font-bold text-brand-900">Our Projects</h2>
           <p class="mt-3 text-neutral-700">Real work that shows how we design, build, and ship.</p>
         </header>
@@ -296,9 +318,9 @@
     </section>
 
     <!-- BLOG -->
-    <section id="blog" class="py-20 min-h-screen flex items-center">
+    <section id="blog" class="min-h-screen flex items-center">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-16">
+        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 class="text-3xl font-bold text-brand-900">Latest from the Blog</h2>
           <p class="mt-3 text-neutral-700">Practical insights on software, AI, security, and smart tech adoption.</p>
         </header>
@@ -326,9 +348,9 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="py-20 bg-neutralx-50 min-h-screen flex items-center">
+    <section id="about" class="bg-neutralx-50 min-h-screen flex items-center">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <header class="text-center mb-16">
+        <header class="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 class="text-3xl font-bold text-brand-900">About Us</h2>
           <p class="mt-3 text-neutral-700">Building technology that empowers businesses and people.</p>
         </header>

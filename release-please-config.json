@@ -4,10 +4,7 @@
             "release-type": "simple",
             "component": "acoruss-website",
             "extra-files": [
-                {
-                    "path": "index.html",
-                    "version_regex": "<span id=\\\"site-version\\\">(.*)</span>"
-                }
+                "index.html"
             ]
         }
     }

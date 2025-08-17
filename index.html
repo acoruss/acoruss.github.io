@@ -4,773 +4,944 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Acoruss &mdash; Empowering Businesses Through Technology</title>
+    <title>Acoruss — Empowering Businesses Through Technology</title>
     <meta name="description"
-        content="Acoruss helps businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth." />
+        content="Acoruss helps businesses and individuals harness software, AI, and strategic technology — without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth." />
 
     <link rel="icon" href="./public/images/logos/dark-rounded-bg.png" type="image/png" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Tailwind config with brand tokens
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Ubuntu', 'Cantarell', 'Noto Sans', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji'] },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    },
                     colors: {
                         brand: {
-                            900: '#590303', // primary
-                            700: '#732D2D',
-                            300: '#A68080',
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            200: '#fecaca',
+                            300: '#fca5a5',
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                            900: '#590303',
+                            950: '#450a0a'
                         },
-                        neutralx: { 900: '#0D0D0D', 50: '#F2F2F2' },
                         accent: {
-                            800: '#065F46', // secondary button
-                            700: '#115E59',
-                            600: '#16A34A', // links on white (use dark text)
-                            500: '#14B8A6',
-                            300: '#A7D7C5'
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a'
                         }
                     },
-                    boxShadow: {
-                        card: '0 6px 24px rgba(0,0,0,0.06)',
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'gradient': 'gradient 8s linear infinite',
                     },
-                    maxWidth: {
-                        prose: '76ch'
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        }
                     }
                 }
             }
         }
     </script>
+
     <style>
         html {
             scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
         }
 
-        section {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
         }
 
-        /* Ensure footer is accessible */
-        footer {
-            scroll-snap-align: end;
+        .gradient-text {
+            background: linear-gradient(135deg, #590303, #b91c1c, #0f766e);
+            background-size: 200% 200%;
+            animation: gradient 4s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Adjust contact section to allow footer visibility */
-        #contact {
-            min-height: calc(100vh - 80px);
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(89, 3, 3, 0.03) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(15, 118, 110, 0.03) 100%);
         }
 
-        /* Consistent section spacing and header positioning */
-        section:not(#home) {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+        .card-hover {
+            transition: all 0.3s ease;
         }
 
-        section:not(#home) header {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        @media (min-width: 640px) {
-            section:not(#home) {
-                padding-top: 6rem;
-                padding-bottom: 6rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            section:not(#home) {
-                padding-top: 8rem;
-                padding-bottom: 8rem;
-            }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
     </style>
 
     <!-- Open Graph -->
     <meta property="og:title" content="Acoruss — Empowering Businesses Through Technology">
     <meta property="og:description"
-        content="We help businesses and individuals harness software, AI, and strategic technology &mdash; without the heavy costs of building from scratch. From advisory to implementation, we simplify operations and drive sustainable growth.">
+        content="We help businesses and individuals harness software, AI, and strategic technology — without the heavy costs of building from scratch.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://acoruss.com">
     <meta property="og:image" content="https://acoruss.com/public/images/logos/dark.png">
-
-    <!-- JSON-LD Organization -->
-    <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Acoruss",
-    "url": "https://acoruss.com",
-    "logo": "https://acoruss.com/public/images/logos/dark.png",
-    "sameAs": ["https://www.linkedin.com/company/acoruss","https://github.com/acoruss"],
-    "contactPoint": [{
-      "@type": "ContactPoint",
-      "email": "info@acoruss.com",
-      "contactType": "customer service",
-      "areaServed": "KE"
-    }]
-  }
-  </script>
 </head>
 
-<body class="font-sans text-neutralx-900 bg-white">
+<body class="font-sans text-gray-900 bg-white antialiased">
     <!-- Skip link -->
     <a href="#main"
-        class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-neutralx-50 text-neutralx-900 px-3 py-2 rounded">Skip
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-gray-900 px-4 py-2 rounded-lg shadow-lg z-50">Skip
         to content</a>
 
-    <!-- NAV -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-neutral-200">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3">
-                <!-- Replace with your real logo image or inline SVG -->
-                <img src="./public/images/logos/dark.png" alt="Acoruss Logo"
-                    class="h-8 w-8 rounded-full object-contain" />
-                <span class="font-semibold">Acoruss</span>
-            </a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <img src="./public/images/logos/dark.png" alt="Acoruss Logo" class="h-8 w-8 rounded-full" />
+                    <span class="text-xl font-bold gradient-text">Acoruss</span>
+                </div>
 
-            <nav class="hidden md:flex items-center gap-8 text-sm">
-                <a href="#home"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
-                <a href="#services"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
-                <a href="#how-we-work"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We
-                    Work</a>
-                <a href="#projects"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
-                <a href="#about"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
-                <a href="#blog"
-                    class="hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
-                <a href="#contact"
-                    class="inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
-                    a Discovery Call</a>
-            </nav>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home"
+                        class="text-gray-700 hover:text-brand-900 transition-colors duration-200 font-medium">Home</a>
+                    <a href="#services"
+                        class="text-gray-700 hover:text-brand-900 transition-colors duration-200 font-medium">Services</a>
+                    <a href="#process"
+                        class="text-gray-700 hover:text-brand-900 transition-colors duration-200 font-medium">Process</a>
+                    <a href="#projects"
+                        class="text-gray-700 hover:text-brand-900 transition-colors duration-200 font-medium">Projects</a>
+                    <a href="#about"
+                        class="text-gray-700 hover:text-brand-900 transition-colors duration-200 font-medium">About</a>
+                    <a href="#contact"
+                        class="bg-brand-900 text-white px-6 py-2 rounded-full hover:bg-brand-800 transition-all duration-200 font-medium shadow-lg hover:shadow-xl">Get
+                        Started</a>
+                </div>
 
-            <button id="menuBtn"
-                class="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border hover:bg-neutralx-50"
-                aria-label="Open menu">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 6h14M3 10h14M3 14h14" />
-                </svg>
-            </button>
-        </div>
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
 
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="md:hidden hidden border-t">
-            <div class="px-4 py-3 flex flex-col gap-3">
-                <a href="#home"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Home</a>
-                <a href="#services"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Services</a>
-                <a href="#how-we-work"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">How We
-                    Work</a>
-                <a href="#projects"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Projects</a>
-                <a href="#about"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">About</a>
-                <a href="#blog"
-                    class="py-2 hover:text-accent-700 hover:underline decoration-2 underline-offset-4 transition">Blog</a>
-                <a href="#contact"
-                    class="inline-flex items-center justify-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
-                    a Discovery Call</a>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-sm border-t border-gray-100">
+                <div class="px-4 py-6 space-y-4">
+                    <a href="#home" class="block py-2 text-gray-700 hover:text-brand-900 font-medium">Home</a>
+                    <a href="#services" class="block py-2 text-gray-700 hover:text-brand-900 font-medium">Services</a>
+                    <a href="#process" class="block py-2 text-gray-700 hover:text-brand-900 font-medium">Process</a>
+                    <a href="#projects" class="block py-2 text-gray-700 hover:text-brand-900 font-medium">Projects</a>
+                    <a href="#about" class="block py-2 text-gray-700 hover:text-brand-900 font-medium">About</a>
+                    <a href="#contact"
+                        class="block bg-brand-900 text-white px-6 py-3 rounded-full text-center font-medium">Get
+                        Started</a>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
     <main id="main">
-
-        <!-- HERO -->
-        <section id="home" class="relative overflow-hidden min-h-screen flex items-center">
-            <div
-                class="absolute inset-0 -z-10 bg-[radial-gradient(60rem_60rem_at_50%_-10%,rgba(166,128,128,0.18),rgba(255,255,255,0))]">
-            </div>
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
-                <div class="max-w-prose">
-                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-900">
-                        Empowering Businesses Through Technology
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center pt-16 hero-gradient">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="max-w-4xl animate-fade-in">
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+                        <span class="gradient-text">Empowering Businesses</span><br>
+                        <span class="text-gray-900">Through Technology</span>
                     </h1>
-                    <p class="mt-6 text-lg text-neutral-700">
-                        We help businesses and individuals harness software, AI, and strategic technology &mdash;
-                        without the heavy costs of building from scratch.
-                        From advisory to implementation, we simplify operations and drive sustainable growth.
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl leading-relaxed">
+                        We help businesses harness software, AI, and strategic technology — without the heavy costs of
+                        building from scratch. From advisory to implementation, we simplify operations and drive
+                        sustainable growth.
                     </p>
-                    <div class="mt-8 flex flex-wrap gap-3">
+                    <div class="flex flex-col sm:flex-row gap-4 animate-slide-up">
                         <a href="#contact"
-                            class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book
-                            a Discovery Call</a>
-                        <a href="#how-we-work"
-                            class="inline-flex items-center rounded-lg bg-accent-800 px-5 py-3 text-white hover:bg-accent-700 transition">Learn
-                            How We Work</a>
+                            class="bg-brand-900 text-white px-8 py-4 rounded-full hover:bg-brand-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl text-center">
+                            Book Discovery Call
+                        </a>
+                        <a href="#process"
+                            class="bg-accent-800 text-white px-8 py-4 rounded-full hover:bg-accent-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl text-center">
+                            See Our Process
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES -->
-        <section id="services" class="bg-neutralx-50 min-h-screen flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-                    <h2 class="text-3xl font-bold text-brand-900">Our Services</h2>
-                    <p class="mt-3 text-neutral-700">Practical solutions designed to empower your business.</p>
-                </header>
+        <!-- Services Section -->
+        <section id="services" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 animate-fade-in">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">Practical solutions designed to empower your
+                        business with cutting-edge technology.</p>
+                </div>
 
-                <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Custom Software Development -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Custom Software Development</h3>
-                        <p class="mt-3 text-neutral-700">We design and build software tailored to your needs &mdash; web
-                            apps, internal systems, and tools that scale, simplify operations, and deliver measurable
-                            results.</p>
-                    </article>
-
-                    <!-- AI & Automation -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">AI &amp; Automation Solutions</h3>
-                        <p class="mt-3 text-neutral-700">Harness AI and automation to save time, cut costs, and make
-                            smarter decisions. From chatbots to workflow automation, we fit solutions to your processes.
-                        </p>
-                    </article>
-
-                    <!-- Strategy & Consulting -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Technology Strategy &amp; Consulting</h3>
-                        <p class="mt-3 text-neutral-700">We assess your setup, identify gaps, and design a strategy that
-                            aligns with your goals &mdash; reducing risk, avoiding wasted spend, and building a
-                            competitive edge.</p>
-                    </article>
-
-                    <!-- Security & Trust -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Security &amp; Trust Engineering</h3>
-                        <p class="mt-3 text-neutral-700">We help businesses protect their infrastructure, data, and
-                            applications through secure design, access controls, and resilient workflows. Our expertise
-                            also extends to AI and SDK security, addressing modern risks like data leaks, prompt
-                            injection, and misuse of permissions.</p>
-                    </article>
-
-                    <!-- Process Optimization -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Process Optimization &amp; Cost Reduction</h3>
-                        <p class="mt-3 text-neutral-700">We analyze how you work and recommend tools, integrations, and
-                            workflows that make operations leaner &mdash; lower overheads, faster delivery, and more
-                            time for growth.</p>
-                    </article>
-
-                    <!-- Open Source -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Open Source Development</h3>
-                        <p class="mt-3 text-neutral-700">We build and share open-source SDKs and utilities. Reusable
-                            building blocks lower project costs, speed delivery, and increase long-term confidence.</p>
-                    </article>
-
-                    <div class="sm:col-span-3 flex flex-col items-center justify-center mt-6">
-                        <p class="mt-3 text-sm text-neutral-600 text-center"><em>Every engagement follows OWASP-aligned
-                                practices, least-privilege access, and CI/CD checks.</em></p>
-                        <a href="#contact"
-                            class="mt-4 inline-flex items-center rounded-lg bg-brand-900 px-4 py-2 text-white hover:bg-brand-700 transition">Book
-                            a Discovery Call</a>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Custom Software Development</h3>
+                        <p class="text-gray-600 leading-relaxed">We design and build software tailored to your needs —
+                            web apps, internal systems, and tools that scale, simplify operations, and deliver
+                            measurable results.</p>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- HOW WE WORK -->
-        <section id="how-we-work" class="min-h-screen flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-                    <h2 class="text-3xl font-bold text-brand-900">How We Work</h2>
-                    <p class="mt-3 text-neutral-700">A clear process that keeps projects secure, focused, and
-                        predictable.</p>
-                </header>
-
-                <ol class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    <li class="bg-accent-300/40 rounded-xl p-6 h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 1 &ndash; Reach Out</h3>
-                        <p class="mt-2 text-neutral-700">Tell us about your goals and context.</p>
-                    </li>
-                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 2 &ndash; Discovery Call (60 mins)</h3>
-                        <p class="mt-2 text-neutral-700">Deep-dive on needs, constraints, and success metrics. <em>A
-                                small discovery fee applies and is fully credited if you proceed.</em></p>
-                    </li>
-                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 3 &ndash; Proposal &amp; Engagement Plan</h3>
-                        <p class="mt-2 text-neutral-700">Scope, timeline, pricing, risks &amp; mitigations (incl.
-                            security).</p>
-                    </li>
-                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 4 &ndash; Kickoff</h3>
-                        <p class="mt-2 text-neutral-700">Finalize SOW, deposit invoice, comms rhythm, and security
-                            baselines.</p>
-                    </li>
-                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 5 &ndash; Build &amp; Iterate</h3>
-                        <p class="mt-2 text-neutral-700">Short sprints with demos. Security baked in: OWASP coding, dep
-                            checks, CI/CD hardening.</p>
-                    </li>
-                    <li class="bg-white rounded-xl p-6 shadow-card h-40 flex flex-col justify-center">
-                        <h3 class="font-semibold">Step 6 &ndash; Delivery &amp; Handover</h3>
-                        <p class="mt-2 text-neutral-700">UAT, docs, training, and security review of access &amp; data
-                            handling.</p>
-                    </li>
-                </ol>
-
-                <div class="mt-8 text-neutral-700">
-                    <h4 class="font-semibold">Step 7 &ndash; Ongoing Support</h4>
-                    <ul class="list-disc pl-5 mt-2 space-y-1">
-                        <li><strong>Maintenance</strong> &mdash; updates, fixes, optimizations, security patches.</li>
-                        <li><strong>Implementation</strong> &mdash; executing consulting outcomes or rolling out new
-                            tech with the right controls.</li>
-                    </ul>
-                    <p class="mt-4"><a href="#contact"
-                            class="text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Prefer
-                            a quick fit check? Book a free 15-minute intro.</a></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section id="projects" class="bg-neutralx-50 min-h-screen flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-                    <h2 class="text-3xl font-bold text-brand-900">Our Projects</h2>
-                    <p class="mt-3 text-neutral-700">Real work that shows how we design, build, and ship.</p>
-                </header>
-
-                <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    <!-- Project 1 -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Martin &amp; Loice Wedding Website</h3>
-                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> UX/UI, frontend, deployment,
-                            performance/SEO.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Static-first, image optimization,
-                            analytics.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Fast, elegant, mobile-first guest
-                            experience with clear CTAs.</p>
-                        <a href="#contact"
-                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Build
-                            a Custom Site Like This</a>
-                    </article>
-
-                    <!-- Project 2 -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">Wedding Registry Web App</h3>
-                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> Product design, backend &amp; frontend,
-                            payments, admin.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Secure auth, M-Pesa/Stripe,
-                            notifications, reporting.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Smooth gifting flows and trackable
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">AI & Automation Solutions</h3>
+                        <p class="text-gray-600 leading-relaxed">Harness AI and automation to save time, cut costs, and
+                            make smarter decisions. From chatbots to workflow automation, we fit solutions to your
                             processes.</p>
-                        <a href="#contact"
-                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Launch
-                            a Product Like This</a>
-                    </article>
+                    </div>
 
-                    <!-- Project 3 -->
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="text-xl font-semibold">SDKs for developers.go.ke</h3>
-                        <p class="mt-2 text-neutral-700"><strong>Role:</strong> API design, cross-language libs
-                            (Python/TS/Java), docs, CI.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Highlights:</strong> Idiomatic patterns, robust error
-                            handling, semver, tests &amp; releases.</p>
-                        <p class="mt-2 text-neutral-700"><strong>Value:</strong> Faster integrations, fewer bugs,
-                            maintainable codebases.</p>
-                        <a href="#contact"
-                            class="mt-4 inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Need
-                            an SDK or Integration?</a>
-                    </article>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Technology Strategy & Consulting</h3>
+                        <p class="text-gray-600 leading-relaxed">We assess your setup, identify gaps, and design a
+                            strategy that aligns with your goals — reducing risk, avoiding wasted spend, and building a
+                            competitive edge.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Security & Trust Engineering</h3>
+                        <p class="text-gray-600 leading-relaxed">Protect your infrastructure, data, and applications
+                            through secure design, access controls, and resilient workflows. Including AI and SDK
+                            security expertise.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Process Optimization</h3>
+                        <p class="text-gray-600 leading-relaxed">We analyze how you work and recommend tools,
+                            integrations, and workflows that make operations leaner — lower overheads, faster delivery,
+                            and more time for growth.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover animate-slide-up">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Open Source Development</h3>
+                        <p class="text-gray-600 leading-relaxed">We build and share open-source SDKs and utilities.
+                            Reusable building blocks lower project costs, speed delivery, and increase long-term
+                            confidence.</p>
+                    </div>
                 </div>
 
-                <div class="mt-8">
+                <div class="text-center mt-12">
+                    <p class="text-sm text-gray-500 mb-6 italic">Every engagement follows OWASP-aligned practices,
+                        least-privilege access, and CI/CD checks.</p>
                     <a href="#contact"
-                        class="inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Book
-                        a Discovery Call</a>
+                        class="bg-brand-900 text-white px-8 py-3 rounded-full hover:bg-brand-800 transition-all duration-200 font-semibold shadow-lg">
+                        Start Your Project
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT -->
-        <section id="about" class="min-h-screen flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-                    <h2 class="text-3xl font-bold text-brand-900">About Us</h2>
-                    <p class="mt-3 text-neutral-700">Building technology that empowers businesses and people.</p>
-                </header>
+        <!-- Process Section -->
+        <section id="process" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">How We Work</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">A clear, secure process that keeps projects
+                        focused and predictable from start to finish.</p>
+                </div>
 
-                <div class="mt-10">
-                    <!-- Mission / Vision / Values -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="relative">
+                        <div
+                            class="bg-accent-50 rounded-2xl p-6 h-48 flex flex-col justify-center border-l-4 border-accent-500">
+                            <div class="flex items-center mb-3">
+                                <span
+                                    class="bg-accent-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">1</span>
+                                <h3 class="font-semibold text-gray-900">Reach Out</h3>
+                            </div>
+                            <p class="text-gray-600">Tell us about your goals and context.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 h-48 flex flex-col justify-center shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-3">
+                            <span
+                                class="bg-gray-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">2</span>
+                            <h3 class="font-semibold text-gray-900">Discovery Call</h3>
+                        </div>
+                        <p class="text-gray-600">60-minute deep-dive on needs, constraints, and success metrics.</p>
+                        <p class="text-xs text-gray-500 mt-2 italic">Small discovery fee applies, fully credited if you
+                            proceed.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 h-48 flex flex-col justify-center shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-3">
+                            <span
+                                class="bg-gray-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">3</span>
+                            <h3 class="font-semibold text-gray-900">Proposal & Plan</h3>
+                        </div>
+                        <p class="text-gray-600">Scope, timeline, pricing, risks & mitigations including security
+                            considerations.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 h-48 flex flex-col justify-center shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-3">
+                            <span
+                                class="bg-gray-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">4</span>
+                            <h3 class="font-semibold text-gray-900">Kickoff</h3>
+                        </div>
+                        <p class="text-gray-600">Finalize SOW, deposit invoice, communication rhythm, and security
+                            baselines.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 h-48 flex flex-col justify-center shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-3">
+                            <span
+                                class="bg-gray-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">5</span>
+                            <h3 class="font-semibold text-gray-900">Build & Iterate</h3>
+                        </div>
+                        <p class="text-gray-600">Short sprints with demos. Security baked in: OWASP coding, dependency
+                            checks, CI/CD hardening.</p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-2xl p-6 h-48 flex flex-col justify-center shadow-sm border border-gray-100">
+                        <div class="flex items-center mb-3">
+                            <span
+                                class="bg-gray-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">6</span>
+                            <h3 class="font-semibold text-gray-900">Delivery & Handover</h3>
+                        </div>
+                        <p class="text-gray-600">UAT, documentation, training, and security review of access & data
+                            handling.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-gray-50 rounded-2xl p-8">
+                    <h4 class="font-semibold text-gray-900 mb-4">Ongoing Support Available</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-medium text-gray-900 mb-2">Maintenance</h5>
+                            <p class="text-gray-600 text-sm">Updates, fixes, optimizations, and security patches.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-900 mb-2">Implementation</h5>
+                            <p class="text-gray-600 text-sm">Executing consulting outcomes and rolling out new
+                                technology with proper controls.</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <a href="#contact"
+                            class="text-accent-600 hover:text-accent-700 font-medium underline decoration-2 underline-offset-4">
+                            Prefer a quick fit check? Book a free 15-minute intro call →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Projects</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">Real work that demonstrates how we design, build,
+                        and deliver solutions.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Martin & Loice Wedding Website</h3>
+                        <div class="space-y-3 mb-6">
+                            <div><span class="font-medium text-gray-700">Role:</span> <span class="text-gray-600">UX/UI,
+                                    frontend, deployment, performance/SEO</span></div>
+                            <div><span class="font-medium text-gray-700">Highlights:</span> <span
+                                    class="text-gray-600">Static-first, image optimization, analytics</span></div>
+                            <div><span class="font-medium text-gray-700">Value:</span> <span class="text-gray-600">Fast,
+                                    elegant, mobile-first guest experience</span></div>
+                        </div>
+                        <a href="#contact"
+                            class="bg-accent-800 text-white px-6 py-2 rounded-full hover:bg-accent-700 transition-all duration-200 font-medium text-sm">
+                            Build Similar Site
+                        </a>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Wedding Registry Web App</h3>
+                        <div class="space-y-3 mb-6">
+                            <div><span class="font-medium text-gray-700">Role:</span> <span
+                                    class="text-gray-600">Product design, backend & frontend, payments, admin</span>
+                            </div>
+                            <div><span class="font-medium text-gray-700">Highlights:</span> <span
+                                    class="text-gray-600">Secure auth, M-Pesa/Stripe, notifications, reporting</span>
+                            </div>
+                            <div><span class="font-medium text-gray-700">Value:</span> <span
+                                    class="text-gray-600">Smooth gifting flows and trackable processes</span></div>
+                        </div>
+                        <a href="#contact"
+                            class="bg-accent-800 text-white px-6 py-2 rounded-full hover:bg-accent-700 transition-all duration-200 font-medium text-sm">
+                            Launch Similar Product
+                        </a>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">SDKs for developers.go.ke</h3>
+                        <div class="space-y-3 mb-6">
+                            <div><span class="font-medium text-gray-700">Role:</span> <span class="text-gray-600">API
+                                    design, cross-language libs (Python/TS/Java), docs, CI</span></div>
+                            <div><span class="font-medium text-gray-700">Highlights:</span> <span
+                                    class="text-gray-600">Idiomatic patterns, robust error handling, semver, tests &
+                                    releases</span></div>
+                            <div><span class="font-medium text-gray-700">Value:</span> <span
+                                    class="text-gray-600">Faster integrations, fewer bugs, maintainable codebases</span>
+                            </div>
+                        </div>
+                        <a href="#contact"
+                            class="bg-accent-800 text-white px-6 py-2 rounded-full hover:bg-accent-700 transition-all duration-200 font-medium text-sm">
+                            Need an SDK?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#contact"
+                        class="bg-brand-900 text-white px-8 py-3 rounded-full hover:bg-brand-800 transition-all duration-200 font-semibold shadow-lg">
+                        Discuss Your Project
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">About Us</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">Building technology that empowers businesses and
+                        people through secure, innovative solutions.</p>
+                </div>
+
+                <!-- Mission, Vision, Values -->
+                <div class="mb-16">
+                    <div class="bg-gradient-to-br from-brand-50 to-accent-50 rounded-3xl p-8 md:p-12">
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div
+                                    class="w-16 h-16 bg-brand-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                                <p class="text-gray-600 leading-relaxed">We empower and secure businesses through
+                                    technology by making powerful tools accessible to all. We help organizations harness
+                                    innovations like AI safely and cost-effectively.</p>
+                            </div>
+
+                            <div class="text-center">
+                                <div
+                                    class="w-16 h-16 bg-accent-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">Our Vision</h3>
+                                <p class="text-gray-600 leading-relaxed">To be a global leader in secure, practical
+                                    technology adoption, where businesses of all sizes confidently innovate to grow,
+                                    protect trust, and create more time for what truly matters.</p>
+                            </div>
+
+                            <div class="text-center">
+                                <div
+                                    class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-4">Our Values</h3>
+                                <p class="text-gray-600 leading-relaxed">Customer delight, teamwork, quality over
+                                    quantity, simplicity, purposeful innovation, integrity, and security by default
+                                    guide everything we do.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Values Expandable -->
+                <div class="mb-16 bg-gray-50 rounded-2xl p-8">
+                    <h4 class="text-2xl font-bold text-gray-900 mb-6 text-center">Our Core Values</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Delight our customers</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">Create trust and lasting impact through exceptional
+                                service and results.</p>
+                        </details>
+
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Team is key</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">Collaboration fuels growth and enables us to deliver
+                                better solutions.</p>
+                        </details>
+
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Quality over quantity</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">Focus on depth and reliability rather than volume.</p>
+                        </details>
+
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Simplicity matters</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">Technology should simplify business and life, not
+                                complicate it.</p>
+                        </details>
+
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Innovation with purpose</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">Empower people and solve real problems, not just
+                                showcase technology.</p>
+                        </details>
+
+                        <details class="group bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                            <summary
+                                class="flex items-center justify-between cursor-pointer font-semibold text-gray-900 hover:text-brand-700">
+                                <span>Security by default</span>
+                                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">OWASP-aligned practices and continuous risk reduction
+                                in everything we build.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Team Section -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-brand-600">LA</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Loice Andia</h3>
+                                <p class="text-brand-600 font-medium mb-3">Co-Founder & Managing Director</p>
+                                <p class="text-gray-600 text-sm mb-4 leading-relaxed">Leads strategy and operations
+                                    while pursuing an MSc in Engineering Business Management (University of Bath).
+                                    Bridges technical innovation with organizational impact; strengths in data
+                                    governance, access policy, and risk management.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://www.linkedin.com/in/loice-andia/"
+                                        class="text-accent-600 hover:text-accent-700 text-sm font-medium">LinkedIn</a>
+                                    <a href="https://github.com/lakivisi"
+                                        class="text-accent-600 hover:text-accent-700 text-sm font-medium">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                        <div class="flex items-start space-x-4">
+                            <div
+                                class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-accent-600">MM</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Martin Musale</h3>
+                                <p class="text-accent-600 font-medium mb-3">Co-Founder & Director of Technology</p>
+                                <p class="text-gray-600 text-sm mb-4 leading-relaxed">Passionate about developer tools
+                                    and secure software. Focus on secure architecture, IAM/RBAC, supply-chain security,
+                                    CI/CD hardening, and threat modeling for web and AI systems — embedding security at
+                                    every stage.</p>
+                                <div class="flex space-x-4">
+                                    <a href="https://linkedin.com/in/musalemartin"
+                                        class="text-accent-600 hover:text-accent-700 text-sm font-medium">LinkedIn</a>
+                                    <a href="https://github.com/musale"
+                                        class="text-accent-600 hover:text-accent-700 text-sm font-medium">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">Ready to transform your business with technology?
+                        Let's build something amazing together.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-2">
+                        <form class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+                            action="https://formspree.io/f/your-form-id" method="post">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name
+                                        *</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors" />
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email
+                                        Address *</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors" />
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="company"
+                                        class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                                    <input type="text" id="company" name="company"
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors" />
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message
+                                        *</label>
+                                    <textarea id="message" name="message" rows="5" required
+                                        class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit"
+                                class="w-full mt-6 bg-brand-900 text-white px-8 py-4 rounded-lg hover:bg-brand-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl">
+                                Send Message
+                            </button>
+
+                            <p class="mt-4 text-xs text-gray-500 text-center">
+                                We'll use your information to respond to your inquiry.
+                                <a href="#" class="text-accent-600 hover:text-accent-700 underline">Privacy Policy</a>
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
                     <div class="space-y-8">
-                        <div class="bg-white rounded-xl p-6 shadow-card">
-                            <div class="space-y-6">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Our Mission</h3>
-                                    <p class="mt-2 text-neutral-700">We empower and <strong>secure</strong> businesses
-                                        through technology by making powerful tools accessible to all. We help small
-                                        businesses and individuals harness innovations like AI safely and
-                                        cost-effectively, while enabling organizations to safeguard data, reduce risk,
-                                        optimize processes, and implement smarter strategies.</p>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 class="font-semibold text-gray-900 mb-4">Get in Touch</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-brand-100 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Email</p>
+                                        <a href="mailto:info@acoruss.com"
+                                            class="text-accent-600 hover:text-accent-700">info@acoruss.com</a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold">Our Vision</h3>
-                                    <p class="mt-2 text-neutral-700">To be a global leader in secure, practical
-                                        technology adoption, where businesses of all sizes confidently innovate to grow,
-                                        protect trust, and create more time for what truly matters.</p>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold">Our Values</h3>
-                                    <p class="mt-1 text-sm text-neutral-600">Click to explore our core values in detail.
-                                    </p>
-                                    <div class="mt-6 divide-y divide-gray-200">
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Delight our customers</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Create trust and lasting impact.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Team is key</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Collaboration fuels growth.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Quality over quantity</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Depth and reliability.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Simplicity matters</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Tech should simplify business and life.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Innovation with purpose</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Empower people, not just showcase tech.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Integrity, trust, and security</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>Privacy-by-design and responsible data handling.</p>
-                                                </div>
-                                            </div>
-                                        </details>
-                                        <details class="py-2 group">
-                                            <summary
-                                                class="flex w-full cursor-pointer select-none items-center justify-between text-left text-base font-semibold leading-7 text-slate-900 group-hover:text-brand-700 [&::-webkit-details-marker]:hidden">
-                                                <span>Security by default</span>
-                                                <svg class="ml-4 mt-0.5 h-6 w-6 flex-none stroke-slate-700 group-hover:stroke-brand-700"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M18 12H6"></path>
-                                                    <path class="group-open:hidden" d="M12 6v12"></path>
-                                                </svg>
-                                            </summary>
-                                            <div class="pb-2 pt-2">
-                                                <div
-                                                    class="prose prose-slate max-w-none prose-a:font-semibold prose-a:text-brand-700 hover:prose-a:text-brand-900">
-                                                    <p>OWASP-aligned practices and continuous risk reduction.</p>
-                                                </div>
-                                            </div>
-                                        </details>
+
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-accent-100 rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-accent-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Location</p>
+                                        <p class="text-gray-600">Nairobi, Kenya</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div
+                            class="bg-gradient-to-br from-brand-50 to-accent-50 rounded-2xl p-6 border border-gray-100">
+                            <h4 class="font-semibold text-gray-900 mb-4">Quick Start Options</h4>
+                            <div class="space-y-3">
+                                <a href="#contact"
+                                    class="block bg-brand-900 text-white px-6 py-3 rounded-lg hover:bg-brand-800 transition-all duration-200 font-medium text-center">
+                                    Book Discovery Call
+                                </a>
+                                <a href="#contact"
+                                    class="block bg-accent-800 text-white px-6 py-3 rounded-lg hover:bg-accent-700 transition-all duration-200 font-medium text-center">
+                                    15-min Intro Call
+                                </a>
+                            </div>
+
+                            <div class="mt-6 pt-6 border-t border-gray-200">
+                                <p class="text-sm text-gray-600 mb-3">Follow us</p>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-gray-400 hover:text-brand-600 transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-brand-600 transition-colors">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Team -->
-                    <div class="mt-10 grid gap-8 lg:grid-cols-2">
-                        <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
-                            <h3 class="text-xl font-semibold">Loice Andia &mdash; Co-Founder &amp; Managing Director
-                            </h3>
-                            <p class="mt-2 text-neutral-700">
-                                <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="https://www.linkedin.com/in/loice-andia/">LinkedIn</a> •
-                                <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="https://github.com/lakivisi">GitHub</a>
-                            </p>
-                            <p class="mt-2 text-neutral-700">Leads strategy and operations while pursuing an MSc in
-                                Engineering Business Management (University of Bath). Bridges technical innovation with
-                                organizational impact; strengths in data governance, access policy, and risk management.
-                            </p>
-                        </div>
-
-                        <div class="space-y-8 bg-white rounded-xl p-6 shadow-card">
-                            <h3 class="text-xl font-semibold">Martin Musale &mdash; Co-Founder &amp; Director of
-                                Technology</h3>
-                            <p class="mt-2 text-neutral-700">
-                                <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="https://linkedin.com/in/musalemartin">LinkedIn</a> •
-                                <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="https://github.com/musale">GitHub</a>
-                            </p>
-                            <p class="mt-2 text-neutral-700">Passionate about developer tools and secure software. Focus
-                                on secure architecture, IAM/RBAC, supply-chain security, CI/CD hardening, and threat
-                                modeling for web and AI systems &mdash; embedding security at every stage.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- BLOG -->
-        <section id="blog" class="bg-neutralx-50 min-h-screen flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="text-center mb-12 sm:mb-16 lg:mb-20">
-                    <h2 class="text-3xl font-bold text-brand-900">Latest from the Blog</h2>
-                    <p class="mt-3 text-neutral-700">Practical insights on software, AI, security, and smart tech
-                        adoption.</p>
-                </header>
-
-                <div class="mt-10 grid gap-6 md:grid-cols-3">
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="font-semibold">[Post Title 1]</h3>
-                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
-                                class="text-neutral-500">(Date • ~X min read)</span></p>
-                        <a href="#"
-                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
-                            on Substack →</a>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="font-semibold">[Post Title 2]</h3>
-                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
-                                class="text-neutral-500">(Date • ~X min read)</span></p>
-                        <a href="#"
-                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
-                            on Substack →</a>
-                    </article>
-                    <article class="bg-white rounded-xl p-6 shadow-card">
-                        <h3 class="font-semibold">[Post Title 3]</h3>
-                        <p class="mt-2 text-neutral-700">1&ndash;2 sentence summary. <span
-                                class="text-neutral-500">(Date • ~X min read)</span></p>
-                        <a href="#"
-                            class="mt-3 inline-block text-accent-600 underline decoration-2 underline-offset-4 hover:text-accent-700">Read
-                            on Substack →</a>
-                    </article>
-                </div>
-
-                <p class="mt-6 text-neutral-700">No recent posts? Show evergreen resources hosted on your domain.</p>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact" class="py-20 flex items-center">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-                <header class="max-w-prose">
-                    <h2 class="text-3xl font-bold text-brand-900">Contact Us</h2>
-                    <p class="mt-3 text-neutral-700">Let’s build something together.</p>
-                </header>
-
-                <div class="mt-10 grid gap-8 lg:grid-cols-3">
-                    <!-- Form -->
-                    <form class="bg-white rounded-xl p-6 shadow-card lg:col-span-2"
-                        action="https://formspree.io/f/your-form-id" method="post">
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="contact-name" class="block text-sm font-medium">Full Name</label>
-                                <input type="text" id="contact-name" name="name" required
-                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-                            </div>
-                            <div>
-                                <label for="contact-email" class="block text-sm font-medium">Email Address</label>
-                                <input type="email" id="contact-email" name="email" required
-                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label for="contact-company" class="block text-sm font-medium">Company
-                                    (optional)</label>
-                                <input type="text" id="contact-company" name="company"
-                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700" />
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label for="contact-message" class="block text-sm font-medium">Message</label>
-                                <textarea id="contact-message" name="message" rows="5" required
-                                    class="mt-1 w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-700"></textarea>
-                            </div>
-                        </div>
-
-                        <button type="submit"
-                            class="mt-6 inline-flex items-center rounded-lg bg-brand-900 px-5 py-3 text-white hover:bg-brand-700 transition">Send
-                            Message</button>
-                        <p class="mt-3 text-xs text-neutral-600">We’ll use your information to respond to your inquiry.
-                            See our <a href="#" class="text-accent-600 underline hover:text-accent-700">Privacy
-                                Policy</a>.</p>
-                    </form>
-
-                    <!-- Direct contact -->
-                    <aside class="bg-neutralx-50 rounded-xl p-6 border">
-                        <h3 class="font-semibold">Direct Contact</h3>
-                        <ul class="mt-3 space-y-2 text-neutral-700">
-                            <li><strong>Email:</strong> <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="mailto:info@acoruss.com">info@acoruss.com</a></li>
-                            <li><strong>Location:</strong> Nairobi, Kenya</li>
-                            <li><strong>Socials:</strong> <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="#">LinkedIn</a> • <a class="text-accent-600 underline hover:text-accent-700"
-                                    href="#">GitHub</a></li>
-                        </ul>
-                        <div class="mt-6">
-                            <a href="#contact"
-                                class="inline-flex items-center rounded-lg bg-accent-800 px-4 py-2 text-white hover:bg-accent-700 transition">Book
-                                a Discovery Call</a>
-                        </div>
-                    </aside>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t bg-neutralx-50">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid gap-8 md:grid-cols-4">
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
                 <div class="md:col-span-2">
-                    <div class="flex items-center gap-3">
-                        <img src="./public/images/logos/dark.png" alt="Acoruss Logo"
-                            class="h-8 w-8 rounded-full object-contain" />
-                        <h4 class="font-semibold">Acoruss</h4>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="./public/images/logos/dark.png" alt="Acoruss Logo" class="h-8 w-8 rounded-full" />
+                        <span class="text-xl font-bold gradient-text">Acoruss</span>
                     </div>
-                    <p class="mt-3 max-w-prose text-neutral-700">
+                    <p class="text-gray-600 max-w-md leading-relaxed mb-6">
                         We build software and open-source tools that help businesses adopt technology with confidence.
                         From advisory to implementation, we simplify complexity, reduce costs, and protect trust.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-brand-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-brand-600 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
+
                 <div>
-                    <h5 class="font-semibold">Quick Links</h5>
-                    <ul class="mt-3 space-y-2">
-                        <li><a href="#services" class="hover:text-brand-900">Services</a></li>
-                        <li><a href="#how-we-work" class="hover:text-brand-900">How We Work</a></li>
-                        <li><a href="#projects" class="hover:text-brand-900">Projects</a></li>
-                        <li><a href="#contact" class="hover:text-brand-900">Contact</a></li>
+                    <h5 class="font-semibold text-gray-900 mb-4">Quick Links</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#services"
+                                class="text-gray-600 hover:text-brand-900 transition-colors">Services</a></li>
+                        <li><a href="#process" class="text-gray-600 hover:text-brand-900 transition-colors">Our
+                                Process</a></li>
+                        <li><a href="#projects"
+                                class="text-gray-600 hover:text-brand-900 transition-colors">Projects</a></li>
+                        <li><a href="#about" class="text-gray-600 hover:text-brand-900 transition-colors">About Us</a>
+                        </li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-brand-900 transition-colors">Contact</a>
+                        </li>
                     </ul>
                 </div>
+
                 <div>
-                    <h5 class="font-semibold">Resources</h5>
-                    <ul class="mt-3 space-y-2">
-                        <li><a href="#blog" class="hover:text-brand-900">Latest Blog</a></li>
-                        <li><a href="#" class="hover:text-brand-900">Open Source on GitHub</a></li>
-                        <li><a href="#" class="hover:text-brand-900">Our Open Source SDKs</a></li>
+                    <h5 class="font-semibold text-gray-900 mb-4">Resources</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-600 hover:text-brand-900 transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-brand-900 transition-colors">Open Source</a>
+                        </li>
+                        <li><a href="#" class="text-gray-600 hover:text-brand-900 transition-colors">SDKs</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-brand-900 transition-colors">Privacy Policy</a>
+                        </li>
+                        <li><a href="#" class="text-gray-600 hover:text-brand-900 transition-colors">Terms of
+                                Service</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div
-                class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-neutral-600">
-                <div class="flex items-center gap-2">
-                    <span>© 2025 Acoruss. All rights reserved.</span>
-                    <span class="hidden sm:inline">•</span>
-                    <span>v</span>
-                    <span id="site-version">1.3.0</span> <!-- x-release-please-version -->
-                </div>
-                <div class="space-x-4">
-                    <a href="#" class="hover:text-brand-900">Privacy Policy</a>
-                    <a href="#" class="hover:text-brand-900">Terms of Service</a>
+            <div class="border-t border-gray-200 pt-8 mt-12">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-2 text-sm text-gray-500">
+                        <span>© 2025 Acoruss. All rights reserved.</span>
+                        <span class="hidden sm:inline">•</span>
+                        <span>v1.3.0</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Built with ❤️ in Nairobi, Kenya</p>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
     <script>
         // Mobile menu toggle
-        const btn = document.getElementById('menuBtn');
-        const menu = document.getElementById('mobileMenu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        // Toggle menu when button is clicked
-        btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
 
-        // Close menu when any menu item is clicked
-        const menuLinks = menu?.querySelectorAll('a');
-        menuLinks?.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
+            // Close menu when clicking on links
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observeElements = () => {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = Math.random() * 0.3 + 's';
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => observer.observe(el));
+        };
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', observeElements);
     </script>
 </body>
 

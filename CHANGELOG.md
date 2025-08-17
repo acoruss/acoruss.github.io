@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/acoruss/acoruss.github.io/compare/v1.3.1...v1.4.0) (2025-08-17)
+
+
+### Features
+
+* overhaul layout ([f35f3c6](https://github.com/acoruss/acoruss.github.io/commit/f35f3c6458f46c055296d35d6553448ff2d3acb1))
+* overhaul layout ([508ef6c](https://github.com/acoruss/acoruss.github.io/commit/508ef6cb7fcb17739be24221a265a7e3fe6f330f))
+
 ## [1.3.1](https://github.com/acoruss/acoruss.github.io/compare/v1.3.0...v1.3.1) (2025-08-16)
 
 

@@ -1,0 +1,36 @@
+{
+    "name": "acoruss-website",
+    "version": "1.0.0",
+    "description": "Acoruss company website - empowering businesses through technology",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "format": "prettier --write .",
+        "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0-alpha.24",
+        "eslint": "^8.56.0",
+        "prettier": "^3.1.1",
+        "tailwindcss": "^4.0.0-alpha.24",
+        "terser": "^5.43.1",
+        "vite": "^5.0.0"
+    },
+    "keywords": [
+        "acoruss",
+        "technology",
+        "business",
+        "consulting",
+        "AI",
+        "software-development"
+    ],
+    "author": "Acoruss Technologies",
+    "license": "MIT",
+    "homepage": "https://acoruss.com",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acoruss/acoruss.github.io.git"
+    }
+}

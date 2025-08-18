@@ -52,7 +52,7 @@ jobs:
     if: >
       github.event.pull_request.merged == true &&
       github.event.pull_request.user.login == 'github-actions[bot]' &&
-      ${{ startsWith(github.event.pull_request.title, 'chore(main): release') }}
+      startsWith(github.event.pull_request.title, 'chore(main): release')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

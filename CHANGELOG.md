@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.2](https://github.com/acoruss/acoruss.github.io/compare/v1.5.1...v1.5.2) (2025-08-18)
+
+
+### Bug Fixes
+
+* update deploy workflow to trigger on push instead of pull request ([80d69dc](https://github.com/acoruss/acoruss.github.io/commit/80d69dcf9b4aa0eaf25205f9d43e9b653b83de2c))
+* update deploy workflow to trigger on push instead of pull request ([0decd30](https://github.com/acoruss/acoruss.github.io/commit/0decd306bdc07acd993dcb3c128e114cb243b4f0))
+* update deploy workflow to trigger on version tags instead of main branch ([408f131](https://github.com/acoruss/acoruss.github.io/commit/408f131ae673487d2681f51de605ef7a3d0e46fc))
+
 ## [1.5.1](https://github.com/acoruss/acoruss.github.io/compare/v1.5.0...v1.5.1) (2025-08-18)
 
 

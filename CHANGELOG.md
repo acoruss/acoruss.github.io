@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://github.com/acoruss/acoruss.github.io/compare/v1.5.3...v1.6.0) (2025-08-18)
+
+
+### Features
+
+* add Google Analytics tracking to index, privacy policy, and ter… ([0fe7430](https://github.com/acoruss/acoruss.github.io/commit/0fe74305950a02f4254cdc258aa93ef0d8515faf))
+* add Google Analytics tracking to index, privacy policy, and terms of service pages ([0b112dc](https://github.com/acoruss/acoruss.github.io/commit/0b112dc43c8791bb5f6b62c4d35946f53b1f2357))
+
 ## [1.5.3](https://github.com/acoruss/acoruss.github.io/compare/v1.5.2...v1.5.3) (2025-08-18)
 
 

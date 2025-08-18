@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/acoruss/acoruss.github.io/compare/v1.5.0...v1.5.1) (2025-08-18)
+
+
+### Bug Fixes
+
+* deploy script ([1b1008d](https://github.com/acoruss/acoruss.github.io/commit/1b1008d693b739abcf3fd06e4def6134b8130d00))
+
 ## [1.5.0](https://github.com/acoruss/acoruss.github.io/compare/v1.4.0...v1.5.0) (2025-08-18)
 
 

@@ -9,15 +9,7 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Split vendor chunks for better caching
-          vendor: ['tailwindcss']
-        }
-      }
-    }
+    minify: 'terser'
   },
   server: {
     port: 3000,

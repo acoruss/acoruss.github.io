@@ -6,16 +6,19 @@ export default defineConfig({
   plugins: [
     tailwindcss()
   ],
+  root: 'src',
+  publicDir: '../public',
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'terser',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        privacy: resolve(__dirname, 'privacy-policy.html'),
-        terms: resolve(__dirname, 'terms-of-service.html')
+        main: resolve(__dirname, 'src/index.html'),
+        'privacy-policy': resolve(__dirname, 'src/privacy-policy.html'),
+        'terms-of-service': resolve(__dirname, 'src/terms-of-service.html')
       }
     }
   },

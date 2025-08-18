@@ -22,7 +22,7 @@ jobs:
     if: >
       github.event.pull_request.merged == true &&
       github.event.pull_request.user.login == 'github-actions[bot]' &&
-      ${{ startsWith(github.event.pull_request.title, 'chore(main): release') }}
+      startsWith(github.event.pull_request.title, 'chore(main): release')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

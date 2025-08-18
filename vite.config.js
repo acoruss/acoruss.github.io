@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [
@@ -9,7 +10,14 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser'
+    minify: 'terser',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        privacy: resolve(__dirname, 'privacy-policy.html'),
+        terms: resolve(__dirname, 'terms-of-service.html')
+      }
+    }
   },
   server: {
     port: 3000,

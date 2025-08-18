@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.5.0](https://github.com/acoruss/acoruss.github.io/compare/v1.4.0...v1.5.0) (2025-08-18)
+
+
+### Features
+
+* add blog section with loading animation and RSS feed integration ([57d740f](https://github.com/acoruss/acoruss.github.io/commit/57d740fd63b20adf3e7cba61e5b9589e3145f8dd))
+* add blog section with loading animation and RSS feed integration ([14dc2a8](https://github.com/acoruss/acoruss.github.io/commit/14dc2a841e89cfe7ddba010d35ebc0ff4a083b53))
+* Initialize Acoruss website with Vite, Tailwind CSS, and Playwright ([3fc323e](https://github.com/acoruss/acoruss.github.io/commit/3fc323ef933c09380b8d8f9ef2dd5ab213d38e12))
+* replace build to use vite, playwright ([8198041](https://github.com/acoruss/acoruss.github.io/commit/81980416224f79df3598c4ef9478d992dbee4f92))
+
+
+### Bug Fixes
+
+* emphasize call-to-action for intro call in contact section ([037a32b](https://github.com/acoruss/acoruss.github.io/commit/037a32bb55f5aa68b4696017d39d54848b81f5a1))
+* enhance call-to-action buttons and update project titles in portfolio section ([8157811](https://github.com/acoruss/acoruss.github.io/commit/8157811d3ef7fb36abbc5822f5bb164e606b3a88))
+* enhance content readability by adding emphasis to key phrases in the main sections ([1333404](https://github.com/acoruss/acoruss.github.io/commit/1333404c9ccbd2e80c5d9373b2688da3c2f1fb21))
+* enhance leadership section with improved layout, descriptions, and social links ([aaeabcb](https://github.com/acoruss/acoruss.github.io/commit/aaeabcbc274a4746ce4054c8a91998bfebb595fa))
+* improve clarity in project descriptions and enhance terminology consistency ([54bc04b](https://github.com/acoruss/acoruss.github.io/commit/54bc04b576a8a16b902afb9a952c603043f2ee3a))
+* many fixes on styling and broken links ([23124ec](https://github.com/acoruss/acoruss.github.io/commit/23124ece0ce606aa0788117b93e97529d58cc284))
+* optimize text truncation method in BlogLoader ([0726269](https://github.com/acoruss/acoruss.github.io/commit/072626967d590786c45be26a28629125bae86b5f))
+* reduce padding in service, process, projects, about, and contact sections ([1c16f0a](https://github.com/acoruss/acoruss.github.io/commit/1c16f0ae667a6466e619c1b07541741a5ceea81c))
+* remove rollupOptions for vendor chunking in Vite config ([204e88c](https://github.com/acoruss/acoruss.github.io/commit/204e88c247a88c978f9837c6f6ba25884b0c35ce))
+* remove unnecessary target attributes from privacy policy and terms of service links ([b92e830](https://github.com/acoruss/acoruss.github.io/commit/b92e830a796f8a1393fc0423aca0ae9ec413c32f))
+* rename job from build-and-deploy to build and update dependencies in deploy step ([23d6d63](https://github.com/acoruss/acoruss.github.io/commit/23d6d63f24fb806d328dd0189ee026c4dc1a4a14))
+* specify discovery fee amount in service description ([8b70124](https://github.com/acoruss/acoruss.github.io/commit/8b701242b91c650f430c579f87cb3de7bd7d72a4))
+* update contact form action URL to correct endpoint ([83859ea](https://github.com/acoruss/acoruss.github.io/commit/83859ea2c7a08f206b3fe8567045d23e5b08bb47))
+* update focus-visible outline color to brand color ([7f07664](https://github.com/acoruss/acoruss.github.io/commit/7f0766475d982f7febcc06cf036d1ff1b598400d))
+* update GitHub Actions workflow to deploy on pull request merge ([b9c308c](https://github.com/acoruss/acoruss.github.io/commit/b9c308c30a87af4ef735c73f0b986d2d8d362a87))
+* update icon colors and backgrounds to use brand styling for consistency ([c0880af](https://github.com/acoruss/acoruss.github.io/commit/c0880af850e03eab7dd61f797a83f3e528a00e71))
+* update links to privacy policy and terms of service pages for correct file paths; add missing HTML files ([0669c0a](https://github.com/acoruss/acoruss.github.io/commit/0669c0a35a4706b272cd0ee0091df15fdddecd69))
+* update links to privacy policy and terms of service, enhance Vite config for better path resolution ([cf81905](https://github.com/acoruss/acoruss.github.io/commit/cf81905876478c5b6a689a4ba6d2c4f3ba434966))
+* update social media and resource links for improved accessibility and relevance ([187c06e](https://github.com/acoruss/acoruss.github.io/commit/187c06ec4eabbdd1b8159a8aa9b0fb479ad2bfa3))
+* update version number from v1.3.0 to v1.4.0 in footer ([78d1bd9](https://github.com/acoruss/acoruss.github.io/commit/78d1bd99b65d77f3979f8812b0fa88852f2b4af5))
+
 ## [1.4.0](https://github.com/acoruss/acoruss.github.io/compare/v1.3.1...v1.4.0) (2025-08-17)
 
 

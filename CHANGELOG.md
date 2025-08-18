@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.3](https://github.com/acoruss/acoruss.github.io/compare/v1.5.2...v1.5.3) (2025-08-18)
+
+
+### Bug Fixes
+
+* ensure main branch is included in push triggers for deployment ([64db575](https://github.com/acoruss/acoruss.github.io/commit/64db575c8e9234b82c84998bb2b727f2e948f724))
+* ensure main branch is included in push triggers for deployment ([8daf3b5](https://github.com/acoruss/acoruss.github.io/commit/8daf3b56b3013d300e522698d64e0cdab61e0d49))
+* update version number to 1.5.2 in footer ([cbad1b2](https://github.com/acoruss/acoruss.github.io/commit/cbad1b2f30cb7f9400e8f97f015d9093bee90a4c))
+* update version number to 1.5.2 in footer ([26972bb](https://github.com/acoruss/acoruss.github.io/commit/26972bb3e39558a01e5452a399eef25138286eee))
+
 ## [1.5.2](https://github.com/acoruss/acoruss.github.io/compare/v1.5.1...v1.5.2) (2025-08-18)
 
 

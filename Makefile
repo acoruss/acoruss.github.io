@@ -5,7 +5,6 @@
        docker-prod-logs docker-prod-pull \
        setup clean copy-images shell
 
-SHELL := /bin/zsh
 DC := docker compose -f docker/compose.dev.yml
 DC_EXEC := $(DC) exec web
 DC_RUN := $(DC) run --rm web

@@ -4112,9 +4112,6 @@ html:has(.drawer-toggle:checked) {
 .border-accent\/30 {
   border-color: var(--fallback-a,oklch(var(--a)/0.3));
 }
-.border-base-300\/20 {
-  border-color: var(--fallback-b3,oklch(var(--b3)/0.2));
-}
 .border-base-300\/30 {
   border-color: var(--fallback-b3,oklch(var(--b3)/0.3));
 }

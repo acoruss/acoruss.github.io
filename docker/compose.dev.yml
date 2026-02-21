@@ -3,6 +3,7 @@ name: acoruss
 services:
   db:
     image: postgres:16-alpine
+    env_file: ../.env
     environment:
       POSTGRES_DB: acoruss
       POSTGRES_USER: acoruss
@@ -22,6 +23,7 @@ services:
       context: ..
       dockerfile: docker/Dockerfile
       target: development
+    env_file: ../.env
     command: >
       sh -c "cd /app/src &&
              python manage.py migrate &&

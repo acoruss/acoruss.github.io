@@ -30,7 +30,7 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="min-h-screen bg-base-100 text-base-content font-['Inter',sans-serif]">
+<body class="min-h-screen bg-base-100 text-base-content font-sans antialiased">
     {% block body %}
 
     <!-- Drawer for mobile menu -->
@@ -38,15 +38,16 @@
         <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content flex flex-col">
 
-            <!-- Navbar — fixed, glass effect, outline border (agency landing style) -->
+            <!-- Navbar — fixed, glass effect, rounded (agency landing style) -->
             {% block navbar %}
-            <div class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
+            <div class="fixed top-0 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pt-3 sm:pt-4">
                 <nav
-                    class="navbar bg-base-100/80 backdrop-blur-xl max-w-7xl w-full rounded-box outline outline-1 outline-base-content/10 shadow-lg px-4">
+                    class="navbar glass-effect max-w-6xl w-full rounded-2xl border border-base-300/60 shadow-sm px-3 sm:px-5 min-h-[3.5rem]">
                     <div class="navbar-start">
                         <!-- Mobile hamburger -->
-                        <div class="dropdown lg:hidden">
-                            <label for="mobile-drawer" tabindex="0" class="btn btn-ghost btn-circle" aria-label="Menu">
+                        <div class="lg:hidden">
+                            <label for="mobile-drawer" tabindex="0" class="btn btn-ghost btn-sm btn-circle"
+                                aria-label="Menu">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,42 +56,38 @@
                             </label>
                         </div>
                         <a href="{% url 'core:index' %}"
-                            class="btn btn-ghost text-xl font-bold tracking-tight normal-case gap-2">
-                            <img src="{% static 'images/logos/dark.png' %}" alt="Acoruss" class="h-7">
+                            class="btn btn-ghost text-lg font-bold tracking-tight normal-case gap-2 px-2">
+                            <img src="{% static 'images/logos/dark.png' %}" alt="Acoruss" class="h-6">
                         </a>
                     </div>
                     <div class="navbar-center hidden lg:flex">
-                        <nav class="flex gap-1">
+                        <nav class="flex gap-0.5">
                             <a href="{% url 'core:index' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Home</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Home</a>
                             <a href="{% url 'core:services' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Services</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Services</a>
                             <a href="{% url 'core:pricing' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Pricing</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Pricing</a>
                             <a href="{% url 'core:index' %}#process"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Process</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Process</a>
                             <a href="{% url 'core:projects' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Projects</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Projects</a>
                             <a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Blog</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Blog</a>
                             <a href="{% url 'core:about' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">About</a>
-                            <a href="{% url 'core:contact' %}"
-                                class="btn btn-ghost btn-sm text-sm font-medium rounded-btn">Contact</a>
+                                class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">About</a>
                         </nav>
                     </div>
                     <div class="navbar-end gap-2">
                         <a href="{% url 'core:contact' %}"
-                            class="btn btn-primary btn-sm rounded-full px-5 font-semibold hidden lg:inline-flex gap-2">
-                            <span>Tell Us About Your Project</span>
-                            <div class="bg-primary-content/20 rounded-full w-6 h-6 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M5 12h14" />
-                                    <path d="m12 5 7 7-7 7" />
-                                </svg>
-                            </div>
+                            class="btn btn-primary btn-sm rounded-full px-5 font-semibold hidden lg:inline-flex gap-2 shadow-sm">
+                            <span>Get Started</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                                <path d="m12 5 7 7-7 7" />
+                            </svg>
                         </a>
                     </div>
                 </nav>
@@ -101,7 +98,7 @@
             <main>
                 <!-- Django messages -->
                 {% if messages %}
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
                     {% for message in messages %}
                     <div
                         class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %} mb-2 rounded-xl shadow-sm">
@@ -116,27 +113,30 @@
 
             <!-- Newsletter Section -->
             {% block newsletter %}
-            <section class="bg-base-200 py-16">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-2">Stay in the loop</h3>
-                            <p class="text-base-content/70 text-sm max-w-md">Subscribe to our newsletter for technology
-                                insights, updates, and exclusive resources.</p>
-                        </div>
-                        <div class="flex gap-2 w-full md:w-auto">
-                            <input type="email" placeholder="Enter your email"
-                                class="input input-bordered rounded-full w-full md:w-72 text-sm" />
-                            <a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
-                                class="btn btn-primary rounded-full px-6 font-semibold gap-2">
-                                Subscribe
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M5 12h14" />
-                                    <path d="m12 5 7 7-7 7" />
-                                </svg>
-                            </a>
+            <section class="py-16 bg-base-200">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-base-100 rounded-2xl border border-base-300/60 p-8 sm:p-10">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-1">Stay in the loop</h3>
+                                <p class="text-base-content/60 text-sm max-w-md">Subscribe to our newsletter for
+                                    technology
+                                    insights, updates, and exclusive resources.</p>
+                            </div>
+                            <div class="flex gap-2 w-full md:w-auto">
+                                <input type="email" placeholder="Enter your email"
+                                    class="input input-bordered rounded-full w-full md:w-64 text-sm bg-base-200/50 border-base-300" />
+                                <a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
+                                    class="btn btn-primary rounded-full px-6 font-semibold gap-2 shadow-sm">
+                                    Subscribe
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M5 12h14" />
+                                        <path d="m12 5 7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -146,37 +146,37 @@
             <!-- Footer -->
             {% block footer %}
             <footer class="bg-neutral text-neutral-content">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                         <!-- Company info -->
-                        <div>
+                        <div class="sm:col-span-2 lg:col-span-1">
                             <div class="flex items-center gap-2 mb-4">
-                                <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-8">
+                                <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-7">
                             </div>
-                            <p class="text-sm opacity-70 leading-relaxed mb-6">We build software and open-source tools
-                                that help businesses adopt technology with confidence. From advisory to implementation,
-                                we simplify complexity, reduce costs, and protect trust.</p>
-                            <div class="flex gap-3">
+                            <p class="text-sm text-neutral-content/60 leading-relaxed mb-6">We build software and
+                                open-source tools
+                                that help businesses adopt technology with confidence.</p>
+                            <div class="flex gap-2">
                                 <a href="https://www.linkedin.com/company/acoruss/" target="_blank"
                                     rel="noopener noreferrer" aria-label="LinkedIn"
-                                    class="btn btn-ghost btn-sm btn-circle opacity-70 hover:opacity-100">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    class="btn btn-ghost btn-sm btn-circle text-neutral-content/50 hover:text-accent">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                                     </svg>
                                 </a>
                                 <a href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer"
                                     aria-label="GitHub"
-                                    class="btn btn-ghost btn-sm btn-circle opacity-70 hover:opacity-100">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    class="btn btn-ghost btn-sm btn-circle text-neutral-content/50 hover:text-accent">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                                     </svg>
                                 </a>
                                 <a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
                                     aria-label="Substack"
-                                    class="btn btn-ghost btn-sm btn-circle opacity-70 hover:opacity-100">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    class="btn btn-ghost btn-sm btn-circle text-neutral-content/50 hover:text-accent">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24l9.6-5.244 9.6 5.244V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
                                     </svg>
@@ -186,57 +186,73 @@
 
                         <!-- Services -->
                         <div>
-                            <h4 class="font-bold text-lg mb-4">Services</h4>
-                            <ul class="space-y-2 text-sm">
+                            <h4 class="font-semibold text-sm uppercase tracking-wider text-neutral-content/40 mb-4">
+                                Services</h4>
+                            <ul class="space-y-2.5 text-sm">
                                 <li><a href="{% url 'core:services' %}#website-development"
-                                        class="link link-hover opacity-70 hover:opacity-100">Website Development</a>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Website
+                                        Development</a>
                                 </li>
                                 <li><a href="{% url 'core:services' %}#custom-software"
-                                        class="link link-hover opacity-70 hover:opacity-100">Custom Software</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Custom
+                                        Software</a></li>
                                 <li><a href="{% url 'core:services' %}#ai"
-                                        class="link link-hover opacity-70 hover:opacity-100">AI & Automation</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">AI &
+                                        Automation</a></li>
                                 <li><a href="{% url 'core:services' %}#consultation"
-                                        class="link link-hover opacity-70 hover:opacity-100">Strategy & Consulting</a>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Strategy &
+                                        Consulting</a>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Company -->
                         <div>
-                            <h4 class="font-bold text-lg mb-4">Company</h4>
-                            <ul class="space-y-2 text-sm">
+                            <h4 class="font-semibold text-sm uppercase tracking-wider text-neutral-content/40 mb-4">
+                                Company</h4>
+                            <ul class="space-y-2.5 text-sm">
                                 <li><a href="{% url 'core:about' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">About Us</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">About Us</a>
+                                </li>
                                 <li><a href="{% url 'core:projects' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">Projects</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Projects</a>
+                                </li>
                                 <li><a href="{% url 'core:pricing' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">Pricing</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Pricing</a>
+                                </li>
                                 <li><a href="{% url 'core:contact' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">Contact Us</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Contact
+                                        Us</a></li>
                             </ul>
                         </div>
 
                         <!-- Legal -->
                         <div>
-                            <h4 class="font-bold text-lg mb-4">Legal</h4>
-                            <ul class="space-y-2 text-sm">
+                            <h4 class="font-semibold text-sm uppercase tracking-wider text-neutral-content/40 mb-4">
+                                Legal</h4>
+                            <ul class="space-y-2.5 text-sm">
                                 <li><a href="{% url 'core:privacy_policy' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">Privacy Policy</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Privacy
+                                        Policy</a></li>
                                 <li><a href="{% url 'core:terms_of_service' %}"
-                                        class="link link-hover opacity-70 hover:opacity-100">Terms of Service</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Terms of
+                                        Service</a></li>
                                 <li><a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
-                                        class="link link-hover opacity-70 hover:opacity-100">Blog</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Blog</a>
+                                </li>
                                 <li><a href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer"
-                                        class="link link-hover opacity-70 hover:opacity-100">Open Source</a></li>
+                                        class="text-neutral-content/60 hover:text-accent transition-colors">Open
+                                        Source</a></li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="divider divider-neutral opacity-20"></div>
-
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-60">
-                        <p>&copy; {% now "Y" %} Acoruss. All rights reserved.</p>
-                        <p>Built with &hearts; in Nairobi, Kenya</p>
+                    <div class="border-t border-neutral-content/10 mt-12 pt-8">
+                        <div
+                            class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-content/40">
+                            <p>&copy; {% now "Y" %} Acoruss. All rights reserved.</p>
+                            <p>Built with &hearts; in Nairobi, Kenya</p>
+                        </div>
                     </div>
                 </div>
             </footer>
@@ -248,12 +264,9 @@
         <div class="drawer-side z-[60]">
             <label for="mobile-drawer" aria-label="Close menu" class="drawer-overlay"></label>
             <div class="menu p-6 w-72 min-h-full bg-base-100 text-base-content">
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center mb-8">
                     <div class="flex items-center gap-2">
-                        <div
-                            class="w-7 h-7 bg-primary rounded-lg flex items-center justify-center text-primary-content font-bold text-xs">
-                            A</div>
-                        <span class="font-bold">Acoruss</span>
+                        <img src="{% static 'images/logos/dark.png' %}" alt="Acoruss" class="h-6">
                     </div>
                     <label for="mobile-drawer" class="btn btn-ghost btn-sm btn-circle" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -265,31 +278,41 @@
                 </div>
                 <a href="{% url 'core:contact' %}"
                     class="btn btn-primary btn-sm rounded-full mb-6 w-full font-semibold gap-2">
-                    Tell Us About Your Project
+                    Get Started
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14" />
                         <path d="m12 5 7 7-7 7" />
                     </svg>
                 </a>
-                <ul class="space-y-1">
+                <ul class="space-y-0.5">
                     <li><a href="{% url 'core:index' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Home</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Home</a></li>
                     <li><a href="{% url 'core:services' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Services</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Services</a></li>
                     <li><a href="{% url 'core:pricing' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Pricing</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Pricing</a></li>
                     <li><a href="{% url 'core:index' %}#process"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Process</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Process</a></li>
                     <li><a href="{% url 'core:projects' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Projects</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Projects</a></li>
                     <li><a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Blog</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Blog</a></li>
                     <li><a href="{% url 'core:about' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">About</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">About</a></li>
                     <li><a href="{% url 'core:contact' %}"
-                            class="py-3 px-4 rounded-lg hover:bg-base-200 block font-medium">Contact</a></li>
+                            class="py-3 px-4 rounded-xl hover:bg-base-200 block font-medium text-sm">Contact</a></li>
                 </ul>
+                <!-- Mobile contact info -->
+                <div class="mt-auto pt-8 border-t border-base-300/60">
+                    <a href="mailto:info@acoruss.com" class="flex items-center gap-2 text-sm text-base-content/50 py-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        info@acoruss.com
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -5,30 +5,35 @@
 /* Custom utilities */
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #590303, #b91c1c, #A68080);
-    background-size: 200% 200%;
-    animation: gradient 4s ease infinite;
+    background: linear-gradient(135deg, #7A1C1C, #C8956A);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .hero-gradient {
-    background: linear-gradient(135deg, rgba(89, 3, 3, 0.03) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(166, 128, 128, 0.03) 100%);
+    background: linear-gradient(160deg, #1A1612 0%, #2C2520 40%, #3D1C1C 100%);
   }
 
   .glass-effect {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(253, 252, 250, 0.85);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(26, 22, 18, 0.8);
   }
 
   .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card-hover:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26, 22, 18, 0.08);
   }
 
   .line-clamp-2 {
@@ -46,37 +51,38 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Subtle dot grid pattern for sections */
+  .dot-pattern {
+    background-image: radial-gradient(circle, rgba(122, 28, 28, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }
 
 /* Animations */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes gradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
 .animate-fade-in {
-  animation: fade-in 0.8s ease-in-out;
+  animation: fade-in 0.6s ease-out;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.6s ease-out;
+  animation: slide-up 0.5s ease-out;
 }
 
-/* Scroll-triggered fade-in-up animation */
+/* Scroll-triggered animation */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -85,7 +91,7 @@
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.7s ease-out forwards;
+  animation: fade-in-up 0.6s ease-out forwards;
 }
 
 [data-animate] {
@@ -110,6 +116,11 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #590303;
+  outline: 2px solid #7A1C1C;
   outline-offset: 2px;
+}
+
+/* Smooth transitions on interactive elements */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }

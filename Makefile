@@ -77,7 +77,7 @@ tailwind-watch: ## Watch Tailwind CSS for changes (development)
 
 copy-images: ## Copy public images to static directory
 	mkdir -p src/static/images/logos
-	cp -r public/images/logos/* src/static/images/logos/
+	cp -r public/images/* src/static/images/
 
 # ─── Docker ──────────────────────────────────────────────────
 

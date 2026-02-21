@@ -1,8 +1,8 @@
 .PHONY: help dev run migrate makemigrations createsuperuser collectstatic \
        format lint test template-test \
        tailwind-build tailwind-watch tailwind-install \
-       docker-build docker-push docker-prod-up docker-prod-down \
-       docker-prod-logs docker-prod-pull \
+       docker-build docker-push prod-up prod-down \
+       prod-logs prod-pull prod-migrate prod-collectstatic \
        setup clean copy-images shell
 
 DC := docker compose -f docker/compose.dev.yml
@@ -83,6 +83,8 @@ copy-images: ## Copy public images to static directory
 
 IMAGE_NAME := ghcr.io/acoruss/acoruss.github.io
 IMAGE_TAG  ?= latest
+DC_PROD := docker compose -f docker/compose.prod.yml
+DC_PROD_EXEC := $(DC_PROD) exec web
 
 docker-build: ## Build Docker production image locally
 	docker build -f docker/Dockerfile --target production -t $(IMAGE_NAME):$(IMAGE_TAG) .
@@ -90,17 +92,24 @@ docker-build: ## Build Docker production image locally
 docker-push: ## Push Docker image to GHCR (requires docker login)
 	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
-docker-prod-up: ## Start production Docker containers
-	docker compose --env-file .env -f docker/compose.prod.yml up -d
+prod-up: ## Start production containers and collect static files
+	$(DC_PROD) up -d
+	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py collectstatic --noinput"
 
-docker-prod-down: ## Stop production Docker containers
-	docker compose --env-file .env -f docker/compose.prod.yml down
+prod-down: ## Stop production Docker containers
+	$(DC_PROD) down
 
-docker-prod-logs: ## View production Docker container logs
-	docker compose --env-file .env -f docker/compose.prod.yml logs -f
+prod-logs: ## View production Docker container logs
+	$(DC_PROD) logs -f
 
-docker-prod-pull: ## Pull latest production image from GHCR
+prod-pull: ## Pull latest production image from GHCR
 	docker pull $(IMAGE_NAME):$(IMAGE_TAG)
+
+prod-migrate: ## Run database migrations in production
+	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py migrate"
+
+prod-collectstatic: ## Collect static files in production
+	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py collectstatic --noinput"
 
 # ─── Cleanup ─────────────────────────────────────────────────
 

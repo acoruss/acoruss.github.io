@@ -16,16 +16,9 @@ services:
     env_file: ../.env
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.prod
-      - DATABASE_URL=postgres://${POSTGRES_USER:-acoruss}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-acoruss}
-      - SECRET_KEY=${SECRET_KEY:?SECRET_KEY is required}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-acoruss.com,www.acoruss.com}
-      - MAILGUN_API_KEY=${MAILGUN_API_KEY:-}
-      - MAILGUN_DOMAIN=${MAILGUN_DOMAIN:-acoruss.com}
-      - PAYSTACK_SECRET_KEY=${PAYSTACK_SECRET_KEY:-}
-      - PAYSTACK_PUBLIC_KEY=${PAYSTACK_PUBLIC_KEY:-}
-      - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID:-G-BSXKG26LSP}
+      - DATABASE_URL=postgres://acoruss:acoruss@db:5432/acoruss
     ports:
-      - "${WEB_PORT:-8083}:8000"
+      - "8083:8000"
     depends_on:
       db:
         condition: service_healthy

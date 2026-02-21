@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Urbanist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
@@ -19,22 +19,23 @@ module.exports = {
     themes: [
       {
         acoruss: {
-          "primary": "#7A1C1C",          // Warmer, slightly brighter maroon — keeps brand identity, better contrast
+          "color-scheme": "dark",
+          "primary": "#7A1C1C",          // Warm maroon — CTAs, highlights
           "primary-content": "#FFFFFF",
-          "secondary": "#3D1C1C",        // Deep warm brown — dark accent for variety
+          "secondary": "#3D1C1C",        // Deep warm brown — variety card fills
           "secondary-content": "#F5F0EB",
-          "accent": "#C8956A",           // Warm amber/gold — beautiful complement to maroon
-          "accent-content": "#1A1612",
-          "neutral": "#1A1612",          // Warm near-black (not harsh pure black)
-          "neutral-content": "#F5F0EB",  // Warm off-white
-          "base-100": "#FDFCFA",         // Warm white — easier on the eyes
-          "base-200": "#F5F0EB",         // Warm light cream
-          "base-300": "#E8E2DA",         // Warm light gray
-          "base-content": "#2C2520",     // Warm dark brown for body text — softer than black
-          "info": "#4A7FB5",             // Softer blue
-          "success": "#4A8C5C",          // Muted green
-          "warning": "#C89545",          // Warm amber
-          "error": "#B54A4A",            // Muted red (not screaming)
+          "accent": "#C8956A",           // Warm amber/gold — emphasis, featured elements
+          "accent-content": "#0F0D0B",
+          "neutral": "#0C0A08",          // Deepest dark — footer/CTA subtle diff
+          "neutral-content": "#F5F0EB",  // Warm off-white text on dark
+          "base-100": "#0F0D0B",         // Very dark warm — page background
+          "base-200": "#1A1612",         // Slightly lighter — cards, elevated surfaces
+          "base-300": "#2C2520",         // Medium dark — borders, dividers
+          "base-content": "#E8E2DA",     // Warm off-white — body text
+          "info": "#5B9BD5",             // Soft blue
+          "success": "#5B9B6B",          // Muted green
+          "warning": "#D4A843",          // Warm gold
+          "error": "#C94444",            // Warm red
         },
       },
     ],

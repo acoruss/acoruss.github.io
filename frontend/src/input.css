@@ -12,13 +12,13 @@
   }
 
   .hero-gradient {
-    background: linear-gradient(160deg, #1A1612 0%, #2C2520 40%, #3D1C1C 100%);
+    background: linear-gradient(160deg, #0F0D0B 0%, #1A1612 40%, #2C1A18 100%);
   }
 
   .glass-effect {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background: rgba(253, 252, 250, 0.85);
+    background: rgba(26, 22, 18, 0.75);
   }
 
   .glass-dark {
@@ -33,7 +33,7 @@
 
   .card-hover:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(26, 22, 18, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
   }
 
   .line-clamp-2 {
@@ -54,7 +54,7 @@
 
   /* Subtle dot grid pattern for sections */
   .dot-pattern {
-    background-image: radial-gradient(circle, rgba(122, 28, 28, 0.06) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(200, 149, 106, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 }
@@ -116,7 +116,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #7A1C1C;
+  outline: 2px solid #C8956A;
   outline-offset: 2px;
 }
 

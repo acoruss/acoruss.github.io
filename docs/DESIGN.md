@@ -42,7 +42,7 @@
 
 #### Typography
 
-- Font family: Inter (Google Fonts)
+- Font family: Urbanist (Google Fonts)
 - Headings: font-bold, text-4xl/5xl on desktop, text-3xl/4xl on mobile
 - Section badges: text-xs uppercase tracking-wider
 - Body text: text-base-content/70 for secondary text, full opacity for primary

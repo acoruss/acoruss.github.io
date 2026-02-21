@@ -8,109 +8,104 @@ more.{% endblock %}
 
 {% block content %}
 <!-- Pricing Hero -->
-<section class="pt-32 pb-20 bg-base-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+<section class="pt-32 pb-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
         <div
-            class="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-4 text-primary text-sm font-semibold uppercase tracking-wider">
+            class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+            <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
             Pricing
         </div>
         <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Transparent Pricing, Scoped to <span
-                class="text-primary">Outcomes</span></h1>
-        <p class="text-xl text-base-content/60 max-w-2xl mx-auto mb-8">Pricing is based on scope, complexity,
-            integrations, and
-            timelines. We tailor solutions to fit your budget and goals.</p>
+                class="text-accent">Outcomes</span></h1>
+        <p class="text-lg text-base-content/60 max-w-2xl mx-auto mb-8">Pricing is based on scope, complexity,
+            integrations, and timelines. We tailor solutions to fit your budget and goals.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg">Request
                 a Quote</a>
-            <a href="{% url 'core:contact' %}" class="btn btn-outline btn-primary rounded-full px-8 font-semibold">Book
+            <a href="{% url 'core:contact' %}" class="btn btn-outline rounded-full px-8 font-semibold">Book
                 Discovery Call</a>
         </div>
     </div>
 </section>
 
 <!-- How Pricing Works -->
-<section class="py-16 bg-base-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">How Our Pricing Works</h2>
+<section class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12">How Our Pricing Works</h2>
 
         <!-- 6-step visual strip -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-accent text-accent-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     1</div>
-                <p class="text-sm font-medium text-gray-900">Discovery</p>
+                <p class="text-sm font-medium">Discovery</p>
             </div>
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-primary/80 text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-accent/80 text-accent-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     2</div>
-                <p class="text-sm font-medium text-gray-900">Scope & Estimate</p>
+                <p class="text-sm font-medium">Scope & Estimate</p>
             </div>
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-primary/60 text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-accent/60 text-accent-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     3</div>
-                <p class="text-sm font-medium text-gray-900">Proposal & Milestones</p>
+                <p class="text-sm font-medium">Proposal & Milestones</p>
             </div>
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-primary text-primary-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     4</div>
-                <p class="text-sm font-medium text-gray-900">Build & QA</p>
+                <p class="text-sm font-medium">Build & QA</p>
             </div>
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-secondary/80 text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-primary/80 text-primary-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     5</div>
-                <p class="text-sm font-medium text-gray-900">Launch & Handover</p>
+                <p class="text-sm font-medium">Launch & Handover</p>
             </div>
             <div class="text-center p-4">
                 <div
-                    class="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
+                    class="w-12 h-12 bg-accent text-accent-content rounded-full flex items-center justify-center mx-auto mb-3 font-bold">
                     6</div>
-                <p class="text-sm font-medium text-gray-900">Support & Iteration</p>
+                <p class="text-sm font-medium">Support & Iteration</p>
             </div>
         </div>
 
         <!-- What influences cost -->
-        <div class="bg-base-200 rounded-2xl p-8 mb-16">
-            <h3 class="text-xl font-bold text-gray-900 mb-4">What Influences Cost</h3>
+        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-8 mb-16">
+            <h3 class="text-xl font-bold mb-4">What Influences Cost</h3>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                 <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                    </svg>
-                    <span class="text-gray-600 text-sm">Number of pages/screens</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span class="text-base-content/60 text-sm">Number of pages/screens</span>
                 </div>
                 <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                    </svg>
-                    <span class="text-gray-600 text-sm">Integrations (payments, CRM, auth, messaging)</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span class="text-base-content/60 text-sm">Integrations (payments, CRM, auth, messaging)</span>
                 </div>
                 <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                    </svg>
-                    <span class="text-gray-600 text-sm">Content readiness (copy, images, brand assets)</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span class="text-base-content/60 text-sm">Content readiness (copy, images, brand assets)</span>
                 </div>
                 <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                    </svg>
-                    <span class="text-gray-600 text-sm">Deadline / urgency</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span class="text-base-content/60 text-sm">Deadline / urgency</span>
                 </div>
                 <div class="flex items-start gap-2">
-                    <svg class="w-5 h-5 text-primary mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                    </svg>
-                    <span class="text-gray-600 text-sm">Security/compliance requirements</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    <span class="text-base-content/60 text-sm">Security/compliance requirements</span>
                 </div>
             </div>
         </div>
@@ -118,124 +113,117 @@ more.{% endblock %}
 </section>
 
 <!-- Pricing Buckets -->
-<section class="py-16 bg-base-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-4">"Start Here" Pricing Anchors</h2>
-        <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Common outcomes and their typical investment
+<section class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-4">"Start Here" Pricing Anchors</h2>
+        <p class="text-base-content/60 text-center mb-12 max-w-2xl mx-auto">Common outcomes and their typical investment
             ranges.</p>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Launch / Marketing Websites -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">Launch / Marketing Websites</h3>
-                    <p class="text-gray-600 text-sm mb-3">For individuals and small businesses, often with a single
+                    <p class="text-base-content/60 text-sm mb-3">For individuals and small businesses, often with a single
                         product or service.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">~1 week</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 30,000 – 100,000</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 30,000 – 100,000</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Business Websites -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">Business Websites That Generate Leads</h3>
-                    <p class="text-gray-600 text-sm mb-3">For small businesses and individuals building online presence
+                    <p class="text-base-content/60 text-sm mb-3">For small businesses and individuals building online presence
                         and business.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4–6 weeks+</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 80,000 – 150,000</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 80,000 – 150,000</span></div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 italic">Timeline assumes client provides copy/images within 7
+                    <p class="text-xs text-base-content/40 mt-2 italic">Timeline assumes client provides copy/images within 7
                         days.</p>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
 
-            <!-- E-commerce -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">E-Commerce & Bookings</h3>
-                    <p class="text-gray-600 text-sm mb-3">For businesses scaling services to capture the online market.
-                    </p>
+                    <p class="text-base-content/60 text-sm mb-3">For businesses scaling services to capture the online market.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">6–8 weeks+</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 130,000 – 500,000+</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 130,000 – 500,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Web Apps -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">Web Apps & Portals</h3>
-                    <p class="text-gray-600 text-sm mb-3">For businesses and individuals using web technologies to run
+                    <p class="text-base-content/60 text-sm mb-3">For businesses and individuals using web technologies to run
                         or streamline processes.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4–6 weeks</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 100,000+</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 100,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#custom-software"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Automation -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">Automation & Integrations</h3>
-                    <p class="text-gray-600 text-sm mb-3">For individuals or businesses with processes that benefit from
+                    <p class="text-base-content/60 text-sm mb-3">For individuals or businesses with processes that benefit from
                         machine automation.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4–6 weeks</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 50,000 – 250,000+</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 50,000 – 250,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#ai"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Security -->
-            <div class="card bg-base-100 shadow-sm border border-gray-100">
+            <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <div class="card-body">
                     <h3 class="card-title text-lg">Security & Hardening</h3>
-                    <p class="text-gray-600 text-sm mb-3">For businesses that need audits or have been compromised.</p>
+                    <p class="text-base-content/60 text-sm mb-3">For businesses that need audits or have been compromised.</p>
                     <div class="space-y-2 text-sm">
-                        <div class="flex justify-between"><span class="text-gray-500">Timeline:</span><span
+                        <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4–6 weeks</span></div>
-                        <div class="flex justify-between"><span class="text-gray-500">From:</span><span
-                                class="text-primary font-bold">Ksh. 100,000+</span></div>
+                        <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
+                                class="text-accent font-bold">Ksh. 100,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#security"
-                            class="btn btn-outline btn-primary btn-sm rounded-full w-full">See exact pricing</a>
+                            class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>
                     </div>
                 </div>
             </div>
@@ -244,109 +232,96 @@ more.{% endblock %}
 </section>
 
 <!-- Payment Structure -->
-<section class="py-16 bg-base-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-12">
             <!-- Payment Structure -->
-            <div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Payment Structure</h2>
+            <div data-animate>
+                <h2 class="text-2xl font-bold mb-6">Payment Structure</h2>
                 <div class="space-y-4">
                     <div class="flex items-start gap-3">
                         <span class="badge badge-primary badge-sm mt-1">1</span>
-                        <div>
-                            <p class="font-medium text-gray-900">30% deposit to start</p>
-                        </div>
+                        <p class="font-medium">30% deposit to start</p>
                     </div>
                     <div class="flex items-start gap-3">
                         <span class="badge badge-neutral badge-sm mt-1">2</span>
-                        <div>
-                            <p class="font-medium text-gray-900">Milestone billing</p>
-                        </div>
+                        <p class="font-medium">Milestone billing</p>
                     </div>
                     <div class="flex items-start gap-3">
                         <span class="badge badge-neutral badge-sm mt-1">3</span>
-                        <div>
-                            <p class="font-medium text-gray-900">Final payment at handover</p>
-                        </div>
+                        <p class="font-medium">Final payment at handover</p>
                     </div>
                 </div>
 
                 <div class="mt-8">
-                    <h3 class="text-lg font-bold text-gray-900 mb-3">Change Requests</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
+                    <h3 class="text-lg font-bold mb-3">Change Requests</h3>
+                    <ul class="space-y-2 text-sm text-base-content/60">
                         <li class="flex items-start gap-2">
-                            <span class="text-primary">•</span> Clear definition of "in scope" vs "out of scope"
+                            <span class="text-accent">•</span> Clear definition of "in scope" vs "out of scope"
                         </li>
                         <li class="flex items-start gap-2">
-                            <span class="text-primary">•</span> Change orders are handled transparently with adjusted
-                            timelines
+                            <span class="text-accent">•</span> Change orders are handled transparently with adjusted timelines
                         </li>
                     </ul>
                 </div>
 
                 <div class="mt-8">
-                    <h3 class="text-lg font-bold text-gray-900 mb-3">Ownership</h3>
-                    <ul class="space-y-2 text-sm text-gray-600">
+                    <h3 class="text-lg font-bold mb-3">Ownership</h3>
+                    <ul class="space-y-2 text-sm text-base-content/60">
                         <li class="flex items-start gap-2">
-                            <span class="text-primary">•</span> Client owns custom deliverables after full payment
+                            <span class="text-accent">•</span> Client owns custom deliverables after full payment
                         </li>
                         <li class="flex items-start gap-2">
-                            <span class="text-primary">•</span> Acoruss retains ownership of pre-existing frameworks,
+                            <span class="text-accent">•</span> Acoruss retains ownership of pre-existing frameworks,
                             libraries, internal tooling, and reusable components
                         </li>
                         <li class="flex items-start gap-2">
-                            <span class="text-primary">•</span> Licenses clarified in SOW
+                            <span class="text-accent">•</span> Licences clarified in SOW
                         </li>
                     </ul>
                 </div>
             </div>
 
             <!-- Ongoing Support -->
-            <div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Ongoing Support Plans</h2>
-                <p class="text-sm text-gray-500 mb-6 italic">No roll-over on unused hours.</p>
-                <div class="space-y-6">
-                    <div class="card bg-base-200 border border-gray-200">
-                        <div class="card-body p-5">
-                            <h3 class="font-bold text-gray-900">Essentials</h3>
-                            <p class="text-sm text-gray-500 mb-2">Basic maintenance</p>
-                            <p class="text-primary font-bold text-lg">From Ksh. 10,000<span
-                                    class="text-gray-500 text-sm font-normal">/month</span></p>
-                            <ul class="text-sm text-gray-600 mt-3 space-y-1">
-                                <li>• 10 hours/month</li>
-                                <li>• Response within 1 working day</li>
-                                <li>• Monitoring and backups</li>
-                            </ul>
-                        </div>
+            <div data-animate>
+                <h2 class="text-2xl font-bold mb-6">Ongoing Support Plans</h2>
+                <p class="text-sm text-base-content/50 mb-6 italic">No roll-over on unused hours.</p>
+                <div class="space-y-5">
+                    <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-5">
+                        <h3 class="font-bold">Essentials</h3>
+                        <p class="text-sm text-base-content/50 mb-2">Basic maintenance</p>
+                        <p class="text-accent font-bold text-lg">From Ksh. 10,000<span
+                                class="text-base-content/50 text-sm font-normal">/month</span></p>
+                        <ul class="text-sm text-base-content/60 mt-3 space-y-1">
+                            <li>• 10 hours/month</li>
+                            <li>• Response within 1 working day</li>
+                            <li>• Monitoring and backups</li>
+                        </ul>
                     </div>
-                    <div class="card bg-base-200 border border-primary/30">
-                        <div class="card-body p-5">
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-bold text-gray-900">Standard</h3>
-                                <span class="badge badge-primary badge-sm">Popular</span>
-                            </div>
-                            <p class="text-sm text-gray-500 mb-2">Maintenance + small improvements</p>
-                            <p class="text-primary font-bold text-lg">From Ksh. 15,000<span
-                                    class="text-gray-500 text-sm font-normal">/month</span></p>
-                            <ul class="text-sm text-gray-600 mt-3 space-y-1">
-                                <li>• 15 hours/month</li>
-                                <li>• Response within 12 hours</li>
-                                <li>• Monitoring and backups</li>
-                            </ul>
+                    <div class="rounded-2xl bg-base-200/50 border border-accent/30 p-5">
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-bold">Standard</h3>
+                            <span class="badge badge-accent badge-sm">Popular</span>
                         </div>
+                        <p class="text-sm text-base-content/50 mb-2">Maintenance + small improvements</p>
+                        <p class="text-accent font-bold text-lg">From Ksh. 15,000<span
+                                class="text-base-content/50 text-sm font-normal">/month</span></p>
+                        <ul class="text-sm text-base-content/60 mt-3 space-y-1">
+                            <li>• 15 hours/month</li>
+                            <li>• Response within 12 hours</li>
+                            <li>• Monitoring and backups</li>
+                        </ul>
                     </div>
-                    <div class="card bg-base-200 border border-gray-200">
-                        <div class="card-body p-5">
-                            <h3 class="font-bold text-gray-900">Priority</h3>
-                            <p class="text-sm text-gray-500 mb-2">Faster response + monitoring + proactive work</p>
-                            <p class="text-primary font-bold text-lg">From Ksh. 25,000<span
-                                    class="text-gray-500 text-sm font-normal">/month</span></p>
-                            <ul class="text-sm text-gray-600 mt-3 space-y-1">
-                                <li>• 20 hours/month</li>
-                                <li>• Response within 4 hours</li>
-                                <li>• Monitoring and backups</li>
-                            </ul>
-                        </div>
+                    <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-5">
+                        <h3 class="font-bold">Priority</h3>
+                        <p class="text-sm text-base-content/50 mb-2">Faster response + monitoring + proactive work</p>
+                        <p class="text-accent font-bold text-lg">From Ksh. 25,000<span
+                                class="text-base-content/50 text-sm font-normal">/month</span></p>
+                        <ul class="text-sm text-base-content/60 mt-3 space-y-1">
+                            <li>• 20 hours/month</li>
+                            <li>• Response within 4 hours</li>
+                            <li>• Monitoring and backups</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -355,82 +330,86 @@ more.{% endblock %}
 </section>
 
 <!-- Discovery Fee -->
-<section class="py-12 bg-base-200">
+<section class="py-12">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="card bg-base-100 shadow-sm border border-gray-100">
-            <div class="card-body">
-                <h3 class="card-title text-lg">Discovery Fee — Ksh. 5,000</h3>
-                <p class="text-gray-600 text-sm mb-3">Credited to the project if you proceed. You receive:</p>
-                <ul class="space-y-2 text-sm text-gray-600">
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                        </svg> A documented scope</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                        </svg> Estimate range + timeline</li>
-                    <li class="flex items-start gap-2"><svg class="w-4 h-4 text-primary mt-0.5 shrink-0" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                        </svg> Technical approach / architecture notes (where relevant)</li>
-                </ul>
-            </div>
+        <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-8">
+            <h3 class="text-lg font-bold mb-2">Discovery Fee — Ksh. 5,000</h3>
+            <p class="text-base-content/60 text-sm mb-3">Credited to the project if you proceed. You receive:</p>
+            <ul class="space-y-2 text-sm text-base-content/60">
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    A documented scope
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    Estimate range + timeline
+                </li>
+                <li class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12" /></svg>
+                    Technical approach / architecture notes (where relevant)
+                </li>
+            </ul>
         </div>
     </div>
 </section>
 
 <!-- FAQ -->
-<section class="py-16 bg-base-100">
+<section class="py-20 sm:py-28">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Frequently Asked Questions</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
 
         <div class="space-y-4">
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" checked="checked" />
-                <div class="collapse-title font-semibold text-gray-900">Can you work on my budget?</div>
+                <div class="collapse-title font-semibold">Can you work on my budget?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">Yes. We tailor our solutions to the budget and needs of the client.
+                    <p class="text-base-content/60 text-sm">Yes. We tailor our solutions to the budget and needs of the client.
                         In the event the requirements are over the budget, we present a win-win proposal to fit that
                         budget.</p>
                 </div>
             </div>
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" />
-                <div class="collapse-title font-semibold text-gray-900">What if I already have designs/content?</div>
+                <div class="collapse-title font-semibold">What if I already have designs/content?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">We encourage clients to come with their own designs and content.
+                    <p class="text-base-content/60 text-sm">We encourage clients to come with their own designs and content.
                         Creating the content or designs incurs more charges and more time on revisions.</p>
                 </div>
             </div>
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" />
-                <div class="collapse-title font-semibold text-gray-900">What timelines should I expect?</div>
+                <div class="collapse-title font-semibold">What timelines should I expect?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">Our timelines are arrived at based on the scope of work.</p>
+                    <p class="text-base-content/60 text-sm">Our timelines are arrived at based on the scope of work.</p>
                 </div>
             </div>
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" />
-                <div class="collapse-title font-semibold text-gray-900">Do you offer retainers?</div>
+                <div class="collapse-title font-semibold">Do you offer retainers?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">Yes. You can have the Acoruss team on retainer for maintenance and
+                    <p class="text-base-content/60 text-sm">Yes. You can have the Acoruss team on retainer for maintenance and
                         routine work.</p>
                 </div>
             </div>
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" />
-                <div class="collapse-title font-semibold text-gray-900">What happens after a project launch?</div>
+                <div class="collapse-title font-semibold">What happens after a project launch?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">Depending on your project, we either do training for large projects
+                    <p class="text-base-content/60 text-sm">Depending on your project, we either do training for large projects
                         or agree to maintenance for small projects. It will be clear in the scope of work.</p>
                 </div>
             </div>
-            <div class="collapse collapse-arrow bg-base-200 rounded-xl">
+            <div class="collapse collapse-arrow bg-base-200/50 border border-base-300/30 rounded-2xl">
                 <input type="radio" name="faq" />
-                <div class="collapse-title font-semibold text-gray-900">How do you handle revisions?</div>
+                <div class="collapse-title font-semibold">How do you handle revisions?</div>
                 <div class="collapse-content">
-                    <p class="text-gray-600 text-sm">Depending on the project, we do at most two revisions. If there is
+                    <p class="text-base-content/60 text-sm">Depending on the project, we do at most two revisions. If there is
                         a need for more, we always agree with the client on the final outcomes. If they differ from the
                         agreed scope, we come to a mutual agreement.</p>
                 </div>
@@ -440,10 +419,10 @@ more.{% endblock %}
 </section>
 
 <!-- Final CTA -->
-<section class="py-20 bg-neutral text-neutral-content">
+<section class="py-20 sm:py-28">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
-        <h2 class="text-3xl font-bold mb-4">Ready to Get <span class="text-primary">Started?</span></h2>
-        <p class="text-lg text-neutral-content/70 mb-8">Let's scope your project and find the right plan for you.</p>
+        <h2 class="text-3xl font-bold mb-4">Ready to Get <span class="text-accent">Started?</span></h2>
+        <p class="text-lg text-base-content/60 mb-8">Let's scope your project and find the right plan for you.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg gap-2">
                 <span>Request a Quote</span>
@@ -454,7 +433,7 @@ more.{% endblock %}
                 </svg>
             </a>
             <a href="{% url 'core:contact' %}"
-                class="btn btn-outline border-neutral-content/30 text-neutral-content hover:bg-neutral-content hover:text-neutral rounded-full px-8 font-semibold">Book
+                class="btn btn-outline rounded-full px-8 font-semibold">Book
                 Discovery Call</a>
         </div>
     </div>

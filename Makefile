@@ -91,13 +91,13 @@ docker-push: ## Push Docker image to GHCR (requires docker login)
 	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
 docker-prod-up: ## Start production Docker containers
-	docker compose -f docker/compose.prod.yml up -d
+	docker compose --env-file .env -f docker/compose.prod.yml up -d
 
 docker-prod-down: ## Stop production Docker containers
-	docker compose -f docker/compose.prod.yml down
+	docker compose --env-file .env -f docker/compose.prod.yml down
 
 docker-prod-logs: ## View production Docker container logs
-	docker compose -f docker/compose.prod.yml logs -f
+	docker compose --env-file .env -f docker/compose.prod.yml logs -f
 
 docker-prod-pull: ## Pull latest production image from GHCR
 	docker pull $(IMAGE_NAME):$(IMAGE_TAG)

@@ -57,6 +57,44 @@
     background-image: radial-gradient(circle, rgba(200, 149, 106, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+
+  /* Godrays / sunrays light effect */
+  .godrays {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .godrays::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    transform: translateX(-50%);
+    background: conic-gradient(
+      from 90deg at 50% 0%,
+      transparent 0deg,
+      rgba(255,255,255,0.03) 15deg,
+      transparent 30deg,
+      rgba(255,255,255,0.02) 60deg,
+      transparent 75deg,
+      rgba(255,255,255,0.04) 100deg,
+      transparent 120deg,
+      rgba(255,255,255,0.02) 150deg,
+      transparent 170deg,
+      rgba(255,255,255,0.03) 200deg,
+      transparent 220deg,
+      rgba(255,255,255,0.02) 260deg,
+      transparent 280deg,
+      rgba(255,255,255,0.03) 320deg,
+      transparent 340deg,
+      transparent 360deg
+    );
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
 }
 
 /* Animations */

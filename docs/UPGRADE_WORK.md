@@ -9,13 +9,13 @@
 - [x] `src/config/` settings package: `base.py`, `dev.py`, `test.py`, `prod.py`, `urls.py`, `asgi.py`, `wsgi.py`
 - [x] Custom user model in `src/apps/accounts/` (early to avoid migration pain)
 - [x] `src/apps/core/` scaffolding: `apps.py`, `models.py`, `views.py`, `urls.py`, `admin.py`
-- [x] `src/templates/base.html` — HTML5 skeleton with Tailwind/DaisyUI
-- [x] `src/templates/index.html` — dummy content, extends base
-- [x] `src/templates/dashboard/base.html` — dashboard layout stub
-- [x] `frontend/` — Tailwind 3 + DaisyUI + PostCSS config, build pipeline → `src/static/css/main.css`
-- [x] `docker/Dockerfile` — multi-stage (Node + Python 3.13) with dev and prod targets
-- [x] `docker/compose.dev.yml` — web + db services (project name: acoruss)
-- [x] `docker/compose.prod.yml` — gunicorn + uvicorn workers + db
+- [x] `src/templates/base.html` - HTML5 skeleton with Tailwind/DaisyUI
+- [x] `src/templates/index.html` - dummy content, extends base
+- [x] `src/templates/dashboard/base.html` - dashboard layout stub
+- [x] `frontend/` - Tailwind 3 + DaisyUI + PostCSS config, build pipeline → `src/static/css/main.css`
+- [x] `docker/Dockerfile` - multi-stage (Node + Python 3.13) with dev and prod targets
+- [x] `docker/compose.dev.yml` - web + db services (project name: acoruss)
+- [x] `docker/compose.prod.yml` - gunicorn + uvicorn workers + db
 - [x] `.env_sample` with all required variables
 - [x] `Makefile` with all utility targets (Docker-first approach)
 - [x] `.gitignore` and `.dockerignore` updated
@@ -26,7 +26,7 @@
 - [x] Add ruff, mypy to dev dependencies; configure in `pyproject.toml`
 - [x] Add pytest, pytest-django, pytest-asyncio; configure `[tool.pytest.ini_options]`
 - [x] `.github/workflows/lint-format-test.yml`
-- [x] `.github/workflows/build-push.yml` — build & push to GHCR
+- [x] `.github/workflows/build-push.yml` - build & push to GHCR
 - [x] Update `scripts/test.sh`
 - [ ] Verify: CI runs green (requires push to GitHub)
 
@@ -34,7 +34,7 @@
 
 - [x] Template partials: navbar, hero, services, process, projects, blog, about, contact, footer
 - [x] `ContactSubmission` model (name, email, company, phone, project_type, message, is_read)
-- [x] `ContactSubmitView` — async POST handler, saves to DB, redirects with success message
+- [x] `ContactSubmitView` - async POST handler, saves to DB, redirects with success message
 - [ ] Configure django-anymail[mailgun] email backend (send email on contact submit)
 - [x] Privacy policy & terms of service pages (expanded content, info@acoruss.com)
 - [x] Apply DaisyUI Agency Landing layout + brand colors (acoruss theme: primary #590303)
@@ -55,10 +55,10 @@
 ## Phase 5: Admin Dashboard
 
 - [ ] Login view + template at `/dashboard/login/`
-- [ ] `DashboardHomeView` — overview with key metrics
+- [ ] `DashboardHomeView` - overview with key metrics
 - [ ] `ContactSubmissionsListView` + `ContactSubmissionDetailView`
-- [ ] `PaymentListView` — Paystack transactions
-- [ ] `AnalyticsView` — analytics overview
+- [ ] `PaymentListView` - Paystack transactions
+- [ ] `AnalyticsView` - analytics overview
 - [ ] Dashboard templates (DaisyUI design): sidebar, stats cards, data tables
 - [ ] Admin-only access middleware/mixin
 - [ ] Verify: login works, all dashboard pages load, responsive
@@ -77,7 +77,7 @@
 
 ## Progress
 
-- **Phase 1**: ✅ Complete — Foundation & Infrastructure
-- **Phase 2**: CI/CD & Code Quality — workflows created, verify on push
-- **Current Phase**: 3 — Website Redesign (core pages done, remaining: Mailgun email, blog RSS, analytics, favicon, README)
-- **Status**: Phase 3 mostly complete — 8 pages live, contact form saving to DB, all templates verified
+- **Phase 1**: ✅ Complete - Foundation & Infrastructure
+- **Phase 2**: CI/CD & Code Quality - workflows created, verify on push
+- **Current Phase**: 3 - Website Redesign (core pages done, remaining: Mailgun email, blog RSS, analytics, favicon, README)
+- **Status**: Phase 3 mostly complete - 8 pages live, contact form saving to DB, all templates verified

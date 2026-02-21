@@ -20,18 +20,18 @@ module.exports = {
       {
         acoruss: {
           "color-scheme": "dark",
-          "primary": "#7A1C1C",          // Warm maroon — CTAs, highlights
+          "primary": "#7A1C1C",          // Warm maroon - CTAs, highlights
           "primary-content": "#FFFFFF",
-          "secondary": "#3D1C1C",        // Deep warm brown — variety card fills
+          "secondary": "#3D1C1C",        // Deep warm brown - variety card fills
           "secondary-content": "#F5F0EB",
-          "accent": "#C8956A",           // Warm amber/gold — emphasis, featured elements
+          "accent": "#C8956A",           // Warm amber/gold - emphasis, featured elements
           "accent-content": "#0F0D0B",
-          "neutral": "#0C0A08",          // Deepest dark — footer/CTA subtle diff
+          "neutral": "#0C0A08",          // Deepest dark - footer/CTA subtle diff
           "neutral-content": "#F5F0EB",  // Warm off-white text on dark
-          "base-100": "#0F0D0B",         // Very dark warm — page background
-          "base-200": "#1A1612",         // Slightly lighter — cards, elevated surfaces
-          "base-300": "#2C2520",         // Medium dark — borders, dividers
-          "base-content": "#E8E2DA",     // Warm off-white — body text
+          "base-100": "#0F0D0B",         // Very dark warm - page background
+          "base-200": "#1A1612",         // Slightly lighter - cards, elevated surfaces
+          "base-300": "#2C2520",         // Medium dark - borders, dividers
+          "base-content": "#E8E2DA",     // Warm off-white - body text
           "info": "#5B9BD5",             // Soft blue
           "success": "#5B9B6B",          // Muted green
           "warning": "#D4A843",          // Warm gold

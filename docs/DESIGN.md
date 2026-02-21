@@ -4,7 +4,7 @@
 
 1. Always use [Agency Landing](https://blink.daisyui.com/landing/agencylanding/) layout, iconography and typography.
 2. Always ensure that the website is mobile responsive.
-3. Use warm-toned colors throughout — avoid pure white (#FFFFFF) or pure black (#000000).
+3. Use warm-toned colors throughout - avoid pure white (#FFFFFF) or pure black (#000000).
 
 ### Website
 
@@ -12,22 +12,22 @@
 
 | Role              | Color   | Description                                   |
 | ----------------- | ------- | --------------------------------------------- |
-| Primary           | #7A1C1C | Warm maroon — CTAs, headings, highlights      |
+| Primary           | #7A1C1C | Warm maroon - CTAs, headings, highlights      |
 | Primary Content   | #FFFFFF | White text on primary backgrounds             |
-| Secondary         | #3D1C1C | Deep warm brown — dark cards, subtle fills    |
+| Secondary         | #3D1C1C | Deep warm brown - dark cards, subtle fills    |
 | Secondary Content | #F5F0EB | Off-white text on secondary backgrounds       |
-| Accent            | #C8956A | Warm amber/gold — featured elements, emphasis |
+| Accent            | #C8956A | Warm amber/gold - featured elements, emphasis |
 | Accent Content    | #1A1612 | Dark text on accent backgrounds               |
-| Neutral           | #1A1612 | Warm near-black — dark sections, footer       |
-| Neutral Content   | #F5F0EB | Warm off-white — text on dark backgrounds     |
-| Base 100          | #FDFCFA | Warm white — main page background             |
-| Base 200          | #F5F0EB | Warm light cream — cards, inputs              |
-| Base 300          | #E8E2DA | Warm light gray — borders, dividers           |
-| Base Content      | #2C2520 | Warm dark brown — primary body text           |
-| Info              | #4A90D9 | Soft blue — info states                       |
-| Success           | #5B8C5A | Muted green — success states                  |
-| Warning           | #D4A843 | Warm gold — warning states                    |
-| Error             | #C94444 | Warm red — error states                       |
+| Neutral           | #1A1612 | Warm near-black - dark sections, footer       |
+| Neutral Content   | #F5F0EB | Warm off-white - text on dark backgrounds     |
+| Base 100          | #FDFCFA | Warm white - main page background             |
+| Base 200          | #F5F0EB | Warm light cream - cards, inputs              |
+| Base 300          | #E8E2DA | Warm light gray - borders, dividers           |
+| Base Content      | #2C2520 | Warm dark brown - primary body text           |
+| Info              | #4A90D9 | Soft blue - info states                       |
+| Success           | #5B8C5A | Muted green - success states                  |
+| Warning           | #D4A843 | Warm gold - warning states                    |
+| Error             | #C94444 | Warm red - error states                       |
 
 #### Design Patterns
 

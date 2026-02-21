@@ -32,16 +32,17 @@
 
 ## Phase 3: Website Redesign
 
-- [ ] Template partials: navbar, hero, services, process, projects, blog, about, contact, footer
-- [ ] `ContactSubmission` model
-- [ ] `ContactFormView` — saves to DB, sends email via Mailgun
-- [ ] Configure django-anymail[mailgun] email backend
-- [ ] Privacy policy & terms of service pages
-- [ ] Apply DaisyUI Agency Landing layout + brand colors
-- [ ] Port JS: mobile menu, smooth scroll, scroll animations, BlogLoader RSS
+- [x] Template partials: navbar, hero, services, process, projects, blog, about, contact, footer
+- [x] `ContactSubmission` model (name, email, company, phone, project_type, message, is_read)
+- [x] `ContactSubmitView` — async POST handler, saves to DB, redirects with success message
+- [ ] Configure django-anymail[mailgun] email backend (send email on contact submit)
+- [x] Privacy policy & terms of service pages (expanded content, info@acoruss.com)
+- [x] Apply DaisyUI Agency Landing layout + brand colors (acoruss theme: primary #590303)
+- [x] Port JS: mobile menu (DaisyUI drawer), smooth scroll
+- [ ] BlogLoader RSS (Substack feed integration)
 - [ ] Google Analytics, meta tags, Open Graph, favicon
 - [ ] Update README.md
-- [ ] Verify: all pages load, contact form works, responsive, Playwright tested
+- [x] Verify: all 8 pages load, contact form works, Playwright tested
 
 ## Phase 4: Integrations
 
@@ -76,6 +77,7 @@
 
 ## Progress
 
-- **Current Phase**: 1 ✅ Complete — Foundation & Infrastructure
+- **Phase 1**: ✅ Complete — Foundation & Infrastructure
 - **Phase 2**: CI/CD & Code Quality — workflows created, verify on push
-- **Status**: Ready for Phase 3 — Website Redesign
+- **Current Phase**: 3 — Website Redesign (core pages done, remaining: Mailgun email, blog RSS, analytics, favicon, README)
+- **Status**: Phase 3 mostly complete — 8 pages live, contact form saving to DB, all templates verified

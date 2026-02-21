@@ -2,7 +2,7 @@
        format lint test template-test \
        tailwind-build tailwind-watch tailwind-install \
        docker-build docker-push prod-up prod-down \
-       prod-logs prod-pull prod-migrate prod-collectstatic \
+       prod-logs prod-pull prod-migrate prod-collectstatic prod-restart \
        setup clean copy-images shell
 
 DC := docker compose -f docker/compose.dev.yml
@@ -95,9 +95,13 @@ docker-push: ## Push Docker image to GHCR (requires docker login)
 prod-up: ## Start production containers and collect static files
 	$(DC_PROD) up -d
 	$(DC_PROD_EXEC) python manage.py collectstatic --noinput
+	$(DC_PROD) restart web
 
 prod-down: ## Stop production Docker containers
 	$(DC_PROD) down
+
+prod-restart: ## Restart production web container
+	$(DC_PROD) restart web
 
 prod-logs: ## View production Docker container logs
 	$(DC_PROD) logs -f

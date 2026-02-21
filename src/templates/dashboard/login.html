@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="acoruss">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Acoruss Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body class="min-h-screen bg-base-200 flex items-center justify-center">
+    <div class="card w-full max-w-md bg-base-100 shadow-xl">
+        <div class="card-body">
+            <div class="text-center mb-6">
+                <img src="{% static 'images/logos/dark-name-horizontal.png' %}" alt="Acoruss" class="h-10 mx-auto mb-4">
+                <h1 class="text-2xl font-bold">Dashboard Login</h1>
+                <p class="text-base-content/60">Sign in to access the admin dashboard</p>
+            </div>
+
+            {% if form.errors %}
+            <div class="alert alert-error mb-4">
+                <span>Invalid username or password. Please try again.</span>
+            </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'core:dashboard_login' %}">
+                {% csrf_token %}
+                <div class="form-control mb-4">
+                    <label class="label" for="id_username">
+                        <span class="label-text">Username or Email</span>
+                    </label>
+                    <input type="text" name="username" id="id_username" class="input input-bordered w-full" required autofocus>
+                </div>
+                <div class="form-control mb-6">
+                    <label class="label" for="id_password">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input type="password" name="password" id="id_password" class="input input-bordered w-full" required>
+                </div>
+                <input type="hidden" name="next" value="{{ next }}">
+                <button type="submit" class="btn btn-primary w-full">Sign In</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'core:index' %}" class="link link-hover text-sm">← Back to website</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

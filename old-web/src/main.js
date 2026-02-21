@@ -163,7 +163,7 @@ class BlogLoader {
     return [{
       title: 'Hello WWW',
       link: 'https://acoruss.substack.com/p/hello-www',
-      description: 'At Acoruss, we believe that technology should empower, not overwhelm. In this first post, we share our vision of making technology more accessible, secure, and cost-effective — helping organizations innovate without the heavy costs of building from scratch.',
+      description: 'At Acoruss, we believe that technology should empower, not overwhelm. In this first post, we share our vision of making technology more accessible, secure, and cost-effective - helping organizations innovate without the heavy costs of building from scratch.',
       pubDate: 'Mon, 18 Aug 2025 18:25:13 GMT',
       creator: 'Acoruss',
       guid: 'hello-www'

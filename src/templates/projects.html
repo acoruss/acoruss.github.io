@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects - Acoruss{% endblock %}
+{% block og_title %}Our Projects - Acoruss{% endblock %}
+{% block og_description %}Real work that demonstrates how we design, build, and deliver solutions.{% endblock %}
+
+{% block content %}
+<!-- Projects Hero -->
+<section class="pt-32 pb-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <div
+            class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+            <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+            Portfolio
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Our <span class="text-accent">Projects</span></h1>
+        <p class="text-lg text-base-content/60 max-w-2xl mx-auto">Real work that demonstrates how we design, build, and
+            deliver solutions across different industries.</p>
+    </div>
+</section>
+
+<!-- Category Tabs -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist">
+            <button class="project-tab btn btn-sm rounded-full tab-active" data-tab="websites" role="tab"
+                aria-selected="true">Websites</button>
+            <button class="project-tab btn btn-sm rounded-full" data-tab="sdks" role="tab"
+                aria-selected="false">SDKs</button>
+            <button class="project-tab btn btn-sm rounded-full" data-tab="custom-software" role="tab"
+                aria-selected="false">Custom Software</button>
+            <button class="project-tab btn btn-sm rounded-full" data-tab="open-source" role="tab"
+                aria-selected="false">Open Source</button>
+            <button class="project-tab btn btn-sm rounded-full" data-tab="automations" role="tab"
+                aria-selected="false">Automations</button>
+            <button class="project-tab btn btn-sm rounded-full" data-tab="ai" role="tab"
+                aria-selected="false">Artificial Intelligence</button>
+        </div>
+
+        <!-- Websites Panel -->
+        <div id="websites" class="project-panel" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- xPerience Nairobi -->
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">Website</div>
+                        <h3 class="card-title text-lg">xPerience Nairobi</h3>
+                        <p class="text-base-content/60 text-sm">Use AI to plan your free time with bespoke activities in
+                            Nairobi.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-base-content/70">Outcome:</span> <span
+                                    class="text-base-content/60">Full-featured website, AI chat, create plans and share with
+                                    friends, discover events with your mood.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Site</a>
+                            <a href="https://experiencenairobi.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Site</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Martin & Loice Wedding -->
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">Website</div>
+                        <h3 class="card-title text-lg">Martin & Loice Wedding</h3>
+                        <p class="text-base-content/60 text-sm">Custom website to invite guests and RSVP to wedding.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-base-content/70">Outcome:</span> <span class="text-base-content/60">Fast,
+                                    mobile-first guest experience site with pizzazz.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Site</a>
+                            <a href="https://wedding.martinandloice.life?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Site</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SDKs Panel -->
+        <div id="sdks" class="project-panel hidden" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-secondary badge-sm mb-2">SDK</div>
+                        <h3 class="card-title text-lg">SDKs for GavaConnect APIs</h3>
+                        <p class="text-base-content/60 text-sm">Easily connect with government services through their APIs and
+                            simple to use SDKs.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-base-content/70">Role:</span> <span class="text-base-content/60">API
+                                    design, cross-language libs (Python, TS & Java), docs, CI</span></p>
+                            <p><span class="font-medium text-base-content/70">Value:</span> <span class="text-base-content/60">Faster
+                                    integrations, fewer bugs, maintainable codebases.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Your
+                                SDK</a>
+                            <a href="https://github.com/search?q=topic%3Agavaconnect+org%3Aacoruss&type=Repositories"
+                                target="_blank" rel="noopener noreferrer"
+                                class="btn btn-outline btn-sm rounded-full">See Our SDKs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Software Panel -->
+        <div id="custom-software" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Custom Software Projects</h3>
+                <p class="text-base-content/60 mb-6">We're working on showcasing more of our custom software projects. Contact
+                    us to discuss yours.</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Start Your Project</a>
+            </div>
+        </div>
+
+        <!-- Open Source Panel -->
+        <div id="open-source" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                        <path d="M9 18c-4.51 2-5-2-7-2" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Open Source Contributions</h3>
+                <p class="text-base-content/60 mb-6">Check out our open source work on GitHub.</p>
+                <a href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-primary rounded-full">View on GitHub</a>
+            </div>
+        </div>
+
+        <!-- Automations Panel -->
+        <div id="automations" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Automation Projects</h3>
+                <p class="text-base-content/60 mb-6">We're adding our automation case studies. Contact us to learn more.</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Discuss Automation</a>
+            </div>
+        </div>
+
+        <!-- AI Panel -->
+        <div id="ai" class="project-panel hidden" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">AI</div>
+                        <h3 class="card-title text-lg">xPerience Nairobi AI Chat</h3>
+                        <p class="text-base-content/60 text-sm">AI-powered activity planner that uses your mood and preferences
+                            to suggest bespoke activities in Nairobi.</p>
+                        <div class="card-actions mt-4">
+                            <a href="https://experiencenairobi.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">Try It</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <h2 class="text-3xl font-bold mb-4">Have a Project in Mind?</h2>
+        <p class="text-lg text-base-content/60 mb-8">Let's discuss how we can bring your idea to life.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg gap-2">
+            <span>Tell Us About Your Project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+            </svg>
+        </a>
+    </div>
+</section>
+{% endblock %}

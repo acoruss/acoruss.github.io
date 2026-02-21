@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6">
+    <h1 class="text-3xl font-bold">Dashboard</h1>
+
+    <!-- Stats -->
+    <div class="stats shadow">
+        <div class="stat">
+            <div class="stat-title">Contact Submissions</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Total messages</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Payments</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Total transactions</div>
+        </div>
+    </div>
+
+    <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Welcome to the Acoruss Dashboard</h2>
+            <p>Manage your contact submissions, payments, and analytics from here.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

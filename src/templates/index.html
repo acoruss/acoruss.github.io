@@ -1,0 +1,1018 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section - Dark, warm, agency landing style -->
+<section class="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <!-- Warm dark gradient background -->
+    <div class="absolute inset-0 hero-gradient"></div>
+    <!-- Godrays light effect -->
+    <div class="godrays"></div>
+    <!-- Subtle decorative elements -->
+    <div class="absolute inset-0 opacity-[0.03]"
+        style="background-image: radial-gradient(circle at 25% 40%, rgba(200,149,106,0.5) 0%, transparent 50%), radial-gradient(circle at 75% 60%, rgba(122,28,28,0.4) 0%, transparent 50%);">
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
+        <!-- Floating review card - left (desktop only) -->
+        <div class="hidden xl:block absolute -left-4 top-1/3 -translate-y-1/2 z-20 max-w-[240px]">
+            <div class="glass-effect rounded-2xl border border-base-content/5 p-5 shadow-lg">
+                <div class="flex items-center gap-0.5 text-accent mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <p class="text-xs text-base-content/70 italic leading-relaxed mb-3">"Acoruss understood what we needed
+                    from the first call. Top-notch quality."</p>
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-accent/20 border-2 border-accent/30 flex items-center justify-center text-[10px] font-bold text-accent">
+                        JK</div>
+                    <div>
+                        <p class="font-semibold text-xs">James K.</p>
+                        <p class="text-[10px] text-base-content/40">Business Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating review card - right (desktop only) -->
+        <div class="hidden xl:block absolute -right-4 top-2/3 -translate-y-1/2 z-20 max-w-[240px]">
+            <div class="glass-effect rounded-2xl border border-base-content/5 p-5 shadow-lg">
+                <div class="flex items-center gap-0.5 text-accent mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <p class="text-xs text-base-content/70 italic leading-relaxed mb-3">"The AI chatbot changed how our
+                    customers interact. Highly recommend!"</p>
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-[10px] font-bold text-primary-content">
+                        AM</div>
+                    <div>
+                        <p class="font-semibold text-xs">Amina M.</p>
+                        <p class="text-[10px] text-base-content/40">Product Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center max-w-3xl mx-auto">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-neutral-content/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-8"
+                data-animate>
+                <div class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
+                <span class="text-xs sm:text-sm text-neutral-content/80 font-medium tracking-wide uppercase">Technology
+                    Partners You Can Trust</span>
+            </div>
+
+            <!-- Heading -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 text-neutral-content"
+                data-animate>
+                <span class="text-accent">Empowering</span> Businesses<br>
+                Through <span class="text-accent">Technology</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg text-neutral-content/60 max-w-xl mx-auto mb-10 leading-relaxed" data-animate>
+                From Nairobi to the world - we help ambitious businesses harness software, AI, and smart strategy
+                without breaking the bank.
+            </p>
+
+            <!-- Dual CTAs -->
+            <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12" data-animate>
+                <a href="{% url 'core:contact' %}"
+                    class="btn btn-primary btn-md sm:btn-lg rounded-full px-7 sm:px-8 font-semibold shadow-lg gap-2">
+                    <span>Book A Discovery Call</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="{% url 'core:pricing' %}"
+                    class="btn btn-outline btn-md sm:btn-lg rounded-full px-7 sm:px-8 font-semibold border-base-content/20 text-neutral-content/70 hover:text-neutral-content hover:bg-neutral-content/10 hover:border-base-content/30 gap-2">
+                    <span>View Pricing</span>
+                </a>
+            </div>
+
+            <!-- Review / Social proof row - agency landing style -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4" data-animate>
+                <div class="flex -space-x-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-accent/30 border-2 border-base-300/50 flex items-center justify-center text-xs font-bold text-accent">
+                        JK</div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary/30 border-2 border-base-300/50 flex items-center justify-center text-xs font-bold text-primary-content">
+                        AM</div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-accent/20 border-2 border-base-300/50 flex items-center justify-center text-xs font-bold text-accent">
+                        SW</div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary/20 border-2 border-base-300/50 flex items-center justify-center text-xs font-bold text-primary-content">
+                        NM</div>
+                </div>
+                <div class="text-left">
+                    <div class="flex items-center gap-1 text-accent">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <span class="text-sm font-bold text-neutral-content ml-1">5.0</span>
+                    </div>
+                    <p class="text-xs text-neutral-content/50">Trusted by businesses across East Africa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Why Choose Us
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">The Acoruss <span
+                    class="text-accent">Advantage</span></h2>
+            <p class="text-base text-base-content/50 max-w-2xl mx-auto">Deep experience, sharp domain knowledge, and
+                outstanding support - we deliver solutions you can stake your business on.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div
+                    class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/15 transition-colors">
+                    <!-- Lucide: shield-check -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path
+                            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Production-grade Quality</h3>
+                <p class="text-base-content/50 text-sm leading-relaxed">We build to industry standards - secure,
+                    hardened, and customised to fit your exact needs. No shortcuts.</p>
+            </div>
+            <div class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div
+                    class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/15 transition-colors">
+                    <!-- Lucide: users -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Experienced Experts</h3>
+                <p class="text-base-content/50 text-sm leading-relaxed">20+ cumulative years in top-tier corporates and
+                    fast-moving startups. We've seen what works.</p>
+            </div>
+            <div class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300 sm:col-span-2 lg:col-span-1"
+                data-animate>
+                <div
+                    class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/15 transition-colors">
+                    <!-- Lucide: heart-handshake -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path
+                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                        <path
+                            d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" />
+                        <path d="m18 15-2-2" />
+                        <path d="m15 18-2-2" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Customer Satisfaction</h3>
+                <p class="text-base-content/50 text-sm leading-relaxed">Your success is our reputation. We go the extra
+                    mile - complete satisfaction and reliability, every single time.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section - Bento grid -->
+<section id="services" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Our Expertise
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">Digital Solutions That<br
+                    class="hidden sm:block">
+                <span class="text-accent">Drive Results</span>
+            </h2>
+            <p class="text-base text-base-content/50 max-w-xl mx-auto">From consultation to ongoing maintenance -
+                complete solutions tailored to your needs.</p>
+        </div>
+
+        <!-- Bento grid -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <!-- Large card - Website Development -->
+            <a href="{% url 'core:services' %}#website-development"
+                class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 sm:p-8 hover:shadow-lg hover:border-accent/30 transition-all duration-300 row-span-2 flex flex-col"
+                data-animate>
+                <div>
+                    <div
+                        class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
+                        <!-- Lucide: globe -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-accent">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                            <path d="M2 12h20" />
+                        </svg>
+                    </div>
+                    <span
+                        class="inline-block text-xs font-semibold text-accent bg-accent/10 rounded-full px-3 py-1 mb-3">Most
+                        Popular</span>
+                    <h3 class="text-xl font-bold mb-2">Website Development</h3>
+                    <p class="text-base-content/50 text-sm leading-relaxed">From simple landing pages to complex
+                        corporate websites. Custom designs, SEO-optimised, mobile-first, and blazing fast.</p>
+                </div>
+                <!-- Web Applications sub-section -->
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold mb-2">Web Applications</h3>
+                    <p class="text-base-content/50 text-sm leading-relaxed">Leveraging web technologies to
+                        create custom applications that power scenarios like USSD, chatbots, Payment
+                        Integrations and many more.</p>
+                </div>
+                <!-- Migrating to the web sub-section -->
+                <div class="mt-6">
+                    <h3 class="text-xl font-bold mb-2">Migrating to the Web</h3>
+                    <p class="text-base-content/50 text-sm leading-relaxed">We help you move your operations
+                        online and to the cloud seamlessly with little to no friction to your day to day
+                        operations.</p>
+                </div>
+                <div
+                    class="mt-auto pt-6 flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all">
+                    <span>Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Custom Software -->
+            <a href="{% url 'core:services' %}#custom-software"
+                class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div
+                    class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/15 transition-colors">
+                    <!-- Lucide: code -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Custom Software</h3>
+                <p class="text-base-content/50 text-sm leading-relaxed">Web apps, internal systems, and tools that
+                    scale, simplify operations, and deliver measurable results.</p>
+                <div
+                    class="mt-4 flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all">
+                    <span>Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- AI & Automation -->
+            <a href="{% url 'core:services' %}#ai"
+                class="group rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div
+                    class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-accent/15 transition-colors">
+                    <!-- Lucide: sparkles -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-accent">
+                        <path
+                            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
+                        <path d="M20 3v4" />
+                        <path d="M22 5h-4" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold mb-2">AI &amp; Automation</h3>
+                <p class="text-base-content/50 text-sm leading-relaxed">From chatbots to workflow automation - we
+                    harness AI to save you time, cut costs, and make smarter decisions.</p>
+                <div
+                    class="mt-4 flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all">
+                    <span>Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- Full-width strategy card -->
+        <a href="{% url 'core:services' %}#consultation"
+            class="group rounded-2xl bg-secondary text-secondary-content mt-4 p-7 sm:p-8 hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
+            data-animate>
+            <div class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center shrink-0">
+                <!-- Lucide: clipboard-list -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    class="text-accent">
+                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                    <path d="M12 11h4" />
+                    <path d="M12 16h4" />
+                    <path d="M8 11h.01" />
+                    <path d="M8 16h.01" />
+                </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h3 class="text-lg font-bold mb-1">Technology Strategy &amp; Consulting</h3>
+                <p class="text-secondary-content/60 text-sm">We assess your setup, identify the gaps, and design a
+                    strategy that aligns with your goals - reducing risk and building a competitive edge.</p>
+            </div>
+            <div
+                class="flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-3 transition-all shrink-0">
+                <span>Learn more</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </div>
+        </a>
+
+        <div class="text-center mt-10">
+            <a href="{% url 'core:services' %}" class="btn btn-primary rounded-full px-7 font-semibold gap-2 shadow-sm">
+                <span>See All Services</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- How We Work / Process -->
+<section id="process" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Our Process
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">How We <span class="text-accent">Work</span>
+            </h2>
+            <p class="text-base text-base-content/50 max-w-xl mx-auto">A clear, secure process that keeps your project
+                focused and predictable from day one.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        01</span>
+                    <h3 class="font-bold text-sm">Reach Out</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">Tell us about your goals and where you are
+                    today.</p>
+                <a href="{% url 'core:contact' %}"
+                    class="text-accent text-xs font-semibold mt-3 inline-flex items-center gap-1 hover:gap-2 transition-all">
+                    Contact us
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        02</span>
+                    <h3 class="font-bold text-sm">Discovery Call</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">A 60-minute deep-dive into your needs,
+                    constraints,
+                    and success metrics.</p>
+                <p class="text-xs text-base-content/35 mt-2 italic">KSh 5,000 fee, credited if you proceed.</p>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        03</span>
+                    <h3 class="font-bold text-sm">Proposal &amp; Plan</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">Scope, timeline, pricing, risks &amp;
+                    mitigations - everything laid out clearly.</p>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        04</span>
+                    <h3 class="font-bold text-sm">Kickoff</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">We finalise the SOW, deposit invoice,
+                    communication rhythm, and security baselines.</p>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        05</span>
+                    <h3 class="font-bold text-sm">Build &amp; Iterate</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">Short sprints with demos. Security baked in
+                    -
+                    OWASP coding, dependency checks, CI/CD hardening.</p>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-6 hover:shadow-md hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <div class="flex items-center gap-3 mb-3">
+                    <span
+                        class="w-9 h-9 bg-primary text-primary-content rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                        06</span>
+                    <h3 class="font-bold text-sm">Delivery &amp; Handover</h3>
+                </div>
+                <p class="text-base-content/50 text-sm leading-relaxed">UAT, documentation, training, and a thorough
+                    security
+                    review of access &amp; data handling.</p>
+            </div>
+        </div>
+
+        <!-- Ongoing Support -->
+        <div class="mt-8 rounded-2xl bg-base-200/50 border border-base-300/30 p-7 sm:p-8" data-animate>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold mb-4">Ongoing Support Available</h3>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-5 h-5 bg-accent/15 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                                <!-- Lucide: check -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-accent">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm">Maintenance</p>
+                                <p class="text-base-content/50 text-xs">Updates, fixes, optimisations, and security
+                                    patches.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-5 h-5 bg-accent/15 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-accent">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm">Implementation</p>
+                                <p class="text-base-content/50 text-xs">Executing consulting outcomes with proper
+                                    controls.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'core:pricing' %}"
+                    class="btn btn-outline btn-accent btn-sm rounded-full px-6 gap-2 shrink-0">
+                    View Plans
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Projects -->
+<section id="projects" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Portfolio
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">Our <span class="text-accent">Projects</span>
+            </h2>
+            <p class="text-base text-base-content/50 max-w-xl mx-auto">Real work that shows how we design, build,
+                and deliver solutions for businesses like yours.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/30 transition-all duration-300"
+                data-animate>
+                <span
+                    class="inline-block text-xs font-semibold text-accent bg-accent/10 rounded-full px-3 py-1 mb-3">Website
+                    + AI</span>
+                <h3 class="text-lg font-bold mb-2">xPerience Nairobi</h3>
+                <p class="text-base-content/50 text-sm mb-1">Use AI to plan your free time with bespoke activities
+                    in Nairobi.</p>
+                <p class="text-base-content/35 text-xs mb-5">Full-featured website, AI chat, create plans and share
+                    with friends.</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <a href="{% url 'core:contact' %}"
+                        class="btn btn-primary btn-xs rounded-full px-4 gap-1 font-medium">
+                        Build Similar
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="https://experiencenairobi.com?utm_source=acoruss.com" target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-ghost btn-xs rounded-full px-4 font-medium text-base-content/50">Visit</a>
+                </div>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300"
+                data-animate>
+                <span
+                    class="inline-block text-xs font-semibold text-primary bg-primary/8 rounded-full px-3 py-1 mb-3">Website</span>
+                <h3 class="text-lg font-bold mb-2">Martin &amp; Loice Wedding</h3>
+                <p class="text-base-content/50 text-sm mb-1">Custom website to invite guests and RSVP to a wedding.</p>
+                <p class="text-base-content/35 text-xs mb-5">Fast, mobile-first guest experience site with pizzazz.</p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <a href="{% url 'core:contact' %}"
+                        class="btn btn-primary btn-xs rounded-full px-4 gap-1 font-medium">
+                        Build Similar
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="https://wedding.martinandloice.life?utm_source=acoruss.com" target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-ghost btn-xs rounded-full px-4 font-medium text-base-content/50">Visit</a>
+                </div>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7 hover:shadow-lg hover:border-accent/20 transition-all duration-300 sm:col-span-2 lg:col-span-1"
+                data-animate>
+                <span
+                    class="inline-block text-xs font-semibold text-secondary bg-secondary/10 rounded-full px-3 py-1 mb-3">SDK</span>
+                <h3 class="text-lg font-bold mb-2">SDKs for GavaConnect APIs</h3>
+                <p class="text-base-content/50 text-sm mb-1">Easily connect with government services through simple
+                    SDKs.</p>
+                <p class="text-base-content/35 text-xs mb-5">Faster integrations, fewer bugs, maintainable codebases.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-auto">
+                    <a href="{% url 'core:contact' %}"
+                        class="btn btn-primary btn-xs rounded-full px-4 gap-1 font-medium">
+                        Build Your SDK
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="https://github.com/search?q=topic%3Agavaconnect+org%3Aacoruss&type=Repositories"
+                        target="_blank" rel="noopener noreferrer"
+                        class="btn btn-ghost btn-xs rounded-full px-4 font-medium text-base-content/50">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-10">
+            <a href="{% url 'core:projects' %}" class="btn btn-primary rounded-full px-7 font-semibold gap-2 shadow-sm">
+                <span>See Our Projects</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials - agency landing style -->
+<section id="testimonials" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Testimonials
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">What Our Clients <span
+                    class="text-accent">Say</span></h2>
+            <p class="text-base text-base-content/50 max-w-xl mx-auto">Hear directly from the businesses we've partnered
+                with.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7" data-animate>
+                <div class="flex items-center gap-1 text-accent mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <p class="text-sm text-base-content/70 leading-relaxed mb-5">"Acoruss understood what we needed from the
+                    first call. They delivered our website ahead of schedule and the quality was top-notch. Very
+                    professional team."</p>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-accent/20 border-2 border-accent/30 flex items-center justify-center text-xs font-bold text-accent">
+                        JK</div>
+                    <div>
+                        <p class="font-semibold text-sm">James K.</p>
+                        <p class="text-xs text-base-content/40">Business Owner, Nairobi</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7" data-animate>
+                <div class="flex items-center gap-1 text-accent mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <p class="text-sm text-base-content/70 leading-relaxed mb-5">"The AI chatbot they built for us changed
+                    how our customers interact with our platform. Response times dropped and customer satisfaction went
+                    up. Highly recommend."</p>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center text-xs font-bold text-primary-content">
+                        AM</div>
+                    <div>
+                        <p class="font-semibold text-sm">Amina M.</p>
+                        <p class="text-xs text-base-content/40">Product Manager, Mombasa</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 p-7 sm:col-span-2 lg:col-span-1"
+                data-animate>
+                <div class="flex items-center gap-1 text-accent mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                </div>
+                <p class="text-sm text-base-content/70 leading-relaxed mb-5">"Working with Acoruss felt like having an
+                    in-house tech team. They're responsive, they understand African business needs, and the results
+                    speak for themselves."</p>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-accent/20 border-2 border-accent/30 flex items-center justify-center text-xs font-bold text-accent">
+                        SW</div>
+                    <div>
+                        <p class="font-semibold text-sm">Sarah W.</p>
+                        <p class="text-xs text-base-content/40">CEO, Kisumu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14" data-animate>
+            <div
+                class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
+                <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                Insights
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">Latest from Our <span
+                    class="text-accent">Blog</span></h2>
+            <p class="text-base text-base-content/50 max-w-xl mx-auto">Insights on technology, strategy, and innovation
+                to help your business thrive.</p>
+        </div>
+        <div id="blog-posts" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 animate-pulse p-7">
+                <div class="h-3 bg-base-300/40 rounded w-1/3 mb-4"></div>
+                <div class="h-5 bg-base-300/40 rounded w-full mb-3"></div>
+                <div class="h-3 bg-base-300/40 rounded w-full"></div>
+                <div class="h-3 bg-base-300/40 rounded w-2/3 mt-2"></div>
+            </div>
+            <div class="rounded-2xl border border-base-300/30 bg-base-200/50 animate-pulse p-7">
+                <div class="h-3 bg-base-300/40 rounded w-1/3 mb-4"></div>
+                <div class="h-5 bg-base-300/40 rounded w-full mb-3"></div>
+                <div class="h-3 bg-base-300/40 rounded w-full"></div>
+                <div class="h-3 bg-base-300/40 rounded w-2/3 mt-2"></div>
+            </div>
+            <div
+                class="rounded-2xl border border-base-300/30 bg-base-200/50 animate-pulse p-7 hidden sm:block lg:block">
+                <div class="h-3 bg-base-300/40 rounded w-1/3 mb-4"></div>
+                <div class="h-5 bg-base-300/40 rounded w-full mb-3"></div>
+                <div class="h-3 bg-base-300/40 rounded w-full"></div>
+                <div class="h-3 bg-base-300/40 rounded w-2/3 mt-2"></div>
+            </div>
+        </div>
+        <div class="text-center mt-10">
+            <a href="https://acoruss.substack.com" target="_blank" rel="noopener noreferrer"
+                class="btn btn-primary rounded-full px-7 font-semibold gap-2 shadow-sm">
+                <span>Read the Blog</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA / Contact Section -->
+<section id="contact" class="py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <!-- Left: CTA content -->
+            <div data-animate>
+                <div
+                    class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-5 text-accent text-xs font-semibold uppercase tracking-wider">
+                    <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                    Let's Connect
+                </div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-5 leading-tight">
+                    Ready to Grow Your<br>
+                    <span class="text-accent">Business with Technology?</span>
+                </h2>
+                <p class="text-base-content/50 text-base mb-8 leading-relaxed max-w-md">Let's have a conversation about
+                    your project and explore how our team can help you achieve your goals.</p>
+
+                <div class="space-y-3 mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 bg-accent/15 rounded-lg flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="text-accent">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        <span class="text-base-content/70 text-sm">Free initial consultation</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 bg-accent/15 rounded-lg flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="text-accent">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        <span class="text-base-content/70 text-sm">Transparent pricing - no surprises</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-7 h-7 bg-accent/15 rounded-lg flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="text-accent">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        <span class="text-base-content/70 text-sm">No obligations or long-term commitments</span>
+                    </div>
+                </div>
+
+                <!-- Contact info -->
+                <div class="flex flex-col sm:flex-row gap-4 text-sm">
+                    <a href="mailto:info@acoruss.com"
+                        class="flex items-center gap-2 text-base-content/50 hover:text-accent transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                        info@acoruss.com
+                    </a>
+                    <a href="tel:+254705867162"
+                        class="flex items-center gap-2 text-base-content/50 hover:text-accent transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        +254 705 867 162
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Contact form -->
+            <div data-animate>
+                <div
+                    class="rounded-2xl bg-base-200/50 border border-base-300/30 text-base-content shadow-xl p-7 sm:p-8">
+                    <h3 class="text-lg font-bold mb-5">Tell us about your project</h3>
+                    <form action="{% url 'core:contact_submit' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <div class="form-control">
+                                <label class="label pb-1"><span class="label-text font-medium text-xs">Full Name
+                                        *</span></label>
+                                <input type="text" name="name" placeholder="John Doe"
+                                    class="input input-bordered input-sm w-full rounded-xl text-sm bg-base-300/30 border-base-300/40"
+                                    required>
+                            </div>
+                            <div class="form-control">
+                                <label class="label pb-1"><span class="label-text font-medium text-xs">Email
+                                        *</span></label>
+                                <input type="email" name="email" placeholder="john@example.com"
+                                    class="input input-bordered input-sm w-full rounded-xl text-sm bg-base-300/30 border-base-300/40"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-control mt-3">
+                            <label class="label pb-1"><span
+                                    class="label-text font-medium text-xs">Company</span></label>
+                            <input type="text" name="company" placeholder="Your Company"
+                                class="input input-bordered input-sm w-full rounded-xl text-sm bg-base-300/30 border-base-300/40">
+                        </div>
+                        <div class="form-control mt-3">
+                            <label class="label pb-1"><span class="label-text font-medium text-xs">Message
+                                    *</span></label>
+                            <textarea name="message" rows="4" placeholder="Tell us about your project..."
+                                class="textarea textarea-bordered w-full rounded-xl text-sm bg-base-300/30 border-base-300/40"
+                                required></textarea>
+                        </div>
+                        <div class="mt-5">
+                            <button type="submit"
+                                class="btn btn-primary rounded-full w-full font-semibold gap-2 shadow-sm">
+                                <span>Send Message</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14" />
+                                    <path d="m12 5 7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-base-content/35 mt-3 text-center">We'll respond within 24 hours.
+                            <a href="{% url 'core:privacy_policy' %}" class="text-primary hover:underline">Privacy
+                                Policy</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

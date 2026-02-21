@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utilities */
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(135deg, #7A1C1C, #C8956A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-gradient {
+    background: linear-gradient(160deg, #0F0D0B 0%, #1A1612 40%, #2C1A18 100%);
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(26, 22, 18, 0.75);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(26, 22, 18, 0.8);
+  }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Subtle dot grid pattern for sections */
+  .dot-pattern {
+    background-image: radial-gradient(circle, rgba(200, 149, 106, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Godrays / sunrays light effect */
+  .godrays {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .godrays::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    transform: translateX(-50%);
+    background: conic-gradient(
+      from 90deg at 50% 0%,
+      transparent 0deg,
+      rgba(255,255,255,0.03) 15deg,
+      transparent 30deg,
+      rgba(255,255,255,0.02) 60deg,
+      transparent 75deg,
+      rgba(255,255,255,0.04) 100deg,
+      transparent 120deg,
+      rgba(255,255,255,0.02) 150deg,
+      transparent 170deg,
+      rgba(255,255,255,0.03) 200deg,
+      transparent 220deg,
+      rgba(255,255,255,0.02) 260deg,
+      transparent 280deg,
+      rgba(255,255,255,0.03) 320deg,
+      transparent 340deg,
+      transparent 360deg
+    );
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+/* Scroll-triggered animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+[data-animate] {
+  opacity: 0;
+}
+
+/* Tab active state */
+@layer components {
+  .tab-active {
+    @apply btn-primary;
+  }
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #C8956A;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions on interactive elements */
+a, button {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}

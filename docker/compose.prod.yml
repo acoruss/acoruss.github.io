@@ -5,7 +5,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-acoruss}"]
+      test: ["CMD", "pg_isready", "-U", "acoruss"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -14,9 +14,6 @@ services:
   web:
     image: ghcr.io/acoruss/acoruss.github.io:latest
     env_file: ../.env
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.prod
-      - DATABASE_URL=postgres://acoruss:acoruss@db:5432/acoruss
     working_dir: /app/src
     ports:
       - "8083:8000"

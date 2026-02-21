@@ -1,7 +1,8 @@
 .PHONY: help dev run migrate makemigrations createsuperuser collectstatic \
        format lint test template-test \
        tailwind-build tailwind-watch tailwind-install \
-       docker-up docker-down docker-build docker-logs \
+       docker-build docker-push docker-prod-up docker-prod-down \
+       docker-prod-logs docker-prod-pull \
        setup clean copy-images shell
 
 SHELL := /bin/zsh
@@ -81,14 +82,26 @@ copy-images: ## Copy public images to static directory
 
 # ─── Docker ──────────────────────────────────────────────────
 
-docker-build: ## Build Docker image for production
-	docker build -f docker/Dockerfile -t acoruss-web .
+IMAGE_NAME := ghcr.io/acoruss/acoruss.github.io
+IMAGE_TAG  ?= latest
+
+docker-build: ## Build Docker production image locally
+	docker build -f docker/Dockerfile --target production -t $(IMAGE_NAME):$(IMAGE_TAG) .
+
+docker-push: ## Push Docker image to GHCR (requires docker login)
+	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
 docker-prod-up: ## Start production Docker containers
 	docker compose -f docker/compose.prod.yml up -d
 
 docker-prod-down: ## Stop production Docker containers
 	docker compose -f docker/compose.prod.yml down
+
+docker-prod-logs: ## View production Docker container logs
+	docker compose -f docker/compose.prod.yml logs -f
+
+docker-prod-pull: ## Pull latest production image from GHCR
+	docker pull $(IMAGE_NAME):$(IMAGE_TAG)
 
 # ─── Cleanup ─────────────────────────────────────────────────
 

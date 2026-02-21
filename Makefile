@@ -94,7 +94,7 @@ docker-push: ## Push Docker image to GHCR (requires docker login)
 
 prod-up: ## Start production containers and collect static files
 	$(DC_PROD) up -d
-	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py collectstatic --noinput"
+	$(DC_PROD_EXEC) python manage.py collectstatic --noinput
 
 prod-down: ## Stop production Docker containers
 	$(DC_PROD) down
@@ -106,10 +106,10 @@ prod-pull: ## Pull latest production image from GHCR
 	docker pull $(IMAGE_NAME):$(IMAGE_TAG)
 
 prod-migrate: ## Run database migrations in production
-	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py migrate"
+	$(DC_PROD_EXEC) python manage.py migrate
 
 prod-collectstatic: ## Collect static files in production
-	$(DC_PROD_EXEC) sh -c "cd /app/src && python manage.py collectstatic --noinput"
+	$(DC_PROD_EXEC) python manage.py collectstatic --noinput
 
 # ─── Cleanup ─────────────────────────────────────────────────
 

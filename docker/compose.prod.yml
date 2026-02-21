@@ -27,7 +27,7 @@ services:
       - PAYSTACK_PUBLIC_KEY=${PAYSTACK_PUBLIC_KEY:-}
       - GOOGLE_ANALYTICS_ID=${GOOGLE_ANALYTICS_ID:-G-BSXKG26LSP}
     ports:
-      - "8000:8000"
+      - "${WEB_PORT:-8083}:8000"
     depends_on:
       db:
         condition: service_healthy

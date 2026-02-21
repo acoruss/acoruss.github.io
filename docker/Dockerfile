@@ -76,8 +76,8 @@ COPY --from=frontend-builder /app/src/static/css/main.css ./src/static/css/main.
 RUN mkdir -p src/static/images/logos \
     && cp -r public/images/logos/* src/static/images/logos/
 
-# Collect static files
-RUN cd src && python manage.py collectstatic --noinput 2>/dev/null || true
+# Ensure staticfiles directory exists for WhiteNoise
+RUN mkdir -p /app/staticfiles
 
 RUN chown -R acoruss:acoruss /app
 

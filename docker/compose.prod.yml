@@ -2,14 +2,10 @@ services:
   db:
     image: postgres:16-alpine
     env_file: ../.env
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-acoruss}
-      POSTGRES_USER: ${POSTGRES_USER:-acoruss}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-acoruss}"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-acoruss}"]
       interval: 10s
       timeout: 5s
       retries: 5

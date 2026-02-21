@@ -8,10 +8,16 @@ more.{% endblock %}
 
 {% block content %}
 <!-- Pricing Hero -->
-<section class="py-20 bg-base-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Transparent Pricing, Scoped to Outcomes</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Pricing is based on scope, complexity, integrations, and
+<section class="pt-32 pb-20 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <div
+            class="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-4 text-primary text-sm font-semibold uppercase tracking-wider">
+            Pricing
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Transparent Pricing, Scoped to <span
+                class="text-primary">Outcomes</span></h1>
+        <p class="text-xl text-base-content/60 max-w-2xl mx-auto mb-8">Pricing is based on scope, complexity,
+            integrations, and
             timelines. We tailor solutions to fit your budget and goals.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg">Request
@@ -434,16 +440,21 @@ more.{% endblock %}
 </section>
 
 <!-- Final CTA -->
-<section class="py-20 bg-primary text-primary-content">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p class="text-lg opacity-90 mb-8">Let's scope your project and find the right plan for you.</p>
+<section class="py-20 bg-neutral text-neutral-content">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <h2 class="text-3xl font-bold mb-4">Ready to Get <span class="text-primary">Started?</span></h2>
+        <p class="text-lg text-neutral-content/70 mb-8">Let's scope your project and find the right plan for you.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg gap-2">
+                <span>Request a Quote</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </a>
             <a href="{% url 'core:contact' %}"
-                class="btn bg-white text-primary hover:bg-gray-100 rounded-full px-8 font-semibold shadow-lg">Request a
-                Quote</a>
-            <a href="{% url 'core:contact' %}"
-                class="btn btn-outline border-white text-white hover:bg-white hover:text-primary rounded-full px-8 font-semibold">Book
+                class="btn btn-outline border-neutral-content/30 text-neutral-content hover:bg-neutral-content hover:text-neutral rounded-full px-8 font-semibold">Book
                 Discovery Call</a>
         </div>
     </div>

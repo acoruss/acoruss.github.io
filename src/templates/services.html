@@ -8,11 +8,15 @@ your needs.{% endblock %}
 
 {% block content %}
 <!-- Services Hero -->
-<section class="py-20 bg-base-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Our Services</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">From initial consultation to ongoing maintenance, we provide
-            complete software solutions tailored to your needs.</p>
+<section class="pt-32 pb-20 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <div
+            class="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-4 text-primary text-sm font-semibold uppercase tracking-wider">
+            Our Expertise
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Our <span class="text-primary">Services</span></h1>
+        <p class="text-xl text-base-content/60 max-w-2xl mx-auto">From initial consultation to ongoing maintenance, we
+            provide complete software solutions tailored to your needs.</p>
     </div>
 </section>
 
@@ -21,19 +25,19 @@ your needs.{% endblock %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Tab Navigation -->
         <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist">
-            <button class="service-tab btn btn-sm rounded-full btn-primary" data-tab="website-development" role="tab"
+            <button class="service-tab btn btn-sm rounded-full tab-active" data-tab="website-development" role="tab"
                 aria-selected="true">Website Development</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="custom-software" role="tab"
+            <button class="service-tab btn btn-sm rounded-full" data-tab="custom-software" role="tab"
                 aria-selected="false">Custom Software</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="ai" role="tab"
-                aria-selected="false">AI & Automation</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="consultation" role="tab"
+            <button class="service-tab btn btn-sm rounded-full" data-tab="ai" role="tab" aria-selected="false">AI &
+                Automation</button>
+            <button class="service-tab btn btn-sm rounded-full" data-tab="consultation" role="tab"
                 aria-selected="false">Strategy & Consulting</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="security" role="tab"
+            <button class="service-tab btn btn-sm rounded-full" data-tab="security" role="tab"
                 aria-selected="false">Security & Trust</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="process-optimization" role="tab"
+            <button class="service-tab btn btn-sm rounded-full" data-tab="process-optimization" role="tab"
                 aria-selected="false">Process Optimization</button>
-            <button class="service-tab btn btn-sm rounded-full btn-ghost" data-tab="open-source" role="tab"
+            <button class="service-tab btn btn-sm rounded-full" data-tab="open-source" role="tab"
                 aria-selected="false">Open Source</button>
         </div>
 
@@ -327,61 +331,19 @@ your needs.{% endblock %}
         </div>
 
         <!-- CTA -->
-        <div class="text-center mt-16 bg-primary/5 rounded-2xl p-12">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to get started?</h3>
-            <p class="text-gray-600 mb-6 max-w-xl mx-auto">Every engagement follows OWASP-aligned practices,
+        <div class="text-center mt-16 bg-neutral text-neutral-content rounded-box p-12" data-animate>
+            <h3 class="text-2xl font-bold mb-4">Ready to get started?</h3>
+            <p class="text-neutral-content/70 mb-6 max-w-xl mx-auto">Every engagement follows OWASP-aligned practices,
                 least-privilege access, and CI/CD checks.</p>
-            <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg">Tell Us
-                About Your Project</a>
+            <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg gap-2">
+                <span>Tell Us About Your Project</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </a>
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Service tabs
-        const tabs = document.querySelectorAll('.service-tab');
-        const panels = document.querySelectorAll('.service-panel');
-
-        // Check hash on load
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-            const targetPanel = document.getElementById(hash);
-            if (targetPanel && targetPanel.classList.contains('service-panel')) {
-                panels.forEach(p => p.classList.add('hidden'));
-                targetPanel.classList.remove('hidden');
-                tabs.forEach(t => {
-                    t.classList.remove('btn-primary');
-                    t.classList.add('btn-ghost');
-                    t.setAttribute('aria-selected', 'false');
-                });
-                const activeTab = document.querySelector(`[data-tab="${hash}"]`);
-                if (activeTab) {
-                    activeTab.classList.add('btn-primary');
-                    activeTab.classList.remove('btn-ghost');
-                    activeTab.setAttribute('aria-selected', 'true');
-                }
-            }
-        }
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function () {
-                const target = this.dataset.tab;
-                panels.forEach(p => p.classList.add('hidden'));
-                document.getElementById(target).classList.remove('hidden');
-                tabs.forEach(t => {
-                    t.classList.remove('btn-primary');
-                    t.classList.add('btn-ghost');
-                    t.setAttribute('aria-selected', 'false');
-                });
-                this.classList.add('btn-primary');
-                this.classList.remove('btn-ghost');
-                this.setAttribute('aria-selected', 'true');
-                history.replaceState(null, '', '#' + target);
-            });
-        });
-    });
-</script>
 {% endblock %}

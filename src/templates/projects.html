@@ -7,11 +7,15 @@
 
 {% block content %}
 <!-- Projects Hero -->
-<section class="py-20 bg-base-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Our Projects</h1>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Real work that demonstrates how we design, build, and deliver
-            solutions across different industries.</p>
+<section class="pt-32 pb-20 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
+        <div
+            class="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-4 text-primary text-sm font-semibold uppercase tracking-wider">
+            Portfolio
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Our <span class="text-primary">Projects</span></h1>
+        <p class="text-xl text-base-content/60 max-w-2xl mx-auto">Real work that demonstrates how we design, build, and
+            deliver solutions across different industries.</p>
     </div>
 </section>
 
@@ -20,17 +24,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Tab Navigation -->
         <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist">
-            <button class="project-tab btn btn-sm rounded-full btn-primary" data-tab="websites" role="tab"
+            <button class="project-tab btn btn-sm rounded-full tab-active" data-tab="websites" role="tab"
                 aria-selected="true">Websites</button>
-            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="sdks" role="tab"
+            <button class="project-tab btn btn-sm rounded-full" data-tab="sdks" role="tab"
                 aria-selected="false">SDKs</button>
-            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="custom-software" role="tab"
+            <button class="project-tab btn btn-sm rounded-full" data-tab="custom-software" role="tab"
                 aria-selected="false">Custom Software</button>
-            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="open-source" role="tab"
+            <button class="project-tab btn btn-sm rounded-full" data-tab="open-source" role="tab"
                 aria-selected="false">Open Source</button>
-            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="automations" role="tab"
+            <button class="project-tab btn btn-sm rounded-full" data-tab="automations" role="tab"
                 aria-selected="false">Automations</button>
-            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="ai" role="tab"
+            <button class="project-tab btn btn-sm rounded-full" data-tab="ai" role="tab"
                 aria-selected="false">Artificial Intelligence</button>
         </div>
 
@@ -174,38 +178,18 @@
 </section>
 
 <!-- CTA -->
-<section class="py-20 bg-primary text-primary-content">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section class="py-20 bg-neutral text-neutral-content">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
         <h2 class="text-3xl font-bold mb-4">Have a Project in Mind?</h2>
-        <p class="text-lg opacity-90 mb-8">Let's discuss how we can bring your idea to life.</p>
-        <a href="{% url 'core:contact' %}"
-            class="btn bg-white text-primary hover:bg-gray-100 rounded-full px-8 font-semibold shadow-lg">Tell Us About
-            Your Project</a>
+        <p class="text-lg text-neutral-content/70 mb-8">Let's discuss how we can bring your idea to life.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full px-8 font-semibold shadow-lg gap-2">
+            <span>Tell Us About Your Project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+            </svg>
+        </a>
     </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabs = document.querySelectorAll('.project-tab');
-        const panels = document.querySelectorAll('.project-panel');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function () {
-                const target = this.dataset.tab;
-                panels.forEach(p => p.classList.add('hidden'));
-                document.getElementById(target).classList.remove('hidden');
-                tabs.forEach(t => {
-                    t.classList.remove('btn-primary');
-                    t.classList.add('btn-ghost');
-                    t.setAttribute('aria-selected', 'false');
-                });
-                this.classList.add('btn-primary');
-                this.classList.remove('btn-ghost');
-                this.setAttribute('aria-selected', 'true');
-            });
-        });
-    });
-</script>
 {% endblock %}

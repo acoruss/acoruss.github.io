@@ -72,6 +72,33 @@
   animation: slide-up 0.6s ease-out;
 }
 
+/* Scroll-triggered fade-in-up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out forwards;
+}
+
+[data-animate] {
+  opacity: 0;
+}
+
+/* Tab active state */
+@layer components {
+  .tab-active {
+    @apply btn-primary;
+  }
+}
+
 /* Global styles */
 html {
   scroll-behavior: smooth;

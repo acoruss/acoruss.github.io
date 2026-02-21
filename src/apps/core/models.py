@@ -10,6 +10,9 @@ class ContactSubmission(models.Model):
 
     name = models.CharField(max_length=255)
     email = models.EmailField()
+    company = models.CharField(max_length=255, blank=True, default="")
+    phone = models.CharField(max_length=50, blank=True, default="")
+    project_type = models.CharField(max_length=100, blank=True, default="")
     message = models.TextField()
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

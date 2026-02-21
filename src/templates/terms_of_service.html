@@ -1,23 +1,67 @@
 {% extends "base.html" %}
 
 {% block title %}Terms of Service - Acoruss{% endblock %}
+{% block og_title %}Terms of Service - Acoruss{% endblock %}
+{% block og_description %}Read the terms and conditions for using Acoruss services.{% endblock %}
 
 {% block content %}
-<section class="py-20 px-4">
-    <div class="container mx-auto max-w-3xl prose">
-        <h1>Terms of Service</h1>
-        <p class="text-sm text-base-content/60">Last updated: August 19, 2025</p>
-        <p>
-            Welcome to Acoruss. By accessing or using our website and services, you agree to be bound
-            by these Terms of Service.
-        </p>
+<!-- Hero -->
+<section class="py-16 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Terms of Service</h1>
+        <p class="text-gray-600">Last updated: August 19, 2025</p>
+    </div>
+</section>
+
+<!-- Content -->
+<section class="py-16 bg-base-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg max-w-none">
+        <p>Welcome to Acoruss. By accessing or using our website and services, you agree to be bound by these Terms of
+            Service.</p>
+
         <h2>Services</h2>
-        <p>Acoruss provides technology consulting, software development, and AI solutions for businesses.</p>
-        <h2>Intellectual Property</h2>
-        <p>All content on this website is the property of Acoruss and is protected by applicable laws.</p>
+        <p>Acoruss provides technology consulting, website development, custom software development, AI and automation
+            solutions, and related services. All engagement details are outlined in project-specific proposals or
+            agreements.</p>
+
+        <h2>Discovery & Engagement</h2>
+        <p>Our discovery process begins with a one-time fee of <strong>KSh 5,000</strong>, which is fully credited
+            toward your project if you decide to proceed. This ensures both parties are committed to productive
+            collaboration.</p>
+
+        <h2>Payment Terms</h2>
+        <ul>
+            <li><strong>Deposit:</strong> 30% of the total project cost is required before work begins.</li>
+            <li><strong>Milestone payments:</strong> Progress payments are tied to deliverable milestones as outlined in
+                your project agreement.</li>
+            <li><strong>Final payment:</strong> The remaining balance is due upon project completion and handover.</li>
+        </ul>
+
+        <h2>Change Requests</h2>
+        <p>Changes outside the original project scope will be quoted, approved, and billed separately. We ensure
+            transparency so that you're never surprised by additional costs.</p>
+
+        <h2>Intellectual Property & Ownership</h2>
+        <p>Upon full payment, you own the final deliverables — code, designs, and assets — unless otherwise specified in
+            your agreement. Acoruss retains the right to use general techniques and methodologies learned during the
+            project.</p>
+
+        <h2>Confidentiality</h2>
+        <p>We treat all client information as confidential and will not disclose project details or business information
+            to third parties without your consent.</p>
+
+        <h2>Limitation of Liability</h2>
+        <p>While we strive for excellence, Acoruss shall not be held liable for indirect, incidental, or consequential
+            damages arising from the use of our services or deliverables.</p>
+
+        <h2>Termination</h2>
+        <p>Either party may terminate a project engagement with written notice. In the event of termination, payment is
+            due for all work completed up to the termination date.</p>
+
         <h2>Contact Us</h2>
-        <p>If you have questions about these terms, contact us at <a
-                href="mailto:info@acoruss.com">info@acoruss.com</a>.</p>
+        <p>If you have questions about these terms, contact us at <a href="mailto:hello@acoruss.com"
+                class="text-primary hover:underline">hello@acoruss.com</a> or call <a href="tel:+254705867162"
+                class="text-primary hover:underline">+254 705 867 162</a>.</p>
     </div>
 </section>
 {% endblock %}

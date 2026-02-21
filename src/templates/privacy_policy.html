@@ -1,25 +1,69 @@
 {% extends "base.html" %}
 
 {% block title %}Privacy Policy - Acoruss{% endblock %}
+{% block og_title %}Privacy Policy - Acoruss{% endblock %}
+{% block og_description %}Learn how Acoruss collects, uses, and protects your personal data.{% endblock %}
 
 {% block content %}
-<section class="py-20 px-4">
-    <div class="container mx-auto max-w-3xl prose">
-        <h1>Privacy Policy</h1>
-        <p class="text-sm text-base-content/60">Last updated: August 19, 2025</p>
-        <p>
-            At Acoruss, we respect your privacy and are committed to protecting your personal data.
-            This privacy policy explains how we collect, use, and safeguard your information when you
-            visit our website.
+<!-- Hero -->
+<section class="py-16 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Privacy Policy</h1>
+        <p class="text-gray-600">Last updated: August 19, 2025</p>
+    </div>
+</section>
+
+<!-- Content -->
+<section class="py-16 bg-base-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg max-w-none">
+        <p>At Acoruss, we respect your privacy and are committed to protecting your personal data. This privacy policy
+            explains how we collect, use, and safeguard your information when you visit our website or use our services.
         </p>
+
         <h2>Information We Collect</h2>
-        <p>We may collect information you provide directly, such as your name, email address, and message when you use
-            our contact form.</p>
+        <p>We may collect the following information:</p>
+        <ul>
+            <li><strong>Contact information</strong> — name, email address, phone number, and company name when you fill
+                out our contact form.</li>
+            <li><strong>Project information</strong> — details about your project needs and preferences.</li>
+            <li><strong>Usage data</strong> — anonymized data about how you interact with our website, including pages
+                visited and time spent.</li>
+            <li><strong>Cookies</strong> — small data files stored on your device to improve your browsing experience.
+            </li>
+        </ul>
+
         <h2>How We Use Your Information</h2>
-        <p>We use your information to respond to your inquiries, provide our services, and improve our website.</p>
+        <p>We use your information to:</p>
+        <ul>
+            <li>Respond to your inquiries and provide project consultations.</li>
+            <li>Deliver and improve our technology consulting services.</li>
+            <li>Send relevant updates about our services (only with your consent).</li>
+            <li>Improve our website and user experience.</li>
+            <li>Comply with legal obligations.</li>
+        </ul>
+
+        <h2>Data Protection</h2>
+        <p>We implement appropriate technical and organizational measures to protect your personal data against
+            unauthorized access, alteration, disclosure, or destruction. Our security practices are aligned with OWASP
+            guidelines.</p>
+
+        <h2>Third-Party Services</h2>
+        <p>We may share your data with trusted third-party services that assist us in operating our website and
+            conducting business, provided those parties agree to keep your information confidential.</p>
+
+        <h2>Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+            <li>Access the personal data we hold about you.</li>
+            <li>Request correction of inaccurate data.</li>
+            <li>Request deletion of your personal data.</li>
+            <li>Withdraw consent for data processing.</li>
+        </ul>
+
         <h2>Contact Us</h2>
-        <p>If you have questions about this privacy policy, contact us at <a
-                href="mailto:info@acoruss.com">info@acoruss.com</a>.</p>
+        <p>If you have questions about this privacy policy, contact us at <a href="mailto:hello@acoruss.com"
+                class="text-primary hover:underline">hello@acoruss.com</a> or call <a href="tel:+254705867162"
+                class="text-primary hover:underline">+254 705 867 162</a>.</p>
     </div>
 </section>
 {% endblock %}

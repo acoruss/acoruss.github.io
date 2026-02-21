@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects - Acoruss{% endblock %}
+{% block og_title %}Our Projects - Acoruss{% endblock %}
+{% block og_description %}Real work that demonstrates how we design, build, and deliver solutions.{% endblock %}
+
+{% block content %}
+<!-- Projects Hero -->
+<section class="py-20 bg-base-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Our Projects</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Real work that demonstrates how we design, build, and deliver
+            solutions across different industries.</p>
+    </div>
+</section>
+
+<!-- Category Tabs -->
+<section class="py-16 bg-base-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist">
+            <button class="project-tab btn btn-sm rounded-full btn-primary" data-tab="websites" role="tab"
+                aria-selected="true">Websites</button>
+            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="sdks" role="tab"
+                aria-selected="false">SDKs</button>
+            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="custom-software" role="tab"
+                aria-selected="false">Custom Software</button>
+            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="open-source" role="tab"
+                aria-selected="false">Open Source</button>
+            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="automations" role="tab"
+                aria-selected="false">Automations</button>
+            <button class="project-tab btn btn-sm rounded-full btn-ghost" data-tab="ai" role="tab"
+                aria-selected="false">Artificial Intelligence</button>
+        </div>
+
+        <!-- Websites Panel -->
+        <div id="websites" class="project-panel" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- xPerience Nairobi -->
+                <div class="card bg-base-100 shadow-sm border border-gray-100 card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-primary badge-sm mb-2">Website</div>
+                        <h3 class="card-title text-lg">xPerience Nairobi</h3>
+                        <p class="text-gray-600 text-sm">Use AI to plan your free time with bespoke activities in
+                            Nairobi.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-gray-700">Outcome:</span> <span
+                                    class="text-gray-600">Full-featured website, AI chat, create plans and share with
+                                    friends, discover events with your mood.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Site</a>
+                            <a href="https://experiencenairobi.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Site</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Martin & Loice Wedding -->
+                <div class="card bg-base-100 shadow-sm border border-gray-100 card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-primary badge-sm mb-2">Website</div>
+                        <h3 class="card-title text-lg">Martin & Loice Wedding</h3>
+                        <p class="text-gray-600 text-sm">Custom website to invite guests and RSVP to wedding.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-gray-700">Outcome:</span> <span class="text-gray-600">Fast,
+                                    mobile-first guest experience site with pizzazz.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Site</a>
+                            <a href="https://wedding.martinandloice.life?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Site</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SDKs Panel -->
+        <div id="sdks" class="project-panel hidden" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-base-100 shadow-sm border border-gray-100 card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-secondary badge-sm mb-2">SDK</div>
+                        <h3 class="card-title text-lg">SDKs for GavaConnect APIs</h3>
+                        <p class="text-gray-600 text-sm">Easily connect with government services through their APIs and
+                            simple to use SDKs.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-gray-700">Role:</span> <span class="text-gray-600">API
+                                    design, cross-language libs (Python, TS & Java), docs, CI</span></p>
+                            <p><span class="font-medium text-gray-700">Value:</span> <span class="text-gray-600">Faster
+                                    integrations, fewer bugs, maintainable codebases.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Your
+                                SDK</a>
+                            <a href="https://github.com/search?q=topic%3Agavaconnect+org%3Aacoruss&type=Repositories"
+                                target="_blank" rel="noopener noreferrer"
+                                class="btn btn-outline btn-sm rounded-full">See Our SDKs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Software Panel -->
+        <div id="custom-software" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Custom Software Projects</h3>
+                <p class="text-gray-600 mb-6">We're working on showcasing more of our custom software projects. Contact
+                    us to discuss yours.</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Start Your Project</a>
+            </div>
+        </div>
+
+        <!-- Open Source Panel -->
+        <div id="open-source" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Open Source Contributions</h3>
+                <p class="text-gray-600 mb-6">Check out our open source work on GitHub.</p>
+                <a href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-primary rounded-full">View on GitHub</a>
+            </div>
+        </div>
+
+        <!-- Automations Panel -->
+        <div id="automations" class="project-panel hidden" role="tabpanel">
+            <div class="text-center py-12">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Automation Projects</h3>
+                <p class="text-gray-600 mb-6">We're adding our automation case studies. Contact us to learn more.</p>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Discuss Automation</a>
+            </div>
+        </div>
+
+        <!-- AI Panel -->
+        <div id="ai" class="project-panel hidden" role="tabpanel">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-base-100 shadow-sm border border-gray-100 card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">AI</div>
+                        <h3 class="card-title text-lg">xPerience Nairobi AI Chat</h3>
+                        <p class="text-gray-600 text-sm">AI-powered activity planner that uses your mood and preferences
+                            to suggest bespoke activities in Nairobi.</p>
+                        <div class="card-actions mt-4">
+                            <a href="https://experiencenairobi.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">Try It</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-primary text-primary-content">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Have a Project in Mind?</h2>
+        <p class="text-lg opacity-90 mb-8">Let's discuss how we can bring your idea to life.</p>
+        <a href="{% url 'core:contact' %}"
+            class="btn bg-white text-primary hover:bg-gray-100 rounded-full px-8 font-semibold shadow-lg">Tell Us About
+            Your Project</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('.project-tab');
+        const panels = document.querySelectorAll('.project-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                const target = this.dataset.tab;
+                panels.forEach(p => p.classList.add('hidden'));
+                document.getElementById(target).classList.remove('hidden');
+                tabs.forEach(t => {
+                    t.classList.remove('btn-primary');
+                    t.classList.add('btn-ghost');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                this.classList.add('btn-primary');
+                this.classList.remove('btn-ghost');
+                this.setAttribute('aria-selected', 'true');
+            });
+        });
+    });
+</script>
+{% endblock %}

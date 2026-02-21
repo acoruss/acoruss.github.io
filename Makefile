@@ -62,14 +62,7 @@ test: ## Run tests with pytest
 	$(DC_EXEC) sh -c "cd /app/src && DJANGO_SETTINGS_MODULE=config.settings.test python -m pytest ../tests/ -v"
 
 template-test: ## Test that all templates load correctly
-	$(DC_EXEC) sh -c "cd /app/src && python -c \"\
-		import os, sys; \
-		os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.dev'; \
-		import django; django.setup(); \
-		from django.template.loader import get_template; \
-		templates = ['index.html', 'base.html', 'privacy_policy.html', 'terms_of_service.html', 'dashboard/base.html', 'dashboard/home.html', 'dashboard/login.html']; \
-		[print(f'  ✓ {t}') or get_template(t) for t in templates]; \
-		print('All templates loaded successfully!')\""
+	$(DC_EXEC) sh -c "cd /app/src && python -c \"import os; os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.dev'; import django; django.setup(); from django.template.loader import get_template; templates = ['index.html', 'base.html', 'services.html', 'pricing.html', 'projects.html', 'about.html', 'contact.html', 'privacy_policy.html', 'terms_of_service.html', 'dashboard/base.html', 'dashboard/home.html', 'dashboard/login.html']; [print(f'  ok {t}') or get_template(t) for t in templates]; print('All templates loaded successfully!')\""
 
 # ─── Frontend ────────────────────────────────────────────────
 

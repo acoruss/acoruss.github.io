@@ -24,8 +24,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libpq-dev \
-        curl \
+    libpq-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -86,9 +86,9 @@ USER acoruss
 EXPOSE 8000
 
 CMD ["gunicorn", "config.asgi:application", \
-     "--worker-class", "uvicorn.workers.UvicornWorker", \
-     "--workers", "4", \
-     "--bind", "0.0.0.0:8000", \
-     "--chdir", "/app/src", \
-     "--access-logfile", "-", \
-     "--error-logfile", "-"]
+    "--worker-class", "uvicorn.workers.UvicornWorker", \
+    "--workers", "4", \
+    "--bind", "0.0.0.0:8000", \
+    "--chdir", "/app/src", \
+    "--access-logfile", "-", \
+    "--error-logfile", "-"]

@@ -64,15 +64,15 @@
 
 ## Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Server | ASGI (Gunicorn + Uvicorn workers) | AGENTS.md mandates async Django |
-| Linter/Formatter | Ruff | Single tool, fast, modern |
-| Email | django-anymail[mailgun] | Battle-tested Mailgun integration |
-| Payments | Paystack (placeholder) | Scaffold now, define products later |
-| User model | Custom from Phase 1 | Avoids painful migration later |
-| Templates | Partials pattern | Modular, testable sections |
-| CSS | Tailwind 3 + DaisyUI | Per AGENTS.md and DESIGN.md |
+| Decision         | Choice                            | Rationale                           |
+| ---------------- | --------------------------------- | ----------------------------------- |
+| Server           | ASGI (Gunicorn + Uvicorn workers) | AGENTS.md mandates async Django     |
+| Linter/Formatter | Ruff                              | Single tool, fast, modern           |
+| Email            | django-anymail[mailgun]           | Battle-tested Mailgun integration   |
+| Payments         | Paystack (placeholder)            | Scaffold now, define products later |
+| User model       | Custom from Phase 1               | Avoids painful migration later      |
+| Templates        | Partials pattern                  | Modular, testable sections          |
+| CSS              | Tailwind 3 + DaisyUI              | Per AGENTS.md and DESIGN.md         |
 
 ## Progress
 

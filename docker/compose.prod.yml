@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:16-alpine
+    env_file: ../.env
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-acoruss}
       POSTGRES_USER: ${POSTGRES_USER:-acoruss}
@@ -16,6 +17,7 @@ services:
 
   web:
     image: ghcr.io/acoruss/acoruss.github.io:latest
+    env_file: ../.env
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.prod
       - DATABASE_URL=postgres://${POSTGRES_USER:-acoruss}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-acoruss}

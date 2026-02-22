@@ -19,7 +19,7 @@
 - [x] `.env_sample` with all required variables
 - [x] `Makefile` with all utility targets (Docker-first approach)
 - [x] `.gitignore` and `.dockerignore` updated
-- [x] Verify: `make dev` serves dummy site on `localhost:8084` ✅ All pages load
+- [x] Verify: `make dev` serves dummy site on `localhost:8083` ✅ All pages load
 
 ## Phase 2: CI/CD & Code Quality
 

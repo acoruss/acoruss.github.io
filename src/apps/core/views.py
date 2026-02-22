@@ -135,6 +135,11 @@ class DashboardView(AdminRequiredMixin, TemplateView):
         context["recent_submissions"] = ContactSubmission.objects.all()[:5]
         context["total_payments"] = Payment.objects.count()
         context["successful_payments"] = Payment.objects.filter(status=Payment.Status.SUCCESS).count()
+
+        from apps.payments.models import ServiceProduct
+
+        context["total_services"] = ServiceProduct.objects.count()
+        context["active_services"] = ServiceProduct.objects.filter(is_active=True).count()
         return context
 
 
@@ -213,7 +218,7 @@ class PaymentListView(AdminRequiredMixin, ListView):
 
     def get_queryset(self):
         Payment = _get_payment_model()  # noqa: N806
-        qs = Payment.objects.all()
+        qs = Payment.objects.select_related("service").all()
         status = self.request.GET.get("status")
         if status and status in dict(Payment.Status.choices):
             qs = qs.filter(status=status)
@@ -223,7 +228,11 @@ class PaymentListView(AdminRequiredMixin, ListView):
                 models.Q(reference__icontains=search)
                 | models.Q(email__icontains=search)
                 | models.Q(name__icontains=search)
+                | models.Q(service_reference__icontains=search)
             )
+        service_slug = self.request.GET.get("service")
+        if service_slug:
+            qs = qs.filter(service__slug=service_slug)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -235,6 +244,11 @@ class PaymentListView(AdminRequiredMixin, ListView):
         context["current_status"] = self.request.GET.get("status", "all")
         context["search_query"] = self.request.GET.get("q", "")
         context["status_choices"] = Payment.Status.choices
+        context["current_service"] = self.request.GET.get("service", "")
+
+        from apps.payments.models import ServiceProduct
+
+        context["services"] = ServiceProduct.objects.filter(is_active=True).order_by("name")
         return context
 
 
@@ -281,9 +295,15 @@ class AnalyticsView(AdminRequiredMixin, TemplateView):
         )
         context["revenue_30d"] = revenue_30d
 
+        # Service product stats
+        from apps.payments.models import ServiceProduct
+
+        context["total_services"] = ServiceProduct.objects.count()
+        context["active_services"] = ServiceProduct.objects.filter(is_active=True).count()
+
         # Recent activity
         context["recent_contacts"] = ContactSubmission.objects.all()[:5]
-        context["recent_payments"] = Payment.objects.all()[:5]
+        context["recent_payments"] = Payment.objects.select_related("service").all()[:5]
 
         return context
 

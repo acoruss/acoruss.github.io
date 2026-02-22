@@ -116,6 +116,30 @@
         </div>
     </div>
 
+    <!-- Products -->
+    <div>
+        <h2 class="text-lg font-semibold mb-3 text-base-content/70">Products &amp; Services</h2>
+        <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
+            <div class="stat">
+                <div class="stat-figure text-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="inline-block w-8 h-8 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                </div>
+                <div class="stat-title">Registered Products</div>
+                <div class="stat-value text-info">{{ total_services }}</div>
+                <div class="stat-desc">Total onboarded</div>
+            </div>
+            <div class="stat">
+                <div class="stat-title">Active</div>
+                <div class="stat-value text-success">{{ active_services }}</div>
+                <div class="stat-desc">Currently accepting payments</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Recent Activity -->
     <div class="grid lg:grid-cols-2 gap-6">
         <!-- Recent Contacts -->

@@ -61,8 +61,8 @@ lint: ## Lint code with ruff
 test: ## Run tests with pytest
 	$(DC_EXEC) sh -c "cd /app/src && DATABASE_URL=postgres://acoruss:acoruss@db:5432/acoruss_test DJANGO_SETTINGS_MODULE=config.settings.test python -m pytest ../tests/ -v"
 
-template-test: ## Test that all templates load correctly
-	$(DC_EXEC) sh -c "cd /app/src && python -c \"import os; os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings.dev'; import django; django.setup(); from django.template.loader import get_template; templates = ['index.html', 'base.html', 'services.html', 'pricing.html', 'projects.html', 'about.html', 'contact.html', 'privacy_policy.html', 'terms_of_service.html', 'dashboard/base.html', 'dashboard/home.html', 'dashboard/login.html', 'dashboard/contacts/list.html', 'dashboard/contacts/detail.html', 'dashboard/payments/list.html', 'dashboard/analytics.html', 'payments/pay.html', 'emails/contact_notification.html']; [print(f'  ok {t}') or get_template(t) for t in templates]; print('All templates loaded successfully!')\""
+template-test: ## Test that all templates load correctly (auto-discovers from templates dir)
+	$(DC_EXEC) sh -c "cd /app/src && DATABASE_URL=postgres://acoruss:acoruss@db:5432/acoruss_test DJANGO_SETTINGS_MODULE=config.settings.test python -m pytest ../tests/test_templates.py -v"
 
 # ─── Frontend ────────────────────────────────────────────────
 

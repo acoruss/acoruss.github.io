@@ -1,0 +1,233 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Payment {{ payment.reference }} - Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6">
+    <!-- Header -->
+    <div>
+        <a href="{% url 'core:dashboard_payments' %}" class="btn btn-ghost btn-sm gap-1 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+            Back to Payments
+        </a>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+            <div>
+                <h1 class="text-2xl font-bold font-mono">{{ payment.reference }}</h1>
+                <p class="text-base-content/50 text-sm mt-1">{{ payment.created_at|date:"F j, Y H:i:s" }}</p>
+            </div>
+            <div class="flex items-center gap-2">
+                {% if payment.status == 'success' %}
+                <span class="badge badge-success badge-lg">Success</span>
+                {% elif payment.status == 'pending' %}
+                <span class="badge badge-warning badge-lg">Pending</span>
+                {% elif payment.status == 'failed' %}
+                <span class="badge badge-error badge-lg">Failed</span>
+                {% else %}
+                <span class="badge badge-ghost badge-lg">{{ payment.get_status_display }}</span>
+                {% endif %}
+
+                {% if payment.refund_status != 'none' %}
+                {% if payment.refund_status == 'full' %}
+                <span class="badge badge-error badge-lg">Fully Refunded</span>
+                {% elif payment.refund_status == 'partial' %}
+                <span class="badge badge-warning badge-lg">Partially Refunded</span>
+                {% elif payment.refund_status == 'pending' %}
+                <span class="badge badge-info badge-lg">Refund Pending</span>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Payment Details -->
+        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+            <h2 class="text-lg font-bold mb-4">Payment Details</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Amount</span>
+                    <span class="font-bold text-lg">{{ payment.currency }} {{ payment.amount }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Fees</span>
+                    <span class="text-warning">{{ payment.currency }} {{ payment.fees }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Net Amount</span>
+                    <span class="font-semibold">{{ payment.currency }} {{ payment.net_amount }}</span>
+                </div>
+                {% if payment.refunded_amount %}
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Refunded</span>
+                    <span class="text-error">{{ payment.currency }} {{ payment.refunded_amount }}</span>
+                </div>
+                {% endif %}
+                <div class="divider my-1"></div>
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Channel</span>
+                    <span class="capitalize">{{ payment.channel|default:"—" }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Description</span>
+                    <span>{{ payment.description|default:"—" }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Paystack ID</span>
+                    <span class="font-mono text-sm">{{ payment.paystack_id|default:"—" }}</span>
+                </div>
+                {% if payment.paystack_refund_id %}
+                <div class="flex justify-between">
+                    <span class="text-base-content/60">Refund ID</span>
+                    <span class="font-mono text-sm">{{ payment.paystack_refund_id }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Customer & Service Info -->
+        <div class="space-y-6">
+            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+                <h2 class="text-lg font-bold mb-4">Customer</h2>
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Name</span>
+                        <span>{{ payment.name|default:"—" }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Email</span>
+                        <span>{{ payment.email }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">IP Address</span>
+                        <span class="font-mono text-sm">{{ payment.ip_address|default:"—" }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+                <h2 class="text-lg font-bold mb-4">Service</h2>
+                <div class="space-y-3">
+                    {% if payment.service %}
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Product</span>
+                        <a href="{% url 'core:dashboard_service_detail' slug=payment.service.slug %}"
+                            class="link link-hover font-semibold">{{ payment.service.name }}</a>
+                    </div>
+                    {% else %}
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Product</span>
+                        <span class="text-base-content/40">Direct (Acoruss Payment Page)</span>
+                    </div>
+                    {% endif %}
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Service Ref</span>
+                        <span class="font-mono text-sm">{{ payment.service_reference|default:"—" }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-base-content/60">Callback URL</span>
+                        <span class="text-xs font-mono max-w-[220px] truncate" title="{{ payment.callback_url }}">{{
+                            payment.callback_url|default:"—" }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-base-content/60">Webhook</span>
+                        {% if payment.webhook_delivered %}
+                        <span class="badge badge-success badge-sm">Delivered
+                            {{ payment.webhook_delivered_at|date:"M j, H:i" }}</span>
+                        {% elif payment.service %}
+                        <span class="badge badge-warning badge-sm">Not delivered</span>
+                        {% else %}
+                        <span class="text-base-content/40">N/A</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Metadata -->
+    {% if payment.metadata %}
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+        <h2 class="text-lg font-bold mb-3">Metadata</h2>
+        <pre class="bg-base-300/50 p-4 rounded-xl text-xs font-mono overflow-x-auto">{{ payment.metadata|pprint }}</pre>
+    </div>
+    {% endif %}
+
+    <!-- Refund Action -->
+    {% if payment.is_refundable %}
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+        <h2 class="text-lg font-bold mb-3">Refund</h2>
+        <p class="text-sm text-base-content/60 mb-4">
+            Refundable amount: <strong>{{ payment.currency }} {{ payment.refundable_amount }}</strong>.
+            Leave the amount blank for a full refund.
+        </p>
+        <form method="post" action="{% url 'core:dashboard_payment_refund' pk=payment.pk %}"
+            class="flex items-end gap-3 flex-wrap">
+            {% csrf_token %}
+            <div class="form-control">
+                <label class="label"><span class="label-text text-sm font-semibold">Amount (optional)</span></label>
+                <input type="number" name="refund_amount" min="0.01" max="{{ payment.refundable_amount }}" step="0.01"
+                    placeholder="Full refund" class="input input-bordered input-sm w-40 rounded-lg bg-base-100/50" />
+            </div>
+            <div class="form-control flex-1 min-w-[200px]">
+                <label class="label"><span class="label-text text-sm font-semibold">Reason</span></label>
+                <input type="text" name="refund_reason" placeholder="Reason for refund..."
+                    class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+            </div>
+            <button type="submit" class="btn btn-error btn-sm rounded-full"
+                onclick="return confirm('Are you sure you want to refund this payment?')">
+                Initiate Refund
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- Webhook Delivery Logs -->
+    {% if webhook_logs %}
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
+        <div class="p-6">
+            <h2 class="text-lg font-bold">Webhook Delivery Log</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>URL</th>
+                        <th>Attempt</th>
+                        <th>Status</th>
+                        <th>Duration</th>
+                        <th>Error</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in webhook_logs %}
+                    <tr>
+                        <td class="font-mono text-xs">{{ log.event }}</td>
+                        <td class="text-xs max-w-[180px] truncate" title="{{ log.url }}">{{ log.url }}</td>
+                        <td class="text-center">{{ log.attempt }}/3</td>
+                        <td>
+                            {% if log.success %}
+                            <span class="badge badge-success badge-xs">{{ log.response_status }}</span>
+                            {% elif log.response_status %}
+                            <span class="badge badge-error badge-xs">{{ log.response_status }}</span>
+                            {% else %}
+                            <span class="badge badge-ghost badge-xs">—</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-xs">{% if log.duration_ms %}{{ log.duration_ms }}ms{% else %}—{% endif %}</td>
+                        <td class="text-xs text-error max-w-[150px] truncate" title="{{ log.error_message }}">{{
+                            log.error_message|default:"—" }}</td>
+                        <td class="text-xs text-base-content/50">{{ log.created_at|date:"M j, H:i:s" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

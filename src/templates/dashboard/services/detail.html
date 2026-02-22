@@ -1,0 +1,349 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ service.name }} - Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6">
+    <!-- Header -->
+    <div>
+        <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm gap-1 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+            Back to Products
+        </a>
+        <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-center gap-3">
+                <h1 class="text-3xl font-bold">{{ service.name }}</h1>
+                {% if service.is_active %}
+                <span class="badge badge-success">Active</span>
+                {% else %}
+                <span class="badge badge-ghost">Inactive</span>
+                {% endif %}
+            </div>
+            <div class="flex gap-2">
+                <form method="post" action="{% url 'core:dashboard_service_toggle' slug=service.slug %}">
+                    {% csrf_token %}
+                    {% if service.is_active %}
+                    <button type="submit" class="btn btn-warning btn-sm rounded-full"
+                        onclick="return confirm('Disable this service? It will no longer accept API payments.')">
+                        Disable
+                    </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-success btn-sm rounded-full">Enable</button>
+                    {% endif %}
+                </form>
+                <a href="{% url 'core:dashboard_payments' %}?service={{ service.slug }}"
+                    class="btn btn-ghost btn-sm rounded-full">
+                    View All Payments
+                </a>
+            </div>
+        </div>
+        {% if service.description %}
+        <p class="text-base-content/60 mt-2">{{ service.description }}</p>
+        {% endif %}
+        <p class="text-xs text-base-content/40 mt-1">
+            Created {{ service.created_at|date:"M j, Y" }} &middot;
+            Slug: <span class="font-mono">{{ service.slug }}</span>
+        </p>
+    </div>
+
+    <!-- Revenue Stats -->
+    <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
+        <div class="stat">
+            <div class="stat-title">Total Payments</div>
+            <div class="stat-value text-primary">{{ total_payments }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Successful</div>
+            <div class="stat-value text-success">{{ successful_payments }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Pending</div>
+            <div class="stat-value text-warning">{{ pending_payments }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Failed</div>
+            <div class="stat-value text-error">{{ failed_payments }}</div>
+        </div>
+    </div>
+
+    <!-- Revenue Breakdown -->
+    <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+            <h2 class="text-lg font-bold mb-4">Revenue Overview</h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60">Gross Revenue</span>
+                    <span class="font-bold text-success">{{ total_revenue|floatformat:2 }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60">Paystack Fees</span>
+                    <span class="font-bold text-warning">-{{ total_fees|floatformat:2 }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-base-content/60">Refunded</span>
+                    <span class="font-bold text-error">-{{ total_refunded|floatformat:2 }}</span>
+                </div>
+                <div class="divider my-1"></div>
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold">Net Revenue</span>
+                    <span class="font-bold text-lg">{{ net_revenue|floatformat:2 }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+            <h2 class="text-lg font-bold mb-4">Revenue by Currency</h2>
+            {% if revenue_by_currency %}
+            <div class="overflow-x-auto">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Transactions</th>
+                            <th>Revenue</th>
+                            <th>Fees</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in revenue_by_currency %}
+                        <tr>
+                            <td class="font-mono font-bold">{{ row.currency }}</td>
+                            <td>{{ row.count }}</td>
+                            <td class="text-success">{{ row.revenue|floatformat:2 }}</td>
+                            <td class="text-warning">{{ row.fees|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-base-content/50 text-sm">No revenue data yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- API Credentials -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">API Credentials</h2>
+            <form method="post" action="{% url 'core:dashboard_service_regenerate_keys' slug=service.slug %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-warning btn-xs rounded-full"
+                    onclick="return confirm('Regenerate API credentials? The old keys will stop working immediately.')">
+                    Regenerate Keys
+                </button>
+            </form>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">API Key</label>
+                <div class="flex items-center gap-2 mt-1">
+                    <code id="api-key-display"
+                        class="bg-base-300/50 px-4 py-2 rounded-xl font-mono text-sm flex-1 select-all">{{ service.api_key }}</code>
+                    <button
+                        onclick="navigator.clipboard.writeText(document.getElementById('api-key-display').textContent)"
+                        class="btn btn-ghost btn-sm" title="Copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">API Secret</label>
+                <div class="flex items-center gap-2 mt-1">
+                    <code id="api-secret-display"
+                        class="bg-base-300/50 px-4 py-2 rounded-xl font-mono text-sm flex-1 select-all blur-sm hover:blur-none transition-all cursor-pointer"
+                        title="Hover to reveal">{{ service.api_secret }}</code>
+                    <button
+                        onclick="navigator.clipboard.writeText(document.getElementById('api-secret-display').textContent)"
+                        class="btn btn-ghost btn-sm" title="Copy">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                    </button>
+                </div>
+                <p class="text-xs text-base-content/40 mt-1">Hover to reveal. Used to verify webhook signatures from
+                    Acoruss.</p>
+            </div>
+        </div>
+
+        <!-- Quick Integration Guide -->
+        <div class="mt-6">
+            <div class="collapse collapse-arrow bg-base-300/30 rounded-xl">
+                <input type="checkbox" />
+                <div class="collapse-title font-semibold text-sm">Quick Integration Guide</div>
+                <div class="collapse-content text-sm">
+                    <div class="space-y-3 pt-2">
+                        <p class="text-base-content/70">Use the API key as a <code
+                                class="bg-base-300/50 px-1 rounded">Bearer</code> token in API requests:</p>
+                        <pre class="bg-base-300/50 p-3 rounded-xl text-xs overflow-x-auto"><code>POST /api/v1/payments/initiate/
+Authorization: Bearer {{ service.api_key }}
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "amount": 1000,
+  "currency": "KES",
+  "description": "AI Tokens (100 pack)",
+  "service_reference": "order-12345",
+  "callback_url": "https://yoursite.com/payment/done/"
+}</code></pre>
+                        <p class="text-base-content/70 mt-2">Verify webhook signatures with the API secret using HMAC
+                            SHA256 on the raw request body, comparing against the
+                            <code class="bg-base-300/50 px-1 rounded">X-Acoruss-Signature</code> header.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+        <h2 class="text-lg font-bold mb-4">Settings</h2>
+        <form method="post" action="{% url 'core:dashboard_service_update' slug=service.slug %}" class="space-y-4">
+            {% csrf_token %}
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Webhook URL</span></label>
+                    <input type="url" name="webhook_url" value="{{ service.webhook_url }}"
+                        placeholder="https://example.com/webhooks/acoruss/"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Default Redirect URL</span></label>
+                    <input type="url" name="default_callback_url" value="{{ service.default_callback_url }}"
+                        placeholder="https://example.com/payment/done/"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Contact Email</span></label>
+                    <input type="email" name="contact_email" value="{{ service.contact_email }}"
+                        placeholder="team@example.com"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                </div>
+                <div class="form-control">
+                    <label class="label"><span class="label-text font-semibold">Allowed Currencies</span></label>
+                    <input type="text" name="allowed_currencies" value="{{ service.allowed_currencies|join:', ' }}"
+                        placeholder="KES, USD (empty = all)"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                </div>
+                <div class="form-control md:col-span-2">
+                    <label class="label"><span class="label-text font-semibold">Allowed IP Addresses</span></label>
+                    <input type="text" name="allowed_ips" value="{{ service.allowed_ips|join:', ' }}"
+                        placeholder="192.168.1.1, 10.0.0.1 (empty = all)"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm rounded-full">Save Settings</button>
+        </form>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
+        <div class="p-6 flex items-center justify-between">
+            <h2 class="text-lg font-bold">Recent Transactions</h2>
+            <a href="{% url 'core:dashboard_payments' %}?service={{ service.slug }}" class="btn btn-ghost btn-xs">View
+                All &rarr;</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in recent_payments %}
+                    <tr class="hover">
+                        <td>
+                            <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}"
+                                class="font-mono text-xs link link-hover">{{ payment.reference }}</a>
+                        </td>
+                        <td>
+                            <div class="text-sm">{{ payment.name|default:"—" }}</div>
+                            <div class="text-xs text-base-content/50">{{ payment.email }}</div>
+                        </td>
+                        <td class="font-semibold text-sm">{{ payment.currency }} {{ payment.amount }}</td>
+                        <td>
+                            {% if payment.status == 'success' %}
+                            <span class="badge badge-success badge-xs">Success</span>
+                            {% elif payment.status == 'pending' %}
+                            <span class="badge badge-warning badge-xs">Pending</span>
+                            {% elif payment.status == 'failed' %}
+                            <span class="badge badge-error badge-xs">Failed</span>
+                            {% else %}
+                            <span class="badge badge-ghost badge-xs">{{ payment.get_status_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-xs text-base-content/50">{{ payment.created_at|date:"M j, H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-6 text-base-content/50 text-sm">No transactions yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Webhook Delivery Logs -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
+        <div class="p-6">
+            <h2 class="text-lg font-bold">Recent Webhook Deliveries</h2>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>URL</th>
+                        <th>Attempt</th>
+                        <th>Status</th>
+                        <th>Duration</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in recent_webhooks %}
+                    <tr class="hover">
+                        <td class="font-mono text-xs">{{ log.event }}</td>
+                        <td class="text-xs max-w-[200px] truncate" title="{{ log.url }}">{{ log.url }}</td>
+                        <td class="text-center">{{ log.attempt }}/3</td>
+                        <td>
+                            {% if log.success %}
+                            <span class="badge badge-success badge-xs">{{ log.response_status }}</span>
+                            {% elif log.response_status %}
+                            <span class="badge badge-error badge-xs">{{ log.response_status }}</span>
+                            {% else %}
+                            <span class="badge badge-ghost badge-xs">Error</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-xs">{% if log.duration_ms %}{{ log.duration_ms }}ms{% else %}—{% endif %}</td>
+                        <td class="text-xs text-base-content/50">{{ log.created_at|date:"M j, H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-6 text-base-content/50 text-sm">No webhook deliveries yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

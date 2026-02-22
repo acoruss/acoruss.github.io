@@ -26,7 +26,8 @@
         {% if messages %}
         <div class="mb-6 space-y-2">
             {% for message in messages %}
-            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %} rounded-2xl">
+            <div
+                class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-error{% else %}alert-info{% endif %} rounded-2xl">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     {% if message.tags == 'success' %}
@@ -59,8 +60,7 @@
                 <!-- Email -->
                 <div class="form-control">
                     <label class="label" for="email">
-                        <span class="label-text font-semibold">Email Address <span
-                                class="text-error">*</span></span>
+                        <span class="label-text font-semibold">Email Address <span class="text-error">*</span></span>
                     </label>
                     <input type="email" name="email" id="email" required placeholder="you@company.com"
                         class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
@@ -88,8 +88,7 @@
                         <label class="label" for="amount">
                             <span class="label-text font-semibold">Amount <span class="text-error">*</span></span>
                         </label>
-                        <input type="number" name="amount" id="amount" required min="1" step="0.01"
-                            placeholder="0.00"
+                        <input type="number" name="amount" id="amount" required min="1" step="0.01" placeholder="0.00"
                             class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
                     </div>
                     <div class="form-control">

@@ -20,7 +20,8 @@
             <a href="{% url 'core:dashboard_contacts' %}?status=unread"
                 class="btn join-item btn-sm {% if current_status == 'unread' %}btn-active{% endif %}">
                 Unread
-                {% if unread_count %}<span class="badge badge-sm badge-primary ml-1">{{ unread_count }}</span>{% endif %}
+                {% if unread_count %}<span class="badge badge-sm badge-primary ml-1">{{ unread_count }}</span>{% endif
+                %}
             </a>
             <a href="{% url 'core:dashboard_contacts' %}?status=read"
                 class="btn join-item btn-sm {% if current_status == 'read' %}btn-active{% endif %}">Read</a>

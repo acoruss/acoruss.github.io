@@ -137,7 +137,8 @@
                         <tr class="hover">
                             <td>
                                 <a href="{% url 'core:dashboard_contact_detail' contact.pk %}"
-                                    class="link link-hover {% if not contact.is_read %}font-semibold{% endif %}">{{ contact.name }}</a>
+                                    class="link link-hover {% if not contact.is_read %}font-semibold{% endif %}">{{
+                                    contact.name }}</a>
                             </td>
                             <td class="text-xs text-base-content/50">{{ contact.created_at|date:"M j" }}</td>
                         </tr>

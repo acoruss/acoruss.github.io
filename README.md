@@ -47,52 +47,52 @@ Access the admin dashboard at http://localhost:8083/dashboard.
 
 ### Development
 
-| Command              | Description                                        |
-| -------------------- | -------------------------------------------------- |
-| `make dev`           | Start development environment (Docker)             |
-| `make down`          | Stop development environment                       |
-| `make logs`          | View Docker container logs                         |
-| `make shell`         | Open Django shell                                  |
+| Command      | Description                            |
+| ------------ | -------------------------------------- |
+| `make dev`   | Start development environment (Docker) |
+| `make down`  | Stop development environment           |
+| `make logs`  | View Docker container logs             |
+| `make shell` | Open Django shell                      |
 
 ### Django Management
 
-| Command                | Description               |
-| ---------------------- | ------------------------- |
-| `make migrate`         | Run database migrations   |
-| `make makemigrations`  | Create new migrations     |
-| `make createsuperuser` | Create a superuser        |
-| `make collectstatic`   | Collect static files      |
+| Command                | Description             |
+| ---------------------- | ----------------------- |
+| `make migrate`         | Run database migrations |
+| `make makemigrations`  | Create new migrations   |
+| `make createsuperuser` | Create a superuser      |
+| `make collectstatic`   | Collect static files    |
 
 ### Code Quality
 
-| Command              | Description                       |
-| -------------------- | --------------------------------- |
-| `make format`        | Format code with ruff             |
-| `make lint`          | Lint code with ruff               |
-| `make test`          | Run tests with pytest             |
-| `make template-test` | Test that all templates load      |
+| Command              | Description                  |
+| -------------------- | ---------------------------- |
+| `make format`        | Format code with ruff        |
+| `make lint`          | Lint code with ruff          |
+| `make test`          | Run tests with pytest        |
+| `make template-test` | Test that all templates load |
 
 ### Frontend (Tailwind CSS)
 
-| Command              | Description                        |
-| -------------------- | ---------------------------------- |
-| `make tailwind-build`| Build Tailwind CSS for production  |
-| `make tailwind-watch`| Watch Tailwind CSS for dev changes |
-| `make tailwind-install`| Install frontend dependencies    |
+| Command                 | Description                        |
+| ----------------------- | ---------------------------------- |
+| `make tailwind-build`   | Build Tailwind CSS for production  |
+| `make tailwind-watch`   | Watch Tailwind CSS for dev changes |
+| `make tailwind-install` | Install frontend dependencies      |
 
 ### Production
 
-| Command                  | Description                          |
-| ------------------------ | ------------------------------------ |
-| `make docker-build`      | Build production Docker image        |
-| `make docker-push`       | Push image to GHCR                   |
-| `make prod-up`           | Start production containers          |
-| `make prod-down`         | Stop production containers           |
-| `make prod-restart`      | Restart production web container     |
-| `make prod-logs`         | View production logs                 |
-| `make prod-pull`         | Pull latest image from GHCR         |
-| `make prod-migrate`      | Run migrations in production         |
-| `make prod-collectstatic`| Collect static files in production   |
+| Command                   | Description                        |
+| ------------------------- | ---------------------------------- |
+| `make docker-build`       | Build production Docker image      |
+| `make docker-push`        | Push image to GHCR                 |
+| `make prod-up`            | Start production containers        |
+| `make prod-down`          | Stop production containers         |
+| `make prod-restart`       | Restart production web container   |
+| `make prod-logs`          | View production logs               |
+| `make prod-pull`          | Pull latest image from GHCR        |
+| `make prod-migrate`       | Run migrations in production       |
+| `make prod-collectstatic` | Collect static files in production |
 
 ## Project Structure
 
@@ -142,19 +142,19 @@ Access the admin dashboard at http://localhost:8083/dashboard.
 
 Copy `.env_sample` to `.env` and configure:
 
-| Variable                     | Description                          | Required |
-| ---------------------------- | ------------------------------------ | -------- |
-| `SECRET_KEY`                 | Django secret key                    | Yes      |
-| `DEBUG`                      | Debug mode (True/False)              | Yes      |
-| `ALLOWED_HOSTS`              | Comma-separated allowed hosts        | Yes      |
-| `DATABASE_URL`               | PostgreSQL connection URL            | Yes      |
-| `MAILGUN_API_KEY`            | Mailgun API key for email            | Prod     |
-| `MAILGUN_SENDER_DOMAIN`      | Mailgun sender domain                | Prod     |
-| `PAYSTACK_SECRET_KEY`        | Paystack secret key                  | Prod     |
-| `PAYSTACK_PUBLIC_KEY`        | Paystack public key                  | Prod     |
-| `GOOGLE_ANALYTICS_ID`        | Google Analytics measurement ID      | Prod     |
-| `CONTACT_NOTIFICATION_EMAILS`| Comma-separated notification emails  | No       |
-| `SITE_URL`                   | Base URL for the site                | No       |
+| Variable                      | Description                         | Required |
+| ----------------------------- | ----------------------------------- | -------- |
+| `SECRET_KEY`                  | Django secret key                   | Yes      |
+| `DEBUG`                       | Debug mode (True/False)             | Yes      |
+| `ALLOWED_HOSTS`               | Comma-separated allowed hosts       | Yes      |
+| `DATABASE_URL`                | PostgreSQL connection URL           | Yes      |
+| `MAILGUN_API_KEY`             | Mailgun API key for email           | Prod     |
+| `MAILGUN_SENDER_DOMAIN`       | Mailgun sender domain               | Prod     |
+| `PAYSTACK_SECRET_KEY`         | Paystack secret key                 | Prod     |
+| `PAYSTACK_PUBLIC_KEY`         | Paystack public key                 | Prod     |
+| `GOOGLE_ANALYTICS_ID`         | Google Analytics measurement ID     | Prod     |
+| `CONTACT_NOTIFICATION_EMAILS` | Comma-separated notification emails | No       |
+| `SITE_URL`                    | Base URL for the site               | No       |
 
 ## License
 

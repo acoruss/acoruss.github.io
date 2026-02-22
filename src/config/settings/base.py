@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Local apps
     "apps.accounts",
     "apps.core",
+    "apps.payments",
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,19 @@ ANYMAIL = {
     "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
     "MAILGUN_SENDER_DOMAIN": env("MAILGUN_DOMAIN", default="acoruss.com"),
 }
+
+# Contact form notification recipients
+CONTACT_NOTIFICATION_EMAILS: list[str] = env.list(
+    "CONTACT_NOTIFICATION_EMAILS",
+    default=["musale@acoruss.com", "andia@acoruss.com"],
+)
+
+# Site URL for links in emails
+SITE_URL = env("SITE_URL", default="https://acoruss.com")
+
+# Paystack
+PAYSTACK_SECRET_KEY = env("PAYSTACK_SECRET_KEY", default="")
+PAYSTACK_PUBLIC_KEY = env("PAYSTACK_PUBLIC_KEY", default="")
 
 # Google Analytics
 GOOGLE_ANALYTICS_ID = env("GOOGLE_ANALYTICS_ID", default="G-BSXKG26LSP")

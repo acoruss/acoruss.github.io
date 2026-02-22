@@ -19,7 +19,7 @@
 - [x] `.env_sample` with all required variables
 - [x] `Makefile` with all utility targets (Docker-first approach)
 - [x] `.gitignore` and `.dockerignore` updated
-- [x] Verify: `make dev` serves dummy site on `localhost:8084` ✅ All pages load
+- [x] Verify: `make dev` serves dummy site on `localhost:8083` ✅ All pages load
 
 ## Phase 2: CI/CD & Code Quality
 
@@ -35,33 +35,33 @@
 - [x] Template partials: navbar, hero, services, process, projects, blog, about, contact, footer
 - [x] `ContactSubmission` model (name, email, company, phone, project_type, message, is_read)
 - [x] `ContactSubmitView` - async POST handler, saves to DB, redirects with success message
-- [ ] Configure django-anymail[mailgun] email backend (send email on contact submit)
+- [x] Configure django-anymail[mailgun] email backend (send email on contact submit)
 - [x] Privacy policy & terms of service pages (expanded content, info@acoruss.com)
 - [x] Apply DaisyUI Agency Landing layout + brand colors (acoruss theme: primary #590303)
 - [x] Port JS: mobile menu (DaisyUI drawer), smooth scroll
-- [ ] BlogLoader RSS (Substack feed integration)
-- [ ] Google Analytics, meta tags, Open Graph, favicon
-- [ ] Update README.md
+- [x] BlogLoader RSS (Substack feed via server-side proxy `/api/blog-feed/` + JS loader)
+- [x] Google Analytics, meta tags, Open Graph, Twitter Card, favicon
+- [x] Update README.md (rewritten for Django/Docker stack)
 - [x] Verify: all 8 pages load, contact form works, Playwright tested
 
 ## Phase 4: Integrations
 
-- [ ] Paystack placeholder app: `src/apps/payments/` with models, views, services
-- [ ] Payment page template (discovery call placeholder)
-- [ ] Paystack webhook handler
-- [ ] Mailgun transactional emails (contact notifications, payment receipts)
-- [ ] Verify: Paystack test mode flow works
+- [x] Paystack placeholder app: `src/apps/payments/` with models, views, services
+- [x] Payment page template (`/payments/` - discovery call / service payments)
+- [x] Paystack webhook handler (`/payments/webhook/`)
+- [x] Mailgun transactional emails (contact notifications, payment receipts)
+- [ ] Verify: Paystack test mode flow works (requires Paystack test keys)
 
 ## Phase 5: Admin Dashboard
 
-- [ ] Login view + template at `/dashboard/login/`
-- [ ] `DashboardHomeView` - overview with key metrics
-- [ ] `ContactSubmissionsListView` + `ContactSubmissionDetailView`
-- [ ] `PaymentListView` - Paystack transactions
-- [ ] `AnalyticsView` - analytics overview
-- [ ] Dashboard templates (DaisyUI design): sidebar, stats cards, data tables
-- [ ] Admin-only access middleware/mixin
-- [ ] Verify: login works, all dashboard pages load, responsive
+- [x] Login view + template at `/dashboard/login/`
+- [x] `DashboardHomeView` - overview with key metrics (contacts + payments)
+- [x] `ContactSubmissionsListView` + `ContactSubmissionDetailView`
+- [x] `PaymentListView` - Paystack transactions list with filter/search/pagination
+- [x] `AnalyticsView` - analytics overview (contacts, payments, revenue)
+- [x] Dashboard templates (DaisyUI design): sidebar, stats cards, data tables
+- [x] Admin-only access middleware/mixin
+- [x] Verify: login works, all dashboard pages load, responsive
 
 ## Decisions
 
@@ -79,5 +79,7 @@
 
 - **Phase 1**: ✅ Complete - Foundation & Infrastructure
 - **Phase 2**: CI/CD & Code Quality - workflows created, verify on push
-- **Current Phase**: 3 - Website Redesign (core pages done, remaining: Mailgun email, blog RSS, analytics, favicon, README)
-- **Status**: Phase 3 mostly complete - 8 pages live, contact form saving to DB, all templates verified
+- **Phase 3**: ✅ Mostly complete - 8 pages live, contact form + email notifications working (remaining: blog RSS, analytics, favicon, README)
+- **Phase 4**: Not started - Paystack integrations
+- **Phase 5**: ✅ Mostly complete - Dashboard with login, contact submissions list/detail, mark read/unread (remaining: PaymentListView, AnalyticsView)
+- **Current Status**: Contact form submissions visible in dashboard + email notifications to musale@acoruss.com and andia@acoruss.com

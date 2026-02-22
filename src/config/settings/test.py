@@ -3,6 +3,7 @@ Django test settings for Acoruss web application.
 """
 
 from .base import *  # noqa: F403
+from .base import env
 
 DEBUG = False
 
@@ -18,20 +19,11 @@ PASSWORD_HASHERS = [
 # Use in-memory email backend
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
-# Use a separate test database
+# Use DATABASE_URL if set (Docker), otherwise fallback to localhost
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "acoruss_test",
-        "USER": "acoruss",
-        "PASSWORD": "acoruss",
-        "HOST": "localhost",
-        "PORT": "5432",
-        "TEST": {
-            "NAME": "acoruss_test",
-        },
-    },
+    "default": env.db("DATABASE_URL", default="postgres://acoruss:acoruss@localhost:5432/acoruss_test"),
 }
+DATABASES["default"]["TEST"] = {"NAME": "acoruss_test"}
 
 # Use simple static files storage in tests
 STORAGES = {

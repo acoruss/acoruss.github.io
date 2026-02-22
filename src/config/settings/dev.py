@@ -20,6 +20,8 @@ INTERNAL_IPS = ["127.0.0.1"]
 # Use console email backend in development
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+SITE_URL = "http://localhost:8083"
+
 # Use simple static files storage in development
 STORAGES = {
     "staticfiles": {

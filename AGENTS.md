@@ -34,15 +34,16 @@ Django web application, with tailwind css and Daisy UI components framework.
 
 ### Dashboard
 
-This is only accessible to admin users on http://localhost:8084/dashboard with username/password or email(@acoruss.com emails.)
+This is only accessible to admin users on http://localhost:8083/dashboard with username/password or email(@acoruss.com emails.)
 Use the design in [DESIGN.md](./docs/DESIGN.md) for dashboards to update the UI.
 Use the Frontend rules in development.
 
 ### General
 
-1. Always test the UI changes with playwright mcp server on http://localhost:8084
+1. Always test the UI changes with playwright mcp server on http://localhost:8083
 1. Run `make dev` to run the application.
 1. Always use commands in the Makefile first. If you use extra commands and they are common in the session, propose to add them to the Makefile.
+1. Any changes to the payment service should be updated in the [PRODUCT_PAYMENTS.md](./docs/PRODUCT_PAYMENTS.md) file. This ensures that all payment changes are well tracked.
 
 ## Project layout
 

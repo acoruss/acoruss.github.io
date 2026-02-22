@@ -1,0 +1,150 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Add Product - Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6 max-w-2xl">
+    <div>
+        <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm gap-1 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+            </svg>
+            Back to Products
+        </a>
+        <h1 class="text-3xl font-bold">Add New Product</h1>
+        <p class="text-base-content/60 mt-1">Register a new service to accept payments through Acoruss. API credentials
+            will be generated automatically.</p>
+    </div>
+
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-8">
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Name -->
+            <div class="form-control">
+                <label class="label" for="id_name">
+                    <span class="label-text font-semibold">Product / Service Name <span
+                            class="text-error">*</span></span>
+                </label>
+                <input type="text" name="name" id="id_name" required placeholder="e.g. Experience Nairobi"
+                    value="{{ form.name.value|default:'' }}"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
+                {% if form.name.errors %}
+                <label class="label"><span class="label-text-alt text-error">{{ form.name.errors.0 }}</span></label>
+                {% endif %}
+            </div>
+
+            <!-- Slug -->
+            <div class="form-control">
+                <label class="label" for="id_slug">
+                    <span class="label-text font-semibold">Slug <span class="text-error">*</span></span>
+                </label>
+                <input type="text" name="slug" id="id_slug" required placeholder="e.g. experience-nairobi"
+                    value="{{ form.slug.value|default:'' }}"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
+                <label class="label"><span class="label-text-alt text-base-content/50">URL-safe identifier.
+                        Auto-generated from name if left empty.</span></label>
+                {% if form.slug.errors %}
+                <label class="label"><span class="label-text-alt text-error">{{ form.slug.errors.0 }}</span></label>
+                {% endif %}
+            </div>
+
+            <!-- Description -->
+            <div class="form-control">
+                <label class="label" for="id_description">
+                    <span class="label-text font-semibold">Description</span>
+                </label>
+                <textarea name="description" id="id_description" rows="3"
+                    placeholder="Brief description of the product..."
+                    class="textarea textarea-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20">{{ form.description.value|default:'' }}</textarea>
+            </div>
+
+            <div class="divider text-xs text-base-content/40">INTEGRATION</div>
+
+            <!-- Webhook URL -->
+            <div class="form-control">
+                <label class="label" for="id_webhook_url">
+                    <span class="label-text font-semibold">Webhook URL</span>
+                </label>
+                <input type="url" name="webhook_url" id="id_webhook_url" value="{{ form.webhook_url.value|default:'' }}"
+                    placeholder="https://example.com/webhooks/acoruss-payment/"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
+                <label class="label"><span class="label-text-alt text-base-content/50">Where payment events will be sent
+                        via POST.</span></label>
+            </div>
+
+            <!-- Default Callback URL -->
+            <div class="form-control">
+                <label class="label" for="id_default_callback_url">
+                    <span class="label-text font-semibold">Default Redirect URL</span>
+                </label>
+                <input type="url" name="default_callback_url" id="id_default_callback_url"
+                    value="{{ form.default_callback_url.value|default:'' }}"
+                    placeholder="https://example.com/payment/complete/"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
+                <label class="label"><span class="label-text-alt text-base-content/50">Where users are redirected after
+                        payment. Can be overridden per transaction.</span></label>
+            </div>
+
+            <!-- Contact Email -->
+            <div class="form-control">
+                <label class="label" for="id_contact_email">
+                    <span class="label-text font-semibold">Contact Email</span>
+                </label>
+                <input type="email" name="contact_email" id="id_contact_email"
+                    value="{{ form.contact_email.value|default:'' }}" placeholder="team@example.com"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
+            </div>
+
+            <div class="divider text-xs text-base-content/40">SECURITY (Optional)</div>
+
+            <!-- Allowed Currencies -->
+            <div class="form-control">
+                <label class="label" for="id_allowed_currencies">
+                    <span class="label-text font-semibold">Allowed Currencies</span>
+                </label>
+                <input type="text" name="allowed_currencies" id="id_allowed_currencies"
+                    value="{{ form.allowed_currencies.value|default:'' }}" placeholder="KES, USD, NGN"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
+                <label class="label"><span class="label-text-alt text-base-content/50">Comma-separated list. Leave empty
+                        to allow all currencies.</span></label>
+            </div>
+
+            <!-- Allowed IPs -->
+            <div class="form-control">
+                <label class="label" for="id_allowed_ips">
+                    <span class="label-text font-semibold">Allowed IP Addresses</span>
+                </label>
+                <input type="text" name="allowed_ips" id="id_allowed_ips"
+                    value="{{ form.allowed_ips.value|default:'' }}" placeholder="192.168.1.1, 10.0.0.1"
+                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
+                <label class="label"><span class="label-text-alt text-base-content/50">Comma-separated list. Leave empty
+                        to allow all IPs.</span></label>
+            </div>
+
+            <div class="flex gap-3 pt-4">
+                <button type="submit" class="btn btn-primary rounded-full">Create Product</button>
+                <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost rounded-full">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Auto-generate slug from name
+    const nameInput = document.getElementById('id_name');
+    const slugInput = document.getElementById('id_slug');
+    let slugManuallyEdited = slugInput.value.length > 0;
+
+    slugInput.addEventListener('input', () => { slugManuallyEdited = true; });
+    nameInput.addEventListener('input', () => {
+        if (!slugManuallyEdited) {
+            slugInput.value = nameInput.value
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+    });
+</script>
+{% endblock %}

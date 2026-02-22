@@ -34,7 +34,7 @@ services:
       - DEBUG=true
       - SECRET_KEY=django-insecure-dev-key-do-not-use-in-production
     ports:
-      - "8084:8000"
+      - "8083:8000"
     volumes:
       - ../src:/app/src
       - ../tests:/app/tests

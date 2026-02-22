@@ -1,0 +1,120 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ submission.name }} - Contact Submission{% endblock %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6">
+    <!-- Breadcrumb -->
+    <div class="text-sm breadcrumbs">
+        <ul>
+            <li><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'core:dashboard_contacts' %}">Contacts</a></li>
+            <li>{{ submission.name }}</li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold">{{ submission.name }}</h1>
+            <p class="text-base-content/60 mt-1">Submitted {{ submission.created_at|date:"F j, Y \a\t g:i A" }}</p>
+        </div>
+        <div class="flex gap-2">
+            <form action="{% url 'core:dashboard_contact_toggle_read' submission.pk %}" method="POST">
+                {% csrf_token %}
+                {% if submission.is_read %}
+                <button type="submit" class="btn btn-sm btn-outline">Mark as Unread</button>
+                {% else %}
+                <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                {% endif %}
+            </form>
+            <a href="mailto:{{ submission.email }}" class="btn btn-sm btn-accent">Reply via Email</a>
+        </div>
+    </div>
+
+    <!-- Detail Card -->
+    <div class="grid md:grid-cols-3 gap-6">
+        <!-- Main content -->
+        <div class="md:col-span-2">
+            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+                <h2 class="text-lg font-bold mb-4">Message</h2>
+                <div class="prose prose-sm max-w-none text-base-content/80 leading-relaxed">
+                    {{ submission.message|linebreaksbr }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar info -->
+        <div class="space-y-4">
+            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Contact Info</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Name</div>
+                        <div class="mt-1 font-medium">{{ submission.name }}</div>
+                    </div>
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Email</div>
+                        <div class="mt-1">
+                            <a href="mailto:{{ submission.email }}" class="link link-accent text-sm">{{ submission.email
+                                }}</a>
+                        </div>
+                    </div>
+                    {% if submission.company %}
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Company</div>
+                        <div class="mt-1">{{ submission.company }}</div>
+                    </div>
+                    {% endif %}
+                    {% if submission.phone %}
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Phone</div>
+                        <div class="mt-1">
+                            <a href="tel:{{ submission.phone }}" class="link link-accent text-sm">{{ submission.phone
+                                }}</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
+                <h3 class="font-bold mb-4">Details</h3>
+                <div class="space-y-3">
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Project Type
+                        </div>
+                        <div class="mt-1">
+                            {% if submission.project_type %}
+                            <span class="badge badge-outline">{{ submission.get_project_type_display }}</span>
+                            {% else %}
+                            <span class="text-base-content/40">Not specified</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Status</div>
+                        <div class="mt-1">
+                            {% if submission.is_read %}
+                            <span class="badge badge-ghost">Read</span>
+                            {% else %}
+                            <span class="badge badge-primary">New</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Received</div>
+                        <div class="mt-1 text-sm text-base-content/60">{{ submission.created_at|date:"F j, Y g:i A" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back button -->
+    <div>
+        <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-sm">&larr; Back to Submissions</a>
+    </div>
+</div>
+{% endblock %}

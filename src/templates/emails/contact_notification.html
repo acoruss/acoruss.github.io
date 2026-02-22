@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FDFCFA;
+            color: #2C2520;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #1A1612;
+            padding: 24px;
+            text-align: center;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .header h1 {
+            color: #F5F0EB;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .header p {
+            color: #C8956A;
+            font-size: 13px;
+            margin: 4px 0 0;
+        }
+
+        .body {
+            background: #FFFFFF;
+            padding: 24px;
+            border: 1px solid #E8E2DA;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #7A1C1C;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .field-value {
+            font-size: 15px;
+            color: #2C2520;
+            line-height: 1.5;
+        }
+
+        .message-box {
+            background: #F5F0EB;
+            border-left: 3px solid #C8956A;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 8px;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: #7A1C1C;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 24px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #E8E2DA;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>New Contact Submission</h1>
+            <p>Acoruss Website</p>
+        </div>
+        <div class="body">
+            <div class="field">
+                <div class="field-label">Name</div>
+                <div class="field-value">{{ submission.name }}</div>
+            </div>
+            <div class="field">
+                <div class="field-label">Email</div>
+                <div class="field-value"><a href="mailto:{{ submission.email }}">{{ submission.email }}</a></div>
+            </div>
+            {% if submission.company %}
+            <div class="field">
+                <div class="field-label">Company</div>
+                <div class="field-value">{{ submission.company }}</div>
+            </div>
+            {% endif %}
+            {% if submission.phone %}
+            <div class="field">
+                <div class="field-label">Phone</div>
+                <div class="field-value"><a href="tel:{{ submission.phone }}">{{ submission.phone }}</a></div>
+            </div>
+            {% endif %}
+            <div class="field">
+                <div class="field-label">Project Type</div>
+                <div class="field-value">{{ project_type_display }}</div>
+            </div>
+            <div class="field">
+                <div class="field-label">Message</div>
+                <div class="message-box">{{ submission.message|linebreaksbr }}</div>
+            </div>
+            <div class="field">
+                <div class="field-label">Submitted</div>
+                <div class="field-value">{{ submission.created_at|date:"F j, Y g:i A" }}</div>
+            </div>
+            <div class="cta">
+                <a href="{{ dashboard_url }}">View in Dashboard</a>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; Acoruss &mdash; Empowering Businesses Through Technology
+        </div>
+    </div>
+</body>
+
+</html>

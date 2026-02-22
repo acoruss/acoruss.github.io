@@ -20,6 +20,13 @@ urlpatterns = [
     path("terms-of-service/", views.TermsOfServiceView.as_view(), name="terms_of_service"),
     # Dashboard
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
+    path("dashboard/contacts/", views.ContactSubmissionsListView.as_view(), name="dashboard_contacts"),
+    path("dashboard/contacts/<int:pk>/", views.ContactSubmissionDetailView.as_view(), name="dashboard_contact_detail"),
+    path(
+        "dashboard/contacts/<int:pk>/toggle-read/",
+        views.ContactSubmissionMarkReadView.as_view(),
+        name="dashboard_contact_toggle_read",
+    ),
     path(
         "dashboard/login/",
         LoginView.as_view(template_name="dashboard/login.html"),

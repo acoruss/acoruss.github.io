@@ -5,23 +5,78 @@
     <h1 class="text-3xl font-bold">Dashboard</h1>
 
     <!-- Stats -->
-    <div class="stats shadow">
+    <div class="stats shadow bg-base-200/50 border border-base-300/30">
         <div class="stat">
-            <div class="stat-title">Contact Submissions</div>
-            <div class="stat-value">0</div>
-            <div class="stat-desc">Total messages</div>
+            <div class="stat-figure text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="inline-block w-8 h-8 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+            </div>
+            <div class="stat-title">Total Submissions</div>
+            <div class="stat-value text-primary">{{ total_submissions }}</div>
+            <div class="stat-desc">Contact form messages</div>
         </div>
         <div class="stat">
-            <div class="stat-title">Payments</div>
-            <div class="stat-value">0</div>
-            <div class="stat-desc">Total transactions</div>
+            <div class="stat-figure text-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    class="inline-block w-8 h-8 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <div class="stat-title">Unread</div>
+            <div class="stat-value text-accent">{{ unread_submissions }}</div>
+            <div class="stat-desc">Awaiting response</div>
         </div>
     </div>
 
-    <div class="card bg-base-200 shadow-xl">
-        <div class="card-body">
-            <h2 class="card-title">Welcome to the Acoruss Dashboard</h2>
-            <p>Manage your contact submissions, payments, and analytics from here.</p>
+    <!-- Recent Submissions -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
+        <div class="p-6 flex items-center justify-between">
+            <h2 class="text-xl font-bold">Recent Submissions</h2>
+            <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-sm">View All &rarr;</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in recent_submissions %}
+                    <tr class="hover {% if not submission.is_read %}font-semibold{% endif %}">
+                        <td>
+                            {% if submission.is_read %}
+                            <span class="badge badge-ghost badge-sm">Read</span>
+                            {% else %}
+                            <span class="badge badge-primary badge-sm">New</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="link link-hover">{{
+                                submission.name }}</a>
+                        </td>
+                        <td class="text-sm">{{ submission.email }}</td>
+                        <td class="text-sm text-base-content/60">{{ submission.created_at|date:"M j, Y" }}</td>
+                        <td>
+                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}"
+                                class="btn btn-ghost btn-xs">View</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-8 text-base-content/50">No submissions yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -43,6 +43,7 @@ Use the Frontend rules in development.
 1. Always test the UI changes with playwright mcp server on http://localhost:8083
 1. Run `make dev` to run the application.
 1. Always use commands in the Makefile first. If you use extra commands and they are common in the session, propose to add them to the Makefile.
+1. Any changes to the payment service should be updated in the [PRODUCT_PAYMENTS.md](./docs/PRODUCT_PAYMENTS.md) file. This ensures that all payment changes are well tracked.
 
 ## Project layout
 

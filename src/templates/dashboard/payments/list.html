@@ -1,0 +1,122 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Payments - Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="flex flex-col gap-6">
+    <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold">Payments</h1>
+        <a href="{% url 'payments:pay' %}" target="_blank" class="btn btn-primary btn-sm rounded-full gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            Payment Page
+        </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats shadow bg-base-200/50 border border-base-300/30">
+        <div class="stat">
+            <div class="stat-title">Total</div>
+            <div class="stat-value text-primary">{{ total_count }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Successful</div>
+            <div class="stat-value text-success">{{ success_count }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Pending</div>
+            <div class="stat-value text-warning">{{ pending_count }}</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-3 items-center">
+        <div class="tabs tabs-boxed bg-base-200/50">
+            <a href="{% url 'core:dashboard_payments' %}"
+                class="tab {% if current_status == 'all' %}tab-active{% endif %}">All</a>
+            {% for value, label in status_choices %}
+            <a href="{% url 'core:dashboard_payments' %}?status={{ value }}"
+                class="tab {% if current_status == value %}tab-active{% endif %}">{{ label }}</a>
+            {% endfor %}
+        </div>
+        <form method="get" action="{% url 'core:dashboard_payments' %}" class="flex-1 max-w-xs">
+            {% if current_status != 'all' %}
+            <input type="hidden" name="status" value="{{ current_status }}">
+            {% endif %}
+            <input type="text" name="q" value="{{ search_query }}" placeholder="Search payments..."
+                class="input input-bordered input-sm w-full rounded-lg" />
+        </form>
+    </div>
+
+    <!-- Payments Table -->
+    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl overflow-x-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr class="hover">
+                    <td>
+                        <div class="font-mono text-sm">{{ payment.reference }}</div>
+                    </td>
+                    <td>
+                        <div>{{ payment.name|default:"—" }}</div>
+                        <div class="text-xs text-base-content/50">{{ payment.email }}</div>
+                    </td>
+                    <td>
+                        <span class="font-semibold">{{ payment.currency }} {{ payment.amount }}</span>
+                    </td>
+                    <td>
+                        {% if payment.status == 'success' %}
+                        <span class="badge badge-success badge-sm">Success</span>
+                        {% elif payment.status == 'pending' %}
+                        <span class="badge badge-warning badge-sm">Pending</span>
+                        {% elif payment.status == 'failed' %}
+                        <span class="badge badge-error badge-sm">Failed</span>
+                        {% else %}
+                        <span class="badge badge-ghost badge-sm">{{ payment.get_status_display }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-sm text-base-content/60">{{ payment.created_at|date:"M j, Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-8 text-base-content/50">No payments yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="flex justify-center">
+        <div class="join">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="join-item btn btn-sm">&laquo;</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+            <a href="?page={{ num }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="join-item btn btn-sm {% if page_obj.number == num %}btn-active{% endif %}">{{ num }}</a>
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="join-item btn btn-sm">&raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -18,6 +18,8 @@ urlpatterns = [
     path("contact-us/submit/", views.ContactSubmitView.as_view(), name="contact_submit"),
     path("privacy-policy/", views.PrivacyPolicyView.as_view(), name="privacy_policy"),
     path("terms-of-service/", views.TermsOfServiceView.as_view(), name="terms_of_service"),
+    # API
+    path("api/blog-feed/", views.BlogFeedView.as_view(), name="blog_feed"),
     # Dashboard
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
     path("dashboard/contacts/", views.ContactSubmissionsListView.as_view(), name="dashboard_contacts"),
@@ -27,6 +29,8 @@ urlpatterns = [
         views.ContactSubmissionMarkReadView.as_view(),
         name="dashboard_contact_toggle_read",
     ),
+    path("dashboard/payments/", views.PaymentListView.as_view(), name="dashboard_payments"),
+    path("dashboard/analytics/", views.AnalyticsView.as_view(), name="dashboard_analytics"),
     path(
         "dashboard/login/",
         LoginView.as_view(template_name="dashboard/login.html"),

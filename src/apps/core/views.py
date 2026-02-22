@@ -1,11 +1,14 @@
 """Core app views."""
 
 import logging
+import xml.etree.ElementTree as ET
+from html import unescape
+from re import sub as re_sub
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import models
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
@@ -14,6 +17,18 @@ from .models import ContactSubmission
 from .services import send_contact_notification
 
 logger = logging.getLogger(__name__)
+
+# Lazy import to avoid circular dependency if payments isn't migrated yet
+_Payment = None
+
+
+def _get_payment_model():
+    global _Payment
+    if _Payment is None:
+        from apps.payments.models import Payment
+
+        _Payment = Payment
+    return _Payment
 
 
 class IndexView(TemplateView):
@@ -114,9 +129,12 @@ class DashboardView(AdminRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        Payment = _get_payment_model()  # noqa: N806
         context["total_submissions"] = ContactSubmission.objects.count()
         context["unread_submissions"] = ContactSubmission.objects.filter(is_read=False).count()
         context["recent_submissions"] = ContactSubmission.objects.all()[:5]
+        context["total_payments"] = Payment.objects.count()
+        context["successful_payments"] = Payment.objects.filter(status=Payment.Status.SUCCESS).count()
         return context
 
 
@@ -184,3 +202,127 @@ class ContactSubmissionMarkReadView(AdminRequiredMixin, View):
         status = "read" if submission.is_read else "unread"
         messages.success(request, f"Marked as {status}.")
         return redirect("core:dashboard_contact_detail", pk=pk)
+
+
+class PaymentListView(AdminRequiredMixin, ListView):
+    """Dashboard view listing Paystack payment transactions."""
+
+    template_name = "dashboard/payments/list.html"
+    context_object_name = "payments"
+    paginate_by = 20
+
+    def get_queryset(self):
+        Payment = _get_payment_model()  # noqa: N806
+        qs = Payment.objects.all()
+        status = self.request.GET.get("status")
+        if status and status in dict(Payment.Status.choices):
+            qs = qs.filter(status=status)
+        search = self.request.GET.get("q")
+        if search:
+            qs = qs.filter(
+                models.Q(reference__icontains=search)
+                | models.Q(email__icontains=search)
+                | models.Q(name__icontains=search)
+            )
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        Payment = _get_payment_model()  # noqa: N806
+        context["total_count"] = Payment.objects.count()
+        context["success_count"] = Payment.objects.filter(status=Payment.Status.SUCCESS).count()
+        context["pending_count"] = Payment.objects.filter(status=Payment.Status.PENDING).count()
+        context["current_status"] = self.request.GET.get("status", "all")
+        context["search_query"] = self.request.GET.get("q", "")
+        context["status_choices"] = Payment.Status.choices
+        return context
+
+
+class AnalyticsView(AdminRequiredMixin, TemplateView):
+    """Dashboard analytics overview page."""
+
+    template_name = "dashboard/analytics.html"
+
+    def get_context_data(self, **kwargs):
+        from datetime import timedelta
+
+        from django.utils import timezone
+
+        context = super().get_context_data(**kwargs)
+        Payment = _get_payment_model()  # noqa: N806
+
+        now = timezone.now()
+        thirty_days_ago = now - timedelta(days=30)
+
+        # Contact metrics
+        context["total_contacts"] = ContactSubmission.objects.count()
+        context["contacts_30d"] = ContactSubmission.objects.filter(created_at__gte=thirty_days_ago).count()
+        context["unread_contacts"] = ContactSubmission.objects.filter(is_read=False).count()
+
+        # Payment metrics
+        context["total_payments"] = Payment.objects.count()
+        context["successful_payments"] = Payment.objects.filter(status=Payment.Status.SUCCESS).count()
+        context["payments_30d"] = Payment.objects.filter(created_at__gte=thirty_days_ago).count()
+
+        # Revenue
+        from django.db.models import Sum
+
+        revenue = Payment.objects.filter(status=Payment.Status.SUCCESS).aggregate(total=Sum("amount")).get("total") or 0
+        context["total_revenue"] = revenue
+
+        revenue_30d = (
+            Payment.objects.filter(
+                status=Payment.Status.SUCCESS,
+                created_at__gte=thirty_days_ago,
+            )
+            .aggregate(total=Sum("amount"))
+            .get("total")
+            or 0
+        )
+        context["revenue_30d"] = revenue_30d
+
+        # Recent activity
+        context["recent_contacts"] = ContactSubmission.objects.all()[:5]
+        context["recent_payments"] = Payment.objects.all()[:5]
+
+        return context
+
+
+class BlogFeedView(View):
+    """Proxy Substack RSS feed and return JSON for the blog section."""
+
+    FEED_URL = "https://acoruss.substack.com/feed"
+    CACHE_TIMEOUT = 60 * 15  # 15 minutes
+
+    async def get(self, request: HttpRequest) -> JsonResponse:
+        import asyncio
+        from urllib.request import Request, urlopen
+
+        try:
+            loop = asyncio.get_event_loop()
+            req = Request(self.FEED_URL, headers={"User-Agent": "Acoruss/1.0"})  # noqa: S310
+            body = await loop.run_in_executor(None, lambda: urlopen(req, timeout=10).read())  # noqa: S310
+            root = ET.fromstring(body)  # noqa: S314
+
+            posts = []
+            for item in root.findall(".//item")[:6]:
+                title = item.findtext("title", "")
+                link = item.findtext("link", "")
+                pub_date = item.findtext("pubDate", "")
+                description = item.findtext("description", "")
+                # Strip HTML tags and decode entities for summary
+                summary = unescape(re_sub(r"<[^>]+>", "", description))[:200]
+
+                posts.append(
+                    {
+                        "title": title,
+                        "link": link,
+                        "published": pub_date,
+                        "summary": summary,
+                    }
+                )
+
+            return JsonResponse(posts, safe=False)
+        except Exception:
+            logger.exception("Failed to fetch blog feed")
+            return JsonResponse([], safe=False)

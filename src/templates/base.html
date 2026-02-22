@@ -16,6 +16,20 @@
         content="{% block og_description %}Software, AI, and strategic technology consulting.{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://acoruss.com">
+    <meta property="og:image" content="{% static 'images/logos/dark-name-horizontal.png' %}">
+    <meta property="og:site_name" content="Acoruss">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Acoruss - Empowering Businesses Through Technology">
+    <meta name="twitter:description" content="Software, AI, and strategic technology consulting.">
+    <meta name="twitter:image" content="{% static 'images/logos/dark-name-horizontal.png' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
 
     <title>{% block title %}Acoruss - Empowering Businesses Through Technology{% endblock %}</title>
 

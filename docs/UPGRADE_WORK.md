@@ -39,26 +39,26 @@
 - [x] Privacy policy & terms of service pages (expanded content, info@acoruss.com)
 - [x] Apply DaisyUI Agency Landing layout + brand colors (acoruss theme: primary #590303)
 - [x] Port JS: mobile menu (DaisyUI drawer), smooth scroll
-- [ ] BlogLoader RSS (Substack feed integration)
-- [ ] Google Analytics, meta tags, Open Graph, favicon
-- [ ] Update README.md
+- [x] BlogLoader RSS (Substack feed via server-side proxy `/api/blog-feed/` + JS loader)
+- [x] Google Analytics, meta tags, Open Graph, Twitter Card, favicon
+- [x] Update README.md (rewritten for Django/Docker stack)
 - [x] Verify: all 8 pages load, contact form works, Playwright tested
 
 ## Phase 4: Integrations
 
-- [ ] Paystack placeholder app: `src/apps/payments/` with models, views, services
-- [ ] Payment page template (discovery call placeholder)
-- [ ] Paystack webhook handler
-- [ ] Mailgun transactional emails (contact notifications, payment receipts)
-- [ ] Verify: Paystack test mode flow works
+- [x] Paystack placeholder app: `src/apps/payments/` with models, views, services
+- [x] Payment page template (`/payments/` - discovery call / service payments)
+- [x] Paystack webhook handler (`/payments/webhook/`)
+- [x] Mailgun transactional emails (contact notifications, payment receipts)
+- [ ] Verify: Paystack test mode flow works (requires Paystack test keys)
 
 ## Phase 5: Admin Dashboard
 
 - [x] Login view + template at `/dashboard/login/`
-- [x] `DashboardHomeView` - overview with key metrics
+- [x] `DashboardHomeView` - overview with key metrics (contacts + payments)
 - [x] `ContactSubmissionsListView` + `ContactSubmissionDetailView`
-- [ ] `PaymentListView` - Paystack transactions
-- [ ] `AnalyticsView` - analytics overview
+- [x] `PaymentListView` - Paystack transactions list with filter/search/pagination
+- [x] `AnalyticsView` - analytics overview (contacts, payments, revenue)
 - [x] Dashboard templates (DaisyUI design): sidebar, stats cards, data tables
 - [x] Admin-only access middleware/mixin
 - [x] Verify: login works, all dashboard pages load, responsive

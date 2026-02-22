@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Local apps
     "apps.accounts",
     "apps.core",
+    "apps.payments",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,10 @@ CONTACT_NOTIFICATION_EMAILS: list[str] = env.list(
 
 # Site URL for links in emails
 SITE_URL = env("SITE_URL", default="https://acoruss.com")
+
+# Paystack
+PAYSTACK_SECRET_KEY = env("PAYSTACK_SECRET_KEY", default="")
+PAYSTACK_PUBLIC_KEY = env("PAYSTACK_PUBLIC_KEY", default="")
 
 # Google Analytics
 GOOGLE_ANALYTICS_ID = env("GOOGLE_ANALYTICS_ID", default="G-BSXKG26LSP")

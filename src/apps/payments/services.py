@@ -42,6 +42,7 @@ def _make_paystack_request(
     headers = {
         "Authorization": f"Bearer {secret_key}",
         "Content-Type": "application/json",
+        "User-Agent": "Acoruss/1.0 (+https://acoruss.com)",
     }
     url = f"{PAYSTACK_API_URL}{endpoint}"
     req = Request(url, data=data, headers=headers, method=method)  # noqa: S310

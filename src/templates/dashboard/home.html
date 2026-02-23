@@ -1,102 +1,157 @@
 {% extends "dashboard/base.html" %}
 
+{% block nav_dashboard %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li class="text-base-content font-medium">Overview</li>
+{% endblock %}
+
 {% block dashboard_content %}
 <div class="flex flex-col gap-6">
-    <h1 class="text-3xl font-bold">Dashboard</h1>
+    <!-- Page header -->
+    <div>
+        <h1 class="text-2xl font-bold">Welcome back</h1>
+        <p class="text-base-content/50 text-sm mt-1">Here&rsquo;s what&rsquo;s happening with your business today.</p>
+    </div>
 
-    <!-- Stats -->
-    <div class="stats shadow bg-base-200/50 border border-base-300/30">
-        <div class="stat">
-            <div class="stat-figure text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    class="inline-block w-8 h-8 stroke-current">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                </svg>
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <!-- Submissions -->
+        <a href="{% url 'core:dashboard_contacts' %}" class="dash-stat-card group">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/20 group-hover:text-accent transition-colors"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
-            <div class="stat-title">Total Submissions</div>
-            <div class="stat-value text-primary">{{ total_submissions }}</div>
-            <div class="stat-desc">Contact form messages</div>
-        </div>
-        <div class="stat">
-            <div class="stat-figure text-accent">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    class="inline-block w-8 h-8 stroke-current">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+            <div class="text-2xl font-bold">{{ total_submissions }}</div>
+            <div class="text-xs text-base-content/50 mt-0.5">Total Submissions</div>
+        </a>
+
+        <!-- Unread -->
+        <a href="{% url 'core:dashboard_contacts' %}?status=unread" class="dash-stat-card group">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/20 group-hover:text-accent transition-colors"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
-            <div class="stat-title">Unread</div>
-            <div class="stat-value text-accent">{{ unread_submissions }}</div>
-            <div class="stat-desc">Awaiting response</div>
-        </div>
-        <div class="stat">
-            <div class="stat-figure text-success">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    class="inline-block w-8 h-8 stroke-current">
-                    <rect width="20" height="14" x="2" y="5" rx="2" stroke-width="2" />
-                    <line x1="2" y1="10" x2="22" y2="10" stroke-width="2" />
-                </svg>
+            <div class="text-2xl font-bold">{{ unread_submissions }}</div>
+            <div class="text-xs text-base-content/50 mt-0.5">Unread Messages</div>
+        </a>
+
+        <!-- Payments -->
+        <a href="{% url 'core:dashboard_payments' %}" class="dash-stat-card group">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/20 group-hover:text-accent transition-colors"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
-            <div class="stat-title">Payments</div>
-            <div class="stat-value text-success">{{ successful_payments }}</div>
-            <div class="stat-desc">{{ total_payments }} total</div>
-        </div>
-        <div class="stat">
-            <div class="stat-figure text-info">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    class="inline-block w-8 h-8 stroke-current">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+            <div class="text-2xl font-bold">{{ successful_payments }}<span class="text-sm font-normal text-base-content/40"> / {{ total_payments }}</span></div>
+            <div class="text-xs text-base-content/50 mt-0.5">Successful Payments</div>
+        </a>
+
+        <!-- Products -->
+        <a href="{% url 'core:dashboard_services' %}" class="dash-stat-card group">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-info/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-info">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    </svg>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/20 group-hover:text-accent transition-colors"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
-            <div class="stat-title">Products</div>
-            <div class="stat-value text-info">{{ active_services }}</div>
-            <div class="stat-desc">{{ total_services }} registered</div>
-        </div>
+            <div class="text-2xl font-bold">{{ active_services }}<span class="text-sm font-normal text-base-content/40"> / {{ total_services }}</span></div>
+            <div class="text-xs text-base-content/50 mt-0.5">Active Products</div>
+        </a>
     </div>
 
     <!-- Recent Submissions -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
-        <div class="p-6 flex items-center justify-between">
-            <h2 class="text-xl font-bold">Recent Submissions</h2>
-            <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-sm">View All &rarr;</a>
+    <div class="dash-card">
+        <div class="dash-card-header">
+            <h2 class="font-bold">Recent Submissions</h2>
+            <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-sm text-xs gap-1">
+                View All
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
         </div>
-        <div class="overflow-x-auto">
-            <table class="table">
+
+        <!-- Mobile card view -->
+        <div class="block sm:hidden divide-y divide-base-300/20">
+            {% for submission in recent_submissions %}
+            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="flex items-center gap-3 px-4 py-3 hover:bg-base-200/50 transition-colors">
+                <div class="avatar placeholder">
+                    <div class="bg-{% if not submission.is_read %}primary{% else %}base-300{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}base-content/50{% endif %} rounded-full w-9 h-9">
+                        <span class="text-xs font-bold">{{ submission.name|make_list|first|upper }}</span>
+                    </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium truncate {% if not submission.is_read %}text-base-content{% else %}text-base-content/70{% endif %}">{{ submission.name }}</span>
+                        {% if not submission.is_read %}<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>{% endif %}
+                    </div>
+                    <div class="text-xs text-base-content/40 truncate">{{ submission.email }}</div>
+                </div>
+                <div class="text-xs text-base-content/30">{{ submission.created_at|date:"M j" }}</div>
+            </a>
+            {% empty %}
+            <div class="px-4 py-8 text-center text-base-content/40 text-sm">No submissions yet.</div>
+            {% endfor %}
+        </div>
+
+        <!-- Desktop table view -->
+        <div class="hidden sm:block overflow-x-auto">
+            <table class="table table-sm">
                 <thead>
-                    <tr>
-                        <th>Status</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th></th>
+                    <tr class="text-xs uppercase text-base-content/40">
+                        <th class="font-semibold">Contact</th>
+                        <th class="font-semibold">Email</th>
+                        <th class="font-semibold">Date</th>
+                        <th class="font-semibold w-20">Status</th>
+                        <th class="w-12"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for submission in recent_submissions %}
-                    <tr class="hover {% if not submission.is_read %}font-semibold{% endif %}">
+                    <tr class="hover:bg-base-200/30 {% if not submission.is_read %}font-medium{% endif %}">
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-{% if not submission.is_read %}primary{% else %}base-300{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}base-content/50{% endif %} rounded-full w-8 h-8">
+                                        <span class="text-xs font-bold">{{ submission.name|make_list|first|upper }}</span>
+                                    </div>
+                                </div>
+                                <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="hover:text-accent transition-colors">{{ submission.name }}</a>
+                            </div>
+                        </td>
+                        <td class="text-sm text-base-content/60">{{ submission.email }}</td>
+                        <td class="text-sm text-base-content/40">{{ submission.created_at|date:"M j, Y" }}</td>
                         <td>
                             {% if submission.is_read %}
-                            <span class="badge badge-ghost badge-sm">Read</span>
+                            <span class="badge badge-ghost badge-xs">Read</span>
                             {% else %}
-                            <span class="badge badge-primary badge-sm">New</span>
+                            <span class="badge badge-primary badge-xs">New</span>
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="link link-hover">{{
-                                submission.name }}</a>
-                        </td>
-                        <td class="text-sm">{{ submission.email }}</td>
-                        <td class="text-sm text-base-content/60">{{ submission.created_at|date:"M j, Y" }}</td>
-                        <td>
-                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}"
-                                class="btn btn-ghost btn-xs">View</a>
+                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="btn btn-ghost btn-xs btn-square">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </a>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center py-8 text-base-content/50">No submissions yet.</td>
+                        <td colspan="5" class="text-center py-8 text-base-content/40 text-sm">No submissions yet.</td>
                     </tr>
                     {% endfor %}
                 </tbody>

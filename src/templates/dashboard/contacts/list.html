@@ -1,124 +1,189 @@
 {% extends "dashboard/base.html" %}
 
 {% block title %}Contact Submissions - Dashboard{% endblock %}
+{% block nav_contacts %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li class="text-base-content font-medium">Contacts</li>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-5">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-            <h1 class="text-3xl font-bold">Contact Submissions</h1>
-            <p class="text-base-content/60 mt-1">{{ total_count }} total &middot; {{ unread_count }} unread</p>
+            <h1 class="text-2xl font-bold">Contact Submissions</h1>
+            <p class="text-base-content/50 text-sm mt-0.5">{{ total_count }} total &middot; {{ unread_count }} unread</p>
         </div>
     </div>
 
-    <!-- Filters & Search -->
-    <div class="flex flex-col sm:flex-row gap-3">
-        <div class="join">
-            <a href="{% url 'core:dashboard_contacts' %}"
-                class="btn join-item btn-sm {% if current_status == 'all' %}btn-active{% endif %}">All</a>
-            <a href="{% url 'core:dashboard_contacts' %}?status=unread"
-                class="btn join-item btn-sm {% if current_status == 'unread' %}btn-active{% endif %}">
-                Unread
-                {% if unread_count %}
-                <span class="badge badge-sm badge-primary ml-1">{{ unread_count }}</span>
+    <!-- Filters & Search bar (Nexus-style) -->
+    <div class="dash-card !p-3">
+        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <form action="{% url 'core:dashboard_contacts' %}" method="GET" class="flex-1 w-full sm:w-auto">
+                {% if current_status != 'all' %}
+                <input type="hidden" name="status" value="{{ current_status }}">
                 {% endif %}
-            </a>
-            <a href="{% url 'core:dashboard_contacts' %}?status=read"
-                class="btn join-item btn-sm {% if current_status == 'read' %}btn-active{% endif %}">Read</a>
-        </div>
-        <form action="{% url 'core:dashboard_contacts' %}" method="GET" class="flex-1">
-            {% if current_status != 'all' %}
-            <input type="hidden" name="status" value="{{ current_status }}">
-            {% endif %}
-            <div class="join w-full sm:w-auto">
-                <input type="text" name="q" value="{{ search_query }}" placeholder="Search submissions..."
-                    class="input input-bordered input-sm join-item w-full sm:w-64">
-                <button type="submit" class="btn btn-sm join-item btn-primary">Search</button>
+                <div class="relative w-full sm:max-w-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/30"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" name="q" value="{{ search_query }}" placeholder="Search along contacts"
+                        class="input input-sm input-bordered w-full pl-9 rounded-lg bg-base-100/50 focus:border-accent" />
+                </div>
+            </form>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <!-- Status filter dropdown -->
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-sm btn-ghost gap-1 border border-base-300/50 rounded-lg">
+                        {% if current_status == 'unread' %}Unread{% elif current_status == 'read' %}Read{% else %}All Status{% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-200 border border-base-300/50 rounded-xl w-40 p-1.5 shadow-xl mt-1 z-50">
+                        <li><a href="{% url 'core:dashboard_contacts' %}{% if search_query %}?q={{ search_query }}{% endif %}" class="text-sm {% if current_status == 'all' %}active{% endif %}">All</a></li>
+                        <li><a href="{% url 'core:dashboard_contacts' %}?status=unread{% if search_query %}&q={{ search_query }}{% endif %}" class="text-sm {% if current_status == 'unread' %}active{% endif %}">
+                            Unread
+                            {% if unread_count %}<span class="badge badge-primary badge-xs">{{ unread_count }}</span>{% endif %}
+                        </a></li>
+                        <li><a href="{% url 'core:dashboard_contacts' %}?status=read{% if search_query %}&q={{ search_query }}{% endif %}" class="text-sm {% if current_status == 'read' %}active{% endif %}">Read</a></li>
+                    </ul>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 
-    <!-- Submissions Table -->
-    <div class="overflow-x-auto bg-base-200/50 rounded-2xl border border-base-300/30">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Project Type</th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for submission in submissions %}
-                <tr class="hover {% if not submission.is_read %}font-semibold{% endif %}">
-                    <td>
-                        {% if submission.is_read %}
-                        <span class="badge badge-ghost badge-sm">Read</span>
-                        {% else %}
-                        <span class="badge badge-primary badge-sm">New</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="link link-hover">{{
-                            submission.name }}</a>
-                        {% if submission.company %}
-                        <br><span class="text-xs text-base-content/50">{{ submission.company }}</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-sm">{{ submission.email }}</td>
-                    <td>
-                        {% if submission.project_type %}
-                        <span class="badge badge-outline badge-sm">{{ submission.get_project_type_display }}</span>
-                        {% else %}
-                        <span class="text-base-content/40 text-sm">—</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-sm text-base-content/60">{{ submission.created_at|date:"M j, Y" }}</td>
-                    <td>
-                        <a href="{% url 'core:dashboard_contact_detail' submission.pk %}"
-                            class="btn btn-ghost btn-xs">View</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="text-center py-12 text-base-content/50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-3 opacity-30" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                        </svg>
-                        No submissions found.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Table card -->
+    <div class="dash-card !p-0">
+        <!-- Desktop table -->
+        <div class="hidden md:block overflow-x-auto">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="text-xs uppercase text-base-content/40 border-b border-base-300/20">
+                        <th class="font-semibold w-12">#</th>
+                        <th class="font-semibold">Contact</th>
+                        <th class="font-semibold">Email</th>
+                        <th class="font-semibold">Project Type</th>
+                        <th class="font-semibold">Status</th>
+                        <th class="font-semibold">Date</th>
+                        <th class="font-semibold w-16">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                    <tr class="hover:bg-base-200/30 transition-colors {% if not submission.is_read %}font-medium{% endif %}">
+                        <td class="text-base-content/30 text-xs">{{ forloop.counter }}</td>
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <div class="avatar placeholder">
+                                    <div class="bg-{% if not submission.is_read %}primary{% else %}base-300{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}base-content/50{% endif %} rounded-full w-9 h-9">
+                                        <span class="text-xs font-bold">{{ submission.name|make_list|first|upper }}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="hover:text-accent transition-colors">{{ submission.name }}</a>
+                                    {% if submission.company %}
+                                    <div class="text-xs text-base-content/40">{{ submission.company }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-sm text-base-content/60">{{ submission.email }}</td>
+                        <td>
+                            {% if submission.project_type %}
+                            <span class="badge badge-outline badge-xs">{{ submission.get_project_type_display }}</span>
+                            {% else %}
+                            <span class="text-base-content/30 text-sm">&mdash;</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if submission.is_read %}
+                            <span class="text-success text-sm flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                Read
+                            </span>
+                            {% else %}
+                            <span class="badge badge-primary badge-xs gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary-content"></span>
+                                New
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-sm text-base-content/40">{{ submission.created_at|date:"d M Y" }}</td>
+                        <td>
+                            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="btn btn-ghost btn-xs btn-circle" title="View details">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-16">
+                            <div class="flex flex-col items-center gap-3 text-base-content/40">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="opacity-30">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <p class="font-medium">No submissions found</p>
+                                <p class="text-sm">Contact submissions will appear here.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile card view -->
+        <div class="block md:hidden divide-y divide-base-300/20">
+            {% for submission in submissions %}
+            <a href="{% url 'core:dashboard_contact_detail' submission.pk %}" class="flex items-center gap-3 px-4 py-3 hover:bg-base-200/50 transition-colors">
+                <div class="avatar placeholder">
+                    <div class="bg-{% if not submission.is_read %}primary{% else %}base-300{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}base-content/50{% endif %} rounded-full w-10 h-10">
+                        <span class="text-sm font-bold">{{ submission.name|make_list|first|upper }}</span>
+                    </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium truncate {% if not submission.is_read %}text-base-content{% else %}text-base-content/70{% endif %}">{{ submission.name }}</span>
+                        {% if not submission.is_read %}<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>{% endif %}
+                    </div>
+                    <div class="text-xs text-base-content/40 truncate">{{ submission.email }}</div>
+                    {% if submission.project_type %}
+                    <div class="text-xs text-base-content/30 mt-0.5">{{ submission.get_project_type_display }}</div>
+                    {% endif %}
+                </div>
+                <div class="text-right shrink-0">
+                    <div class="text-xs text-base-content/30">{{ submission.created_at|date:"M j" }}</div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="px-4 py-12 text-center text-base-content/40 text-sm">No submissions found.</div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Pagination -->
     {% if is_paginated %}
-    <div class="flex justify-center">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-base-content/40">
+            Showing <span class="font-semibold text-base-content/70">{{ page_obj.start_index }}</span> to <span class="font-semibold text-base-content/70">{{ page_obj.end_index }}</span> of <span class="font-semibold text-base-content/70">{{ page_obj.paginator.count }}</span> items
+        </p>
         <div class="join">
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
-                class="join-item btn btn-sm">«</a>
+                class="join-item btn btn-sm">&laquo;</a>
             {% endif %}
             {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-            <button class="join-item btn btn-sm btn-active">{{ num }}</button>
-            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %} <a
-                href="?page={{ num }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
+            <button class="join-item btn btn-sm btn-primary">{{ num }}</button>
+            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+            <a href="?page={{ num }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
                 class="join-item btn btn-sm">{{ num }}</a>
-                {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
-                    class="join-item btn btn-sm">»</a>
-                {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
+                class="join-item btn btn-sm">&raquo;</a>
+            {% endif %}
         </div>
     </div>
     {% endif %}

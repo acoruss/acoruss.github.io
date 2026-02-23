@@ -4,6 +4,7 @@ import hashlib
 import hmac
 import logging
 import uuid
+from urllib.error import HTTPError
 
 from django.conf import settings
 
@@ -44,8 +45,16 @@ def _make_paystack_request(
     }
     url = f"{PAYSTACK_API_URL}{endpoint}"
     req = Request(url, data=data, headers=headers, method=method)  # noqa: S310
-    response = urlopen(req, timeout=30)  # noqa: S310
-    return json.loads(response.read())
+    try:
+        response = urlopen(req, timeout=30)  # noqa: S310
+        return json.loads(response.read())
+    except HTTPError as exc:
+        body = exc.read().decode(errors="replace")
+        logger.error("Paystack %s %s returned HTTP %s: %s", method, endpoint, exc.code, body)
+        try:
+            return json.loads(body)
+        except (json.JSONDecodeError, ValueError):
+            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
 
 
 async def initialise_transaction(
@@ -109,6 +118,17 @@ async def initialise_transaction(
             lambda: urlopen(req, timeout=30).read(),  # noqa: S310
         )
         return json.loads(response)
+    except HTTPError as exc:
+        body = exc.read().decode(errors="replace")
+        logger.error(
+            "Paystack initialise returned HTTP %s: %s",
+            exc.code,
+            body,
+        )
+        try:
+            return json.loads(body)
+        except (json.JSONDecodeError, ValueError):
+            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to initialise Paystack transaction")
         return {"status": False, "message": "Payment initiation failed"}
@@ -142,6 +162,18 @@ async def verify_transaction(reference: str) -> dict:
             lambda: urlopen(req, timeout=30).read(),  # noqa: S310
         )
         return json.loads(response)
+    except HTTPError as exc:
+        body = exc.read().decode(errors="replace")
+        logger.error(
+            "Paystack verify returned HTTP %s for %s: %s",
+            exc.code,
+            reference,
+            body,
+        )
+        try:
+            return json.loads(body)
+        except (json.JSONDecodeError, ValueError):
+            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to verify Paystack transaction: %s", reference)
         return {"status": False, "message": "Verification failed"}
@@ -200,6 +232,18 @@ async def create_refund(
             lambda: urlopen(req, timeout=30).read(),  # noqa: S310
         )
         return json.loads(response)
+    except HTTPError as exc:
+        body = exc.read().decode(errors="replace")
+        logger.error(
+            "Paystack refund returned HTTP %s for %s: %s",
+            exc.code,
+            transaction_reference,
+            body,
+        )
+        try:
+            return json.loads(body)
+        except (json.JSONDecodeError, ValueError):
+            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to create refund for: %s", transaction_reference)
         return {"status": False, "message": "Refund request failed"}

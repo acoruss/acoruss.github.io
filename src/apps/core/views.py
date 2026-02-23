@@ -31,6 +31,46 @@ def _get_payment_model():
     return _Payment
 
 
+class RobotsTxtView(View):
+    """Serve robots.txt to discourage crawlers from probing non-existent paths."""
+
+    ROBOTS_TXT = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Allow: /services/\n"
+        "Allow: /pricing/\n"
+        "Allow: /projects/\n"
+        "Allow: /our-products/\n"
+        "Allow: /about-us/\n"
+        "Allow: /contact-us/\n"
+        "Allow: /privacy-policy/\n"
+        "Allow: /terms-of-service/\n"
+        "\n"
+        "Disallow: /admin/\n"
+        "Disallow: /dashboard/\n"
+        "Disallow: /api/\n"
+        "Disallow: /payments/\n"
+        "\n"
+        "Sitemap: https://acoruss.com/sitemap.xml\n"
+    )
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return HttpResponse(self.ROBOTS_TXT, content_type="text/plain")
+
+
+class SecurityTxtView(View):
+    """Serve .well-known/security.txt per RFC 9116."""
+
+    SECURITY_TXT = (
+        "Contact: mailto:security@acoruss.com\n"
+        "Preferred-Languages: en\n"
+        "Canonical: https://acoruss.com/.well-known/security.txt\n"
+    )
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return HttpResponse(self.SECURITY_TXT, content_type="text/plain")
+
+
 class IndexView(TemplateView):
     """Public homepage."""
 
@@ -53,6 +93,12 @@ class ProjectsView(TemplateView):
     """Projects showcase page."""
 
     template_name = "projects.html"
+
+
+class ProductsView(TemplateView):
+    """Our products page — products built and powered by Acoruss."""
+
+    template_name = "products.html"
 
 
 class AboutView(TemplateView):

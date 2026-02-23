@@ -119,6 +119,37 @@ class Payment(models.Model):
         KES = "KES", "Kenyan Shilling"
         USD = "USD", "US Dollar"
         NGN = "NGN", "Nigerian Naira"
+        GBP = "GBP", "British Pound"
+        EUR = "EUR", "Euro"
+        GHS = "GHS", "Ghanaian Cedi"
+        ZAR = "ZAR", "South African Rand"
+        UGX = "UGX", "Ugandan Shilling"
+        TZS = "TZS", "Tanzanian Shilling"
+        RWF = "RWF", "Rwandan Franc"
+        CAD = "CAD", "Canadian Dollar"
+        AUD = "AUD", "Australian Dollar"
+        INR = "INR", "Indian Rupee"
+        JPY = "JPY", "Japanese Yen"
+        CNY = "CNY", "Chinese Yuan"
+        AED = "AED", "UAE Dirham"
+        CHF = "CHF", "Swiss Franc"
+        SEK = "SEK", "Swedish Krona"
+        NOK = "NOK", "Norwegian Krone"
+        DKK = "DKK", "Danish Krone"
+        SGD = "SGD", "Singapore Dollar"
+        HKD = "HKD", "Hong Kong Dollar"
+        MXN = "MXN", "Mexican Peso"
+        BRL = "BRL", "Brazilian Real"
+        ETB = "ETB", "Ethiopian Birr"
+        EGP = "EGP", "Egyptian Pound"
+        MAD = "MAD", "Moroccan Dirham"
+        XOF = "XOF", "West African CFA Franc"
+        XAF = "XAF", "Central African CFA Franc"
+        BWP = "BWP", "Botswana Pula"
+        MUR = "MUR", "Mauritian Rupee"
+        SCR = "SCR", "Seychellois Rupee"
+        ZMW = "ZMW", "Zambian Kwacha"
+        MWK = "MWK", "Malawian Kwacha"
 
     class RefundStatus(models.TextChoices):
         """Refund status choices."""
@@ -149,19 +180,39 @@ class Payment(models.Model):
     email = models.EmailField("customer email")
     name = models.CharField("customer name", max_length=255, blank=True)
 
-    # Payment details
+    # Payment details — original amounts as submitted by the client
     amount = models.DecimalField(
         "amount",
         max_digits=12,
         decimal_places=2,
-        help_text="Amount in the currency's major unit (e.g., KES, USD).",
+        help_text="Original amount in the client's currency.",
     )
     currency = models.CharField(
         "currency",
         max_length=3,
         choices=Currency.choices,
         default=Currency.KES,
+        help_text="Original currency submitted by the client.",
     )
+
+    # Settlement — converted to KES for Paystack
+    settlement_amount = models.DecimalField(
+        "settlement amount (KES)",
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Amount in KES sent to Paystack after conversion.",
+    )
+    exchange_rate = models.DecimalField(
+        "exchange rate",
+        max_digits=18,
+        decimal_places=8,
+        null=True,
+        blank=True,
+        help_text="Exchange rate used: 1 <original currency> = X KES.",
+    )
+
     description = models.CharField("description", max_length=500, blank=True)
 
     # Paystack fields
@@ -264,12 +315,18 @@ class Payment(models.Model):
 
     def __str__(self) -> str:
         service_name = self.service.name if self.service_id else "Direct"
+        if self.settlement_amount and self.currency != "KES":
+            return (
+                f"[{service_name}] {self.reference} - "
+                f"{self.currency} {self.amount} → KES {self.settlement_amount} ({self.status})"
+            )
         return f"[{service_name}] {self.reference} - {self.currency} {self.amount} ({self.status})"
 
     @property
     def amount_in_kobo(self) -> int:
-        """Return amount in the smallest currency unit (kobo/cents) for Paystack API."""
-        return int(self.amount * 100)
+        """Return the KES settlement amount in the smallest unit (cents) for Paystack API."""
+        amt = self.settlement_amount if self.settlement_amount else self.amount
+        return int(amt * 100)
 
     @property
     def is_successful(self) -> bool:

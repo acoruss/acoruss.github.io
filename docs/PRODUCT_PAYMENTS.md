@@ -118,17 +118,17 @@ Start a payment. Returns a Paystack authorization URL to redirect the customer t
 }
 ```
 
-| Field               | Type   | Required | Description                                                   |
-| ------------------- | ------ | -------- | ------------------------------------------------------------- |
-| `email`             | string | **Yes**  | Customer email                                                |
-| `amount`            | number | **Yes**  | Amount in major currency unit (e.g. 2500 = KES 2,500)         |
-| `currency`          | string | No       | `KES` (default), `USD`, or `NGN`                              |
-| `name`              | string | No       | Customer name                                                 |
-| `description`       | string | No       | Payment description                                           |
-| `service_reference` | string | No       | Your internal order/transaction ID                            |
-| `callback_url`      | string | No       | Override the default redirect URL for this payment            |
-| `metadata`          | object | No       | Arbitrary key/value data (returned in webhooks)               |
-| `idempotency_key`   | string | No       | Prevents duplicate payments (see [Idempotency](#idempotency)) |
+| Field               | Type   | Required | Description                                                                                                                    |
+| ------------------- | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `email`             | string | **Yes**  | Customer email                                                                                                                 |
+| `amount`            | number | **Yes**  | Amount in major currency unit (e.g. 2500 = KES 2,500)                                                                          |
+| `currency`          | string | No       | Any supported currency code (default: `KES`). See [Currencies](#currencies). Amounts are auto-converted to KES for settlement. |
+| `name`              | string | No       | Customer name                                                                                                                  |
+| `description`       | string | No       | Payment description                                                                                                            |
+| `service_reference` | string | No       | Your internal order/transaction ID                                                                                             |
+| `callback_url`      | string | No       | Override the default redirect URL for this payment                                                                             |
+| `metadata`          | object | No       | Arbitrary key/value data (returned in webhooks)                                                                                |
+| `idempotency_key`   | string | No       | Prevents duplicate payments (see [Idempotency](#idempotency))                                                                  |
 
 **Response (200):**
 
@@ -139,10 +139,19 @@ Start a payment. Returns a Paystack authorization URL to redirect the customer t
   "data": {
     "reference": "acoruss-a1b2c3d4e5f6",
     "authorization_url": "https://checkout.paystack.com/abc123",
-    "callback_url": "https://xperience-nairobi.com/payment/done/"
+    "callback_url": "https://xperience-nairobi.com/payment/done/",
+    "currency_conversion": {
+      "original_amount": "25.00",
+      "original_currency": "USD",
+      "settlement_amount": "3237.50",
+      "settlement_currency": "KES",
+      "exchange_rate": "129.50"
+    }
   }
 }
 ```
+
+> **Note:** The `currency_conversion` field is only included when the original currency is not KES.
 
 **Next step:** Redirect the customer's browser to `authorization_url`. After payment, they'll be redirected to your `callback_url` with query parameters (see [Callback Redirects](#callback-redirects)).
 
@@ -431,15 +440,57 @@ To prevent duplicate payments (e.g. user double-clicks, network retries), includ
 
 ## Currencies
 
-Supported currencies:
+Accepted currencies (payments are always settled in KES via Paystack):
 
-| Code  | Name            |
-| ----- | --------------- |
-| `KES` | Kenyan Shilling |
-| `USD` | US Dollar       |
-| `NGN` | Nigerian Naira  |
+| Code       | Name                      |
+| ---------- | ------------------------- |
+| `KES`      | Kenyan Shilling (default) |
+| `USD`      | US Dollar                 |
+| `EUR`      | Euro                      |
+| `GBP`      | British Pound             |
+| `NGN`      | Nigerian Naira            |
+| `GHS`      | Ghanaian Cedi             |
+| `ZAR`      | South African Rand        |
+| `UGX`      | Ugandan Shilling          |
+| `TZS`      | Tanzanian Shilling        |
+| `RWF`      | Rwandan Franc             |
+| `CAD`      | Canadian Dollar           |
+| `AUD`      | Australian Dollar         |
+| `INR`      | Indian Rupee              |
+| `JPY`      | Japanese Yen              |
+| `CNY`      | Chinese Yuan              |
+| `AED`      | UAE Dirham                |
+| `CHF`      | Swiss Franc               |
+| `SGD`      | Singapore Dollar          |
+| `HKD`      | Hong Kong Dollar          |
+| `BRL`      | Brazilian Real            |
+| `MXN`      | Mexican Peso              |
+| `ETB`      | Ethiopian Birr            |
+| `EGP`      | Egyptian Pound            |
+| `ZMW`      | Zambian Kwacha            |
+| … and more |
 
 If your service has an `allowed_currencies` restriction configured, only those currencies will be accepted.
+
+### Currency Conversion
+
+All payments are processed through Paystack in **KES**. When a client submits a payment in a non-KES currency:
+
+1. Acoruss fetches the current exchange rate from the [Open Exchange Rates API](https://open.er-api.com/) (IMF/central-bank data, free, no API key).
+2. The amount is converted to KES using the live rate.
+3. The KES amount is sent to Paystack for processing.
+4. The original amount, currency, exchange rate, and converted amount are stored in the payment metadata.
+
+Exchange rates are cached for **1 hour** (configurable via `EXCHANGE_RATE_CACHE_TTL` setting).
+
+**Example:** A $25 USD payment at a rate of 129.50 KES/USD becomes KES 3,237.50 for Paystack.
+
+The conversion details appear in:
+
+- The **initiate payment** response (`currency_conversion` field)
+- The **payment status** response (`settlement` field)
+- The **webhook payload** (`metadata.currency_conversion`)
+- The **payment list** response (`settlement_amount_kes`, `exchange_rate` fields)
 
 ---
 

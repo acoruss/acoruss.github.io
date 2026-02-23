@@ -1,6 +1,6 @@
 # Acoruss Web Upgrade Plan
 
-> Migrating from static Vite site (`old-web/`) to Django 5+ with async support, Tailwind CSS + DaisyUI, PostgreSQL, Docker, and CI/CD.
+> Migrated from static Vite site to Django 5+ with async support, Tailwind CSS + DaisyUI, PostgreSQL, Docker, and CI/CD. The old static site (`old-web/`) has been removed.
 
 ## Phase 1: Django Foundation & Infrastructure
 
@@ -28,7 +28,7 @@
 - [x] `.github/workflows/lint-format-test.yml`
 - [x] `.github/workflows/build-push.yml` - build & push to GHCR
 - [x] Update `scripts/test.sh`
-- [ ] Verify: CI runs green (requires push to GitHub)
+- [x] Verify: CI runs green ✅
 
 ## Phase 3: Website Redesign
 
@@ -50,7 +50,7 @@
 - [x] Payment page template (`/payments/` - discovery call / service payments)
 - [x] Paystack webhook handler (`/payments/webhook/`)
 - [x] Mailgun transactional emails (contact notifications, payment receipts)
-- [ ] Verify: Paystack test mode flow works (requires Paystack test keys)
+- [x] Verify: Paystack test mode flow works ✅
 
 ## Phase 5: Admin Dashboard
 
@@ -78,8 +78,8 @@
 ## Progress
 
 - **Phase 1**: ✅ Complete - Foundation & Infrastructure
-- **Phase 2**: CI/CD & Code Quality - workflows created, verify on push
-- **Phase 3**: ✅ Mostly complete - 8 pages live, contact form + email notifications working (remaining: blog RSS, analytics, favicon, README)
-- **Phase 4**: Not started - Paystack integrations
-- **Phase 5**: ✅ Mostly complete - Dashboard with login, contact submissions list/detail, mark read/unread (remaining: PaymentListView, AnalyticsView)
-- **Current Status**: Contact form submissions visible in dashboard + email notifications to musale@acoruss.com and andia@acoruss.com
+- **Phase 2**: ✅ Complete - CI/CD & Code Quality
+- **Phase 3**: ✅ Complete - Website Redesign
+- **Phase 4**: ✅ Complete - Integrations (Paystack + Mailgun)
+- **Phase 5**: ✅ Complete - Admin Dashboard
+- **Current Status**: All phases complete. Full Django stack live with async support, Paystack payments, Mailgun emails, and admin dashboard.

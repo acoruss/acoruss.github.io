@@ -50,46 +50,46 @@ Use the Frontend rules in development.
 .
 ├── AGENTS.md # agent file for AI agents
 ├── Makefile # utility make commands
-├── README.md #about the project
+├── pyproject.toml # Python dependencies & tool config
+├── README.md # about the project
 ├── docker # docker and docker compose files
 │ ├── Dockerfile
 │ ├── compose.dev.yml
 │ └── compose.prod.yml
 ├── docs # website upgrade and design documents
-│ ├── AcorussWebUpgrade.pdf
 │ ├── DESIGN.md
-│ └── InfoAndLinks.md
+│ ├── InfoAndLinks.md
+│ ├── PRODUCT_PAYMENTS.md
+│ └── UPGRADE_WORK.md
 ├── frontend # utility to create frontend assets
 │ ├── package.json
-│ ├── postcss.config.json
+│ ├── postcss.config.js
 │ └── tailwind.config.js
-├── old-web # NOTE: This is being removed
 ├── public # images logos
 │ └── images
 │ └── logos
-│ ├── dark-name-horizontal.png
-│ ├── dark-name-vertical.png
-│ ├── dark-rounded-bg.png
-│ ├── dark.png
-│ ├── white-name-horizontal.png
-│ ├── white-name-vertical.png
-│ ├── white-rounded-bg.png
-│ └── white.png
 ├── scripts # utility scripts
 │ └── test.sh
 ├── src # web application code
+│ ├── manage.py
 │ ├── apps
-│ │ ├── **init**.py
-│ │ └── core
+│ │ ├── accounts/ # custom user model
+│ │ ├── core/ # main app (views, models, services)
+│ │ └── payments/ # Paystack integration
 │ ├── config
-│ │ └── **init**.py
+│ │ ├── urls.py
+│ │ └── settings/
+│ │ ├── base.py
+│ │ ├── dev.py
+│ │ ├── prod.py
+│ │ └── test.py
 │ ├── static
-│ │ ├── css
-│ │ │ └── main.css
-│ │ └── js
-│ │ └── main.js
+│ │ ├── css/main.css
+│ │ ├── js/main.js
+│ │ └── images/logos/
 │ └── templates
 │ ├── base.html
-│ └── index.html
+│ ├── index.html
+│ ├── dashboard/ # admin dashboard templates
+│ └── emails/ # email notification templates
 └── tests # test files
-└── **init**.py

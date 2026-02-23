@@ -128,8 +128,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-base-content/60">Callback URL</span>
-                        <span class="text-xs font-mono max-w-[220px] truncate" title="{{ payment.callback_url }}">{{
-                            payment.callback_url|default:"—" }}</span>
+                        <span class="text-xs font-mono max-w-[220px] truncate" title="{{ payment.callback_url }}">{{ payment.callback_url|default:"—" }}</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-base-content/60">Webhook</span>
@@ -219,8 +218,7 @@
                             {% endif %}
                         </td>
                         <td class="text-xs">{% if log.duration_ms %}{{ log.duration_ms }}ms{% else %}—{% endif %}</td>
-                        <td class="text-xs text-error max-w-[150px] truncate" title="{{ log.error_message }}">{{
-                            log.error_message|default:"—" }}</td>
+                        <td class="text-xs text-error max-w-[150px] truncate" title="{{ log.error_message }}">{{ log.error_message|default:"—" }}</td>
                         <td class="text-xs text-base-content/50">{{ log.created_at|date:"M j, H:i:s" }}</td>
                     </tr>
                     {% endfor %}

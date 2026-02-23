@@ -122,6 +122,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "Acoruss <info@acoruss.com>"
+DEFAULT_FROM_EMAIL_ADDRESS = "info@acoruss.com"
 
 # Anymail (Mailgun)
 ANYMAIL = {

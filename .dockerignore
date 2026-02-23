@@ -6,7 +6,6 @@ __pycache__
 .env
 .env.local
 node_modules
-old-web
 staticfiles
 media
 .pytest_cache

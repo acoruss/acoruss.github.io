@@ -2,6 +2,7 @@
 
 import logging
 import xml.etree.ElementTree as ET
+from decimal import Decimal
 from html import unescape
 from re import sub as re_sub
 
@@ -181,6 +182,9 @@ class DashboardView(AdminRequiredMixin, TemplateView):
         context["recent_submissions"] = ContactSubmission.objects.all()[:5]
         context["total_payments"] = Payment.objects.count()
         context["successful_payments"] = Payment.objects.filter(status=Payment.Status.SUCCESS).count()
+        context["total_revenue"] = Payment.objects.filter(status=Payment.Status.SUCCESS).aggregate(
+            total=models.Sum("amount", default=Decimal("0.00")),
+        )["total"]
 
         from apps.payments.models import ServiceProduct
 

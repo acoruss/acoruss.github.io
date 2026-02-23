@@ -144,13 +144,13 @@
 
   /* ── Dashboard Components ── */
   .dash-card {
-    @apply bg-base-100/60 backdrop-blur-sm rounded-2xl border border-base-300/15 p-5;
+    @apply bg-base-100/60 backdrop-blur-sm rounded-2xl border border-base-300/50 p-5;
   }
   .dash-card-header {
     @apply flex items-center justify-between mb-4;
   }
   .dash-stat-card {
-    @apply bg-base-100/60 backdrop-blur-sm rounded-2xl border border-base-300/15 p-4;
+    @apply bg-base-100/60 backdrop-blur-sm rounded-2xl border border-base-300/50 p-4;
   }
   .dash-sidebar {
     @apply fixed top-0 left-0 h-full z-40 bg-neutral text-neutral-content flex flex-col transition-all duration-300 ease-in-out;

@@ -4566,7 +4566,7 @@ html:has(.drawer-toggle:checked) {
 .dash-card {
   border-radius: 1rem;
   border-width: 1px;
-  border-color: var(--fallback-b3,oklch(var(--b3)/0.15));
+  border-color: var(--fallback-b3,oklch(var(--b3)/0.5));
   background-color: var(--fallback-b1,oklch(var(--b1)/0.6));
   padding: 1.25rem;
   --tw-backdrop-blur: blur(4px);
@@ -4581,7 +4581,7 @@ html:has(.drawer-toggle:checked) {
 .dash-stat-card {
   border-radius: 1rem;
   border-width: 1px;
-  border-color: var(--fallback-b3,oklch(var(--b3)/0.15));
+  border-color: var(--fallback-b3,oklch(var(--b3)/0.5));
   background-color: var(--fallback-b1,oklch(var(--b1)/0.6));
   padding: 1rem;
   --tw-backdrop-blur: blur(4px);

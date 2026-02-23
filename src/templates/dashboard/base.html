@@ -19,8 +19,7 @@
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <aside id="dashboard-sidebar"
-            class="dash-sidebar fixed lg:sticky top-0 left-0 z-40 flex flex-col h-screen bg-neutral text-neutral-content
-                   w-64 -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out">
+            class="dash-sidebar -translate-x-full lg:translate-x-0">
             <!-- Logo -->
             <div class="flex items-center gap-3 px-5 py-5 border-b border-white/5">
                 <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-7 sidebar-full">
@@ -139,7 +138,7 @@
         </aside>
 
         <!-- Main content area -->
-        <div class="flex-1 flex flex-col min-h-screen min-w-0">
+        <div id="main-content" class="flex-1 flex flex-col min-h-screen min-w-0 transition-all duration-300 lg:ml-[260px]">
             <!-- Top bar -->
             <header class="sticky top-0 z-20 flex items-center gap-3 px-4 lg:px-6 h-14 bg-base-100/80 backdrop-blur-xl border-b border-base-300/30">
                 <!-- Mobile menu toggle -->
@@ -219,14 +218,22 @@
         // Collapse sidebar on desktop (icon-only mode)
         function toggleSidebarCollapse() {
             const sidebar = document.getElementById('dashboard-sidebar');
+            const main = document.getElementById('main-content');
+            const collapsed = !sidebar.classList.contains('dash-sidebar-collapsed');
             sidebar.classList.toggle('dash-sidebar-collapsed');
-            localStorage.setItem('sidebar-collapsed', sidebar.classList.contains('dash-sidebar-collapsed'));
+            if (collapsed) {
+                main.style.marginLeft = '72px';
+            } else {
+                main.style.marginLeft = '';
+            }
+            localStorage.setItem('sidebar-collapsed', collapsed);
         }
 
         // Restore collapsed state on load
         (function() {
             if (localStorage.getItem('sidebar-collapsed') === 'true') {
                 document.getElementById('dashboard-sidebar').classList.add('dash-sidebar-collapsed');
+                document.getElementById('main-content').style.marginLeft = '72px';
             }
         })();
 

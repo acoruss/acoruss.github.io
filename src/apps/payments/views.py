@@ -116,7 +116,6 @@ class VerifyPaymentView(View):
             fees_kobo = result["data"].get("fees", 0)
             payment.fees = Decimal(str(fees_kobo)) / 100
             await payment.asave(update_fields=["status", "paystack_id", "channel", "fees", "updated_at"])
-            messages.success(request, "Payment successful! Thank you.")
 
             # Dispatch webhook to external service if applicable
             if payment.service_id:
@@ -128,13 +127,18 @@ class VerifyPaymentView(View):
             paystack_status = result.get("data", {}).get("status", "failed")
             payment.status = Payment.Status.ABANDONED if paystack_status == "abandoned" else Payment.Status.FAILED
             await payment.asave(update_fields=["status", "updated_at"])
-            messages.error(request, "Payment was not successful. Please try again.")
 
         # Redirect to the service's callback URL if set, otherwise payment page
         if payment.callback_url:
             separator = "&" if "?" in payment.callback_url else "?"
             redirect_url = f"{payment.callback_url}{separator}reference={payment.reference}&status={payment.status}"
             return redirect(redirect_url)
+
+        # Only show flash messages for direct payments (no external redirect)
+        if payment.is_successful:
+            messages.success(request, "Payment successful! Thank you.")
+        else:
+            messages.error(request, "Payment was not successful. Please try again.")
         return redirect("payments:pay")
 
 

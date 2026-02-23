@@ -339,6 +339,12 @@ class Payment(models.Model):
         return self.amount - self.fees
 
     @property
+    def net_settlement(self) -> Decimal:
+        """Settlement amount (KES) after Paystack fees."""
+        base = self.settlement_amount if self.settlement_amount else self.amount
+        return base - self.fees
+
+    @property
     def refundable_amount(self) -> Decimal:
         """Maximum amount that can still be refunded."""
         return self.amount - self.refunded_amount

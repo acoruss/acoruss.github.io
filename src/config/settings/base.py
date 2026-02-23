@@ -154,6 +154,9 @@ PROBE_BAN_THRESHOLD: int = env.int("PROBE_BAN_THRESHOLD", default=1)
 PROBE_STRIKE_WINDOW: int = env.int("PROBE_STRIKE_WINDOW", default=300)  # seconds
 PROBE_BAN_DURATION: int = env.int("PROBE_BAN_DURATION", default=86400)  # seconds
 
+# Currency conversion: cache exchange rates for this many seconds (default 1 hour)
+EXCHANGE_RATE_CACHE_TTL: int = env.int("EXCHANGE_RATE_CACHE_TTL", default=3600)
+
 # Login URLs
 LOGIN_URL = "/dashboard/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"

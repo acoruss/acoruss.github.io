@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import services
 from .api_auth import ServiceAuthMixin, get_client_ip
+from .currency_service import convert_to_kes
 from .models import Payment
 
 logger = logging.getLogger(__name__)
@@ -78,13 +79,32 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
 
         reference = services.generate_reference()
 
+        # --- currency conversion to KES ---
+        from decimal import Decimal
+
+        original_amount = Decimal(str(amount))
+
+        try:
+            conversion = await convert_to_kes(original_amount, currency)
+        except RuntimeError as exc:
+            logger.error("Currency conversion failed for %s %s: %s", currency, amount, exc)
+            return JsonResponse(
+                {"error": f"Currency conversion failed: {exc}"},
+                status=502,
+            )
+
+        settlement_amount = Decimal(conversion["converted_amount"])
+        exchange_rate = Decimal(conversion["exchange_rate"])
+
         payment = await Payment.objects.acreate(
             service=request.service,
             service_reference=service_reference,
             email=email,
             name=name,
-            amount=amount,
+            amount=original_amount,
             currency=currency,
+            settlement_amount=settlement_amount,
+            exchange_rate=exchange_rate,
             description=description,
             reference=reference,
             callback_url=callback_url,
@@ -93,6 +113,7 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
             metadata={
                 "service": request.service.slug,
                 "service_reference": service_reference,
+                "currency_conversion": conversion,
                 **(metadata if isinstance(metadata, dict) else {}),
             },
         )
@@ -104,13 +125,17 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
             email=email,
             amount_kobo=payment.amount_in_kobo,
             reference=reference,
-            currency=currency,
+            currency="KES",
             callback_url=paystack_callback,
             metadata={
                 "payment_id": payment.pk,
                 "service": request.service.slug,
                 "service_reference": service_reference,
                 "description": description,
+                "original_currency": currency,
+                "original_amount": str(original_amount),
+                "exchange_rate": str(exchange_rate),
+                "settlement_amount_kes": str(settlement_amount),
             },
         )
 
@@ -118,15 +143,27 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
             auth_url = result["data"]["authorization_url"]
             payment.authorization_url = auth_url
             await payment.asave(update_fields=["authorization_url", "updated_at"])
+
+            response_data: dict = {
+                "reference": reference,
+                "authorization_url": auth_url,
+                "callback_url": callback_url,
+            }
+            # Include conversion details when currency was converted
+            if conversion.get("conversion_applied"):
+                response_data["currency_conversion"] = {
+                    "original_amount": str(original_amount),
+                    "original_currency": currency,
+                    "settlement_amount": str(settlement_amount),
+                    "settlement_currency": "KES",
+                    "exchange_rate": str(exchange_rate),
+                }
+
             return JsonResponse(
                 {
                     "status": True,
                     "message": "Payment initiated",
-                    "data": {
-                        "reference": reference,
-                        "authorization_url": auth_url,
-                        "callback_url": callback_url,
-                    },
+                    "data": response_data,
                 }
             )
 
@@ -152,28 +189,31 @@ class APIPaymentStatusView(ServiceAuthMixin, View):
         except Payment.DoesNotExist:
             return JsonResponse({"error": "Payment not found"}, status=404)
 
-        return JsonResponse(
-            {
-                "status": True,
-                "data": {
-                    "reference": payment.reference,
-                    "service_reference": payment.service_reference,
-                    "email": payment.email,
-                    "name": payment.name,
-                    "amount": str(payment.amount),
-                    "currency": payment.currency,
-                    "description": payment.description,
-                    "status": payment.status,
-                    "channel": payment.channel,
-                    "fees": str(payment.fees),
-                    "net_amount": str(payment.net_amount),
-                    "refund_status": payment.refund_status,
-                    "refunded_amount": str(payment.refunded_amount),
-                    "created_at": payment.created_at.isoformat(),
-                    "updated_at": payment.updated_at.isoformat(),
-                },
+        response_data = {
+            "reference": payment.reference,
+            "service_reference": payment.service_reference,
+            "email": payment.email,
+            "name": payment.name,
+            "amount": str(payment.amount),
+            "currency": payment.currency,
+            "description": payment.description,
+            "status": payment.status,
+            "channel": payment.channel,
+            "fees": str(payment.fees),
+            "net_amount": str(payment.net_amount),
+            "refund_status": payment.refund_status,
+            "refunded_amount": str(payment.refunded_amount),
+            "created_at": payment.created_at.isoformat(),
+            "updated_at": payment.updated_at.isoformat(),
+        }
+        if payment.settlement_amount and payment.currency != "KES":
+            response_data["settlement"] = {
+                "settlement_amount": str(payment.settlement_amount),
+                "settlement_currency": "KES",
+                "exchange_rate": str(payment.exchange_rate),
             }
-        )
+
+        return JsonResponse({"status": True, "data": response_data})
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -199,18 +239,20 @@ class APIPaymentListView(ServiceAuthMixin, View):
         total = await qs.acount()
         payments = []
         async for payment in qs[offset : offset + per_page]:
-            payments.append(
-                {
-                    "reference": payment.reference,
-                    "service_reference": payment.service_reference,
-                    "email": payment.email,
-                    "amount": str(payment.amount),
-                    "currency": payment.currency,
-                    "status": payment.status,
-                    "refund_status": payment.refund_status,
-                    "created_at": payment.created_at.isoformat(),
-                }
-            )
+            entry: dict = {
+                "reference": payment.reference,
+                "service_reference": payment.service_reference,
+                "email": payment.email,
+                "amount": str(payment.amount),
+                "currency": payment.currency,
+                "status": payment.status,
+                "refund_status": payment.refund_status,
+                "created_at": payment.created_at.isoformat(),
+            }
+            if payment.settlement_amount and payment.currency != "KES":
+                entry["settlement_amount_kes"] = str(payment.settlement_amount)
+                entry["exchange_rate"] = str(payment.exchange_rate)
+            payments.append(entry)
 
         return JsonResponse(
             {

@@ -83,7 +83,6 @@ async def initialise_transaction(
     """
     import asyncio
     import json
-    from urllib.request import Request, urlopen
 
     secret_key = get_paystack_secret_key()
     if not secret_key:
@@ -102,33 +101,17 @@ async def initialise_transaction(
         payload["metadata"] = metadata
 
     data = json.dumps(payload).encode()
-    req = Request(  # noqa: S310
-        f"{PAYSTACK_API_URL}/transaction/initialize",
-        data=data,
-        headers={
-            "Authorization": f"Bearer {secret_key}",
-            "Content-Type": "application/json",
-        },
-    )
 
     loop = asyncio.get_event_loop()
     try:
-        response = await loop.run_in_executor(
+        return await loop.run_in_executor(
             None,
-            lambda: urlopen(req, timeout=30).read(),  # noqa: S310
+            lambda: _make_paystack_request(
+                endpoint="/transaction/initialize",
+                method="POST",
+                data=data,
+            ),
         )
-        return json.loads(response)
-    except HTTPError as exc:
-        body = exc.read().decode(errors="replace")
-        logger.error(
-            "Paystack initialise returned HTTP %s: %s",
-            exc.code,
-            body,
-        )
-        try:
-            return json.loads(body)
-        except (json.JSONDecodeError, ValueError):
-            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to initialise Paystack transaction")
         return {"status": False, "message": "Payment initiation failed"}
@@ -143,37 +126,19 @@ async def verify_transaction(reference: str) -> dict:
 
     """
     import asyncio
-    import json
-    from urllib.request import Request, urlopen
 
     secret_key = get_paystack_secret_key()
     if not secret_key:
         return {"status": False, "message": "Payment not configured"}
 
-    req = Request(  # noqa: S310
-        f"{PAYSTACK_API_URL}/transaction/verify/{reference}",
-        headers={"Authorization": f"Bearer {secret_key}"},
-    )
-
     loop = asyncio.get_event_loop()
     try:
-        response = await loop.run_in_executor(
+        return await loop.run_in_executor(
             None,
-            lambda: urlopen(req, timeout=30).read(),  # noqa: S310
+            lambda: _make_paystack_request(
+                endpoint=f"/transaction/verify/{reference}",
+            ),
         )
-        return json.loads(response)
-    except HTTPError as exc:
-        body = exc.read().decode(errors="replace")
-        logger.error(
-            "Paystack verify returned HTTP %s for %s: %s",
-            exc.code,
-            reference,
-            body,
-        )
-        try:
-            return json.loads(body)
-        except (json.JSONDecodeError, ValueError):
-            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to verify Paystack transaction: %s", reference)
         return {"status": False, "message": "Verification failed"}
@@ -201,7 +166,6 @@ async def create_refund(
     """
     import asyncio
     import json
-    from urllib.request import Request, urlopen
 
     secret_key = get_paystack_secret_key()
     if not secret_key:
@@ -216,34 +180,17 @@ async def create_refund(
         payload["merchant_note"] = merchant_note
 
     data = json.dumps(payload).encode()
-    req = Request(  # noqa: S310
-        f"{PAYSTACK_API_URL}/refund",
-        data=data,
-        headers={
-            "Authorization": f"Bearer {secret_key}",
-            "Content-Type": "application/json",
-        },
-    )
 
     loop = asyncio.get_event_loop()
     try:
-        response = await loop.run_in_executor(
+        return await loop.run_in_executor(
             None,
-            lambda: urlopen(req, timeout=30).read(),  # noqa: S310
+            lambda: _make_paystack_request(
+                endpoint="/refund",
+                method="POST",
+                data=data,
+            ),
         )
-        return json.loads(response)
-    except HTTPError as exc:
-        body = exc.read().decode(errors="replace")
-        logger.error(
-            "Paystack refund returned HTTP %s for %s: %s",
-            exc.code,
-            transaction_reference,
-            body,
-        )
-        try:
-            return json.loads(body)
-        except (json.JSONDecodeError, ValueError):
-            return {"status": False, "message": f"Paystack error {exc.code}: {body[:200]}"}
     except Exception:
         logger.exception("Failed to create refund for: %s", transaction_reference)
         return {"status": False, "message": "Refund request failed"}

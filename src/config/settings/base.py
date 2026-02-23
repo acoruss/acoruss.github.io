@@ -145,6 +145,15 @@ PAYSTACK_PUBLIC_KEY = env("PAYSTACK_PUBLIC_KEY", default="")
 # Google Analytics
 GOOGLE_ANALYTICS_ID = env("GOOGLE_ANALYTICS_ID", default="G-BSXKG26LSP")
 
+# Security: Permanently blocked IPs (known scanners)
+BLOCKED_IPS: list[str] = env.list("BLOCKED_IPS", default=[])
+
+# Security: Auto-ban settings for probe detection middleware
+# Threshold=1 means immediate ban on first probe hit
+PROBE_BAN_THRESHOLD: int = env.int("PROBE_BAN_THRESHOLD", default=1)
+PROBE_STRIKE_WINDOW: int = env.int("PROBE_STRIKE_WINDOW", default=300)  # seconds
+PROBE_BAN_DURATION: int = env.int("PROBE_BAN_DURATION", default=86400)  # seconds
+
 # Login URLs
 LOGIN_URL = "/dashboard/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"

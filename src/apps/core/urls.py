@@ -10,6 +10,9 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
+    # Machine-readable files
+    path("robots.txt", views.RobotsTxtView.as_view(), name="robots_txt"),
+    path(".well-known/security.txt", views.SecurityTxtView.as_view(), name="security_txt"),
     # Public pages
     path("", views.IndexView.as_view(), name="index"),
     path("services/", views.ServicesView.as_view(), name="services"),

@@ -130,8 +130,10 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
                 }
             )
 
+        paystack_message = result.get("message", "Could not initiate payment with Paystack")
+        logger.error("Paystack initiation failed: %s | full response: %s", paystack_message, result)
         return JsonResponse(
-            {"status": False, "message": "Could not initiate payment with Paystack"},
+            {"status": False, "message": paystack_message},
             status=502,
         )
 

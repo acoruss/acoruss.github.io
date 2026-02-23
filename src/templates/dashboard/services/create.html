@@ -1,150 +1,173 @@
 {% extends "dashboard/base.html" %}
 
-{% block title %}Add Product - Dashboard{% endblock %}
+{% block title %}Create Product - Dashboard{% endblock %}
+{% block nav_services %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li><a href="{% url 'core:dashboard_services' %}" class="hover:text-accent">Products</a></li>
+<li class="text-base-content font-medium">Create</li>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6 max-w-2xl">
-    <div>
-        <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm gap-1 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back to Products
-        </a>
-        <h1 class="text-3xl font-bold">Add New Product</h1>
-        <p class="text-base-content/60 mt-1">Register a new service to accept payments through Acoruss. API credentials
-            will be generated automatically.</p>
-    </div>
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">Create Product</h1>
 
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-8">
-        <form method="post" class="space-y-5">
-            {% csrf_token %}
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
 
-            <!-- Name -->
-            <div class="form-control">
-                <label class="label" for="id_name">
-                    <span class="label-text font-semibold">Product / Service Name <span
-                            class="text-error">*</span></span>
-                </label>
-                <input type="text" name="name" id="id_name" required placeholder="e.g. Experience Nairobi"
-                    value="{{ form.name.value|default:'' }}"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
-                {% if form.name.errors %}
-                <label class="label"><span class="label-text-alt text-error">{{ form.name.errors.0 }}</span></label>
-                {% endif %}
+        {% if form.errors %}
+        <div class="alert alert-error text-sm rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <div>
+                <p class="font-semibold">Please fix the errors below.</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                    <p class="text-xs mt-1">{{ field.label }}: {{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <p class="text-xs mt-1">{{ error }}</p>
+                {% endfor %}
             </div>
+        </div>
+        {% endif %}
 
-            <!-- Slug -->
-            <div class="form-control">
-                <label class="label" for="id_slug">
-                    <span class="label-text font-semibold">Slug <span class="text-error">*</span></span>
-                </label>
-                <input type="text" name="slug" id="id_slug" required placeholder="e.g. experience-nairobi"
-                    value="{{ form.slug.value|default:'' }}"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
-                <label class="label"><span class="label-text-alt text-base-content/50">URL-safe identifier.
-                        Auto-generated from name if left empty.</span></label>
-                {% if form.slug.errors %}
-                <label class="label"><span class="label-text-alt text-error">{{ form.slug.errors.0 }}</span></label>
-                {% endif %}
+        <!-- Basic Info -->
+        <div class="dash-card">
+            <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                Basic Info
+            </h2>
+            <div class="space-y-3">
+                <div class="form-control">
+                    <label class="label py-1" for="id_name">
+                        <span class="label-text text-xs font-semibold">Name <span class="text-error">*</span></span>
+                    </label>
+                    <input type="text" name="name" id="id_name" required
+                        value="{{ form.name.value|default:'' }}"
+                        placeholder="My Product"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_slug">
+                        <span class="label-text text-xs font-semibold">Slug <span class="text-error">*</span></span>
+                    </label>
+                    <input type="text" name="slug" id="id_slug" required
+                        value="{{ form.slug.value|default:'' }}"
+                        placeholder="my-product"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Auto-generated from name. Used in API endpoints.</span></label>
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_description">
+                        <span class="label-text text-xs font-semibold">Description</span>
+                    </label>
+                    <textarea name="description" id="id_description" rows="3"
+                        placeholder="Describe this product..."
+                        class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm">{{ form.description.value|default:'' }}</textarea>
+                </div>
             </div>
+        </div>
 
-            <!-- Description -->
-            <div class="form-control">
-                <label class="label" for="id_description">
-                    <span class="label-text font-semibold">Description</span>
-                </label>
-                <textarea name="description" id="id_description" rows="3"
-                    placeholder="Brief description of the product..."
-                    class="textarea textarea-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20">{{ form.description.value|default:'' }}</textarea>
+        <!-- Integration -->
+        <div class="dash-card">
+            <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                Integration
+            </h2>
+            <div class="space-y-3">
+                <div class="form-control">
+                    <label class="label py-1" for="id_webhook_url">
+                        <span class="label-text text-xs font-semibold">Webhook URL</span>
+                    </label>
+                    <input type="url" name="webhook_url" id="id_webhook_url"
+                        value="{{ form.webhook_url.value|default:'' }}"
+                        placeholder="https://yoursite.com/webhook"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_default_callback_url">
+                        <span class="label-text text-xs font-semibold">Default Callback URL</span>
+                    </label>
+                    <input type="url" name="default_callback_url" id="id_default_callback_url"
+                        value="{{ form.default_callback_url.value|default:'' }}"
+                        placeholder="https://yoursite.com/callback"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_contact_email">
+                        <span class="label-text text-xs font-semibold">Contact Email</span>
+                    </label>
+                    <input type="email" name="contact_email" id="id_contact_email"
+                        value="{{ form.contact_email.value|default:'' }}"
+                        placeholder="team@example.com"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                </div>
             </div>
+        </div>
 
-            <div class="divider text-xs text-base-content/40">INTEGRATION</div>
-
-            <!-- Webhook URL -->
-            <div class="form-control">
-                <label class="label" for="id_webhook_url">
-                    <span class="label-text font-semibold">Webhook URL</span>
-                </label>
-                <input type="url" name="webhook_url" id="id_webhook_url" value="{{ form.webhook_url.value|default:'' }}"
-                    placeholder="https://example.com/webhooks/acoruss-payment/"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
-                <label class="label"><span class="label-text-alt text-base-content/50">Where payment events will be sent
-                        via POST.</span></label>
+        <!-- Security -->
+        <div class="dash-card">
+            <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Security & Limits
+            </h2>
+            <div class="space-y-3">
+                <div class="form-control">
+                    <label class="label py-1" for="id_allowed_currencies">
+                        <span class="label-text text-xs font-semibold">Allowed Currencies</span>
+                    </label>
+                    <input type="text" name="allowed_currencies" id="id_allowed_currencies"
+                        value="{{ form.allowed_currencies.value|default:'' }}"
+                        placeholder="KES, USD, GBP"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty for all currencies.</span></label>
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_allowed_ips">
+                        <span class="label-text text-xs font-semibold">Allowed IPs</span>
+                    </label>
+                    <input type="text" name="allowed_ips" id="id_allowed_ips"
+                        value="{{ form.allowed_ips.value|default:'' }}"
+                        placeholder="192.168.1.1, 10.0.0.1"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty to allow all IPs.</span></label>
+                </div>
             </div>
+        </div>
 
-            <!-- Default Callback URL -->
-            <div class="form-control">
-                <label class="label" for="id_default_callback_url">
-                    <span class="label-text font-semibold">Default Redirect URL</span>
-                </label>
-                <input type="url" name="default_callback_url" id="id_default_callback_url"
-                    value="{{ form.default_callback_url.value|default:'' }}"
-                    placeholder="https://example.com/payment/complete/"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
-                <label class="label"><span class="label-text-alt text-base-content/50">Where users are redirected after
-                        payment. Can be overridden per transaction.</span></label>
-            </div>
-
-            <!-- Contact Email -->
-            <div class="form-control">
-                <label class="label" for="id_contact_email">
-                    <span class="label-text font-semibold">Contact Email</span>
-                </label>
-                <input type="email" name="contact_email" id="id_contact_email"
-                    value="{{ form.contact_email.value|default:'' }}" placeholder="team@example.com"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
-            </div>
-
-            <div class="divider text-xs text-base-content/40">SECURITY (Optional)</div>
-
-            <!-- Allowed Currencies -->
-            <div class="form-control">
-                <label class="label" for="id_allowed_currencies">
-                    <span class="label-text font-semibold">Allowed Currencies</span>
-                </label>
-                <input type="text" name="allowed_currencies" id="id_allowed_currencies"
-                    value="{{ form.allowed_currencies.value|default:'' }}" placeholder="KES, USD, NGN"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20" />
-                <label class="label"><span class="label-text-alt text-base-content/50">Comma-separated list. Leave empty
-                        to allow all currencies.</span></label>
-            </div>
-
-            <!-- Allowed IPs -->
-            <div class="form-control">
-                <label class="label" for="id_allowed_ips">
-                    <span class="label-text font-semibold">Allowed IP Addresses</span>
-                </label>
-                <input type="text" name="allowed_ips" id="id_allowed_ips"
-                    value="{{ form.allowed_ips.value|default:'' }}" placeholder="192.168.1.1, 10.0.0.1"
-                    class="input input-bordered w-full rounded-xl bg-base-100/50 focus:border-accent focus:ring-1 focus:ring-accent/20 font-mono text-sm" />
-                <label class="label"><span class="label-text-alt text-base-content/50">Comma-separated list. Leave empty
-                        to allow all IPs.</span></label>
-            </div>
-
-            <div class="flex gap-3 pt-4">
-                <button type="submit" class="btn btn-primary rounded-full">Create Product</button>
-                <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost rounded-full">Cancel</a>
-            </div>
-        </form>
-    </div>
+        <!-- Actions -->
+        <div class="flex items-center gap-3 justify-end">
+            <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm rounded-lg">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-sm rounded-lg gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Create Product
+            </button>
+        </div>
+    </form>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
-    // Auto-generate slug from name
-    const nameInput = document.getElementById('id_name');
-    const slugInput = document.getElementById('id_slug');
-    let slugManuallyEdited = slugInput.value.length > 0;
+// Auto-generate slug from name
+const nameEl = document.getElementById('id_name');
+const slugEl = document.getElementById('id_slug');
+let slugEdited = {{ form.slug.value|yesno:"true,false,false" }};
 
-    slugInput.addEventListener('input', () => { slugManuallyEdited = true; });
-    nameInput.addEventListener('input', () => {
-        if (!slugManuallyEdited) {
-            slugInput.value = nameInput.value
+if (nameEl && slugEl) {
+    nameEl.addEventListener('input', () => {
+        if (!slugEdited) {
+            slugEl.value = nameEl.value
                 .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .slice(0, 100);
         }
     });
+    slugEl.addEventListener('input', () => { slugEdited = true; });
+}
 </script>
 {% endblock %}

@@ -3,7 +3,7 @@
 import logging
 
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
 from .models import ContactSubmission
@@ -52,15 +52,19 @@ async def send_contact_notification(submission: ContactSubmission) -> None:
         },
     )
 
+    # Use customer name in display, reply-to their email so "Reply" goes to them
+    from_email = f"{submission.name} via Acoruss <{settings.DEFAULT_FROM_EMAIL_ADDRESS}>"
+
     try:
-        send_mail(
+        msg = EmailMultiAlternatives(
             subject=subject,
-            message=text_body,
-            html_message=html_body,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=recipients,
-            fail_silently=False,
+            body=text_body,
+            from_email=from_email,
+            to=recipients,
+            reply_to=[f"{submission.name} <{submission.email}>"],
         )
+        msg.attach_alternative(html_body, "text/html")
+        msg.send(fail_silently=False)
         logger.info("Contact notification sent to %s for submission #%d", recipients, submission.pk)
     except Exception:
         logger.exception("Failed to send contact notification for submission #%d", submission.pk)

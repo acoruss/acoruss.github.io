@@ -1,349 +1,416 @@
 {% extends "dashboard/base.html" %}
 
 {% block title %}{{ service.name }} - Dashboard{% endblock %}
+{% block nav_services %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li><a href="{% url 'core:dashboard_services' %}" class="hover:text-accent">Products</a></li>
+<li class="text-base-content font-medium">{{ service.name }}</li>
+{% endblock %}
+
+{% block topbar_actions %}
+<form method="post" action="{% url 'core:dashboard_service_toggle' slug=service.slug %}" class="inline">
+    {% csrf_token %}
+    {% if service.is_active %}
+    <button type="submit" class="btn btn-ghost btn-sm rounded-lg gap-1 text-warning"
+        onclick="return confirm('Disable this service?')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        Disable
+    </button>
+    {% else %}
+    <button type="submit" class="btn btn-success btn-sm rounded-lg gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Enable
+    </button>
+    {% endif %}
+</form>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-5">
     <!-- Header -->
-    <div>
-        <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm gap-1 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back to Products
-        </a>
-        <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="flex items-center gap-3">
-                <h1 class="text-3xl font-bold">{{ service.name }}</h1>
-                {% if service.is_active %}
-                <span class="badge badge-success">Active</span>
-                {% else %}
-                <span class="badge badge-ghost">Inactive</span>
-                {% endif %}
-            </div>
-            <div class="flex gap-2">
-                <form method="post" action="{% url 'core:dashboard_service_toggle' slug=service.slug %}">
-                    {% csrf_token %}
-                    {% if service.is_active %}
-                    <button type="submit" class="btn btn-warning btn-sm rounded-full"
-                        onclick="return confirm('Disable this service? It will no longer accept API payments.')">
-                        Disable
-                    </button>
-                    {% else %}
-                    <button type="submit" class="btn btn-success btn-sm rounded-full">Enable</button>
-                    {% endif %}
-                </form>
-                <a href="{% url 'core:dashboard_payments' %}?service={{ service.slug }}"
-                    class="btn btn-ghost btn-sm rounded-full">
-                    View All Payments
-                </a>
-            </div>
+    <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+            {% if service.logo_url %}
+            <img src="{{ service.logo_url }}" alt="" class="w-8 h-8 rounded-lg object-contain" />
+            {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            {% endif %}
         </div>
-        {% if service.description %}
-        <p class="text-base-content/60 mt-2">{{ service.description }}</p>
-        {% endif %}
-        <p class="text-xs text-base-content/40 mt-1">
-            Created {{ service.created_at|date:"M j, Y" }} &middot;
-            Slug: <span class="font-mono">{{ service.slug }}</span>
-        </p>
+        <div>
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                {{ service.name }}
+                {% if service.is_active %}
+                <span class="w-2.5 h-2.5 rounded-full bg-success" title="Active"></span>
+                {% else %}
+                <span class="w-2.5 h-2.5 rounded-full bg-base-content/20" title="Inactive"></span>
+                {% endif %}
+            </h1>
+            <p class="text-sm text-base-content/40 font-mono">{{ service.slug }}</p>
+        </div>
     </div>
 
     <!-- Revenue Stats -->
-    <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
-        <div class="stat">
-            <div class="stat-title">Total Payments</div>
-            <div class="stat-value text-primary">{{ total_payments }}</div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs text-base-content/40 font-medium">Revenue</span>
+                <div class="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold text-accent">{{ total_revenue }}</div>
         </div>
-        <div class="stat">
-            <div class="stat-title">Successful</div>
-            <div class="stat-value text-success">{{ successful_payments }}</div>
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs text-base-content/40 font-medium">Net</span>
+                <div class="w-7 h-7 rounded-lg bg-success/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-success"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold">{{ net_revenue }}</div>
         </div>
-        <div class="stat">
-            <div class="stat-title">Pending</div>
-            <div class="stat-value text-warning">{{ pending_payments }}</div>
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs text-base-content/40 font-medium">Fees</span>
+                <div class="w-7 h-7 rounded-lg bg-warning/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold">{{ total_fees }}</div>
         </div>
-        <div class="stat">
-            <div class="stat-title">Failed</div>
-            <div class="stat-value text-error">{{ failed_payments }}</div>
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs text-base-content/40 font-medium">Refunded</span>
+                <div class="w-7 h-7 rounded-lg bg-error/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-error"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold">{{ total_refunded }}</div>
         </div>
     </div>
 
-    <!-- Revenue Breakdown -->
-    <div class="grid lg:grid-cols-2 gap-6">
-        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-            <h2 class="text-lg font-bold mb-4">Revenue Overview</h2>
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-base-content/60">Gross Revenue</span>
-                    <span class="font-bold text-success">{{ total_revenue|floatformat:2 }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-base-content/60">Paystack Fees</span>
-                    <span class="font-bold text-warning">-{{ total_fees|floatformat:2 }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-base-content/60">Refunded</span>
-                    <span class="font-bold text-error">-{{ total_refunded|floatformat:2 }}</span>
-                </div>
-                <div class="divider my-1"></div>
-                <div class="flex justify-between items-center">
-                    <span class="font-semibold">Net Revenue</span>
-                    <span class="font-bold text-lg">{{ net_revenue|floatformat:2 }}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-            <h2 class="text-lg font-bold mb-4">Revenue by Currency</h2>
+    <div class="grid lg:grid-cols-3 gap-5">
+        <!-- Left column (2-wide) -->
+        <div class="lg:col-span-2 space-y-5">
+            <!-- Revenue by Currency -->
             {% if revenue_by_currency %}
-            <div class="overflow-x-auto">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Currency</th>
-                            <th>Transactions</th>
-                            <th>Revenue</th>
-                            <th>Fees</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in revenue_by_currency %}
-                        <tr>
-                            <td class="font-mono font-bold">{{ row.currency }}</td>
-                            <td>{{ row.count }}</td>
-                            <td class="text-success">{{ row.revenue|floatformat:2 }}</td>
-                            <td class="text-warning">{{ row.fees|floatformat:2 }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="dash-card">
+                <h2 class="font-bold text-sm mb-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    Revenue by Currency
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-xs text-base-content/40 uppercase">
+                                <th>Currency</th>
+                                <th class="text-right">Revenue</th>
+                                <th class="text-right">Fees</th>
+                                <th class="text-right">Transactions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in revenue_by_currency %}
+                            <tr class="hover:bg-base-300/20">
+                                <td class="font-mono font-bold">{{ row.currency }}</td>
+                                <td class="text-right font-semibold">{{ row.revenue }}</td>
+                                <td class="text-right text-warning text-sm">{{ row.fees }}</td>
+                                <td class="text-right text-sm">{{ row.count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            {% else %}
-            <p class="text-base-content/50 text-sm">No revenue data yet.</p>
             {% endif %}
-        </div>
-    </div>
 
-    <!-- API Credentials -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold">API Credentials</h2>
-            <form method="post" action="{% url 'core:dashboard_service_regenerate_keys' slug=service.slug %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-warning btn-xs rounded-full"
-                    onclick="return confirm('Regenerate API credentials? The old keys will stop working immediately.')">
-                    Regenerate Keys
-                </button>
-            </form>
-        </div>
-        <div class="space-y-4">
-            <div>
-                <label class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">API Key</label>
-                <div class="flex items-center gap-2 mt-1">
-                    <code id="api-key-display"
-                        class="bg-base-300/50 px-4 py-2 rounded-xl font-mono text-sm flex-1 select-all">{{ service.api_key }}</code>
-                    <button
-                        onclick="navigator.clipboard.writeText(document.getElementById('api-key-display').textContent)"
-                        class="btn btn-ghost btn-sm" title="Copy">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                        </svg>
-                    </button>
+            <!-- API Credentials -->
+            <div class="dash-card">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="font-bold text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        API Credentials
+                    </h2>
+                    <form method="post" action="{% url 'core:dashboard_service_regenerate_keys' slug=service.slug %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-ghost btn-xs rounded-lg gap-1 text-warning"
+                            onclick="return confirm('This will invalidate the current API key and secret. Proceed?')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                            Regenerate
+                        </button>
+                    </form>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-xs font-semibold text-base-content/40 mb-1 block">API Key</label>
+                        <div class="flex items-center gap-2">
+                            <code class="flex-1 bg-base-300/30 px-3 py-2 rounded-lg text-xs font-mono break-all" id="api-key">{{ service.api_key }}</code>
+                            <button type="button" onclick="copyToClipboard('api-key')" class="btn btn-ghost btn-xs btn-square rounded-lg" title="Copy">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-base-content/40 mb-1 block">API Secret</label>
+                        <div class="flex items-center gap-2">
+                            <code class="flex-1 bg-base-300/30 px-3 py-2 rounded-lg text-xs font-mono break-all" id="api-secret">{{ service.api_secret }}</code>
+                            <button type="button" onclick="copyToClipboard('api-secret')" class="btn btn-ghost btn-xs btn-square rounded-lg" title="Copy">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div>
-                <label class="text-xs font-semibold text-base-content/60 uppercase tracking-wider">API Secret</label>
-                <div class="flex items-center gap-2 mt-1">
-                    <code id="api-secret-display"
-                        class="bg-base-300/50 px-4 py-2 rounded-xl font-mono text-sm flex-1 select-all blur-sm hover:blur-none transition-all cursor-pointer"
-                        title="Hover to reveal">{{ service.api_secret }}</code>
-                    <button
-                        onclick="navigator.clipboard.writeText(document.getElementById('api-secret-display').textContent)"
-                        class="btn btn-ghost btn-sm" title="Copy">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                        </svg>
-                    </button>
-                </div>
-                <p class="text-xs text-base-content/40 mt-1">Hover to reveal. Used to verify webhook signatures from
-                    Acoruss.</p>
-            </div>
-        </div>
 
-        <!-- Quick Integration Guide -->
-        <div class="mt-6">
-            <div class="collapse collapse-arrow bg-base-300/30 rounded-xl">
-                <input type="checkbox" />
-                <div class="collapse-title font-semibold text-sm">Quick Integration Guide</div>
-                <div class="collapse-content text-sm">
-                    <div class="space-y-3 pt-2">
-                        <p class="text-base-content/70">Use the API key as a <code
-                                class="bg-base-300/50 px-1 rounded">Bearer</code> token in API requests:</p>
-                        <pre class="bg-base-300/50 p-3 rounded-xl text-xs overflow-x-auto"><code>POST /api/v1/payments/initiate/
-Authorization: Bearer {{ service.api_key }}
+            <!-- Quick Integration Guide -->
+            <div class="dash-card">
+                <details class="group">
+                    <summary class="flex items-center justify-between cursor-pointer select-none">
+                        <h2 class="font-bold text-sm flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            Quick Integration Guide
+                        </h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-base-content/30 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </summary>
+                    <div class="mt-4 space-y-3">
+                        <p class="text-sm text-base-content/60">Initialize a payment via the API:</p>
+                        <pre class="bg-base-300/30 p-4 rounded-xl text-xs font-mono overflow-x-auto text-base-content/70">POST /api/v1/payments/initiate/
 Content-Type: application/json
+X-API-Key: {{ service.api_key }}
+X-API-Secret: {{ service.api_secret }}
 
 {
   "email": "customer@example.com",
-  "amount": 1000,
+  "amount": 1000.00,
   "currency": "KES",
-  "description": "AI Tokens (100 pack)",
-  "service_reference": "order-12345",
-  "callback_url": "https://yoursite.com/payment/done/"
-}</code></pre>
-                        <p class="text-base-content/70 mt-2">Verify webhook signatures with the API secret using HMAC
-                            SHA256 on the raw request body, comparing against the
-                            <code class="bg-base-300/50 px-1 rounded">X-Acoruss-Signature</code> header.
-                        </p>
+  "callback_url": "https://yoursite.com/callback",
+  "description": "Order #123"
+}</pre>
+                        <p class="text-sm text-base-content/60">Response includes a <code class="text-accent text-xs">payment_url</code> to redirect the customer.</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Recent Transactions -->
+            {% if recent_payments %}
+            <div class="dash-card">
+                <h2 class="font-bold text-sm mb-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    Recent Transactions
+                </h2>
+                <!-- Desktop table -->
+                <div class="overflow-x-auto hidden sm:block">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-xs text-base-content/40 uppercase">
+                                <th>Reference</th>
+                                <th>Email</th>
+                                <th class="text-right">Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in recent_payments %}
+                            <tr class="hover:bg-base-300/20">
+                                <td>
+                                    <a href="{% url 'core:dashboard_payment_detail' pk=p.pk %}" class="link link-accent font-mono text-xs">{{ p.reference }}</a>
+                                </td>
+                                <td class="text-sm truncate max-w-[200px]">{{ p.email }}</td>
+                                <td class="text-right font-semibold text-sm">{{ p.currency }} {{ p.amount }}</td>
+                                <td>
+                                    {% if p.status == 'success' %}
+                                    <span class="badge badge-success badge-xs">Success</span>
+                                    {% elif p.status == 'pending' %}
+                                    <span class="badge badge-warning badge-xs">Pending</span>
+                                    {% else %}
+                                    <span class="badge badge-error badge-xs">{{ p.get_status_display }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-xs text-base-content/40">{{ p.created_at|date:"M j, H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Mobile cards -->
+                <div class="sm:hidden space-y-2">
+                    {% for p in recent_payments %}
+                    <a href="{% url 'core:dashboard_payment_detail' pk=p.pk %}" class="block p-3 rounded-xl bg-base-300/10 hover:bg-base-300/20">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-mono text-xs text-accent">{{ p.reference }}</span>
+                            {% if p.status == 'success' %}
+                            <span class="badge badge-success badge-xs">Success</span>
+                            {% elif p.status == 'pending' %}
+                            <span class="badge badge-warning badge-xs">Pending</span>
+                            {% else %}
+                            <span class="badge badge-error badge-xs">{{ p.get_status_display }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm truncate">{{ p.email }}</span>
+                            <span class="font-bold text-sm">{{ p.currency }} {{ p.amount }}</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Webhook Delivery Logs -->
+            {% if recent_webhooks %}
+            <div class="dash-card">
+                <h2 class="font-bold text-sm mb-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Webhook Delivery Logs
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-xs text-base-content/40 uppercase">
+                                <th>Event</th>
+                                <th>Status</th>
+                                <th>Attempt</th>
+                                <th>Duration</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in recent_webhooks %}
+                            <tr class="hover:bg-base-300/20">
+                                <td class="font-mono text-xs">{{ log.event }}</td>
+                                <td>
+                                    {% if log.success %}
+                                    <span class="badge badge-success badge-xs gap-0.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        {{ log.response_status }}
+                                    </span>
+                                    {% elif log.response_status %}
+                                    <span class="badge badge-error badge-xs">{{ log.response_status }}</span>
+                                    {% else %}
+                                    <span class="badge badge-ghost badge-xs">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-xs">{{ log.attempt }}/3</td>
+                                <td class="text-xs text-base-content/40">{{ log.duration_ms|default:"—" }}ms</td>
+                                <td class="text-xs text-base-content/40">{{ log.created_at|date:"M j, H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right column: Settings -->
+        <div class="space-y-5">
+            <!-- Quick Info -->
+            <div class="dash-card">
+                <h3 class="font-bold text-sm mb-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    Overview
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between py-1 border-b border-base-300/10">
+                        <span class="text-base-content/40">Total</span>
+                        <span class="font-bold">{{ total_payments }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-base-300/10">
+                        <span class="text-base-content/40">Successful</span>
+                        <span class="font-bold text-success">{{ successful_payments }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-base-300/10">
+                        <span class="text-base-content/40">Pending</span>
+                        <span class="font-bold text-warning">{{ pending_payments }}</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span class="text-base-content/40">Failed</span>
+                        <span class="font-bold text-error">{{ failed_payments }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Form -->
+            <div class="dash-card">
+                <h3 class="font-bold text-sm mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Settings
+                </h3>
+                <form method="post" action="{% url 'core:dashboard_service_update' slug=service.slug %}" class="space-y-3">
+                    {% csrf_token %}
+                    <div class="form-control">
+                        <label class="label py-1"><span class="label-text text-xs font-semibold">Webhook URL</span></label>
+                        <input type="url" name="webhook_url" value="{{ service.webhook_url }}"
+                            placeholder="https://..."
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1"><span class="label-text text-xs font-semibold">Callback URL</span></label>
+                        <input type="url" name="default_callback_url" value="{{ service.default_callback_url }}"
+                            placeholder="https://..."
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1"><span class="label-text text-xs font-semibold">Contact Email</span></label>
+                        <input type="email" name="contact_email" value="{{ service.contact_email }}"
+                            placeholder="contact@example.com"
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1"><span class="label-text text-xs font-semibold">Currencies</span></label>
+                        <input type="text" name="allowed_currencies"
+                            value="{{ service.allowed_currencies|join:', ' }}"
+                            placeholder="KES, USD, GBP"
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty for all.</span></label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1"><span class="label-text text-xs font-semibold">Allowed IPs</span></label>
+                        <input type="text" name="allowed_ips"
+                            value="{{ service.allowed_ips|join:', ' }}"
+                            placeholder="192.168.1.1, 10.0.0.1"
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty for all.</span></label>
+                    </div>
+                    <button type="submit" class="btn btn-accent btn-sm w-full rounded-lg gap-1.5 mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        Save Settings
+                    </button>
+                </form>
+            </div>
+
+            <!-- Meta info -->
+            <div class="dash-card">
+                <div class="space-y-2 text-xs text-base-content/40">
+                    <div class="flex justify-between">
+                        <span>Created</span>
+                        <span>{{ service.created_at|date:"M j, Y" }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Updated</span>
+                        <span>{{ service.updated_at|date:"M j, Y H:i" }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Settings -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-        <h2 class="text-lg font-bold mb-4">Settings</h2>
-        <form method="post" action="{% url 'core:dashboard_service_update' slug=service.slug %}" class="space-y-4">
-            {% csrf_token %}
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="form-control">
-                    <label class="label"><span class="label-text font-semibold">Webhook URL</span></label>
-                    <input type="url" name="webhook_url" value="{{ service.webhook_url }}"
-                        placeholder="https://example.com/webhooks/acoruss/"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
-                </div>
-                <div class="form-control">
-                    <label class="label"><span class="label-text font-semibold">Default Redirect URL</span></label>
-                    <input type="url" name="default_callback_url" value="{{ service.default_callback_url }}"
-                        placeholder="https://example.com/payment/done/"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
-                </div>
-                <div class="form-control">
-                    <label class="label"><span class="label-text font-semibold">Contact Email</span></label>
-                    <input type="email" name="contact_email" value="{{ service.contact_email }}"
-                        placeholder="team@example.com"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
-                </div>
-                <div class="form-control">
-                    <label class="label"><span class="label-text font-semibold">Allowed Currencies</span></label>
-                    <input type="text" name="allowed_currencies" value="{{ service.allowed_currencies|join:', ' }}"
-                        placeholder="KES, USD (empty = all)"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
-                </div>
-                <div class="form-control md:col-span-2">
-                    <label class="label"><span class="label-text font-semibold">Allowed IP Addresses</span></label>
-                    <input type="text" name="allowed_ips" value="{{ service.allowed_ips|join:', ' }}"
-                        placeholder="192.168.1.1, 10.0.0.1 (empty = all)"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono text-xs" />
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm rounded-full">Save Settings</button>
-        </form>
-    </div>
-
-    <!-- Recent Transactions -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
-        <div class="p-6 flex items-center justify-between">
-            <h2 class="text-lg font-bold">Recent Transactions</h2>
-            <a href="{% url 'core:dashboard_payments' %}?service={{ service.slug }}" class="btn btn-ghost btn-xs">View
-                All &rarr;</a>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Reference</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for payment in recent_payments %}
-                    <tr class="hover">
-                        <td>
-                            <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}"
-                                class="font-mono text-xs link link-hover">{{ payment.reference }}</a>
-                        </td>
-                        <td>
-                            <div class="text-sm">{{ payment.name|default:"—" }}</div>
-                            <div class="text-xs text-base-content/50">{{ payment.email }}</div>
-                        </td>
-                        <td class="font-semibold text-sm">{{ payment.currency }} {{ payment.amount }}</td>
-                        <td>
-                            {% if payment.status == 'success' %}
-                            <span class="badge badge-success badge-xs">Success</span>
-                            {% elif payment.status == 'pending' %}
-                            <span class="badge badge-warning badge-xs">Pending</span>
-                            {% elif payment.status == 'failed' %}
-                            <span class="badge badge-error badge-xs">Failed</span>
-                            {% else %}
-                            <span class="badge badge-ghost badge-xs">{{ payment.get_status_display }}</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-xs text-base-content/50">{{ payment.created_at|date:"M j, H:i" }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center py-6 text-base-content/50 text-sm">No transactions yet.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Webhook Delivery Logs -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
-        <div class="p-6">
-            <h2 class="text-lg font-bold">Recent Webhook Deliveries</h2>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>URL</th>
-                        <th>Attempt</th>
-                        <th>Status</th>
-                        <th>Duration</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for log in recent_webhooks %}
-                    <tr class="hover">
-                        <td class="font-mono text-xs">{{ log.event }}</td>
-                        <td class="text-xs max-w-[200px] truncate" title="{{ log.url }}">{{ log.url }}</td>
-                        <td class="text-center">{{ log.attempt }}/3</td>
-                        <td>
-                            {% if log.success %}
-                            <span class="badge badge-success badge-xs">{{ log.response_status }}</span>
-                            {% elif log.response_status %}
-                            <span class="badge badge-error badge-xs">{{ log.response_status }}</span>
-                            {% else %}
-                            <span class="badge badge-ghost badge-xs">Error</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-xs">{% if log.duration_ms %}{{ log.duration_ms }}ms{% else %}—{% endif %}</td>
-                        <td class="text-xs text-base-content/50">{{ log.created_at|date:"M j, H:i" }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="6" class="text-center py-6 text-base-content/50 text-sm">No webhook deliveries yet.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard(elementId) {
+    const el = document.getElementById(elementId);
+    const text = el.textContent.trim();
+    navigator.clipboard.writeText(text).then(() => {
+        // Brief visual feedback
+        const original = el.style.outline;
+        el.style.outline = '2px solid oklch(var(--a))';
+        setTimeout(() => { el.style.outline = original; }, 600);
+    });
+}
+</script>
 {% endblock %}

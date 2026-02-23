@@ -93,6 +93,7 @@ docker-push: ## Push Docker image to GHCR (requires docker login)
 	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
 prod-up: ## Start production containers and collect static files
+	make prod-pull
 	$(DC_PROD) up -d
 	$(DC_PROD_EXEC) python manage.py collectstatic --noinput
 	$(DC_PROD) restart web

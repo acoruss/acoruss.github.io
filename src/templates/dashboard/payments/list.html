@@ -1,157 +1,247 @@
 {% extends "dashboard/base.html" %}
 
 {% block title %}Payments - Dashboard{% endblock %}
+{% block nav_payments %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li class="text-base-content font-medium">Payments</li>
+{% endblock %}
+
+{% block topbar_actions %}
+<a href="{% url 'core:dashboard_payments_export' %}{% if current_service %}?service={{ current_service }}{% endif %}" class="btn btn-ghost btn-sm gap-1 hidden sm:flex">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+    Export
+</a>
+<a href="{% url 'payments:pay' %}" target="_blank" class="btn btn-primary btn-sm rounded-lg gap-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    <span class="hidden sm:inline">Payment Page</span>
+</a>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6">
-    <div class="flex items-center justify-between flex-wrap gap-3">
-        <h1 class="text-3xl font-bold">Payments</h1>
-        <div class="flex gap-2">
-            <a href="{% url 'core:dashboard_payments_export' %}{% if current_service %}?service={{ current_service }}{% endif %}"
-                class="btn btn-ghost btn-sm rounded-full gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Export CSV
-            </a>
-            <a href="{% url 'payments:pay' %}" target="_blank" class="btn btn-primary btn-sm rounded-full gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-                Payment Page
-            </a>
-        </div>
+<div class="flex flex-col gap-5">
+    <!-- Header -->
+    <div>
+        <h1 class="text-2xl font-bold">Payments</h1>
+        <p class="text-base-content/50 text-sm mt-0.5">Manage and track all payment transactions</p>
     </div>
 
-    <!-- Stats -->
-    <div class="stats shadow bg-base-200/50 border border-base-300/30">
-        <div class="stat">
-            <div class="stat-title">Total</div>
-            <div class="stat-value text-primary">{{ total_count }}</div>
+    <!-- Quick stats -->
+    <div class="grid grid-cols-3 gap-3">
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold">{{ total_count }}</div>
+            <div class="text-xs text-base-content/40">Total</div>
         </div>
-        <div class="stat">
-            <div class="stat-title">Successful</div>
-            <div class="stat-value text-success">{{ success_count }}</div>
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold text-success">{{ success_count }}</div>
+            <div class="text-xs text-base-content/40">Successful</div>
         </div>
-        <div class="stat">
-            <div class="stat-title">Pending</div>
-            <div class="stat-value text-warning">{{ pending_count }}</div>
+        <div class="dash-stat-card">
+            <div class="flex items-center justify-between mb-2">
+                <div class="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-warning"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                </div>
+            </div>
+            <div class="text-xl font-bold text-warning">{{ pending_count }}</div>
+            <div class="text-xs text-base-content/40">Pending</div>
         </div>
     </div>
 
     <!-- Filters -->
-    <div class="flex flex-wrap gap-3 items-center">
-        <div class="tabs tabs-boxed bg-base-200/50">
-            <a href="{% url 'core:dashboard_payments' %}{% if current_service %}?service={{ current_service }}{% endif %}"
-                class="tab {% if current_status == 'all' %}tab-active{% endif %}">All</a>
-            {% for value, label in status_choices %}
-            <a href="{% url 'core:dashboard_payments' %}?status={{ value }}{% if current_service %}&service={{ current_service }}{% endif %}"
-                class="tab {% if current_status == value %}tab-active{% endif %}">{{ label }}</a>
-            {% endfor %}
+    <div class="dash-card !p-3">
+        <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <form method="get" action="{% url 'core:dashboard_payments' %}" class="flex-1 w-full sm:w-auto">
+                {% if current_status != 'all' %}<input type="hidden" name="status" value="{{ current_status }}">{% endif %}
+                {% if current_service %}<input type="hidden" name="service" value="{{ current_service }}">{% endif %}
+                <div class="relative w-full sm:max-w-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/30"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" name="q" value="{{ search_query }}" placeholder="Search payments..."
+                        class="input input-sm input-bordered w-full pl-9 rounded-lg bg-base-100/50 focus:border-accent" />
+                </div>
+            </form>
+
+            <div class="flex items-center gap-2 flex-wrap w-full sm:w-auto">
+                <!-- Status filter -->
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-sm btn-ghost gap-1 border border-base-300/50 rounded-lg">
+                        {% if current_status == 'all' %}All Status{% else %}{{ current_status|title }}{% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-200 border border-base-300/50 rounded-xl w-40 p-1.5 shadow-xl mt-1 z-50">
+                        <li><a href="{% url 'core:dashboard_payments' %}{% if current_service %}?service={{ current_service }}{% endif %}" class="text-sm {% if current_status == 'all' %}active{% endif %}">All</a></li>
+                        {% for value, label in status_choices %}
+                        <li><a href="{% url 'core:dashboard_payments' %}?status={{ value }}{% if current_service %}&service={{ current_service }}{% endif %}" class="text-sm {% if current_status == value %}active{% endif %}">{{ label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Product filter -->
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-sm btn-ghost gap-1 border border-base-300/50 rounded-lg">
+                        {% if current_service %}{{ current_service }}{% else %}All Products{% endif %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-200 border border-base-300/50 rounded-xl w-48 p-1.5 shadow-xl mt-1 z-50">
+                        <li><a href="{% url 'core:dashboard_payments' %}{% if current_status != 'all' %}?status={{ current_status }}{% endif %}" class="text-sm {% if not current_service %}active{% endif %}">All Products</a></li>
+                        {% for svc in services %}
+                        <li><a href="{% url 'core:dashboard_payments' %}?service={{ svc.slug }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}" class="text-sm {% if current_service == svc.slug %}active{% endif %}">{{ svc.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <select onchange="window.location.href=this.value"
-            class="select select-bordered select-sm rounded-lg bg-base-200/50">
-            <option value="{% url 'core:dashboard_payments' %}{% if current_status != 'all' %}?status={{ current_status }}{% endif %}"
-                {% if not current_service %}selected{% endif %}>All Products</option>
-            {% for svc in services %}
-            <option value="{% url 'core:dashboard_payments' %}?service={{ svc.slug }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}"
-                {% if current_service == svc.slug %}selected{% endif %}>{{ svc.name }}</option>
-            {% endfor %}
-        </select>
-        <form method="get" action="{% url 'core:dashboard_payments' %}" class="flex-1 max-w-xs">
-            {% if current_status != 'all' %}
-            <input type="hidden" name="status" value="{{ current_status }}">
-            {% endif %}
-            {% if current_service %}
-            <input type="hidden" name="service" value="{{ current_service }}">
-            {% endif %}
-            <input type="text" name="q" value="{{ search_query }}" placeholder="Search payments..."
-                class="input input-bordered input-sm w-full rounded-lg" />
-        </form>
     </div>
 
     <!-- Payments Table -->
-    <div class="bg-base-200/50 border border-base-300/30 rounded-2xl overflow-x-auto">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Reference</th>
-                    <th>Product</th>
-                    <th>Customer</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for payment in payments %}
-                <tr class="hover">
-                    <td>
-                        <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}"
-                            class="font-mono text-sm link link-hover">{{ payment.reference }}</a>
-                    </td>
-                    <td>
-                        {% if payment.service %}
-                        <a href="{% url 'core:dashboard_service_detail' slug=payment.service.slug %}"
-                            class="badge badge-outline badge-sm link link-hover">{{ payment.service.name }}</a>
-                        {% else %}
-                        <span class="badge badge-ghost badge-sm">Direct</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <div>{{ payment.name|default:"—" }}</div>
-                        <div class="text-xs text-base-content/50">{{ payment.email }}</div>
-                    </td>
-                    <td>
-                        <span class="font-semibold">{{ payment.currency }} {{ payment.amount }}</span>
-                        {% if payment.refund_status != 'none' %}
-                        <div class="text-xs text-error">Refund: {{ payment.get_refund_status_display }}</div>
-                        {% endif %}
-                    </td>
-                    <td>
+    <div class="dash-card !p-0">
+        <!-- Desktop table -->
+        <div class="hidden lg:block overflow-x-auto">
+            <table class="table table-sm">
+                <thead>
+                    <tr class="text-xs uppercase text-base-content/40 border-b border-base-300/20">
+                        <th class="font-semibold">Reference</th>
+                        <th class="font-semibold">Product</th>
+                        <th class="font-semibold">Customer</th>
+                        <th class="font-semibold">Amount</th>
+                        <th class="font-semibold">Payment</th>
+                        <th class="font-semibold">Status</th>
+                        <th class="font-semibold">Date</th>
+                        <th class="font-semibold w-16">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr class="hover:bg-base-200/30 transition-colors">
+                        <td>
+                            <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}" class="font-mono text-sm hover:text-accent transition-colors">{{ payment.reference }}</a>
+                        </td>
+                        <td>
+                            {% if payment.service %}
+                            <a href="{% url 'core:dashboard_service_detail' slug=payment.service.slug %}" class="badge badge-outline badge-xs hover:badge-accent transition-colors">{{ payment.service.name }}</a>
+                            {% else %}
+                            <span class="badge badge-ghost badge-xs">Direct</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="flex items-center gap-2.5">
+                                <div class="avatar placeholder">
+                                    <div class="bg-base-300/30 text-base-content/50 rounded-full w-8 h-8">
+                                        <span class="text-xs font-bold">{{ payment.name|default:payment.email|make_list|first|upper }}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-sm">{{ payment.name|default:"&mdash;" }}</div>
+                                    <div class="text-xs text-base-content/40">{{ payment.email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-semibold text-sm">{{ payment.currency }} {{ payment.amount }}</span>
+                            {% if payment.refund_status != 'none' %}
+                            <div class="text-xs text-error">{{ payment.get_refund_status_display }}</div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if payment.status == 'success' %}
+                            <span class="text-success text-sm font-medium">Paid</span>
+                            {% elif payment.status == 'pending' %}
+                            <span class="text-warning text-sm font-medium">Pending</span>
+                            {% elif payment.status == 'failed' %}
+                            <span class="text-error text-sm font-medium">Failed</span>
+                            {% else %}
+                            <span class="text-base-content/40 text-sm">{{ payment.get_status_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if payment.status == 'success' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            {% elif payment.status == 'pending' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-warning"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            {% elif payment.status == 'failed' %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-error"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                            {% endif %}
+                        </td>
+                        <td class="text-sm text-base-content/40">{{ payment.created_at|date:"d M Y" }}</td>
+                        <td>
+                            <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}" class="btn btn-ghost btn-xs btn-circle" title="View details">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center py-16">
+                            <div class="flex flex-col items-center gap-3 text-base-content/40">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="opacity-30"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                <p class="font-medium">No payments yet</p>
+                                <p class="text-sm">Payment transactions will appear here.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile card view -->
+        <div class="block lg:hidden divide-y divide-base-300/20">
+            {% for payment in payments %}
+            <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}" class="flex items-center gap-3 px-4 py-3 hover:bg-base-200/50 transition-colors">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-0.5">
+                        <span class="font-mono text-sm font-medium">{{ payment.reference }}</span>
                         {% if payment.status == 'success' %}
-                        <span class="badge badge-success badge-sm">Success</span>
+                        <span class="w-2 h-2 rounded-full bg-success"></span>
                         {% elif payment.status == 'pending' %}
-                        <span class="badge badge-warning badge-sm">Pending</span>
+                        <span class="w-2 h-2 rounded-full bg-warning"></span>
                         {% elif payment.status == 'failed' %}
-                        <span class="badge badge-error badge-sm">Failed</span>
-                        {% else %}
-                        <span class="badge badge-ghost badge-sm">{{ payment.get_status_display }}</span>
+                        <span class="w-2 h-2 rounded-full bg-error"></span>
                         {% endif %}
-                    </td>
-                    <td class="text-sm text-base-content/60">{{ payment.created_at|date:"M j, Y H:i" }}</td>
-                    <td>
-                        <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}"
-                            class="btn btn-ghost btn-xs">View</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="7" class="text-center py-8 text-base-content/50">No payments yet.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                    <div class="text-xs text-base-content/40">{{ payment.name|default:payment.email }} &middot; {{ payment.created_at|date:"M j" }}</div>
+                </div>
+                <div class="text-right shrink-0">
+                    <div class="font-semibold text-sm">{{ payment.currency }} {{ payment.amount }}</div>
+                    {% if payment.service %}
+                    <div class="text-xs text-base-content/40">{{ payment.service.name }}</div>
+                    {% endif %}
+                </div>
+            </a>
+            {% empty %}
+            <div class="px-4 py-12 text-center text-base-content/40 text-sm">No payments yet.</div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Pagination -->
     {% if is_paginated %}
-    <div class="flex justify-center">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-sm text-base-content/40">
+            Showing <span class="font-semibold text-base-content/70">{{ page_obj.start_index }}</span> to <span class="font-semibold text-base-content/70">{{ page_obj.end_index }}</span> of <span class="font-semibold text-base-content/70">{{ page_obj.paginator.count }}</span> items
+        </p>
         <div class="join">
             {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_service %}&service={{ current_service }}{% endif %}"
                 class="join-item btn btn-sm">&laquo;</a>
             {% endif %}
             {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <button class="join-item btn btn-sm btn-primary">{{ num }}</button>
+            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
             <a href="?page={{ num }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_service %}&service={{ current_service }}{% endif %}"
-                class="join-item btn btn-sm {% if page_obj.number == num %}btn-active{% endif %}">{{ num }}</a>
+                class="join-item btn btn-sm">{{ num }}</a>
+            {% endif %}
             {% endfor %}
             {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}{% if current_status != 'all' %}&status={{ current_status }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_service %}&service={{ current_service }}{% endif %}"

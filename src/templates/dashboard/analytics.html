@@ -1,219 +1,212 @@
 {% extends "dashboard/base.html" %}
 
 {% block title %}Analytics - Dashboard{% endblock %}
+{% block nav_analytics %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li class="text-base-content font-medium">Analytics</li>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6">
-    <h1 class="text-3xl font-bold">Analytics Overview</h1>
+<div class="flex flex-col gap-5">
+    <h1 class="text-2xl font-bold">Analytics</h1>
 
     <!-- Contact Metrics -->
     <div>
-        <h2 class="text-lg font-semibold mb-3 text-base-content/70">Contact Submissions</h2>
-        <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
-            <div class="stat">
-                <div class="stat-figure text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                    </svg>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-base-content/40 mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            Contact Metrics
+        </h2>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Total Contacts</span>
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Total</div>
-                <div class="stat-value text-primary">{{ total_contacts }}</div>
-                <div class="stat-desc">All time</div>
+                <div class="text-2xl font-bold">{{ total_contacts }}</div>
             </div>
-            <div class="stat">
-                <div class="stat-figure text-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Last 30 Days</span>
+                    <div class="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-info"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Last 30 Days</div>
-                <div class="stat-value text-accent">{{ contacts_30d }}</div>
-                <div class="stat-desc">Recent submissions</div>
+                <div class="text-2xl font-bold">{{ contacts_30d }}</div>
             </div>
-            <div class="stat">
-                <div class="stat-figure text-warning">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Unread</span>
+                    <div class="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-warning"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Unread</div>
-                <div class="stat-value text-warning">{{ unread_contacts }}</div>
-                <div class="stat-desc">Awaiting response</div>
+                <div class="text-2xl font-bold text-warning">{{ unread_contacts }}</div>
             </div>
         </div>
     </div>
 
     <!-- Payment Metrics -->
     <div>
-        <h2 class="text-lg font-semibold mb-3 text-base-content/70">Payments</h2>
-        <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
-            <div class="stat">
-                <div class="stat-figure text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <rect width="20" height="14" x="2" y="5" rx="2" stroke-width="2" />
-                        <line x1="2" y1="10" x2="22" y2="10" stroke-width="2" />
-                    </svg>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-base-content/40 mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            Payment Metrics
+        </h2>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Total Payments</span>
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Total Transactions</div>
-                <div class="stat-value text-primary">{{ total_payments }}</div>
-                <div class="stat-desc">All time</div>
+                <div class="text-2xl font-bold">{{ total_payments }}</div>
             </div>
-            <div class="stat">
-                <div class="stat-figure text-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Successful</span>
+                    <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Successful</div>
-                <div class="stat-value text-success">{{ successful_payments }}</div>
-                <div class="stat-desc">Completed payments</div>
+                <div class="text-2xl font-bold text-success">{{ successful_payments }}</div>
             </div>
-            <div class="stat">
-                <div class="stat-figure text-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Last 30 Days</span>
+                    <div class="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-info"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Last 30 Days</div>
-                <div class="stat-value text-accent">{{ payments_30d }}</div>
-                <div class="stat-desc">Recent transactions</div>
+                <div class="text-2xl font-bold">{{ payments_30d }}</div>
             </div>
         </div>
     </div>
 
-    <!-- Revenue -->
+    <!-- Revenue Metrics -->
     <div>
-        <h2 class="text-lg font-semibold mb-3 text-base-content/70">Revenue</h2>
-        <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
-            <div class="stat">
-                <div class="stat-figure text-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-base-content/40 mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            Revenue
+        </h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Total Revenue</span>
+                    <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
                 </div>
-                <div class="stat-title">Total Revenue</div>
-                <div class="stat-value text-success">{{ total_revenue }}</div>
-                <div class="stat-desc">All successful payments</div>
+                <div class="text-2xl font-bold text-accent">{{ total_revenue }}</div>
             </div>
-            <div class="stat">
-                <div class="stat-title">Last 30 Days</div>
-                <div class="stat-value">{{ revenue_30d }}</div>
-                <div class="stat-desc">Recent revenue</div>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Revenue 30 Days</span>
+                    <div class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold">{{ revenue_30d }}</div>
+            </div>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Total Products</span>
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold">{{ total_services }}</div>
+            </div>
+            <div class="dash-stat-card">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-base-content/40 font-medium">Active Products</span>
+                    <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold text-success">{{ active_services }}</div>
             </div>
         </div>
     </div>
 
-    <!-- Products -->
-    <div>
-        <h2 class="text-lg font-semibold mb-3 text-base-content/70">Products &amp; Services</h2>
-        <div class="stats shadow bg-base-200/50 border border-base-300/30 w-full">
-            <div class="stat">
-                <div class="stat-figure text-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        class="inline-block w-8 h-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                </div>
-                <div class="stat-title">Registered Products</div>
-                <div class="stat-value text-info">{{ total_services }}</div>
-                <div class="stat-desc">Total onboarded</div>
-            </div>
-            <div class="stat">
-                <div class="stat-title">Active</div>
-                <div class="stat-value text-success">{{ active_services }}</div>
-                <div class="stat-desc">Currently accepting payments</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Activity -->
-    <div class="grid lg:grid-cols-2 gap-6">
+    <!-- Recent Activity Grid -->
+    <div class="grid lg:grid-cols-2 gap-5">
         <!-- Recent Contacts -->
-        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
-            <div class="p-6 flex items-center justify-between">
-                <h2 class="text-lg font-bold">Recent Contacts</h2>
-                <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-xs">View All &rarr;</a>
+        <div class="dash-card">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    Recent Contacts
+                </h3>
+                <a href="{% url 'core:dashboard_contacts' %}" class="text-xs text-accent hover:underline">View all</a>
             </div>
-            <div class="overflow-x-auto">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for contact in recent_contacts %}
-                        <tr class="hover">
-                            <td>
-                                <a href="{% url 'core:dashboard_contact_detail' contact.pk %}"
-                                    class="link link-hover {% if not contact.is_read %}font-semibold{% endif %}">{{
-                                    contact.name }}</a>
-                            </td>
-                            <td class="text-xs text-base-content/50">{{ contact.created_at|date:"M j" }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="2" class="text-center py-4 text-base-content/50 text-sm">No contacts yet.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            {% if recent_contacts %}
+            <div class="space-y-2">
+                {% for contact in recent_contacts %}
+                <a href="{% url 'core:dashboard_contact_detail' pk=contact.pk %}"
+                    class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-base-300/30 transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary shrink-0">
+                        {{ contact.name|make_list|first|upper }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium truncate group-hover:text-accent transition-colors">{{ contact.name }}</div>
+                        <div class="text-xs text-base-content/40 truncate">{{ contact.email }}</div>
+                    </div>
+                    <div class="text-xs text-base-content/30 shrink-0">{{ contact.created_at|timesince|truncatewords:2 }}</div>
+                    {% if not contact.is_read %}
+                    <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+                    {% endif %}
+                </a>
+                {% endfor %}
             </div>
+            {% else %}
+            <p class="text-sm text-base-content/30 text-center py-6">No contacts yet</p>
+            {% endif %}
         </div>
 
         <!-- Recent Payments -->
-        <div class="bg-base-200/50 border border-base-300/30 rounded-2xl">
-            <div class="p-6 flex items-center justify-between">
-                <h2 class="text-lg font-bold">Recent Payments</h2>
-                <a href="{% url 'core:dashboard_payments' %}" class="btn btn-ghost btn-xs">View All &rarr;</a>
+        <div class="dash-card">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    Recent Payments
+                </h3>
+                <a href="{% url 'core:dashboard_payments' %}" class="text-xs text-accent hover:underline">View all</a>
             </div>
-            <div class="overflow-x-auto">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for payment in recent_payments %}
-                        <tr class="hover">
-                            <td>{{ payment.email }}</td>
-                            <td class="font-semibold">{{ payment.currency }} {{ payment.amount }}</td>
-                            <td>
-                                {% if payment.status == 'success' %}
-                                <span class="badge badge-success badge-xs">Success</span>
-                                {% elif payment.status == 'pending' %}
-                                <span class="badge badge-warning badge-xs">Pending</span>
-                                {% else %}
-                                <span class="badge badge-ghost badge-xs">{{ payment.get_status_display }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="3" class="text-center py-4 text-base-content/50 text-sm">No payments yet.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            {% if recent_payments %}
+            <div class="space-y-2">
+                {% for payment in recent_payments %}
+                <a href="{% url 'core:dashboard_payment_detail' pk=payment.pk %}"
+                    class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-base-300/30 transition-colors group">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0
+                        {% if payment.status == 'success' %}bg-success/20 text-success
+                        {% elif payment.status == 'pending' %}bg-warning/20 text-warning
+                        {% else %}bg-error/20 text-error{% endif %}">
+                        {% if payment.status == 'success' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        {% elif payment.status == 'pending' %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-sm font-medium truncate group-hover:text-accent transition-colors">{{ payment.email }}</div>
+                        <div class="text-xs text-base-content/40 font-mono">{{ payment.reference }}</div>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <div class="text-sm font-semibold">{{ payment.currency }} {{ payment.amount }}</div>
+                        <div class="text-xs text-base-content/30">{{ payment.created_at|timesince|truncatewords:2 }}</div>
+                    </div>
+                </a>
+                {% endfor %}
             </div>
+            {% else %}
+            <p class="text-sm text-base-content/30 text-center py-6">No payments yet</p>
+            {% endif %}
         </div>
     </div>
 </div>

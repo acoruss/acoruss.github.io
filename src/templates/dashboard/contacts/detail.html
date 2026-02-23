@@ -1,120 +1,129 @@
 {% extends "dashboard/base.html" %}
 
 {% block title %}{{ submission.name }} - Contact Submission{% endblock %}
+{% block nav_contacts %}active bg-white/10 text-neutral-content{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
+<li><a href="{% url 'core:dashboard_contacts' %}" class="hover:text-accent">Contacts</a></li>
+<li class="text-base-content font-medium">{{ submission.name }}</li>
+{% endblock %}
 
 {% block dashboard_content %}
-<div class="flex flex-col gap-6">
-    <!-- Breadcrumb -->
-    <div class="text-sm breadcrumbs">
-        <ul>
-            <li><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
-            <li><a href="{% url 'core:dashboard_contacts' %}">Contacts</a></li>
-            <li>{{ submission.name }}</li>
-        </ul>
-    </div>
-
+<div class="flex flex-col gap-5">
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-            <h1 class="text-2xl font-bold">{{ submission.name }}</h1>
-            <p class="text-base-content/60 mt-1">Submitted {{ submission.created_at|date:"F j, Y \a\t g:i A" }}</p>
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div class="flex items-start gap-4">
+            <div class="avatar placeholder">
+                <div class="bg-{% if not submission.is_read %}primary{% else %}accent{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}accent{% endif %} rounded-full w-12 h-12">
+                    <span class="text-lg font-bold">{{ submission.name|make_list|first|upper }}</span>
+                </div>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold">{{ submission.name }}</h1>
+                <p class="text-base-content/50 text-sm mt-0.5">Submitted {{ submission.created_at|date:"F j, Y \a\t g:i A" }}</p>
+            </div>
         </div>
-        <div class="flex gap-2">
+        <div class="flex gap-2 shrink-0">
             <form action="{% url 'core:dashboard_contact_toggle_read' submission.pk %}" method="POST">
                 {% csrf_token %}
                 {% if submission.is_read %}
-                <button type="submit" class="btn btn-sm btn-outline">Mark as Unread</button>
+                <button type="submit" class="btn btn-sm btn-ghost border border-base-300/50 rounded-lg gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 8.4c.5.38.8.97.8 1.6v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10a2 2 0 0 1 .8-1.6l8-6a2 2 0 0 1 2.4 0l8 6Z"></path><path d="m22 10-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 10"></path></svg>
+                    Mark Unread
+                </button>
                 {% else %}
-                <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                <button type="submit" class="btn btn-sm btn-primary rounded-lg gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Mark Read
+                </button>
                 {% endif %}
             </form>
-            <a href="mailto:{{ submission.email }}" class="btn btn-sm btn-accent">Reply via Email</a>
+            <a href="mailto:{{ submission.email }}" class="btn btn-sm btn-accent rounded-lg gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Reply
+            </a>
         </div>
     </div>
 
-    <!-- Detail Card -->
-    <div class="grid md:grid-cols-3 gap-6">
+    <!-- Detail layout -->
+    <div class="grid lg:grid-cols-3 gap-5">
         <!-- Main content -->
-        <div class="md:col-span-2">
-            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-                <h2 class="text-lg font-bold mb-4">Message</h2>
+        <div class="lg:col-span-2 space-y-5">
+            <!-- Message -->
+            <div class="dash-card">
+                <h2 class="font-bold mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Message
+                </h2>
                 <div class="prose prose-sm max-w-none text-base-content/80 leading-relaxed">
                     {{ submission.message|linebreaksbr }}
                 </div>
             </div>
         </div>
 
-        <!-- Sidebar info -->
+        <!-- Sidebar -->
         <div class="space-y-4">
-            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-                <h3 class="font-bold mb-4">Contact Info</h3>
+            <!-- Contact Info card -->
+            <div class="dash-card">
+                <h3 class="font-bold mb-4 text-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Contact Info
+                </h3>
                 <div class="space-y-3">
-                    <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Name</div>
-                        <div class="mt-1 font-medium">{{ submission.name }}</div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/30 shrink-0"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span>{{ submission.name }}</span>
                     </div>
-                    <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Email</div>
-                        <div class="mt-1">
-                            <a href="mailto:{{ submission.email }}" class="link link-accent text-sm">{{ submission.email
-                                }}</a>
-                        </div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/30 shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <a href="mailto:{{ submission.email }}" class="link link-accent truncate">{{ submission.email }}</a>
                     </div>
                     {% if submission.company %}
-                    <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Company</div>
-                        <div class="mt-1">{{ submission.company }}</div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/30 shrink-0"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <span>{{ submission.company }}</span>
                     </div>
                     {% endif %}
                     {% if submission.phone %}
-                    <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Phone</div>
-                        <div class="mt-1">
-                            <a href="tel:{{ submission.phone }}" class="link link-accent text-sm">{{ submission.phone
-                                }}</a>
-                        </div>
+                    <div class="flex items-center gap-3 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-base-content/30 shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <a href="tel:{{ submission.phone }}" class="link link-accent">{{ submission.phone }}</a>
                     </div>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="bg-base-200/50 border border-base-300/30 rounded-2xl p-6">
-                <h3 class="font-bold mb-4">Details</h3>
+            <!-- Details card -->
+            <div class="dash-card">
+                <h3 class="font-bold mb-4 text-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    Details
+                </h3>
                 <div class="space-y-3">
                     <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Project Type
-                        </div>
-                        <div class="mt-1">
-                            {% if submission.project_type %}
-                            <span class="badge badge-outline">{{ submission.get_project_type_display }}</span>
-                            {% else %}
-                            <span class="text-base-content/40">Not specified</span>
-                            {% endif %}
-                        </div>
+                        <div class="text-xs text-base-content/40 mb-0.5">Project Type</div>
+                        {% if submission.project_type %}
+                        <span class="badge badge-outline badge-sm">{{ submission.get_project_type_display }}</span>
+                        {% else %}
+                        <span class="text-sm text-base-content/40">Not specified</span>
+                        {% endif %}
                     </div>
                     <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Status</div>
-                        <div class="mt-1">
-                            {% if submission.is_read %}
-                            <span class="badge badge-ghost">Read</span>
-                            {% else %}
-                            <span class="badge badge-primary">New</span>
-                            {% endif %}
-                        </div>
+                        <div class="text-xs text-base-content/40 mb-0.5">Status</div>
+                        {% if submission.is_read %}
+                        <span class="badge badge-ghost badge-sm">Read</span>
+                        {% else %}
+                        <span class="badge badge-primary badge-sm">New</span>
+                        {% endif %}
                     </div>
                     <div>
-                        <div class="text-xs uppercase tracking-wider text-base-content/40 font-semibold">Received</div>
-                        <div class="mt-1 text-sm text-base-content/60">{{ submission.created_at|date:"F j, Y g:i A" }}
-                        </div>
+                        <div class="text-xs text-base-content/40 mb-0.5">Received</div>
+                        <span class="text-sm">{{ submission.created_at|date:"F j, Y g:i A" }}</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Back button -->
-    <div>
-        <a href="{% url 'core:dashboard_contacts' %}" class="btn btn-ghost btn-sm">&larr; Back to Submissions</a>
     </div>
 </div>
 {% endblock %}

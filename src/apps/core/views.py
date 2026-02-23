@@ -40,6 +40,7 @@ class RobotsTxtView(View):
         "Allow: /services/\n"
         "Allow: /pricing/\n"
         "Allow: /projects/\n"
+        "Allow: /our-products/\n"
         "Allow: /about-us/\n"
         "Allow: /contact-us/\n"
         "Allow: /privacy-policy/\n"
@@ -92,6 +93,12 @@ class ProjectsView(TemplateView):
     """Projects showcase page."""
 
     template_name = "projects.html"
+
+
+class ProductsView(TemplateView):
+    """Our products page — products built and powered by Acoruss."""
+
+    template_name = "products.html"
 
 
 class AboutView(TemplateView):

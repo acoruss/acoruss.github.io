@@ -63,13 +63,23 @@
                         <span class="text-sm text-base-content/50">Amount</span>
                         <span class="font-bold text-lg">{{ payment.currency }} {{ payment.amount }}</span>
                     </div>
+                    {% if payment.settlement_amount and payment.currency != 'KES' %}
+                    <div class="flex justify-between items-center py-1.5 border-b border-base-300/10">
+                        <span class="text-sm text-base-content/50">Converted Amount</span>
+                        <span class="text-sm">KES {{ payment.settlement_amount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-base-300/10">
+                        <span class="text-sm text-base-content/50">Exchange Rate</span>
+                        <span class="text-xs text-base-content/40">1 {{ payment.currency }} = {{ payment.exchange_rate }} KES</span>
+                    </div>
+                    {% endif %}
                     <div class="flex justify-between items-center py-1.5 border-b border-base-300/10">
                         <span class="text-sm text-base-content/50">Fees</span>
-                        <span class="text-warning text-sm">{{ payment.currency }} {{ payment.fees }}</span>
+                        <span class="text-warning text-sm">KES {{ payment.fees }}</span>
                     </div>
                     <div class="flex justify-between items-center py-1.5 border-b border-base-300/10">
                         <span class="text-sm text-base-content/50">Net Amount</span>
-                        <span class="font-semibold">{{ payment.currency }} {{ payment.net_amount }}</span>
+                        <span class="font-semibold">KES {{ payment.net_settlement }}</span>
                     </div>
                     {% if payment.refunded_amount %}
                     <div class="flex justify-between items-center py-1.5 border-b border-base-300/10">
@@ -157,7 +167,37 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                     Metadata
                 </h2>
-                <pre class="bg-base-300/30 p-4 rounded-xl text-xs font-mono overflow-x-auto text-base-content/70">{{ payment.metadata|pprint }}</pre>
+                <div class="overflow-x-auto">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr class="text-xs uppercase text-base-content/40">
+                                <th class="font-semibold">Key</th>
+                                <th class="font-semibold">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, value in payment.metadata.items %}
+                            <tr>
+                                <td class="font-mono text-xs text-base-content/60 align-top">{{ key }}</td>
+                                <td class="text-sm break-all">
+                                    {% if value.items %}
+                                    <table class="table table-xs w-full">
+                                        {% for k, v in value.items %}
+                                        <tr>
+                                            <td class="font-mono text-xs text-base-content/40 pl-0">{{ k }}</td>
+                                            <td class="text-xs">{{ v }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    {% else %}
+                                    {{ value }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             {% endif %}
 

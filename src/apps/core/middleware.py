@@ -239,6 +239,10 @@ class MaliciousRequestBlockerMiddleware:
 
         ip = _get_client_ip(request)
 
+        # Skip security checks for loopback/internal IPs (health checks, reverse proxy)
+        if ip in ("127.0.0.1", "::1", "localhost"):
+            return self.get_response(request)
+
         # Fast path: already banned IP — drop immediately
         if _is_banned(ip):
             return self._drop(request, ip, reason="banned")

@@ -1,7 +1,8 @@
 """Generate favicon files from the Acoruss logo."""
 
-from PIL import Image
 import os
+
+from PIL import Image
 
 src = os.path.join(os.path.dirname(__file__), "..", "src", "static", "images", "logos", "dark-rounded-bg.png")
 out_dir = os.path.join(os.path.dirname(__file__), "..", "src", "static", "images")
@@ -37,4 +38,3 @@ f16 = img.copy()
 f16.thumbnail((16, 16), Image.LANCZOS)
 f16.save(os.path.join(out_dir, "favicon-16x16.png"), format="PNG")
 
-print("Favicons generated successfully")

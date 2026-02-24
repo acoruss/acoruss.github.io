@@ -1,5 +1,6 @@
 services:
   db:
+    container_name: acoruss-db
     image: postgres:16-alpine
     env_file: ../.env
     volumes:
@@ -12,6 +13,7 @@ services:
     restart: unless-stopped
 
   web:
+    container_name: acoruss-web
     image: ghcr.io/acoruss/acoruss.github.io:latest
     env_file: ../.env
     working_dir: /app/src

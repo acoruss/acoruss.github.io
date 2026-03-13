@@ -12,7 +12,11 @@ app_name = "core"
 urlpatterns = [
     # Machine-readable files
     path("robots.txt", views.RobotsTxtView.as_view(), name="robots_txt"),
+    path("sitemap.xml", views.SitemapXmlView.as_view(), name="sitemap_xml"),
+    path("favicon.ico", views.FaviconView.as_view(), name="favicon"),
     path(".well-known/security.txt", views.SecurityTxtView.as_view(), name="security_txt"),
+    # Health check for Docker / load balancer
+    path("healthz/", views.HealthCheckView.as_view(), name="health_check"),
     # Public pages
     path("", views.IndexView.as_view(), name="index"),
     path("services/", views.ServicesView.as_view(), name="services"),

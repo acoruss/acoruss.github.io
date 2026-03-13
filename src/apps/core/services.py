@@ -2,6 +2,7 @@
 
 import logging
 
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -64,7 +65,8 @@ async def send_contact_notification(submission: ContactSubmission) -> None:
             reply_to=[f"{submission.name} <{submission.email}>"],
         )
         msg.attach_alternative(html_body, "text/html")
-        msg.send(fail_silently=False)
+        # Email send is synchronous I/O — wrap for async safety
+        await sync_to_async(msg.send, thread_sensitive=True)(fail_silently=False)
         logger.info("Contact notification sent to %s for submission #%d", recipients, submission.pk)
     except Exception:
         logger.exception("Failed to send contact notification for submission #%d", submission.pk)

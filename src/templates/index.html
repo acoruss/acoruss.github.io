@@ -964,6 +964,12 @@
                     <h3 class="text-lg font-bold mb-5">Tell us about your project</h3>
                     <form action="{% url 'core:contact_submit' %}" method="POST">
                         {% csrf_token %}
+                        <input type="hidden" name="form_token" value="{{ form_token }}">
+                        <!-- Honeypot field — hidden from real users, bots will fill it -->
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label for="hp-website">Leave this empty</label>
+                            <input type="text" name="website" id="hp-website" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="grid sm:grid-cols-2 gap-3">
                             <div class="form-control">
                                 <label class="label pb-1"><span class="label-text font-medium text-xs">Full Name

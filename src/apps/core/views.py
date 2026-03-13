@@ -138,6 +138,12 @@ class IndexView(TemplateView):
 
     template_name = "index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signer = TimestampSigner()
+        context["form_token"] = signer.sign("contact-form")
+        return context
+
 
 class ServicesView(TemplateView):
     """Services page with tabbed categories."""

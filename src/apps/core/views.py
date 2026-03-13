@@ -1,6 +1,8 @@
 """Core app views."""
 
 import logging
+import re
+import time
 import xml.etree.ElementTree as ET
 from decimal import Decimal
 from html import unescape
@@ -9,6 +11,7 @@ from typing import ClassVar
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.signing import BadSignature, SignatureExpired, TimestampSigner
 from django.db import models
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect
@@ -171,12 +174,106 @@ class ContactView(TemplateView):
 
     template_name = "contact.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        signer = TimestampSigner()
+        context["form_token"] = signer.sign("contact-form")
+        return context
+
 
 class ContactSubmitView(View):
     """Handle contact form submissions."""
 
+    # In-memory rate limiter: {ip: [timestamp, ...]}
+    _rate_limits: ClassVar[dict[str, list[float]]] = {}
+    RATE_LIMIT_MAX = 5  # max submissions per window
+    RATE_LIMIT_WINDOW = 3600  # 1 hour in seconds
+    MIN_SUBMIT_TIME = 3  # minimum seconds between form load and submit
+
+    @staticmethod
+    def _looks_like_gibberish(text: str) -> bool:
+        """Detect bot-generated gibberish strings."""
+        if not text:
+            return False
+        # Mostly consonants with no vowels → gibberish
+        letters = re.sub(r"[^a-zA-Z]", "", text)
+        if len(letters) < 4:
+            return False
+        vowels = sum(1 for c in letters.lower() if c in "aeiou")
+        vowel_ratio = vowels / len(letters)
+        if vowel_ratio < 0.15:
+            return True
+        # Excessive uppercase in middle of word
+        return len(letters) > 6 and sum(1 for c in letters[1:] if c.isupper()) > len(letters) * 0.5
+
+    def _get_client_ip(self, request: HttpRequest) -> str:
+        forwarded = request.META.get("HTTP_X_FORWARDED_FOR", "")
+        if forwarded:
+            return forwarded.split(",")[0].strip()
+        return request.META.get("REMOTE_ADDR", "")
+
+    def _is_rate_limited(self, ip: str) -> bool:
+        now = time.monotonic()
+        timestamps = self._rate_limits.get(ip, [])
+        # Prune old entries
+        timestamps = [t for t in timestamps if now - t < self.RATE_LIMIT_WINDOW]
+        self._rate_limits[ip] = timestamps
+        return len(timestamps) >= self.RATE_LIMIT_MAX
+
+    def _record_submission(self, ip: str) -> None:
+        now = time.monotonic()
+        self._rate_limits.setdefault(ip, []).append(now)
+
     async def post(self, request: HttpRequest) -> HttpResponse:
         """Process the contact form POST request."""
+        # --- Honeypot check: bots fill hidden fields ---
+        if request.POST.get("website", ""):
+            logger.warning("Honeypot triggered on contact form")
+            # Fake success to not tip off bots
+            messages.success(
+                request,
+                "Thank you for reaching out! We'll get back to you within 24 hours.",
+            )
+            return redirect("core:contact")
+
+        # --- Time-based check: reject impossibly fast submissions ---
+        form_token = request.POST.get("form_token", "")
+        signer = TimestampSigner()
+        try:
+            signer.unsign(form_token, max_age=86400)  # token valid for 24h
+        except (BadSignature, SignatureExpired):
+            logger.warning("Invalid or expired form token on contact form")
+            messages.error(request, "Your session has expired. Please try again.")
+            return redirect("core:contact")
+
+        # Check if form was submitted too quickly (bot speed)
+        try:
+            # unsign with a very short max_age to detect fast submissions
+            signer.unsign(form_token, max_age=self.MIN_SUBMIT_TIME)
+        except SignatureExpired:
+            pass  # Good — enough time has passed
+        except BadSignature:
+            messages.error(request, "Your session has expired. Please try again.")
+            return redirect("core:contact")
+        else:
+            # Token is still valid with MIN_SUBMIT_TIME → submitted too fast
+            logger.warning("Contact form submitted too quickly (bot suspected)")
+            messages.success(
+                request,
+                "Thank you for reaching out! We'll get back to you within 24 hours.",
+            )
+            return redirect("core:contact")
+
+        # --- Rate limiting per IP ---
+        client_ip = self._get_client_ip(request)
+        if self._is_rate_limited(client_ip):
+            logger.warning("Rate limit exceeded for IP %s on contact form", client_ip)
+            messages.error(
+                request,
+                "Too many submissions. Please try again later.",
+            )
+            return redirect("core:contact")
+
         name = request.POST.get("name", "").strip()
         email = request.POST.get("email", "").strip()
         company = request.POST.get("company", "").strip()
@@ -187,6 +284,25 @@ class ContactSubmitView(View):
         if not name or not email or not message:
             messages.error(request, "Please fill in all required fields.")
             return redirect("core:contact")
+
+        # --- Gibberish / bot content detection ---
+        if self._looks_like_gibberish(name):
+            logger.warning("Gibberish name detected: %s", name[:50])
+            messages.success(
+                request,
+                "Thank you for reaching out! We'll get back to you within 24 hours.",
+            )
+            return redirect("core:contact")
+
+        # --- Valid project_type check ---
+        valid_types = {choice[0] for choice in ContactSubmission.project_type.field.choices}
+        valid_types.add("")  # allow empty
+        if project_type not in valid_types:
+            logger.warning("Invalid project_type: %s", project_type[:50])
+            messages.error(request, "Please select a valid project type.")
+            return redirect("core:contact")
+
+        self._record_submission(client_ip)
 
         submission = await ContactSubmission.objects.acreate(
             name=name,

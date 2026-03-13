@@ -32,6 +32,11 @@ Get in touch with us. We'd love to hear about your project and help you bring it
                     <h2 class="text-2xl font-bold mb-6">Tell Us About Your Project</h2>
                     <form action="{% url 'core:contact_submit' %}" method="POST" id="contact-form">
                         {% csrf_token %}
+                        <input type="hidden" name="form_token" value="{{ form_token }}">
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label for="website">Fill</label>
+                            <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="form-control">
                                 <label class="label"><span class="label-text font-medium">Full Name *</span></label>

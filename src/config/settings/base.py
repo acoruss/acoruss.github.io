@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Third party
-    "anymail",
     # Local apps
     "apps.accounts",
     "apps.core",
@@ -124,11 +122,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "Acoruss <info@acoruss.com>"
 DEFAULT_FROM_EMAIL_ADDRESS = "info@acoruss.com"
 
-# Anymail (Mailgun)
-ANYMAIL = {
-    "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
-    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_DOMAIN", default="acoruss.com"),
-}
+# Acoruss Mailer
+ACORUSS_MAILER_KEY = env("ACORUSS_MAILER_KEY", default="")
 
 # Contact form notification recipients
 CONTACT_NOTIFICATION_EMAILS: list[str] = env.list(

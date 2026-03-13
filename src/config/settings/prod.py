@@ -22,5 +22,5 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Email via Mailgun in production
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# Email via Acoruss Mailer (direct API integration in apps.core.mailer)
+# ACORUSS_MAILER_KEY is read from env in base.py

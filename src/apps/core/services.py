@@ -2,11 +2,11 @@
 
 import logging
 
-from asgiref.sync import sync_to_async
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+from .mailer import AcorussMailerError, Email
+from .mailer import send as mailer_send
 from .models import ContactSubmission
 
 logger = logging.getLogger(__name__)
@@ -53,20 +53,25 @@ async def send_contact_notification(submission: ContactSubmission) -> None:
         },
     )
 
-    # Use customer name in display, reply-to their email so "Reply" goes to them
-    from_email = f"{submission.name} via Acoruss <{settings.DEFAULT_FROM_EMAIL_ADDRESS}>"
+    email = Email(
+        to=recipients,
+        subject=subject,
+        html=html_body,
+        text=text_body,
+        from_email=settings.DEFAULT_FROM_EMAIL_ADDRESS,
+        from_name=f"{submission.name} via Acoruss",
+        reply_to=submission.email,
+        tags=["contact-form"],
+        metadata={"submission_id": str(submission.pk)},
+    )
 
     try:
-        msg = EmailMultiAlternatives(
-            subject=subject,
-            body=text_body,
-            from_email=from_email,
-            to=recipients,
-            reply_to=[f"{submission.name} <{submission.email}>"],
+        message_id = await mailer_send(email)
+        logger.info(
+            "Contact notification queued (%s) for submission #%d → %s",
+            message_id,
+            submission.pk,
+            recipients,
         )
-        msg.attach_alternative(html_body, "text/html")
-        # Email send is synchronous I/O — wrap for async safety
-        await sync_to_async(msg.send, thread_sensitive=True)(fail_silently=False)
-        logger.info("Contact notification sent to %s for submission #%d", recipients, submission.pk)
-    except Exception:
+    except AcorussMailerError:
         logger.exception("Failed to send contact notification for submission #%d", submission.pk)

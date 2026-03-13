@@ -35,7 +35,7 @@
 - [x] Template partials: navbar, hero, services, process, projects, blog, about, contact, footer
 - [x] `ContactSubmission` model (name, email, company, phone, project_type, message, is_read)
 - [x] `ContactSubmitView` - async POST handler, saves to DB, redirects with success message
-- [x] Configure django-anymail[mailgun] email backend (send email on contact submit)
+- [x] Configure email backend (Acoruss Mailer API - migrated from django-anymail[mailgun])
 - [x] Privacy policy & terms of service pages (expanded content, info@acoruss.com)
 - [x] Apply DaisyUI Agency Landing layout + brand colors (acoruss theme: primary #590303)
 - [x] Port JS: mobile menu (DaisyUI drawer), smooth scroll
@@ -49,7 +49,7 @@
 - [x] Paystack placeholder app: `src/apps/payments/` with models, views, services
 - [x] Payment page template (`/payments/` - discovery call / service payments)
 - [x] Paystack webhook handler (`/payments/webhook/`)
-- [x] Mailgun transactional emails (contact notifications, payment receipts)
+- [x] Acoruss Mailer transactional emails (contact notifications, payment receipts)
 - [x] Verify: Paystack test mode flow works ✅
 
 ## Phase 5: Admin Dashboard
@@ -69,7 +69,7 @@
 | ---------------- | --------------------------------- | ----------------------------------- |
 | Server           | ASGI (Gunicorn + Uvicorn workers) | AGENTS.md mandates async Django     |
 | Linter/Formatter | Ruff                              | Single tool, fast, modern           |
-| Email            | django-anymail[mailgun]           | Battle-tested Mailgun integration   |
+| Email            | Acoruss Mailer (httpx)            | Direct async API, no Django backend |
 | Payments         | Paystack (placeholder)            | Scaffold now, define products later |
 | User model       | Custom from Phase 1               | Avoids painful migration later      |
 | Templates        | Partials pattern                  | Modular, testable sections          |
@@ -80,6 +80,6 @@
 - **Phase 1**: ✅ Complete - Foundation & Infrastructure
 - **Phase 2**: ✅ Complete - CI/CD & Code Quality
 - **Phase 3**: ✅ Complete - Website Redesign
-- **Phase 4**: ✅ Complete - Integrations (Paystack + Mailgun)
+- **Phase 4**: ✅ Complete - Integrations (Paystack + Acoruss Mailer)
 - **Phase 5**: ✅ Complete - Admin Dashboard
-- **Current Status**: All phases complete. Full Django stack live with async support, Paystack payments, Mailgun emails, and admin dashboard.
+- **Current Status**: All phases complete. Full Django stack live with async support, Paystack payments, Acoruss Mailer emails, and admin dashboard.

@@ -113,18 +113,44 @@
 
         <!-- Custom Software Panel -->
         <div id="custom-software" class="project-panel hidden" role="tabpanel">
-            <div class="text-center py-12">
-                <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                        class="text-accent">
-                        <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
-                    </svg>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Acoruss Mailer -->
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">Email Platform</div>
+                        <h3 class="card-title text-lg">Acoruss Mailer</h3>
+                        <p class="text-base-content/60 text-sm">Send, track, and optimize your email delivery with a modern API built for developers and teams.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-base-content/70">Outcome:</span> <span
+                                    class="text-base-content/60">Lightning-fast email delivery with sub-100ms speeds, 99.9% uptime, and flexible API & SMTP integration.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Platform</a>
+                            <a href="https://mailer.acoruss.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Platform</a>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Custom Software Projects</h3>
-                <p class="text-base-content/60 mb-6">We're working on showcasing more of our custom software projects. Contact
-                    us to discuss yours.</p>
-                <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Start Your Project</a>
+
+                <!-- GoToWriters -->
+                <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl card-hover">
+                    <div class="card-body">
+                        <div class="badge badge-accent badge-sm mb-2">Writing Platform</div>
+                        <h3 class="card-title text-lg">GoToWriters</h3>
+                        <p class="text-base-content/60 text-sm">Professional writing services platform — ghostwriting, research papers, academic writing, policy papers, content & SEO.</p>
+                        <div class="mt-3 text-sm">
+                            <p><span class="font-medium text-base-content/70">Outcome:</span> <span
+                                    class="text-base-content/60">Full-featured platform with portfolio showcase, client reviews, quoting system, and 500+ projects delivered.</span></p>
+                        </div>
+                        <div class="card-actions mt-4 flex-col sm:flex-row gap-2">
+                            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-sm rounded-full">Build Similar
+                                Platform</a>
+                            <a href="https://gotowriters.com?utm_source=acoruss.com" target="_blank"
+                                rel="noopener noreferrer" class="btn btn-outline btn-sm rounded-full">See the Platform</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -9,7 +9,7 @@ The official website for [Acoruss](https://acoruss.com) — a technology consult
 - **Backend:** Django 5.1+ (Python 3.13) with async ASGI (Gunicorn + Uvicorn)
 - **Frontend:** Tailwind CSS 3 + DaisyUI components, Urbanist font
 - **Database:** PostgreSQL 16
-- **Email:** django-anymail with Mailgun (console backend in development)
+- **Email:** Acoruss Mailer API (console logging in development)
 - **Static Files:** WhiteNoise
 - **Containerisation:** Docker & Docker Compose
 
@@ -148,8 +148,7 @@ Copy `.env_sample` to `.env` and configure:
 | `DEBUG`                       | Debug mode (True/False)             | Yes      |
 | `ALLOWED_HOSTS`               | Comma-separated allowed hosts       | Yes      |
 | `DATABASE_URL`                | PostgreSQL connection URL           | Yes      |
-| `MAILGUN_API_KEY`             | Mailgun API key for email           | Prod     |
-| `MAILGUN_SENDER_DOMAIN`       | Mailgun sender domain               | Prod     |
+| `ACORUSS_MAILER_KEY`          | Acoruss Mailer API key              | Prod     |
 | `PAYSTACK_SECRET_KEY`         | Paystack secret key                 | Prod     |
 | `PAYSTACK_PUBLIC_KEY`         | Paystack public key                 | Prod     |
 | `GOOGLE_ANALYTICS_ID`         | Google Analytics measurement ID     | Prod     |

@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from decimal import Decimal
 from html import unescape
 from re import sub as re_sub
+from typing import ClassVar
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -13,6 +14,7 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import DetailView, ListView, TemplateView
+from django.views.static import serve as static_serve
 
 from .models import ContactSubmission
 from .services import send_contact_notification
@@ -57,6 +59,62 @@ class RobotsTxtView(View):
 
     def get(self, request: HttpRequest) -> HttpResponse:
         return HttpResponse(self.ROBOTS_TXT, content_type="text/plain")
+
+
+class HealthCheckView(View):
+    """Minimal health check endpoint for Docker / load balancer probes."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        return HttpResponse("ok", content_type="text/plain")
+
+
+class FaviconView(View):
+    """Serve favicon.ico from static files to avoid 404s."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        import os
+
+        from django.conf import settings
+
+        favicon_path = os.path.join(settings.BASE_DIR, "static", "images", "favicon.ico")
+        if os.path.exists(favicon_path):
+            return static_serve(request, "images/favicon.ico", document_root=os.path.join(settings.BASE_DIR, "static"))
+        return HttpResponse(status=204)
+
+
+class SitemapXmlView(View):
+    """Serve a basic sitemap.xml for search engines."""
+
+    SITEMAP_URLS: ClassVar[list[tuple[str, str, str]]] = [
+        ("/", "1.0", "monthly"),
+        ("/services/", "0.9", "monthly"),
+        ("/pricing/", "0.8", "monthly"),
+        ("/projects/", "0.8", "monthly"),
+        ("/our-products/", "0.8", "monthly"),
+        ("/about-us/", "0.7", "monthly"),
+        ("/contact-us/", "0.7", "monthly"),
+        ("/privacy-policy/", "0.3", "yearly"),
+        ("/terms-of-service/", "0.3", "yearly"),
+    ]
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        base = "https://acoruss.com"
+        urls_xml = ""
+        for path, priority, changefreq in self.SITEMAP_URLS:
+            urls_xml += (
+                f"  <url>\n"
+                f"    <loc>{base}{path}</loc>\n"
+                f"    <priority>{priority}</priority>\n"
+                f"    <changefreq>{changefreq}</changefreq>\n"
+                f"  </url>\n"
+            )
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f"{urls_xml}"
+            "</urlset>\n"
+        )
+        return HttpResponse(xml, content_type="application/xml")
 
 
 class SecurityTxtView(View):
@@ -363,6 +421,8 @@ class BlogFeedView(View):
 
     FEED_URL = "https://acoruss.substack.com/feed"
     CACHE_TIMEOUT = 60 * 15  # 15 minutes
+    # Use a browser-like User-Agent to avoid 403 from Substack
+    USER_AGENT = "Mozilla/5.0 (compatible; AcorussFeedBot/1.0; +https://acoruss.com)"
 
     async def get(self, request: HttpRequest) -> JsonResponse:
         import asyncio
@@ -370,7 +430,7 @@ class BlogFeedView(View):
 
         try:
             loop = asyncio.get_event_loop()
-            req = Request(self.FEED_URL, headers={"User-Agent": "Acoruss/1.0"})  # noqa: S310
+            req = Request(self.FEED_URL, headers={"User-Agent": self.USER_AGENT})  # noqa: S310
             body = await loop.run_in_executor(None, lambda: urlopen(req, timeout=10).read())  # noqa: S310
             root = ET.fromstring(body)  # noqa: S314
 

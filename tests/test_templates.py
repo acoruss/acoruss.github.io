@@ -5,6 +5,8 @@ each one can be loaded by Django's template engine without syntax errors.
 This replaces the old hardcoded template list in the Makefile.
 """
 
+import re
+
 import pytest
 from django.conf import settings
 from django.template.loader import get_template
@@ -16,6 +18,10 @@ def _discover_templates() -> list[str]:
     if not templates_dir.exists():
         return []
     return sorted(str(path.relative_to(templates_dir)) for path in templates_dir.rglob("*.html"))
+
+
+# Regex that matches an opening {{ or {% without a matching close on the same line
+_UNCLOSED_TAG_RE = re.compile(r"\{\{[^}]*$|\{%[^%]*$")
 
 
 # Collect at module import time so parametrize works
@@ -45,3 +51,16 @@ def test_required_templates_present() -> None:
     ]
     for name in required:
         assert name in _TEMPLATES, f"Required template '{name}' not found"
+
+
+@pytest.mark.parametrize("template_name", _TEMPLATES, ids=_TEMPLATES)
+def test_template_tags_single_line(template_name: str) -> None:
+    """Ensure {{ }} and {% %} tags are not split across multiple lines."""
+    templates_dir = settings.BASE_DIR / "templates"
+    filepath = templates_dir / template_name
+    lines = filepath.read_text().splitlines()
+    violations: list[str] = []
+    for lineno, line in enumerate(lines, start=1):
+        if _UNCLOSED_TAG_RE.search(line):
+            violations.append(f"  {template_name}:{lineno}: {line.strip()}")
+    assert not violations, "Template tags must open and close on the same line:\n" + "\n".join(violations)

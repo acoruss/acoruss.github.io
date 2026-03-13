@@ -155,8 +155,7 @@
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2">
                         <span
-                            class="text-sm font-medium truncate {% if not submission.is_read %}text-base-content{% else %}text-base-content/70{% endif %}">{{
-                            submission.name }}</span>
+                            class="text-sm font-medium truncate {% if not submission.is_read %}text-base-content{% else %}text-base-content/70{% endif %}">{{ submission.name }}</span>
                         {% if not submission.is_read %}<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>{% endif %}
                     </div>
                     <div class="text-xs text-base-content/40 truncate">{{ submission.email }}</div>
@@ -188,8 +187,7 @@
                                 <div class="avatar placeholder">
                                     <div
                                         class="bg-{% if not submission.is_read %}primary{% else %}base-300{% endif %}/20 text-{% if not submission.is_read %}primary{% else %}base-content/50{% endif %} rounded-full w-8 h-8">
-                                        <span class="text-xs font-bold">{{ submission.name|make_list|first|upper
-                                            }}</span>
+                                        <span class="text-xs font-bold">{{ submission.name|make_list|first|upper }}</span>
                                     </div>
                                 </div>
                                 <a href="{% url 'core:dashboard_contact_detail' submission.pk %}"

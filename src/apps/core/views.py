@@ -578,3 +578,17 @@ class BlogFeedView(View):
         except Exception:
             logger.exception("Failed to fetch blog feed")
             return JsonResponse([], safe=False)
+
+
+class ExchangeRateView(View):
+    """Return the current USD → KES exchange rate for client-side currency display."""
+
+    async def get(self, request: HttpRequest) -> JsonResponse:
+        from apps.payments.currency_service import get_exchange_rate
+
+        try:
+            rate = await get_exchange_rate("USD", "KES")
+            return JsonResponse({"rate": float(rate), "from": "USD", "to": "KES"})
+        except Exception:
+            logger.exception("Failed to fetch exchange rate")
+            return JsonResponse({"error": "Rate unavailable"}, status=503)

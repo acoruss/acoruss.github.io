@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Blog posts from Substack RSS
   initBlogLoader();
+
+  // Currency display (USD default, KES for Kenya)
+  initCurrencyDisplay();
 });
 
 /**
@@ -200,4 +203,148 @@ function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
+}
+
+// ---------------------------------------------------------------------------
+// Currency display — USD default, KES for visitors in Kenya
+// ---------------------------------------------------------------------------
+
+const RATE_CACHE_KEY = "acoruss_usd_kes_rate";
+const RATE_CACHE_TTL = 3600000; // 1 hour in ms
+
+function isKenyaTimezone() {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone === "Africa/Nairobi";
+  } catch {
+    return false;
+  }
+}
+
+function getCachedRate() {
+  try {
+    const raw = sessionStorage.getItem(RATE_CACHE_KEY);
+    if (!raw) return null;
+    const cached = JSON.parse(raw);
+    if (Date.now() - cached.fetchedAt < RATE_CACHE_TTL) return cached.rate;
+    sessionStorage.removeItem(RATE_CACHE_KEY);
+  } catch {
+    // Ignore parse errors
+  }
+  return null;
+}
+
+function setCachedRate(rate) {
+  try {
+    sessionStorage.setItem(
+      RATE_CACHE_KEY,
+      JSON.stringify({ rate, fetchedAt: Date.now() })
+    );
+  } catch {
+    // sessionStorage unavailable (private browsing, etc.)
+  }
+}
+
+function formatCurrency(amount, currency, locale) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function applyPrices(currency, rate, locale) {
+  document.querySelectorAll("[data-price]").forEach((el) => {
+    const usdAmount = parseFloat(el.dataset.price);
+    if (isNaN(usdAmount)) return;
+    const amount = currency === "KES" ? Math.round(usdAmount * rate) : usdAmount;
+    el.textContent = formatCurrency(amount, currency, locale);
+  });
+
+  // Handle range prices: data-price-min / data-price-max
+  document.querySelectorAll("[data-price-min]").forEach((el) => {
+    const minUsd = parseFloat(el.dataset.priceMin);
+    const maxUsd = parseFloat(el.dataset.priceMax);
+    const suffix = el.dataset.priceSuffix || "";
+    if (isNaN(minUsd)) return;
+
+    const min = currency === "KES" ? Math.round(minUsd * rate) : minUsd;
+    const formattedMin = formatCurrency(min, currency, locale);
+
+    if (!isNaN(maxUsd)) {
+      const max = currency === "KES" ? Math.round(maxUsd * rate) : maxUsd;
+      const formattedMax = formatCurrency(max, currency, locale);
+      el.textContent = formattedMin + " – " + formattedMax + suffix;
+    } else {
+      el.textContent = formattedMin + suffix;
+    }
+  });
+}
+
+// Current state for toggle support
+let _currentCurrency = "USD";
+let _kesRate = null;
+
+function updateToggleButtons(currency) {
+  const btnUsd = document.getElementById("btn-usd");
+  const btnKes = document.getElementById("btn-kes");
+  if (!btnUsd || !btnKes) return;
+  if (currency === "USD") {
+    btnUsd.classList.add("btn-primary");
+    btnUsd.classList.remove("btn-ghost");
+    btnKes.classList.add("btn-ghost");
+    btnKes.classList.remove("btn-primary");
+  } else {
+    btnKes.classList.add("btn-primary");
+    btnKes.classList.remove("btn-ghost");
+    btnUsd.classList.add("btn-ghost");
+    btnUsd.classList.remove("btn-primary");
+  }
+}
+
+async function getKesRate() {
+  if (_kesRate) return _kesRate;
+  const cached = getCachedRate();
+  if (cached) { _kesRate = cached; return _kesRate; }
+  try {
+    const res = await fetch("/api/rates/usd-kes/");
+    if (!res.ok) throw new Error("Rate fetch failed");
+    const data = await res.json();
+    if (data.rate) { _kesRate = data.rate; setCachedRate(_kesRate); return _kesRate; }
+  } catch { /* fall through */ }
+  return null;
+}
+
+async function switchCurrency(currency) {
+  if (currency === "KES") {
+    const rate = await getKesRate();
+    if (rate) {
+      applyPrices("KES", rate, "en-KE");
+      _currentCurrency = "KES";
+    }
+  } else {
+    applyPrices("USD", 1, "en-US");
+    _currentCurrency = "USD";
+  }
+  updateToggleButtons(_currentCurrency);
+}
+
+function initCurrencyToggle() {
+  const btnUsd = document.getElementById("btn-usd");
+  const btnKes = document.getElementById("btn-kes");
+  if (!btnUsd || !btnKes) return;
+  btnUsd.addEventListener("click", () => switchCurrency("USD"));
+  btnKes.addEventListener("click", () => switchCurrency("KES"));
+}
+
+async function initCurrencyDisplay() {
+  const hasPrice = document.querySelector("[data-price], [data-price-min]");
+  if (!hasPrice) return;
+
+  // Always default to USD
+  applyPrices("USD", 1, "en-US");
+  _currentCurrency = "USD";
+
+  updateToggleButtons(_currentCurrency);
+  initCurrencyToggle();
 }

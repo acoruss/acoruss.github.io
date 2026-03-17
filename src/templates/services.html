@@ -8,7 +8,7 @@ your needs.{% endblock %}
 
 {% block content %}
 <!-- Services Hero -->
-<section class="pt-32 pb-20">
+<section class="pt-32 pb-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-animate>
         <div
             class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-4 text-accent text-xs font-semibold uppercase tracking-wider">
@@ -18,11 +18,19 @@ your needs.{% endblock %}
         <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Our <span class="text-accent">Services</span></h1>
         <p class="text-lg text-base-content/60 max-w-2xl mx-auto">From initial consultation to ongoing maintenance, we
             provide complete software solutions tailored to your needs.</p>
+        <!-- Currency toggle -->
+        <div class="mt-6 flex items-center justify-center gap-3" id="currency-toggle">
+            <span class="text-sm text-base-content/50">Show prices in:</span>
+            <div class="flex gap-1 bg-base-300/50 rounded-full p-1">
+                <button class="btn btn-sm btn-primary rounded-full min-w-[4rem]" id="btn-usd" data-currency="USD">USD</button>
+                <button class="btn btn-sm btn-ghost rounded-full min-w-[4rem]" id="btn-kes" data-currency="KES">KES</button>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Service Tabs -->
-<section class="py-20 sm:py-28">
+<section class="pt-6 pb-20 sm:pb-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Tab Navigation -->
         <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist">
@@ -71,7 +79,7 @@ your needs.{% endblock %}
                                 you.</p>
                         </div>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-accent font-bold">Ksh. 30,000 - Ksh. 100,000</p>
+                            <p class="text-accent font-bold" data-price-min="300" data-price-max="1000">$300 – $1,000</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +104,7 @@ your needs.{% endblock %}
                                 Analytics tracking, training or light support after launch.</p>
                         </div>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-accent font-bold">Ksh. 80,000 - Ksh. 150,000</p>
+                            <p class="text-accent font-bold" data-price-min="800" data-price-max="1500">$800 – $1,500</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +128,7 @@ your needs.{% endblock %}
                                 customer emails, performance tuning, PWA, security monitoring & backups.</p>
                         </div>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-accent font-bold">Ksh. 130,000 - Ksh. 500,000+</p>
+                            <p class="text-accent font-bold" data-price-min="1300" data-price-max="5000" data-price-suffix="+">$1,300 – $5,000+</p>
                         </div>
                     </div>
                 </div>
@@ -141,7 +149,7 @@ your needs.{% endblock %}
                                 robust security, and team collaboration.</p>
                         </div>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-accent font-bold">From Ksh. 350,000+</p>
+                            <p class="text-accent font-bold" data-price-min="3500" data-price-suffix="+">$3,500+</p>
                         </div>
                     </div>
                 </div>
@@ -164,10 +172,10 @@ your needs.{% endblock %}
                         enabled us to pursue other fields like the Internet of Things (IoT) and Electric Vehicles
                         Technology.</p>
                     <div class="mt-4 pt-4 border-t border-base-300/30">
-                        <p class="text-sm text-base-content/50 italic mb-2">Small discovery fee of Ksh. 5,000 applies,
+                        <p class="text-sm text-base-content/50 italic mb-2">Small discovery fee of <span data-price="50">$50</span> applies,
                             fully
                             credited if you proceed.</p>
-                        <p class="text-accent font-bold">Development starts from Ksh. 100,000</p>
+                        <p class="text-accent font-bold">Development starts from <span data-price="1000">$1,000</span></p>
                     </div>
                     <div class="mt-4">
                         <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Start Your Project</a>
@@ -194,7 +202,7 @@ your needs.{% endblock %}
                             selection, ensuring your AI initiatives deliver measurable business value while maintaining
                             ethical considerations.</p>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-sm text-base-content/50 italic">Discovery fee of Ksh. 5,000 applies, fully
+                            <p class="text-sm text-base-content/50 italic">Discovery fee of <span data-price="50">$50</span> applies, fully
                                 credited
                                 if you proceed.</p>
                         </div>
@@ -208,10 +216,10 @@ your needs.{% endblock %}
                             with our AI/ML development services to better comprehend the content of conversations and
                             provide human-like experiences to customers.</p>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies,
+                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies,
                                 fully
                                 credited if you proceed.</p>
-                            <p class="text-accent font-bold">Development starts at Ksh. 50,000</p>
+                            <p class="text-accent font-bold">Development starts at <span data-price="500">$500</span></p>
                         </div>
                     </div>
                 </div>
@@ -222,10 +230,10 @@ your needs.{% endblock %}
                             build
                             intelligent and adaptive applications.</p>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies,
+                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies,
                                 fully
                                 credited if you proceed.</p>
-                            <p class="text-accent font-bold">Development starts at Ksh. 100,000</p>
+                            <p class="text-accent font-bold">Development starts at <span data-price="1000">$1,000</span></p>
                         </div>
                     </div>
                 </div>
@@ -236,10 +244,10 @@ your needs.{% endblock %}
                             assist
                             you in AI agent consultation, development, integration, training, and optimisation.</p>
                         <div class="mt-4 pt-4 border-t border-base-300/30">
-                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies,
+                            <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies,
                                 fully
                                 credited if you proceed.</p>
-                            <p class="text-accent font-bold">Development starts at Ksh. 100,000</p>
+                            <p class="text-accent font-bold">Development starts at <span data-price="1000">$1,000</span></p>
                         </div>
                     </div>
                 </div>
@@ -261,7 +269,7 @@ your needs.{% endblock %}
                         business objectives, and growth plans. Our consultants provide actionable recommendations that
                         drive measurable results.</p>
                     <div class="mt-4 pt-4 border-t border-base-300/30">
-                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies, fully
+                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies, fully
                             credited
                             if you proceed.</p>
                     </div>
@@ -287,10 +295,10 @@ your needs.{% endblock %}
                         controls. We enforce zero-trust policy and ensure only the necessary access is granted through
                         auditable processes.</p>
                     <div class="mt-4 pt-4 border-t border-base-300/30">
-                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies, fully
+                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies, fully
                             credited
                             if you proceed.</p>
-                        <p class="text-accent font-bold">Auditing fee starts from Ksh. 100,000+</p>
+                        <p class="text-accent font-bold">Auditing fee starts from <span data-price-min="1000" data-price-suffix="+">$1,000+</span></p>
                     </div>
                     <div class="mt-4">
                         <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Request a Security
@@ -316,10 +324,10 @@ your needs.{% endblock %}
                         team going through the processes. This is at least a day and up to five days. We prepare a
                         report for possible automation or optimisations.</p>
                     <div class="mt-4 pt-4 border-t border-base-300/30">
-                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of Ksh. 5,000 applies, fully
+                        <p class="text-sm text-base-content/50 italic mb-1">Discovery fee of <span data-price="50">$50</span> applies, fully
                             credited
                             if you proceed.</p>
-                        <p class="text-accent font-bold">Daily rate of Ksh. 10,000 for process analysis</p>
+                        <p class="text-accent font-bold">Daily rate of <span data-price="100">$100</span> for process analysis</p>
                     </div>
                     <div class="mt-4">
                         <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-full">Optimise Your
@@ -345,8 +353,7 @@ your needs.{% endblock %}
                     </p>
                     <div class="mt-4 pt-4 border-t border-base-300/30">
                         <p class="text-sm text-base-content/50 italic mb-1">Free or donation. If invited, discovery fee
-                            of Ksh.
-                            5,000 applies, fully credited if you proceed.</p>
+                            of <span data-price="50">$50</span> applies, fully credited if you proceed.</p>
                     </div>
                     <div class="mt-4">
                         <a href="https://github.com/acoruss" target="_blank" rel="noopener noreferrer"

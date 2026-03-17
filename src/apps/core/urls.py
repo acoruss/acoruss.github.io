@@ -30,6 +30,7 @@ urlpatterns = [
     path("terms-of-service/", views.TermsOfServiceView.as_view(), name="terms_of_service"),
     # API
     path("api/blog-feed/", views.BlogFeedView.as_view(), name="blog_feed"),
+    path("api/rates/usd-kes/", views.ExchangeRateView.as_view(), name="exchange_rate"),
     # Dashboard
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
     path("dashboard/contacts/", views.ContactSubmissionsListView.as_view(), name="dashboard_contacts"),

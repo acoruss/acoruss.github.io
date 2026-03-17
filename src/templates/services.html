@@ -18,6 +18,14 @@ your needs.{% endblock %}
         <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Our <span class="text-accent">Services</span></h1>
         <p class="text-lg text-base-content/60 max-w-2xl mx-auto">From initial consultation to ongoing maintenance, we
             provide complete software solutions tailored to your needs.</p>
+        <!-- Currency toggle -->
+        <div class="mt-6 flex items-center justify-center gap-3" id="currency-toggle">
+            <span class="text-sm text-base-content/50">Show prices in:</span>
+            <div class="flex gap-1 bg-base-300/50 rounded-full p-1">
+                <button class="btn btn-sm btn-primary rounded-full min-w-[4rem]" id="btn-usd" data-currency="USD">USD</button>
+                <button class="btn btn-sm btn-ghost rounded-full min-w-[4rem]" id="btn-kes" data-currency="KES">KES</button>
+            </div>
+        </div>
     </div>
 </section>
 

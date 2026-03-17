@@ -289,8 +289,17 @@ function updateToggleButtons(currency) {
   const btnUsd = document.getElementById("btn-usd");
   const btnKes = document.getElementById("btn-kes");
   if (!btnUsd || !btnKes) return;
-  btnUsd.classList.toggle("btn-active", currency === "USD");
-  btnKes.classList.toggle("btn-active", currency === "KES");
+  if (currency === "USD") {
+    btnUsd.classList.add("btn-primary");
+    btnUsd.classList.remove("btn-ghost");
+    btnKes.classList.add("btn-ghost");
+    btnKes.classList.remove("btn-primary");
+  } else {
+    btnKes.classList.add("btn-primary");
+    btnKes.classList.remove("btn-ghost");
+    btnUsd.classList.add("btn-ghost");
+    btnUsd.classList.remove("btn-primary");
+  }
 }
 
 async function getKesRate() {
@@ -321,31 +330,20 @@ async function switchCurrency(currency) {
 }
 
 function initCurrencyToggle() {
-  const toggle = document.getElementById("currency-toggle");
-  if (!toggle) return;
-  toggle.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-currency]");
-    if (!btn || btn.dataset.currency === _currentCurrency) return;
-    switchCurrency(btn.dataset.currency);
-  });
+  const btnUsd = document.getElementById("btn-usd");
+  const btnKes = document.getElementById("btn-kes");
+  if (!btnUsd || !btnKes) return;
+  btnUsd.addEventListener("click", () => switchCurrency("USD"));
+  btnKes.addEventListener("click", () => switchCurrency("KES"));
 }
 
 async function initCurrencyDisplay() {
   const hasPrice = document.querySelector("[data-price], [data-price-min]");
   if (!hasPrice) return;
 
-  const inKenya = isKenyaTimezone();
-  if (inKenya) {
-    const rate = await getKesRate();
-    if (rate) {
-      applyPrices("KES", rate, "en-KE");
-      _currentCurrency = "KES";
-    } else {
-      applyPrices("USD", 1, "en-US");
-    }
-  } else {
-    applyPrices("USD", 1, "en-US");
-  }
+  // Always default to USD
+  applyPrices("USD", 1, "en-US");
+  _currentCurrency = "USD";
 
   updateToggleButtons(_currentCurrency);
   initCurrencyToggle();

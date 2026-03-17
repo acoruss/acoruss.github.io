@@ -26,11 +26,11 @@ more.{% endblock %}
                 Discovery Call</a>
         </div>
         <!-- Currency toggle -->
-        <div class="mt-6 flex items-center justify-center gap-2" id="currency-toggle">
+        <div class="mt-6 flex items-center justify-center gap-3" id="currency-toggle">
             <span class="text-sm text-base-content/50">Show prices in:</span>
-            <div class="join">
-                <button class="join-item btn btn-sm rounded-full" id="btn-usd" data-currency="USD">USD</button>
-                <button class="join-item btn btn-sm rounded-full" id="btn-kes" data-currency="KES">KES</button>
+            <div class="flex gap-1 bg-base-300/50 rounded-full p-1">
+                <button class="btn btn-sm btn-primary rounded-full min-w-[4rem]" id="btn-usd" data-currency="USD">USD</button>
+                <button class="btn btn-sm btn-ghost rounded-full min-w-[4rem]" id="btn-kes" data-currency="KES">KES</button>
             </div>
         </div>
     </div>
@@ -134,8 +134,9 @@ more.{% endblock %}
 <section class="py-20 sm:py-28">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center mb-4">"Start Here" Pricing Anchors</h2>
-        <p class="text-base-content/60 text-center mb-12 max-w-2xl mx-auto">Common outcomes and their typical investment
+        <p class="text-base-content/60 text-center mb-4 max-w-2xl mx-auto">Common outcomes and their typical investment
             ranges.</p>
+        <p class="text-xs text-base-content/40 text-center mb-12 italic">Timelines assume all requirements, content, and assets are provided, and deposit is paid.</p>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             <div class="card bg-base-200/50 border border-base-300/30 rounded-2xl">
@@ -169,9 +170,6 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
                                 class="text-accent font-bold" data-price-min="800" data-price-max="1500">$800 – $1,500</span></div>
                     </div>
-                    <p class="text-xs text-base-content/40 mt-2 italic">Timeline assumes client provides copy/images
-                        within 7
-                        days.</p>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
                             class="btn btn-outline btn-sm rounded-full w-full">See exact pricing</a>

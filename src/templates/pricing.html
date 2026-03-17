@@ -25,6 +25,14 @@ more.{% endblock %}
             <a href="{% url 'core:contact' %}" class="btn btn-outline rounded-full px-8 font-semibold">Book
                 Discovery Call</a>
         </div>
+        <!-- Currency toggle -->
+        <div class="mt-6 flex items-center justify-center gap-2" id="currency-toggle">
+            <span class="text-sm text-base-content/50">Show prices in:</span>
+            <div class="join">
+                <button class="join-item btn btn-sm rounded-full" id="btn-usd" data-currency="USD">USD</button>
+                <button class="join-item btn btn-sm rounded-full" id="btn-kes" data-currency="KES">KES</button>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -140,7 +148,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">~1 week</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 30,000 - 100,000</span></div>
+                                class="text-accent font-bold" data-price-min="300" data-price-max="1000">$300 – $1,000</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
@@ -159,7 +167,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4-6 weeks+</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 80,000 - 150,000</span></div>
+                                class="text-accent font-bold" data-price-min="800" data-price-max="1500">$800 – $1,500</span></div>
                     </div>
                     <p class="text-xs text-base-content/40 mt-2 italic">Timeline assumes client provides copy/images
                         within 7
@@ -180,7 +188,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">6-8 weeks+</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 130,000 - 500,000+</span></div>
+                                class="text-accent font-bold" data-price-min="1300" data-price-max="5000" data-price-suffix="+">$1,300 – $5,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#website-development"
@@ -199,7 +207,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4-6 weeks</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 100,000+</span></div>
+                                class="text-accent font-bold" data-price-min="1000" data-price-suffix="+">$1,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#custom-software"
@@ -218,7 +226,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4-6 weeks</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 50,000 - 250,000+</span></div>
+                                class="text-accent font-bold" data-price-min="500" data-price-max="2500" data-price-suffix="+">$500 – $2,500+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#ai" class="btn btn-outline btn-sm rounded-full w-full">See
@@ -236,7 +244,7 @@ more.{% endblock %}
                         <div class="flex justify-between"><span class="text-base-content/50">Timeline:</span><span
                                 class="font-medium">4-6 weeks</span></div>
                         <div class="flex justify-between"><span class="text-base-content/50">From:</span><span
-                                class="text-accent font-bold">Ksh. 100,000+</span></div>
+                                class="text-accent font-bold" data-price-min="1000" data-price-suffix="+">$1,000+</span></div>
                     </div>
                     <div class="card-actions mt-4">
                         <a href="{% url 'core:services' %}#security"
@@ -308,7 +316,7 @@ more.{% endblock %}
                     <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-5">
                         <h3 class="font-bold">Essentials</h3>
                         <p class="text-sm text-base-content/50 mb-2">Basic maintenance</p>
-                        <p class="text-accent font-bold text-lg">From Ksh. 10,000<span
+                        <p class="text-accent font-bold text-lg"><span data-price="100">$100</span><span
                                 class="text-base-content/50 text-sm font-normal">/month</span></p>
                         <ul class="text-sm text-base-content/60 mt-3 space-y-1">
                             <li>• 10 hours/month</li>
@@ -322,7 +330,7 @@ more.{% endblock %}
                             <span class="badge badge-accent badge-sm">Popular</span>
                         </div>
                         <p class="text-sm text-base-content/50 mb-2">Maintenance + small improvements</p>
-                        <p class="text-accent font-bold text-lg">From Ksh. 15,000<span
+                        <p class="text-accent font-bold text-lg"><span data-price="150">$150</span><span
                                 class="text-base-content/50 text-sm font-normal">/month</span></p>
                         <ul class="text-sm text-base-content/60 mt-3 space-y-1">
                             <li>• 15 hours/month</li>
@@ -333,7 +341,7 @@ more.{% endblock %}
                     <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-5">
                         <h3 class="font-bold">Priority</h3>
                         <p class="text-sm text-base-content/50 mb-2">Faster response + monitoring + proactive work</p>
-                        <p class="text-accent font-bold text-lg">From Ksh. 25,000<span
+                        <p class="text-accent font-bold text-lg"><span data-price="250">$250</span><span
                                 class="text-base-content/50 text-sm font-normal">/month</span></p>
                         <ul class="text-sm text-base-content/60 mt-3 space-y-1">
                             <li>• 20 hours/month</li>
@@ -351,7 +359,7 @@ more.{% endblock %}
 <section class="py-12">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl bg-base-200/50 border border-base-300/30 p-8">
-            <h3 class="text-lg font-bold mb-2">Discovery Fee - Ksh. 5,000</h3>
+            <h3 class="text-lg font-bold mb-2">Discovery Fee - <span data-price="50">$50</span></h3>
             <p class="text-base-content/60 text-sm mb-3">Credited to the project if you proceed. You receive:</p>
             <ul class="space-y-2 text-sm text-base-content/60">
                 <li class="flex items-start gap-2">

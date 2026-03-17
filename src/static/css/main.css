@@ -5392,8 +5392,16 @@ html:has(.drawer-toggle:checked) {
 .bg-error\/20 {
   background-color: var(--fallback-er,oklch(var(--er)/0.2));
 }
+.bg-info-content {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-inc,oklch(var(--inc)/var(--tw-bg-opacity, 1)));
+}
 .bg-info\/10 {
   background-color: var(--fallback-in,oklch(var(--in)/0.1));
+}
+.bg-neutral-content {
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-nc,oklch(var(--nc)/var(--tw-bg-opacity, 1)));
 }
 .bg-neutral-content\/10 {
   background-color: var(--fallback-nc,oklch(var(--nc)/0.1));
@@ -5442,10 +5450,6 @@ html:has(.drawer-toggle:checked) {
 .bg-warning {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-wa,oklch(var(--wa)/var(--tw-bg-opacity, 1)));
-}
-.bg-warning-content {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-wac,oklch(var(--wac)/var(--tw-bg-opacity, 1)));
 }
 .bg-warning\/10 {
   background-color: var(--fallback-wa,oklch(var(--wa)/0.1));

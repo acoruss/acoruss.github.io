@@ -5023,6 +5023,9 @@ html:has(.drawer-toggle:checked) {
 .min-w-\[180px\] {
   min-width: 180px;
 }
+.min-w-\[4rem\] {
+  min-width: 4rem;
+}
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -5373,6 +5376,9 @@ html:has(.drawer-toggle:checked) {
 .bg-base-300\/40 {
   background-color: var(--fallback-b3,oklch(var(--b3)/0.4));
 }
+.bg-base-300\/50 {
+  background-color: var(--fallback-b3,oklch(var(--b3)/0.5));
+}
 .bg-base-content\/20 {
   background-color: var(--fallback-bc,oklch(var(--bc)/0.2));
 }
@@ -5514,6 +5520,9 @@ html:has(.drawer-toggle:checked) {
 .\!p-3 {
   padding: 0.75rem !important;
 }
+.p-1 {
+  padding: 0.25rem;
+}
 .p-1\.5 {
   padding: 0.375rem;
 }
@@ -5634,8 +5643,14 @@ html:has(.drawer-toggle:checked) {
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
 .pb-12 {
   padding-bottom: 3rem;
+}
+.pb-16 {
+  padding-bottom: 4rem;
 }
 .pb-20 {
   padding-bottom: 5rem;
@@ -6310,8 +6325,16 @@ a, button {
     padding-bottom: 7rem;
   }
 
+  .sm\:pb-20 {
+    padding-bottom: 5rem;
+  }
+
   .sm\:pb-28 {
     padding-bottom: 7rem;
+  }
+
+  .sm\:pt-12 {
+    padding-top: 3rem;
   }
 
   .sm\:pt-4 {

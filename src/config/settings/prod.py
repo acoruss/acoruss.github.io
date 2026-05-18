@@ -22,5 +22,22 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+# Logging in production: keep scanner noise from flooding logs while preserving errors.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "loggers": {
+        "django.request": {
+            "level": env("DJANGO_REQUEST_LOG_LEVEL", default="ERROR"),
+        },
+        "django.security.csrf": {
+            "level": env("DJANGO_CSRF_LOG_LEVEL", default="ERROR"),
+        },
+        "security.probes": {
+            "level": env("PROBE_LOG_LEVEL", default="WARNING"),
+        },
+    },
+}
+
 # Email via Acoruss Mailer (direct API integration in apps.core.mailer)
 # ACORUSS_MAILER_KEY is read from env in base.py

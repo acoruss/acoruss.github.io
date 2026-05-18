@@ -11,6 +11,7 @@ from typing import ClassVar
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.cache import cache
 from django.core.signing import BadSignature, SignatureExpired, TimestampSigner
 from django.db import models
 from django.http import HttpRequest, HttpResponse, JsonResponse
@@ -543,40 +544,70 @@ class BlogFeedView(View):
 
     FEED_URL = "https://acoruss.substack.com/feed"
     CACHE_TIMEOUT = 60 * 15  # 15 minutes
-    # Use a browser-like User-Agent to avoid 403 from Substack
-    USER_AGENT = "Mozilla/5.0 (compatible; AcorussFeedBot/1.0; +https://acoruss.com)"
+    STALE_CACHE_TIMEOUT = 60 * 60 * 24  # 24 hours
+    FEED_CACHE_KEY = "core:blog_feed:posts"
+    FEED_STALE_CACHE_KEY = "core:blog_feed:posts:stale"
+    # Use a normal browser-like User-Agent to reduce bot blocking.
+    USER_AGENT = (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    )
+
+    def _parse_posts(self, body: bytes) -> list[dict[str, str]]:
+        root = ET.fromstring(body)  # noqa: S314
+
+        posts = []
+        for item in root.findall(".//item")[:6]:
+            title = item.findtext("title", "")
+            link = item.findtext("link", "")
+            pub_date = item.findtext("pubDate", "")
+            description = item.findtext("description", "")
+            # Strip HTML tags and decode entities for summary.
+            summary = unescape(re_sub(r"<[^>]+>", "", description))[:200]
+
+            posts.append(
+                {
+                    "title": title,
+                    "link": link,
+                    "published": pub_date,
+                    "summary": summary,
+                }
+            )
+
+        return posts
 
     async def get(self, request: HttpRequest) -> JsonResponse:
         import asyncio
         from urllib.request import Request, urlopen
 
+        fresh_cached_posts = cache.get(self.FEED_CACHE_KEY)
+        if fresh_cached_posts:
+            return JsonResponse(fresh_cached_posts, safe=False)
+
         try:
             loop = asyncio.get_event_loop()
-            req = Request(self.FEED_URL, headers={"User-Agent": self.USER_AGENT})  # noqa: S310
+            req = Request(  # noqa: S310
+                self.FEED_URL,
+                headers={
+                    "User-Agent": self.USER_AGENT,
+                    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "Referer": "https://acoruss.com/",
+                },
+            )
             body = await loop.run_in_executor(None, lambda: urlopen(req, timeout=10).read())  # noqa: S310
-            root = ET.fromstring(body)  # noqa: S314
+            posts = self._parse_posts(body)
 
-            posts = []
-            for item in root.findall(".//item")[:6]:
-                title = item.findtext("title", "")
-                link = item.findtext("link", "")
-                pub_date = item.findtext("pubDate", "")
-                description = item.findtext("description", "")
-                # Strip HTML tags and decode entities for summary
-                summary = unescape(re_sub(r"<[^>]+>", "", description))[:200]
-
-                posts.append(
-                    {
-                        "title": title,
-                        "link": link,
-                        "published": pub_date,
-                        "summary": summary,
-                    }
-                )
+            cache.set(self.FEED_CACHE_KEY, posts, self.CACHE_TIMEOUT)
+            cache.set(self.FEED_STALE_CACHE_KEY, posts, self.STALE_CACHE_TIMEOUT)
 
             return JsonResponse(posts, safe=False)
         except Exception:
             logger.exception("Failed to fetch blog feed")
+            stale_posts = cache.get(self.FEED_STALE_CACHE_KEY, [])
+            if stale_posts:
+                return JsonResponse(stale_posts, safe=False)
             return JsonResponse([], safe=False)
 
 

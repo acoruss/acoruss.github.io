@@ -2,11 +2,14 @@
 
 import json
 from decimal import Decimal
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
+from django.core.cache import cache
 from django.test import Client
 from django.urls import reverse
+
+from apps.core.views import BlogFeedView
 
 
 @pytest.mark.django_db
@@ -132,3 +135,59 @@ class TestExchangeRateEndpoint:
         response = client.get(self.URL + "?currency=EUR&callback=alert(1)")
         # Should either return 200 (ignored params) or the normal response
         assert response.status_code in (200, 503)
+
+
+@pytest.mark.django_db
+class TestBlogFeedEndpoint:
+    """Test the /api/blog-feed/ endpoint."""
+
+    URL = reverse("core:blog_feed")
+
+    @pytest.mark.asyncio
+    @patch("urllib.request.urlopen")
+    async def test_returns_parsed_posts_on_success(self, mock_urlopen, async_client) -> None:
+        """Test that RSS items are parsed and returned as JSON."""
+        cache.clear()
+        rss = b"""<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        <rss version=\"2.0\"><channel>
+          <item>
+            <title>Latest Acoruss Update</title>
+            <link>https://acoruss.substack.com/p/latest</link>
+            <pubDate>Mon, 18 May 2026 10:00:00 GMT</pubDate>
+            <description><![CDATA[<p>New platform launch updates.</p>]]></description>
+          </item>
+        </channel></rss>"""
+
+        mock_response = Mock()
+        mock_response.read.return_value = rss
+        mock_urlopen.return_value = mock_response
+
+        response = await async_client.get(self.URL)
+
+        assert response.status_code == 200
+        data = json.loads(response.content)
+        assert len(data) == 1
+        assert data[0]["title"] == "Latest Acoruss Update"
+        assert data[0]["link"] == "https://acoruss.substack.com/p/latest"
+        assert "New platform launch updates." in data[0]["summary"]
+
+    @pytest.mark.asyncio
+    @patch("urllib.request.urlopen", side_effect=Exception("403"))
+    async def test_uses_stale_cache_when_upstream_fails(self, _mock_urlopen, async_client) -> None:
+        """Test stale cache fallback is returned when feed fetch fails."""
+        cache.clear()
+        stale_posts = [
+            {
+                "title": "Cached Post",
+                "link": "https://acoruss.substack.com/p/cached",
+                "published": "Sun, 17 May 2026 10:00:00 GMT",
+                "summary": "Cached summary",
+            }
+        ]
+        cache.set(BlogFeedView.FEED_STALE_CACHE_KEY, stale_posts, BlogFeedView.STALE_CACHE_TIMEOUT)
+
+        response = await async_client.get(self.URL)
+
+        assert response.status_code == 200
+        data = json.loads(response.content)
+        assert data == stale_posts

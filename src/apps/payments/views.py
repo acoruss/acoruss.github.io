@@ -242,6 +242,11 @@ class ServiceListView(AdminRequiredMixin, ListView):
             qs = qs.filter(is_active=True)
         elif status == "inactive":
             qs = qs.filter(is_active=False)
+        mode = self.request.GET.get("mode")
+        if mode == "test":
+            qs = qs.filter(is_test=True)
+        elif mode == "live":
+            qs = qs.filter(is_test=False)
         return qs.annotate(
             payment_count=models.Count("payments"),
             successful_payments=models.Count("payments", filter=models.Q(payments__status=Payment.Status.SUCCESS)),
@@ -256,8 +261,10 @@ class ServiceListView(AdminRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["total_services"] = ServiceProduct.objects.count()
         context["active_services"] = ServiceProduct.objects.filter(is_active=True).count()
+        context["test_services"] = ServiceProduct.objects.filter(is_test=True).count()
         context["search_query"] = self.request.GET.get("q", "")
         context["current_status"] = self.request.GET.get("status", "all")
+        context["current_mode"] = self.request.GET.get("mode", "all")
         return context
 
 
@@ -270,6 +277,7 @@ class ServiceCreateView(AdminRequiredMixin, CreateView):
         "name",
         "slug",
         "description",
+        "is_test",
         "webhook_url",
         "default_callback_url",
         "contact_email",

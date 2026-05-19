@@ -54,6 +54,11 @@ class ServiceProduct(models.Model):
 
     # Settings
     is_active = models.BooleanField("active", default=True)
+    is_test = models.BooleanField(
+        "test product",
+        default=False,
+        help_text="Mark as test product to use Paystack test credentials.",
+    )
     allowed_currencies = models.JSONField(
         "allowed currencies",
         default=list,

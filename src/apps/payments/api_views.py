@@ -127,6 +127,7 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
             reference=reference,
             currency="KES",
             callback_url=paystack_callback,
+            is_test=request.service.is_test,
             metadata={
                 "payment_id": payment.pk,
                 "service": request.service.slug,
@@ -310,6 +311,7 @@ class APIRefundView(ServiceAuthMixin, View):
             transaction_reference=payment.reference,
             amount_kobo=amount_kobo,
             reason=reason,
+            is_test=payment.service.is_test if payment.service else False,
         )
 
         if result.get("status"):

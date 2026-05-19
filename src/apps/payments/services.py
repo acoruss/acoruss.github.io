@@ -13,13 +13,25 @@ logger = logging.getLogger(__name__)
 PAYSTACK_API_URL = "https://api.paystack.co"
 
 
-def get_paystack_secret_key() -> str:
-    """Return the Paystack secret key from settings."""
+def get_paystack_secret_key(*, is_test: bool = False) -> str:
+    """Return the Paystack secret key from settings.
+
+    Uses the test key when ``is_test=True`` (for test service products),
+    otherwise returns the live key.
+    """
+    if is_test:
+        return getattr(settings, "PAYSTACK_TEST_SECRET_KEY", "")
     return getattr(settings, "PAYSTACK_SECRET_KEY", "")
 
 
-def get_paystack_public_key() -> str:
-    """Return the Paystack public key from settings."""
+def get_paystack_public_key(*, is_test: bool = False) -> str:
+    """Return the Paystack public key from settings.
+
+    Uses the test key when ``is_test=True`` (for test service products),
+    otherwise returns the live key.
+    """
+    if is_test:
+        return getattr(settings, "PAYSTACK_TEST_PUBLIC_KEY", "")
     return getattr(settings, "PAYSTACK_PUBLIC_KEY", "")
 
 
@@ -33,12 +45,13 @@ def _make_paystack_request(
     endpoint: str,
     method: str = "GET",
     data: bytes | None = None,
+    is_test: bool = False,
 ) -> dict:
     """Synchronous Paystack API request (for use in executors)."""
     import json
     from urllib.request import Request, urlopen
 
-    secret_key = get_paystack_secret_key()
+    secret_key = get_paystack_secret_key(is_test=is_test)
     headers = {
         "Authorization": f"Bearer {secret_key}",
         "Content-Type": "application/json",
@@ -66,6 +79,7 @@ async def initialise_transaction(
     currency: str = "KES",
     callback_url: str = "",
     metadata: dict | None = None,
+    is_test: bool = False,
 ) -> dict:
     """
     Initialise a Paystack transaction.
@@ -85,7 +99,7 @@ async def initialise_transaction(
     import asyncio
     import json
 
-    secret_key = get_paystack_secret_key()
+    secret_key = get_paystack_secret_key(is_test=is_test)
     if not secret_key:
         logger.warning("Paystack secret key not configured")
         return {"status": False, "message": "Payment not configured"}
@@ -111,6 +125,7 @@ async def initialise_transaction(
                 endpoint="/transaction/initialize",
                 method="POST",
                 data=data,
+                is_test=is_test,
             ),
         )
     except Exception:
@@ -118,7 +133,7 @@ async def initialise_transaction(
         return {"status": False, "message": "Payment initiation failed"}
 
 
-async def verify_transaction(reference: str) -> dict:
+async def verify_transaction(reference: str, *, is_test: bool = False) -> dict:
     """
     Verify a Paystack transaction by reference.
 
@@ -128,7 +143,7 @@ async def verify_transaction(reference: str) -> dict:
     """
     import asyncio
 
-    secret_key = get_paystack_secret_key()
+    secret_key = get_paystack_secret_key(is_test=is_test)
     if not secret_key:
         return {"status": False, "message": "Payment not configured"}
 
@@ -138,6 +153,7 @@ async def verify_transaction(reference: str) -> dict:
             None,
             lambda: _make_paystack_request(
                 endpoint=f"/transaction/verify/{reference}",
+                is_test=is_test,
             ),
         )
     except Exception:
@@ -151,6 +167,7 @@ async def create_refund(
     amount_kobo: int | None = None,
     reason: str = "",
     merchant_note: str = "",
+    is_test: bool = False,
 ) -> dict:
     """
     Create a refund on Paystack.
@@ -168,7 +185,7 @@ async def create_refund(
     import asyncio
     import json
 
-    secret_key = get_paystack_secret_key()
+    secret_key = get_paystack_secret_key(is_test=is_test)
     if not secret_key:
         return {"status": False, "message": "Payment not configured"}
 
@@ -190,6 +207,7 @@ async def create_refund(
                 endpoint="/refund",
                 method="POST",
                 data=data,
+                is_test=is_test,
             ),
         )
     except Exception:
@@ -197,7 +215,7 @@ async def create_refund(
         return {"status": False, "message": "Refund request failed"}
 
 
-async def fetch_transaction_details(transaction_id: str) -> dict:
+async def fetch_transaction_details(transaction_id: str, *, is_test: bool = False) -> dict:
     """
     Fetch full transaction details from Paystack by transaction ID.
 
@@ -211,7 +229,7 @@ async def fetch_transaction_details(transaction_id: str) -> dict:
     try:
         return await loop.run_in_executor(
             None,
-            lambda: _make_paystack_request(endpoint=f"/transaction/{transaction_id}"),
+            lambda: _make_paystack_request(endpoint=f"/transaction/{transaction_id}", is_test=is_test),
         )
     except Exception:
         logger.exception("Failed to fetch transaction details: %s", transaction_id)
@@ -222,22 +240,30 @@ def validate_webhook_signature(payload: bytes, signature: str) -> bool:
     """
     Validate the Paystack webhook signature.
 
+    Paystack signs live webhooks with the live secret key and test webhooks
+    with the test secret key. Because we cannot know which key applies before
+    looking up the payment, we try both keys and accept if either matches.
+
     Args:
         payload: Raw request body bytes.
         signature: x-paystack-signature header value.
 
     Returns:
-        True if signature is valid.
+        True if signature is valid against at least one configured key.
 
     """
-    secret_key = get_paystack_secret_key()
-    if not secret_key:
-        return False
-
-    expected = hmac.new(
-        secret_key.encode(),
-        payload,
-        hashlib.sha512,
-    ).hexdigest()
-
-    return hmac.compare_digest(expected, signature)
+    keys = [
+        get_paystack_secret_key(is_test=False),
+        get_paystack_secret_key(is_test=True),
+    ]
+    for secret_key in keys:
+        if not secret_key:
+            continue
+        expected = hmac.new(
+            secret_key.encode(),
+            payload,
+            hashlib.sha512,
+        ).hexdigest()
+        if hmac.compare_digest(expected, signature):
+            return True
+    return False

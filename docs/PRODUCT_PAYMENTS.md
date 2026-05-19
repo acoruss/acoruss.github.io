@@ -70,6 +70,7 @@ The admin also configures:
 - **Default Callback URL** — where users redirect after payment (can be overridden per request)
 - **Allowed Currencies** — optional restriction (empty = all supported)
 - **Allowed IPs** — optional API call restriction (empty = all)
+- **Test Mode** (`is_test`) — when enabled, all payments for this service use Paystack **test credentials** (`PAYSTACK_TEST_SECRET_KEY` / `PAYSTACK_TEST_PUBLIC_KEY`). Live services always use live credentials. The correct credential set is selected automatically on every Paystack API call and webhook signature validation.
 
 ---
 

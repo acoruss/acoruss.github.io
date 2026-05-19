@@ -106,7 +106,8 @@ class VerifyPaymentView(View):
             messages.error(request, "Payment not found.")
             return redirect("payments:pay")
 
-        result = await services.verify_transaction(reference)
+        is_test = payment.service.is_test if payment.service else False
+        result = await services.verify_transaction(reference, is_test=is_test)
 
         if result.get("status") and result.get("data", {}).get("status") == "success":
             payment.status = Payment.Status.SUCCESS

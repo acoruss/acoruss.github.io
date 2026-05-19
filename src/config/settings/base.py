@@ -134,9 +134,12 @@ CONTACT_NOTIFICATION_EMAILS: list[str] = env.list(
 # Site URL for links in emails
 SITE_URL = env("SITE_URL", default="https://acoruss.com")
 
-# Paystack
+# Paystack — live credentials (used for live service products)
 PAYSTACK_SECRET_KEY = env("PAYSTACK_SECRET_KEY", default="")
 PAYSTACK_PUBLIC_KEY = env("PAYSTACK_PUBLIC_KEY", default="")
+# Paystack — test credentials (used for service products with is_test=True)
+PAYSTACK_TEST_SECRET_KEY = env("PAYSTACK_TEST_SECRET_KEY", default="")
+PAYSTACK_TEST_PUBLIC_KEY = env("PAYSTACK_TEST_PUBLIC_KEY", default="")
 
 # Google Analytics
 GOOGLE_ANALYTICS_ID = env("GOOGLE_ANALYTICS_ID", default="G-BSXKG26LSP")

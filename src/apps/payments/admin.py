@@ -11,8 +11,8 @@ from .models import Payment, ServiceProduct, WebhookDeliveryLog
 class ServiceProductAdmin(admin.ModelAdmin):
     """Admin view for ServiceProduct model."""
 
-    list_display = ("name", "slug", "is_active", "contact_email", "created_at")
-    list_filter = ("is_active", "created_at")
+    list_display = ("name", "slug", "is_active", "is_test", "contact_email", "created_at")
+    list_filter = ("is_active", "is_test", "created_at")
     search_fields = ("name", "slug", "contact_email")
     readonly_fields = ("api_key", "api_secret", "created_at", "updated_at")
     prepopulated_fields: ClassVar[dict] = {"slug": ("name",)}

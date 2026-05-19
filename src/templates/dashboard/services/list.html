@@ -76,11 +76,19 @@
                 <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
                 </div>
-                {% if service.is_active %}
-                <span class="w-2.5 h-2.5 rounded-full bg-success mt-1 shrink-0" title="Active"></span>
-                {% else %}
-                <span class="w-2.5 h-2.5 rounded-full bg-base-content/20 mt-1 shrink-0" title="Inactive"></span>
-                {% endif %}
+                <div class="flex items-center gap-2">
+                    {% if service.is_test %}
+                    <span class="badge badge-warning badge-sm gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        Test
+                    </span>
+                    {% endif %}
+                    {% if service.is_active %}
+                    <span class="w-2.5 h-2.5 rounded-full bg-success mt-0.5 shrink-0" title="Active"></span>
+                    {% else %}
+                    <span class="w-2.5 h-2.5 rounded-full bg-base-content/20 mt-0.5 shrink-0" title="Inactive"></span>
+                    {% endif %}
+                </div>
             </div>
             <h3 class="font-bold text-sm group-hover:text-accent transition-colors mb-1">{{ service.name }}</h3>
             <p class="text-xs text-base-content/40 line-clamp-2 mb-4">{{ service.description|default:"No description" }}</p>

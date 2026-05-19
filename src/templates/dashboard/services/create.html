@@ -67,6 +67,14 @@
                         placeholder="Describe this product..."
                         class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm">{{ form.description.value|default:'' }}</textarea>
                 </div>
+                <div class="form-control">
+                    <label class="label py-1 cursor-pointer">
+                        <input type="checkbox" name="is_test" id="id_is_test" {% if form.is_test.value %}checked{% endif %}
+                            class="checkbox checkbox-sm rounded" />
+                        <span class="label-text text-xs font-semibold ml-2">Test Product</span>
+                    </label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Mark this product for using Paystack test credentials.</span></label>
+                </div>
             </div>
         </div>
 

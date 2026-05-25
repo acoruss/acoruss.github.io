@@ -229,7 +229,6 @@ class MaliciousRequestBlockerMiddleware:
     # Minimal empty response — no body, no useful headers
     BLOCKED_RESPONSE = HttpResponse(status=403)
     BLOCKED_RESPONSE["Content-Length"] = "0"
-    BLOCKED_RESPONSE["Connection"] = "close"
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -275,5 +274,5 @@ class MaliciousRequestBlockerMiddleware:
         return self.get_response(request)
 
     def _drop(self, request, ip: str, *, reason: str) -> HttpResponse:
-        """Return a minimal 403 with Connection: close."""
-        return HttpResponse(status=403, headers={"Connection": "close", "Content-Length": "0"})
+        """Return a minimal 403."""
+        return HttpResponse(status=403, headers={"Content-Length": "0"})

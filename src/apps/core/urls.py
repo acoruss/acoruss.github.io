@@ -15,6 +15,11 @@ urlpatterns = [
     path("sitemap.xml", views.SitemapXmlView.as_view(), name="sitemap_xml"),
     path("favicon.ico", views.FaviconView.as_view(), name="favicon"),
     path(".well-known/security.txt", views.SecurityTxtView.as_view(), name="security_txt"),
+    path(
+        ".well-known/apple-developer-merchantid-domain-association",
+        views.ApplePayDomainVerificationView.as_view(),
+        name="apple_pay_verification",
+    ),
     # Health check for Docker / load balancer
     path("healthz/", views.HealthCheckView.as_view(), name="health_check"),
     # Public pages

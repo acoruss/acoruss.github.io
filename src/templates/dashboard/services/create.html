@@ -395,10 +395,18 @@
 
         bankSelect.innerHTML = '<option value="">Select a bank...</option>';
         for (var i = 0; i < sorted.length; i++) {
+            var bank = sorted[i];
             var opt = document.createElement('option');
-            opt.value = sorted[i].code;
-            opt.textContent = sorted[i].name;
-            opt.dataset.bankName = sorted[i].name;
+            opt.value = bank.code;
+            var label = bank.name;
+            if (bank.type && bank.type !== 'nuban' && bank.type !== 'ghipss') {
+                var typeLabel = bank.type.replace(/_/g, ' ');
+                typeLabel = typeLabel.charAt(0).toUpperCase() + typeLabel.slice(1);
+                label += ' (' + typeLabel + ')';
+            }
+            opt.textContent = label;
+            opt.dataset.bankName = bank.name;
+            opt.dataset.bankType = bank.type || '';
             bankSelect.appendChild(opt);
         }
 

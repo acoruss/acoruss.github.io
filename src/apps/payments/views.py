@@ -336,8 +336,10 @@ class ServiceCreateView(AdminRequiredMixin, CreateView):
 class ServiceCreateSubaccountView(AdminRequiredMixin, View):
     """Create or retry Paystack subaccount creation for a service."""
 
-    async def post(self, request: HttpRequest, slug: str) -> HttpResponse:
-        service = await ServiceProduct.objects.aget(slug=slug)
+    def post(self, request: HttpRequest, slug: str) -> HttpResponse:
+        import json
+
+        service = ServiceProduct.objects.get(slug=slug)
         if service.subaccount_code:
             messages.info(request, "Subaccount already exists.")
             return redirect("core:dashboard_service_detail", slug=slug)
@@ -346,23 +348,32 @@ class ServiceCreateSubaccountView(AdminRequiredMixin, View):
             messages.error(request, "Bank details are required to create a subaccount.")
             return redirect("core:dashboard_service_detail", slug=slug)
 
-        result = await services.create_subaccount(
-            business_name=service.subaccount_business_name or service.name,
-            settlement_bank=service.settlement_bank,
-            account_number=service.account_number,
-            percentage_charge=float(service.percentage_charge or 0),
-            description=service.description,
-            primary_contact_email=service.contact_email,
+        payload: dict = {
+            "business_name": service.subaccount_business_name or service.name,
+            "settlement_bank": service.settlement_bank,
+            "account_number": service.account_number,
+            "percentage_charge": float(service.percentage_charge or 0),
+        }
+        if service.description:
+            payload["description"] = service.description
+        if service.contact_email:
+            payload["primary_contact_email"] = service.contact_email
+
+        data = json.dumps(payload).encode()
+        result = services._make_paystack_request(
+            endpoint="/subaccount",
+            method="POST",
+            data=data,
             is_test=service.is_test,
         )
 
         if result.get("status") and result.get("data"):
-            data = result["data"]
-            service.subaccount_code = data.get("subaccount_code", "")
-            service.subaccount_paystack_id = str(data.get("id", ""))
+            resp_data = result["data"]
+            service.subaccount_code = resp_data.get("subaccount_code", "")
+            service.subaccount_paystack_id = str(resp_data.get("id", ""))
             if not service.settlement_bank_name:
-                service.settlement_bank_name = data.get("settlement_bank", "")
-            await service.asave(
+                service.settlement_bank_name = resp_data.get("settlement_bank", "")
+            service.save(
                 update_fields=[
                     "subaccount_code",
                     "subaccount_paystack_id",
@@ -545,9 +556,13 @@ class PaymentDetailView(AdminRequiredMixin, DetailView):
 class PaymentRefundView(AdminRequiredMixin, View):
     """Dashboard action to initiate a refund for a payment."""
 
-    async def post(self, request: HttpRequest, pk: int) -> HttpResponse:
+    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
+        import json
+
+        from asgiref.sync import async_to_sync
+
         try:
-            payment = await Payment.objects.select_related("service").aget(pk=pk)
+            payment = Payment.objects.select_related("service").get(pk=pk)
         except Payment.DoesNotExist:
             messages.error(request, "Payment not found.")
             return redirect("core:dashboard_payments")
@@ -574,11 +589,20 @@ class PaymentRefundView(AdminRequiredMixin, View):
                 messages.error(request, "Invalid refund amount.")
                 return redirect("core:dashboard_payment_detail", pk=pk)
 
-        result = await services.create_refund(
-            transaction_reference=payment.reference,
-            amount_kobo=amount_kobo,
-            reason=reason,
-            merchant_note=f"Initiated by {request.user} from dashboard",
+        # Build refund payload and call Paystack directly
+        payload: dict = {"transaction": payment.reference}
+        if amount_kobo:
+            payload["amount"] = amount_kobo
+        if reason:
+            payload["customer_note"] = reason
+        payload["merchant_note"] = f"Initiated by {request.user} from dashboard"
+
+        data = json.dumps(payload).encode()
+        result = services._make_paystack_request(
+            endpoint="/refund",
+            method="POST",
+            data=data,
+            is_test=payment.service.is_test if payment.service else False,
         )
 
         if result.get("status"):
@@ -590,7 +614,7 @@ class PaymentRefundView(AdminRequiredMixin, View):
                 payment.refund_status = Payment.RefundStatus.FULL
             else:
                 payment.refund_status = Payment.RefundStatus.PARTIAL
-            await payment.asave(
+            payment.save(
                 update_fields=[
                     "refunded_amount",
                     "refund_status",
@@ -602,7 +626,7 @@ class PaymentRefundView(AdminRequiredMixin, View):
             if payment.service:
                 from .webhook_dispatcher import dispatch_webhook
 
-                await dispatch_webhook(
+                async_to_sync(dispatch_webhook)(
                     service=payment.service,
                     payment=payment,
                     event="payment.refunded",

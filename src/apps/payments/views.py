@@ -494,6 +494,103 @@ class ServiceRegenerateKeysView(AdminRequiredMixin, View):
         return redirect("core:dashboard_service_detail", slug=slug)
 
 
+class ServiceEditView(AdminRequiredMixin, DetailView):
+    """Full edit page for a service product."""
+
+    model = ServiceProduct
+    template_name = "dashboard/services/edit.html"
+    context_object_name = "service"
+    slug_url_kwarg = "slug"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["bank_country"] = "kenya"
+        return context
+
+    def post(self, request: HttpRequest, slug: str) -> HttpResponse:
+        import contextlib
+        import json
+
+        service = get_object_or_404(ServiceProduct, slug=slug)
+
+        # Basic fields
+        service.name = request.POST.get("name", service.name).strip()
+        service.description = request.POST.get("description", "").strip()
+        service.logo_url = request.POST.get("logo_url", "").strip()
+        service.is_test = request.POST.get("is_test") == "on"
+
+        # Integration fields
+        service.webhook_url = request.POST.get("webhook_url", "").strip()
+        service.default_callback_url = request.POST.get("default_callback_url", "").strip()
+        service.contact_email = request.POST.get("contact_email", "").strip()
+
+        # Security fields
+        allowed_currencies_raw = request.POST.get("allowed_currencies", "").strip()
+        if allowed_currencies_raw:
+            service.allowed_currencies = [c.strip().upper() for c in allowed_currencies_raw.split(",") if c.strip()]
+        else:
+            service.allowed_currencies = []
+
+        allowed_ips_raw = request.POST.get("allowed_ips", "").strip()
+        if allowed_ips_raw:
+            service.allowed_ips = [ip.strip() for ip in allowed_ips_raw.split(",") if ip.strip()]
+        else:
+            service.allowed_ips = []
+
+        # Revenue sharing fields
+        service.subaccount_business_name = request.POST.get("subaccount_business_name", "").strip()
+        service.settlement_bank = request.POST.get("settlement_bank", "").strip()
+        service.settlement_bank_name = request.POST.get("settlement_bank_name", "").strip()
+        service.account_number = request.POST.get("account_number", "").strip()
+        service.charge_bearer = request.POST.get("charge_bearer", "account").strip()
+
+        percentage_raw = request.POST.get("percentage_charge", "").strip()
+        if percentage_raw:
+            with contextlib.suppress(ValueError, TypeError):
+                service.percentage_charge = round(float(percentage_raw), 2)
+        else:
+            service.percentage_charge = None
+
+        transaction_charge_raw = request.POST.get("transaction_charge", "").strip()
+        if transaction_charge_raw:
+            with contextlib.suppress(ValueError, TypeError):
+                service.transaction_charge = int(transaction_charge_raw)
+        else:
+            service.transaction_charge = None
+
+        service.save()
+
+        # If subaccount exists and bank details changed, update on Paystack
+        if service.subaccount_code and service.settlement_bank:
+            payload = {
+                "business_name": service.subaccount_business_name or service.name,
+                "settlement_bank": service.settlement_bank,
+                "account_number": service.account_number,
+                "percentage_charge": float(service.percentage_charge or 0),
+            }
+            if service.contact_email:
+                payload["primary_contact_email"] = service.contact_email
+
+            data = json.dumps(payload).encode()
+            result = services._make_paystack_request(
+                endpoint=f"/subaccount/{service.subaccount_code}",
+                method="PUT",
+                data=data,
+                is_test=service.is_test,
+            )
+            if result.get("status"):
+                messages.success(request, "Service updated and Paystack subaccount synced.")
+            else:
+                messages.warning(
+                    request,
+                    f"Service saved locally, but Paystack update failed: {result.get('message', 'Unknown error')}",
+                )
+        else:
+            messages.success(request, "Service updated successfully.")
+
+        return redirect("core:dashboard_service_detail", slug=slug)
+
+
 class ServiceUpdateView(AdminRequiredMixin, View):
     """Update service settings (webhook URL, callback URL, etc.)."""
 

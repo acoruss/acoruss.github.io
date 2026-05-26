@@ -62,6 +62,11 @@ urlpatterns = [
     ),
     path("dashboard/services/<slug:slug>/", payment_views.ServiceDetailView.as_view(), name="dashboard_service_detail"),
     path(
+        "dashboard/services/<slug:slug>/edit/",
+        payment_views.ServiceEditView.as_view(),
+        name="dashboard_service_edit",
+    ),
+    path(
         "dashboard/services/<slug:slug>/toggle/",
         payment_views.ServiceToggleActiveView.as_view(),
         name="dashboard_service_toggle",

@@ -6208,15 +6208,19 @@ html:has(.drawer-toggle:checked) {
   animation: fade-in-up 0.6s ease-out forwards;
 }
 
-[data-animate] {
-  opacity: 0;
+@media (prefers-reduced-motion: no-preference) {
+  [data-animate] {
+    opacity: 0;
+  }
 }
 
 /* Tab active state */
 
 /* Global styles */
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Focus states for accessibility */
@@ -6232,6 +6236,15 @@ select:focus-visible {
 /* Smooth transitions on interactive elements */
 a, button {
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Ensure minimum touch target size for tab buttons */
+.service-tab,
+.project-tab {
+  min-height: 44px;
+  min-width: 44px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .hover\:badge-accent:hover {
   --tw-border-opacity: 1;

@@ -146,6 +146,7 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
                 "exchange_rate": str(exchange_rate),
                 "settlement_amount_kes": str(settlement_amount),
             },
+            channels=services.DEFAULT_PAYMENT_CHANNELS,
             **split_kwargs,
         )
 

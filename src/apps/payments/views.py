@@ -79,6 +79,7 @@ class InitiatePaymentView(View):
             currency=currency,
             callback_url=callback_url,
             metadata={"payment_id": payment.pk, "description": description},
+            channels=services.DEFAULT_PAYMENT_CHANNELS,
         )
 
         if result.get("status") and result.get("data", {}).get("authorization_url"):

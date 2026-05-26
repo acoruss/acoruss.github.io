@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 PAYSTACK_API_URL = "https://api.paystack.co"
 
+# Default payment channels including Apple Pay
+DEFAULT_PAYMENT_CHANNELS = ["card", "bank", "ussd", "mobile_money", "apple_pay"]
+
 
 def get_paystack_secret_key(*, is_test: bool = False) -> str:
     """Return the Paystack secret key from settings.
@@ -83,6 +86,7 @@ async def initialise_transaction(
     subaccount: str = "",
     transaction_charge: int | None = None,
     bearer: str = "",
+    channels: list[str] | None = None,
 ) -> dict:
     """
     Initialise a Paystack transaction.
@@ -97,6 +101,7 @@ async def initialise_transaction(
         subaccount: Paystack subaccount code for split payments.
         transaction_charge: Flat fee (kobo) the main account keeps.
         bearer: Who bears Paystack fees ("account" or "subaccount").
+        channels: Payment channels to enable (e.g. ["card", "apple_pay"]).
 
     Returns:
         Paystack API response data dict.
@@ -120,6 +125,10 @@ async def initialise_transaction(
         payload["callback_url"] = callback_url
     if metadata:
         payload["metadata"] = metadata
+
+    # Payment channels (include apple_pay explicitly if desired)
+    if channels:
+        payload["channels"] = channels
 
     # Revenue sharing / split payment
     if subaccount:

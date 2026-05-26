@@ -13,12 +13,12 @@
 <div class="max-w-2xl mx-auto">
     <h1 class="text-2xl font-bold mb-6">Create Product</h1>
 
-    <form method="post" class="space-y-5">
+    <form method="post" id="create-product-form" class="space-y-5" novalidate>
         {% csrf_token %}
 
         {% if form.errors %}
-        <div class="alert alert-error text-sm rounded-xl">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        <div role="alert" class="alert alert-error text-sm rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             <div>
                 <p class="font-semibold">Please fix the errors below.</p>
                 {% for field in form %}
@@ -36,28 +36,28 @@
         <!-- Basic Info -->
         <div class="dash-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
                 Basic Info
             </h2>
             <div class="space-y-3">
                 <div class="form-control">
                     <label class="label py-1" for="id_name">
-                        <span class="label-text text-xs font-semibold">Name <span class="text-error">*</span></span>
+                        <span class="label-text text-xs font-semibold">Name <span class="text-error" aria-label="required">*</span></span>
                     </label>
                     <input type="text" name="name" id="id_name" required
                         value="{{ form.name.value|default:'' }}"
                         placeholder="My Product"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_slug">
-                        <span class="label-text text-xs font-semibold">Slug <span class="text-error">*</span></span>
+                        <span class="label-text text-xs font-semibold">Slug <span class="text-error" aria-label="required">*</span></span>
                     </label>
                     <input type="text" name="slug" id="id_slug" required
                         value="{{ form.slug.value|default:'' }}"
                         placeholder="my-product"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Auto-generated from name. Used in API endpoints.</span></label>
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 font-mono" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Auto-generated from name. Used in API endpoints.</span></label>
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_description">
@@ -65,15 +65,15 @@
                     </label>
                     <textarea name="description" id="id_description" rows="3"
                         placeholder="Describe this product..."
-                        class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm">{{ form.description.value|default:'' }}</textarea>
+                        class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm min-h-[44px]">{{ form.description.value|default:'' }}</textarea>
                 </div>
                 <div class="form-control">
-                    <label class="label py-1 cursor-pointer">
+                    <label class="label py-1 cursor-pointer justify-start gap-3">
                         <input type="checkbox" name="is_test" id="id_is_test" {% if form.is_test.value %}checked{% endif %}
                             class="checkbox checkbox-sm rounded" />
-                        <span class="label-text text-xs font-semibold ml-2">Test Product</span>
+                        <span class="label-text text-xs font-semibold">Test Product</span>
                     </label>
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Mark this product for using Paystack test credentials.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Mark this product for using Paystack test credentials.</span></label>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
         <!-- Integration -->
         <div class="dash-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                 Integration
             </h2>
             <div class="space-y-3">
@@ -92,7 +92,7 @@
                     <input type="url" name="webhook_url" id="id_webhook_url"
                         value="{{ form.webhook_url.value|default:'' }}"
                         placeholder="https://yoursite.com/webhook"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_default_callback_url">
@@ -101,7 +101,7 @@
                     <input type="url" name="default_callback_url" id="id_default_callback_url"
                         value="{{ form.default_callback_url.value|default:'' }}"
                         placeholder="https://yoursite.com/callback"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_contact_email">
@@ -110,39 +110,40 @@
                     <input type="email" name="contact_email" id="id_contact_email"
                         value="{{ form.contact_email.value|default:'' }}"
                         placeholder="team@example.com"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
             </div>
         </div>
 
         <!-- Revenue Sharing -->
-        <div class="dash-card">
+        <div class="dash-card border-l-0 border-accent/0 transition-colors duration-200" id="revenue-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
                 Revenue Sharing
             </h2>
             <p class="text-xs text-base-content/50 mb-4">
                 Enable to automatically split payments with a partner via Paystack subaccounts.
-                A Paystack subaccount will be created when the product is saved.
             </p>
 
             <div class="form-control mb-4">
-                <label class="label py-1 cursor-pointer justify-start gap-3">
+                <label class="label py-1 cursor-pointer justify-start gap-3" for="id_enable_revenue_sharing"
+                    aria-expanded="false" aria-controls="revenue-sharing-fields">
                     <input type="checkbox" name="enable_revenue_sharing" id="id_enable_revenue_sharing"
-                        class="toggle toggle-sm toggle-accent" onchange="toggleRevenueSharing(this)" />
+                        class="toggle toggle-sm toggle-accent" />
                     <span class="label-text text-xs font-semibold">Enable Revenue Sharing</span>
                 </label>
             </div>
 
-            <div id="revenue-sharing-fields" class="space-y-3 hidden">
+            <fieldset id="revenue-sharing-fields" class="space-y-3 hidden" disabled>
                 <div class="form-control">
                     <label class="label py-1" for="id_subaccount_business_name">
-                        <span class="label-text text-xs font-semibold">Partner Business Name <span class="text-error">*</span></span>
+                        <span class="label-text text-xs font-semibold">Partner Business Name <span class="text-error" aria-label="required">*</span></span>
                     </label>
                     <input type="text" name="subaccount_business_name" id="id_subaccount_business_name"
                         placeholder="Partner Company Ltd"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">The business name registered with the bank.</span></label>
+                        required
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">The business name registered with the bank.</span></label>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -151,8 +152,7 @@
                             <span class="label-text text-xs font-semibold">Country</span>
                         </label>
                         <select name="bank_country" id="id_bank_country"
-                            class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs"
-                            onchange="loadBanks(this.value)">
+                            class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
                             <option value="kenya" selected>Kenya</option>
                             <option value="nigeria">Nigeria</option>
                             <option value="ghana">Ghana</option>
@@ -161,35 +161,47 @@
                     </div>
                     <div class="form-control">
                         <label class="label py-1" for="id_settlement_bank">
-                            <span class="label-text text-xs font-semibold">Settlement Bank <span class="text-error">*</span></span>
+                            <span class="label-text text-xs font-semibold">Settlement Bank <span class="text-error" aria-label="required">*</span></span>
                         </label>
-                        <select name="settlement_bank" id="id_settlement_bank"
-                            class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs">
-                            <option value="">Loading banks...</option>
-                        </select>
+                        <div class="relative">
+                            <select name="settlement_bank" id="id_settlement_bank" required
+                                class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
+                                <option value="">Select a bank...</option>
+                            </select>
+                            <span id="bank-loading-indicator" class="absolute right-8 top-1/2 -translate-y-1/2 hidden">
+                                <span class="loading loading-spinner loading-xs text-accent"></span>
+                            </span>
+                        </div>
                         <input type="hidden" name="settlement_bank_name" id="id_settlement_bank_name" />
+                        <label class="label py-0">
+                            <span id="bank-status-text" class="label-text-alt text-base-content/40"></span>
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-control">
                     <label class="label py-1" for="id_account_number">
-                        <span class="label-text text-xs font-semibold">Account Number <span class="text-error">*</span></span>
+                        <span class="label-text text-xs font-semibold">Account Number <span class="text-error" aria-label="required">*</span></span>
                     </label>
                     <input type="text" name="account_number" id="id_account_number"
                         placeholder="0123456789"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono" />
+                        required
+                        inputmode="numeric"
+                        pattern="[0-9]+"
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 font-mono" />
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="form-control">
                         <label class="label py-1" for="id_percentage_charge">
-                            <span class="label-text text-xs font-semibold">Platform Fee (%) <span class="text-error">*</span></span>
+                            <span class="label-text text-xs font-semibold">Platform Fee (%) <span class="text-error" aria-label="required">*</span></span>
                         </label>
                         <input type="number" name="percentage_charge" id="id_percentage_charge"
                             placeholder="20"
+                            required
                             min="0" max="100" step="0.01"
-                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
-                        <label class="label py-0"><span class="label-text-alt text-base-content/30">% Acoruss keeps per transaction. Partner gets the remainder.</span></label>
+                            class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/40">% Acoruss keeps per transaction. Partner gets the remainder.</span></label>
                     </div>
                     <div class="form-control">
                         <label class="label py-1" for="id_transaction_charge">
@@ -198,8 +210,8 @@
                         <input type="number" name="transaction_charge" id="id_transaction_charge"
                             placeholder="5000"
                             min="0" step="1"
-                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
-                        <label class="label py-0"><span class="label-text-alt text-base-content/30">Fixed amount (in smallest unit, e.g. cents) Acoruss keeps. Overrides %.</span></label>
+                            class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/40">Fixed amount (in smallest unit, e.g. cents) Acoruss keeps. Overrides %.</span></label>
                     </div>
                 </div>
 
@@ -208,26 +220,26 @@
                         <span class="label-text text-xs font-semibold">Who Pays Paystack Fees?</span>
                     </label>
                     <select name="charge_bearer" id="id_charge_bearer"
-                        class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs">
+                        class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
                         <option value="account">Main Account (Acoruss)</option>
                         <option value="subaccount">Subaccount (Partner)</option>
                     </select>
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Determines who absorbs Paystack's processing fees.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Determines who absorbs Paystack's processing fees.</span></label>
                 </div>
 
-                <div class="bg-info/5 border border-info/20 rounded-xl p-3 mt-2">
+                <div class="bg-info/5 border border-info/20 rounded-xl p-3 mt-2" role="note">
                     <p class="text-xs text-info flex items-start gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><circle cx="12" cy="8" r="0.5" fill="currentColor"></circle></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><circle cx="12" cy="8" r="0.5" fill="currentColor"></circle></svg>
                         <span>The Paystack subaccount will be created automatically when you save. If creation fails, you can retry from the product detail page.</span>
                     </p>
                 </div>
-            </div>
+            </fieldset>
         </div>
 
         <!-- Security -->
         <div class="dash-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 Security & Limits
             </h2>
             <div class="space-y-3">
@@ -238,8 +250,8 @@
                     <input type="text" name="allowed_currencies" id="id_allowed_currencies"
                         value="{{ form.allowed_currencies.value|default:'' }}"
                         placeholder="KES, USD, GBP"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty for all currencies.</span></label>
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Comma-separated. Leave empty for all currencies.</span></label>
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_allowed_ips">
@@ -248,17 +260,17 @@
                     <input type="text" name="allowed_ips" id="id_allowed_ips"
                         value="{{ form.allowed_ips.value|default:'' }}"
                         placeholder="192.168.1.1, 10.0.0.1"
-                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 text-xs" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Comma-separated. Leave empty to allow all IPs.</span></label>
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Comma-separated. Leave empty to allow all IPs.</span></label>
                 </div>
             </div>
         </div>
 
         <!-- Actions -->
         <div class="flex items-center gap-3 justify-end">
-            <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm rounded-lg">Cancel</a>
-            <button type="submit" class="btn btn-primary btn-sm rounded-lg gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm sm:btn-md rounded-lg">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-sm sm:btn-md rounded-lg gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 Create Product
             </button>
         </div>
@@ -268,84 +280,127 @@
 
 {% block extra_js %}
 <script>
-// Auto-generate slug from name
-const nameEl = document.getElementById('id_name');
-const slugEl = document.getElementById('id_slug');
-let slugEdited = {{ form.slug.value|yesno:"true,false,false" }};
+(function() {
+    'use strict';
 
-if (nameEl && slugEl) {
-    nameEl.addEventListener('input', () => {
-        if (!slugEdited) {
-            slugEl.value = nameEl.value
-                .toLowerCase()
-                .replace(/[^\w\s-]/g, '')
-                .replace(/[\s_]+/g, '-')
-                .replace(/^-+|-+$/g, '')
-                .slice(0, 100);
+    // --- Slug auto-generation ---
+    const nameEl = document.getElementById('id_name');
+    const slugEl = document.getElementById('id_slug');
+    let slugEdited = {{ form.slug.value|yesno:"true,false,false" }};
+
+    if (nameEl && slugEl) {
+        nameEl.addEventListener('input', function() {
+            if (!slugEdited) {
+                slugEl.value = nameEl.value
+                    .toLowerCase()
+                    .replace(/[^\w\s-]/g, '')
+                    .replace(/[\s_]+/g, '-')
+                    .replace(/^-+|-+$/g, '')
+                    .slice(0, 100);
+            }
+        });
+        slugEl.addEventListener('input', function() { slugEdited = true; });
+    }
+
+    // --- Revenue sharing toggle with ARIA ---
+    const toggle = document.getElementById('id_enable_revenue_sharing');
+    const fieldset = document.getElementById('revenue-sharing-fields');
+    const toggleLabel = toggle.closest('label');
+    const revenueCard = document.getElementById('revenue-card');
+    const firstField = document.getElementById('id_subaccount_business_name');
+
+    toggle.addEventListener('change', function() {
+        const isEnabled = toggle.checked;
+
+        // Toggle visibility and disabled state
+        fieldset.classList.toggle('hidden', !isEnabled);
+        fieldset.disabled = !isEnabled;
+
+        // ARIA
+        toggleLabel.setAttribute('aria-expanded', String(isEnabled));
+
+        // Visual cue on card
+        if (isEnabled) {
+            revenueCard.classList.add('border-accent/20');
+            // Focus first field for keyboard users
+            setTimeout(function() { firstField.focus(); }, 100);
+            // Load banks
+            loadBanks(document.getElementById('id_bank_country').value);
+        } else {
+            revenueCard.classList.remove('border-accent/20');
         }
     });
-    slugEl.addEventListener('input', () => { slugEdited = true; });
-}
 
-// Revenue sharing toggle
-function toggleRevenueSharing(checkbox) {
-    const fields = document.getElementById('revenue-sharing-fields');
-    if (checkbox.checked) {
-        fields.classList.remove('hidden');
-        loadBanks(document.getElementById('id_bank_country').value);
-    } else {
-        fields.classList.add('hidden');
-    }
-}
+    // --- Country change loads banks ---
+    document.getElementById('id_bank_country').addEventListener('change', function() {
+        loadBanks(this.value);
+    });
 
-// Load banks from Paystack via our cached endpoint
-let banksCache = {};
-async function loadBanks(country) {
-    const select = document.getElementById('id_settlement_bank');
-    const hiddenName = document.getElementById('id_settlement_bank_name');
-    const isTest = document.getElementById('id_is_test')?.checked ? 'true' : 'false';
+    // --- Bank loading ---
+    var banksCache = {};
+    var bankSelect = document.getElementById('id_settlement_bank');
+    var bankHiddenName = document.getElementById('id_settlement_bank_name');
+    var bankSpinner = document.getElementById('bank-loading-indicator');
+    var bankStatus = document.getElementById('bank-status-text');
 
-    select.innerHTML = '<option value="">Loading banks...</option>';
+    bankSelect.addEventListener('change', function() {
+        var selected = bankSelect.options[bankSelect.selectedIndex];
+        bankHiddenName.value = selected ? (selected.dataset.bankName || '') : '';
+    });
 
-    const cacheKey = `${country}_${isTest}`;
-    if (banksCache[cacheKey]) {
-        populateBanks(banksCache[cacheKey], select, hiddenName);
-        return;
-    }
+    async function loadBanks(country) {
+        var isTest = document.getElementById('id_is_test') && document.getElementById('id_is_test').checked ? 'true' : 'false';
+        var cacheKey = country + '_' + isTest;
 
-    try {
-        const resp = await fetch(`{% url 'core:dashboard_banks' %}?country=${encodeURIComponent(country)}&is_test=${isTest}`);
-        const json = await resp.json();
-        if (json.status && json.data) {
-            banksCache[cacheKey] = json.data;
-            populateBanks(json.data, select, hiddenName);
-        } else {
-            select.innerHTML = '<option value="">Failed to load banks</option>';
+        // Show loading state
+        bankSelect.innerHTML = '<option value="">Loading...</option>';
+        bankSpinner.classList.remove('hidden');
+        bankStatus.textContent = '';
+
+        if (banksCache[cacheKey]) {
+            populateBanks(banksCache[cacheKey]);
+            return;
         }
-    } catch (err) {
-        select.innerHTML = '<option value="">Error loading banks</option>';
+
+        try {
+            var resp = await fetch('{% url "core:dashboard_banks" %}?country=' + encodeURIComponent(country) + '&is_test=' + isTest);
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            var json = await resp.json();
+            if (json.status && json.data && json.data.length > 0) {
+                banksCache[cacheKey] = json.data;
+                populateBanks(json.data);
+            } else {
+                bankSelect.innerHTML = '<option value="">No banks available</option>';
+                bankStatus.textContent = 'No banks found for this country.';
+                bankStatus.classList.add('text-warning');
+            }
+        } catch (err) {
+            bankSelect.innerHTML = '<option value="">Failed to load</option>';
+            bankStatus.textContent = 'Could not load banks. Check connection and retry.';
+            bankStatus.classList.add('text-error');
+        } finally {
+            bankSpinner.classList.add('hidden');
+        }
     }
-}
 
-function populateBanks(banks, select, hiddenName) {
-    const sorted = banks
-        .filter(b => b.active)
-        .sort((a, b) => a.name.localeCompare(b.name));
+    function populateBanks(banks) {
+        var sorted = banks
+            .filter(function(b) { return b.active; })
+            .sort(function(a, b) { return a.name.localeCompare(b.name); });
 
-    select.innerHTML = '<option value="">Select a bank...</option>';
-    for (const bank of sorted) {
-        const opt = document.createElement('option');
-        opt.value = bank.code;
-        opt.textContent = bank.name;
-        opt.dataset.bankName = bank.name;
-        select.appendChild(opt);
+        bankSelect.innerHTML = '<option value="">Select a bank...</option>';
+        for (var i = 0; i < sorted.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = sorted[i].code;
+            opt.textContent = sorted[i].name;
+            opt.dataset.bankName = sorted[i].name;
+            bankSelect.appendChild(opt);
+        }
+
+        bankSpinner.classList.add('hidden');
+        bankStatus.textContent = sorted.length + ' banks available';
+        bankStatus.className = 'label-text-alt text-base-content/40';
     }
-
-    // Update hidden bank name when selection changes
-    select.onchange = () => {
-        const selected = select.options[select.selectedIndex];
-        hiddenName.value = selected?.dataset?.bankName || '';
-    };
-}
+})();
 </script>
 {% endblock %}

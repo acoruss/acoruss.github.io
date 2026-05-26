@@ -384,8 +384,13 @@
     }
 
     function populateBanks(banks) {
+        var seen = {};
         var sorted = banks
-            .filter(function(b) { return b.active; })
+            .filter(function(b) {
+                if (!b.active || seen[b.code]) return false;
+                seen[b.code] = true;
+                return true;
+            })
             .sort(function(a, b) { return a.name.localeCompare(b.name); });
 
         bankSelect.innerHTML = '<option value="">Select a bank...</option>';

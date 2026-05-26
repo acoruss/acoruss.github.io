@@ -384,7 +384,7 @@ class ServiceCreateSubaccountView(AdminRequiredMixin, View):
 class BankListView(AdminRequiredMixin, View):
     """API endpoint to fetch Paystack bank list for a country (used by dashboard forms)."""
 
-    async def get(self, request: HttpRequest) -> JsonResponse:
+    def get(self, request: HttpRequest) -> JsonResponse:
         from django.core.cache import cache
 
         country = request.GET.get("country", "kenya").lower()
@@ -395,9 +395,12 @@ class BankListView(AdminRequiredMixin, View):
         if cached:
             return JsonResponse({"status": True, "data": cached})
 
-        banks = await services.list_banks(country=country, is_test=is_test)
+        result = services._make_paystack_request(
+            endpoint=f"/bank?country={country}&perPage=100",
+            is_test=is_test,
+        )
+        banks = result.get("data", []) if result.get("status") else []
         if banks:
-            # Cache for 24 hours
             cache.set(cache_key, banks, 86400)
 
         return JsonResponse({"status": True, "data": banks})

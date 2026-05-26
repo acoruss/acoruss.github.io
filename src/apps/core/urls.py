@@ -15,6 +15,11 @@ urlpatterns = [
     path("sitemap.xml", views.SitemapXmlView.as_view(), name="sitemap_xml"),
     path("favicon.ico", views.FaviconView.as_view(), name="favicon"),
     path(".well-known/security.txt", views.SecurityTxtView.as_view(), name="security_txt"),
+    path(
+        ".well-known/apple-developer-merchantid-domain-association",
+        views.ApplePayDomainVerificationView.as_view(),
+        name="apple_pay_verification",
+    ),
     # Health check for Docker / load balancer
     path("healthz/", views.HealthCheckView.as_view(), name="health_check"),
     # Public pages
@@ -50,6 +55,11 @@ urlpatterns = [
     ),
     path("dashboard/services/", payment_views.ServiceListView.as_view(), name="dashboard_services"),
     path("dashboard/services/create/", payment_views.ServiceCreateView.as_view(), name="dashboard_service_create"),
+    path(
+        "dashboard/services/banks/",
+        payment_views.BankListView.as_view(),
+        name="dashboard_banks",
+    ),
     path("dashboard/services/<slug:slug>/", payment_views.ServiceDetailView.as_view(), name="dashboard_service_detail"),
     path(
         "dashboard/services/<slug:slug>/toggle/",
@@ -65,6 +75,11 @@ urlpatterns = [
         "dashboard/services/<slug:slug>/update/",
         payment_views.ServiceUpdateView.as_view(),
         name="dashboard_service_update",
+    ),
+    path(
+        "dashboard/services/<slug:slug>/create-subaccount/",
+        payment_views.ServiceCreateSubaccountView.as_view(),
+        name="dashboard_service_create_subaccount",
     ),
     path("dashboard/analytics/", views.AnalyticsView.as_view(), name="dashboard_analytics"),
     path(

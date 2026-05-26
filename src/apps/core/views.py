@@ -134,6 +134,27 @@ class SecurityTxtView(View):
         return HttpResponse(self.SECURITY_TXT, content_type="text/plain")
 
 
+class ApplePayDomainVerificationView(View):
+    """Serve Apple Pay domain verification file for Paystack."""
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        from pathlib import Path
+
+        file_path = (
+            Path(__file__).resolve().parent.parent.parent
+            / "static"
+            / ".well-known"
+            / "apple-developer-merchantid-domain-association"
+        )
+        try:
+            content = file_path.read_text()
+        except FileNotFoundError as err:
+            from django.http import Http404
+
+            raise Http404 from err
+        return HttpResponse(content, content_type="text/plain")
+
+
 class IndexView(TemplateView):
     """Public homepage."""
 

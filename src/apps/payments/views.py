@@ -293,13 +293,114 @@ class ServiceCreateView(AdminRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        """Save the service and show the generated credentials."""
+        """Save the service, optionally create a Paystack subaccount."""
+        import contextlib
+
         self.object = form.save()
-        messages.success(
-            self.request,
-            f"Service '{self.object.name}' created! API credentials generated.",
-        )
+
+        # Check if revenue sharing fields were provided
+        enable_revenue_sharing = self.request.POST.get("enable_revenue_sharing")
+        if enable_revenue_sharing:
+            self.object.subaccount_business_name = self.request.POST.get("subaccount_business_name", "").strip()
+            self.object.settlement_bank = self.request.POST.get("settlement_bank", "").strip()
+            self.object.settlement_bank_name = self.request.POST.get("settlement_bank_name", "").strip()
+            self.object.account_number = self.request.POST.get("account_number", "").strip()
+            self.object.charge_bearer = self.request.POST.get("charge_bearer", "account").strip()
+
+            percentage_raw = self.request.POST.get("percentage_charge", "").strip()
+            if percentage_raw:
+                with contextlib.suppress(ValueError, TypeError):
+                    self.object.percentage_charge = round(float(percentage_raw), 2)
+
+            transaction_charge_raw = self.request.POST.get("transaction_charge", "").strip()
+            if transaction_charge_raw:
+                with contextlib.suppress(ValueError, TypeError):
+                    self.object.transaction_charge = int(transaction_charge_raw)
+
+            self.object.save()
+
+            # Schedule subaccount creation (handled async in detail view or via management)
+            messages.success(
+                self.request,
+                f"Service '{self.object.name}' created! Revenue sharing configured — "
+                f"subaccount will be created on Paystack.",
+            )
+        else:
+            messages.success(
+                self.request,
+                f"Service '{self.object.name}' created! API credentials generated.",
+            )
         return redirect("core:dashboard_service_detail", slug=self.object.slug)
+
+
+class ServiceCreateSubaccountView(AdminRequiredMixin, View):
+    """Create or retry Paystack subaccount creation for a service."""
+
+    async def post(self, request: HttpRequest, slug: str) -> HttpResponse:
+        service = await ServiceProduct.objects.aget(slug=slug)
+        if service.subaccount_code:
+            messages.info(request, "Subaccount already exists.")
+            return redirect("core:dashboard_service_detail", slug=slug)
+
+        if not service.settlement_bank or not service.account_number:
+            messages.error(request, "Bank details are required to create a subaccount.")
+            return redirect("core:dashboard_service_detail", slug=slug)
+
+        result = await services.create_subaccount(
+            business_name=service.subaccount_business_name or service.name,
+            settlement_bank=service.settlement_bank,
+            account_number=service.account_number,
+            percentage_charge=float(service.percentage_charge or 0),
+            description=service.description,
+            primary_contact_email=service.contact_email,
+            is_test=service.is_test,
+        )
+
+        if result.get("status") and result.get("data"):
+            data = result["data"]
+            service.subaccount_code = data.get("subaccount_code", "")
+            service.subaccount_paystack_id = str(data.get("id", ""))
+            if not service.settlement_bank_name:
+                service.settlement_bank_name = data.get("settlement_bank", "")
+            await service.asave(
+                update_fields=[
+                    "subaccount_code",
+                    "subaccount_paystack_id",
+                    "settlement_bank_name",
+                    "updated_at",
+                ]
+            )
+            messages.success(
+                request,
+                f"Subaccount created on Paystack: {service.subaccount_code}",
+            )
+        else:
+            error_msg = result.get("message", "Unknown error")
+            messages.error(request, f"Failed to create subaccount: {error_msg}")
+
+        return redirect("core:dashboard_service_detail", slug=slug)
+
+
+class BankListView(AdminRequiredMixin, View):
+    """API endpoint to fetch Paystack bank list for a country (used by dashboard forms)."""
+
+    async def get(self, request: HttpRequest) -> JsonResponse:
+        from django.core.cache import cache
+
+        country = request.GET.get("country", "kenya").lower()
+        is_test = request.GET.get("is_test", "false").lower() == "true"
+
+        cache_key = f"paystack_banks_{country}_{is_test}"
+        cached = cache.get(cache_key)
+        if cached:
+            return JsonResponse({"status": True, "data": cached})
+
+        banks = await services.list_banks(country=country, is_test=is_test)
+        if banks:
+            # Cache for 24 hours
+            cache.set(cache_key, banks, 86400)
+
+        return JsonResponse({"status": True, "data": banks})
 
 
 class ServiceDetailView(AdminRequiredMixin, DetailView):

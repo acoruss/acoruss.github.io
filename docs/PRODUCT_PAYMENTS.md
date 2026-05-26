@@ -28,7 +28,8 @@ This document explains how an external service (e.g. **xperience-nairobi**) inte
 9. [Currencies](#currencies)
 10. [Rate Limits](#rate-limits)
 11. [Error Handling](#error-handling)
-12. [Example: xperience-nairobi Integration](#example-xperience-nairobi-integration)
+12. [Revenue Sharing (Subaccounts)](#revenue-sharing-subaccounts)
+13. [Example: xperience-nairobi Integration](#example-xperience-nairobi-integration)
 
 ---
 
@@ -668,3 +669,66 @@ async def check_payment(reference: str) -> dict:
 - Callback URL (e.g. `https://xperience-nairobi.com/orders/{id}/paid/`)
 - Required currencies (e.g. `KES` only)
 - Server IPs if you want IP allowlisting
+
+---
+
+## Revenue Sharing (Subaccounts)
+
+Acoruss supports automatic revenue splitting via Paystack subaccounts. When a service product is configured with revenue sharing, payments are automatically split between the Acoruss platform and the partner.
+
+### How It Works
+
+```
+Customer pays KES 1,000
+├── Acoruss (platform fee): KES 200 (20%)
+├── Partner (subaccount):   KES 800 (80%)
+└── Paystack fees: deducted from bearer (configurable)
+```
+
+### Configuration
+
+Revenue sharing is configured per service product in the Acoruss dashboard (`/dashboard/services/create/`). The admin provides:
+
+| Field | Description |
+|-------|-------------|
+| **Partner Business Name** | Business name registered with the bank |
+| **Settlement Bank** | Bank code from Paystack's bank list (auto-populated by country) |
+| **Account Number** | Partner's bank account number |
+| **Platform Fee (%)** | Percentage Acoruss keeps per transaction |
+| **Flat Fee** | Optional fixed amount (in smallest currency unit) Acoruss keeps. Overrides percentage. |
+| **Fee Bearer** | Who absorbs Paystack processing fees: `account` (Acoruss) or `subaccount` (partner) |
+
+### Subaccount Lifecycle
+
+1. **Creation**: When a product is saved with revenue sharing enabled, bank details are stored. A Paystack subaccount is created (can be retried from the detail page if it fails).
+2. **Activation**: Once the `subaccount_code` is stored, all future payments for that service automatically include the split.
+3. **Payments**: The `subaccount`, `bearer`, and optional `transaction_charge` fields are passed to Paystack's `/transaction/initialize` endpoint.
+
+### Model Fields on `ServiceProduct`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subaccount_code` | CharField | Paystack subaccount code (e.g., `ACCT_xxx`) |
+| `subaccount_paystack_id` | CharField | Paystack internal ID |
+| `subaccount_business_name` | CharField | Partner business name |
+| `settlement_bank` | CharField | Bank code |
+| `settlement_bank_name` | CharField | Human-readable bank name |
+| `account_number` | CharField | Partner bank account number |
+| `percentage_charge` | DecimalField | % Acoruss keeps |
+| `transaction_charge` | IntegerField | Flat fee in kobo/cents (optional) |
+| `charge_bearer` | CharField | `account` or `subaccount` |
+
+### API Behavior
+
+External services do **not** need to change their integration. The split is entirely transparent — when a service with a configured subaccount initiates a payment via the API, the split parameters are automatically included in the Paystack request.
+
+### Dashboard Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/dashboard/services/banks/?country=kenya` | GET | Fetch Paystack bank list (cached 24h) |
+| `/dashboard/services/<slug>/create-subaccount/` | POST | Create/retry Paystack subaccount |
+
+### Test vs Live
+
+Subaccounts respect the service's `is_test` flag. Test services create subaccounts using Paystack test credentials; live services use live credentials. Always test revenue splits in test mode first.

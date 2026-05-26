@@ -50,6 +50,11 @@ urlpatterns = [
     ),
     path("dashboard/services/", payment_views.ServiceListView.as_view(), name="dashboard_services"),
     path("dashboard/services/create/", payment_views.ServiceCreateView.as_view(), name="dashboard_service_create"),
+    path(
+        "dashboard/services/banks/",
+        payment_views.BankListView.as_view(),
+        name="dashboard_banks",
+    ),
     path("dashboard/services/<slug:slug>/", payment_views.ServiceDetailView.as_view(), name="dashboard_service_detail"),
     path(
         "dashboard/services/<slug:slug>/toggle/",
@@ -65,6 +70,11 @@ urlpatterns = [
         "dashboard/services/<slug:slug>/update/",
         payment_views.ServiceUpdateView.as_view(),
         name="dashboard_service_update",
+    ),
+    path(
+        "dashboard/services/<slug:slug>/create-subaccount/",
+        payment_views.ServiceCreateSubaccountView.as_view(),
+        name="dashboard_service_create_subaccount",
     ),
     path("dashboard/analytics/", views.AnalyticsView.as_view(), name="dashboard_analytics"),
     path(

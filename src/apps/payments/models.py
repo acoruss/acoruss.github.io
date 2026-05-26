@@ -78,6 +78,63 @@ class ServiceProduct(models.Model):
         help_text="List of IPs allowed to call the API. Empty = all.",
     )
 
+    # Revenue Sharing / Subaccount
+    subaccount_code = models.CharField(
+        "Paystack subaccount code",
+        max_length=100,
+        blank=True,
+        help_text="Paystack subaccount code (e.g. ACCT_xxx). Auto-generated.",
+    )
+    subaccount_paystack_id = models.CharField(
+        "Paystack subaccount ID",
+        max_length=50,
+        blank=True,
+    )
+    subaccount_business_name = models.CharField(
+        "subaccount business name",
+        max_length=255,
+        blank=True,
+        help_text="Partner business name for the subaccount.",
+    )
+    settlement_bank = models.CharField(
+        "settlement bank code",
+        max_length=20,
+        blank=True,
+        help_text="Paystack bank code for settlement.",
+    )
+    settlement_bank_name = models.CharField(
+        "settlement bank name",
+        max_length=255,
+        blank=True,
+        help_text="Human-readable bank name.",
+    )
+    account_number = models.CharField(
+        "bank account number",
+        max_length=30,
+        blank=True,
+    )
+    percentage_charge = models.DecimalField(
+        "platform percentage",
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Percentage Acoruss (main account) keeps from each payment.",
+    )
+    transaction_charge = models.IntegerField(
+        "flat transaction charge (kobo)",
+        null=True,
+        blank=True,
+        help_text="Flat fee Acoruss keeps per transaction (in smallest currency unit).",
+    )
+    charge_bearer = models.CharField(
+        "Paystack fee bearer",
+        max_length=20,
+        default="account",
+        choices=[("account", "Main account"), ("subaccount", "Subaccount")],
+        help_text="Who bears Paystack processing fees.",
+    )
+
     # Metadata
     metadata = models.JSONField("metadata", default=dict, blank=True)
 
@@ -98,6 +155,11 @@ class ServiceProduct(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    @property
+    def has_subaccount(self) -> bool:
+        """Whether this service has an active Paystack subaccount for revenue sharing."""
+        return bool(self.subaccount_code)
 
     def regenerate_credentials(self) -> tuple[str, str]:
         """Regenerate API key and secret. Returns (new_key, new_secret)."""

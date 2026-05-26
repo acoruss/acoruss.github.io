@@ -80,6 +80,9 @@ async def initialise_transaction(
     callback_url: str = "",
     metadata: dict | None = None,
     is_test: bool = False,
+    subaccount: str = "",
+    transaction_charge: int | None = None,
+    bearer: str = "",
 ) -> dict:
     """
     Initialise a Paystack transaction.
@@ -91,6 +94,9 @@ async def initialise_transaction(
         currency: Currency code (KES, USD, NGN).
         callback_url: URL to redirect after payment.
         metadata: Additional metadata for the transaction.
+        subaccount: Paystack subaccount code for split payments.
+        transaction_charge: Flat fee (kobo) the main account keeps.
+        bearer: Who bears Paystack fees ("account" or "subaccount").
 
     Returns:
         Paystack API response data dict.
@@ -114,6 +120,14 @@ async def initialise_transaction(
         payload["callback_url"] = callback_url
     if metadata:
         payload["metadata"] = metadata
+
+    # Revenue sharing / split payment
+    if subaccount:
+        payload["subaccount"] = subaccount
+        if bearer:
+            payload["bearer"] = bearer
+        if transaction_charge is not None:
+            payload["transaction_charge"] = transaction_charge
 
     data = json.dumps(payload).encode()
 
@@ -267,3 +281,138 @@ def validate_webhook_signature(payload: bytes, signature: str) -> bool:
         if hmac.compare_digest(expected, signature):
             return True
     return False
+
+
+# ───────────────────────────── Subaccount Management ─────────────────────────
+
+
+async def list_banks(country: str = "kenya", *, is_test: bool = False) -> list[dict]:
+    """
+    Fetch list of banks from Paystack for a given country.
+
+    Args:
+        country: Country name (kenya, nigeria, ghana, south africa).
+        is_test: Use test or live credentials.
+
+    Returns:
+        List of bank dicts with 'name', 'code', 'active' etc.
+
+    """
+    import asyncio
+
+    loop = asyncio.get_event_loop()
+    try:
+        result = await loop.run_in_executor(
+            None,
+            lambda: _make_paystack_request(
+                endpoint=f"/bank?country={country}&perPage=100",
+                is_test=is_test,
+            ),
+        )
+        if result.get("status") and result.get("data"):
+            return result["data"]
+        return []
+    except Exception:
+        logger.exception("Failed to fetch banks for country: %s", country)
+        return []
+
+
+async def create_subaccount(
+    *,
+    business_name: str,
+    settlement_bank: str,
+    account_number: str,
+    percentage_charge: float,
+    description: str = "",
+    primary_contact_email: str = "",
+    primary_contact_phone: str = "",
+    is_test: bool = False,
+) -> dict:
+    """
+    Create a Paystack subaccount for revenue sharing.
+
+    Args:
+        business_name: Partner business name.
+        settlement_bank: Bank code from Paystack's bank list.
+        account_number: Partner's bank account number.
+        percentage_charge: Percentage the main account (Acoruss) keeps.
+        description: Optional description.
+        primary_contact_email: Contact email for the subaccount.
+        primary_contact_phone: Contact phone for the subaccount.
+        is_test: Use test or live credentials.
+
+    Returns:
+        Paystack API response dict. On success, data contains subaccount_code.
+
+    """
+    import asyncio
+    import json
+
+    payload: dict = {
+        "business_name": business_name,
+        "settlement_bank": settlement_bank,
+        "account_number": account_number,
+        "percentage_charge": percentage_charge,
+    }
+    if description:
+        payload["description"] = description
+    if primary_contact_email:
+        payload["primary_contact_email"] = primary_contact_email
+    if primary_contact_phone:
+        payload["primary_contact_phone"] = primary_contact_phone
+
+    data = json.dumps(payload).encode()
+
+    loop = asyncio.get_event_loop()
+    try:
+        return await loop.run_in_executor(
+            None,
+            lambda: _make_paystack_request(
+                endpoint="/subaccount",
+                method="POST",
+                data=data,
+                is_test=is_test,
+            ),
+        )
+    except Exception:
+        logger.exception("Failed to create Paystack subaccount")
+        return {"status": False, "message": "Subaccount creation failed"}
+
+
+async def update_subaccount(
+    *,
+    id_or_code: str,
+    is_test: bool = False,
+    **kwargs,
+) -> dict:
+    """
+    Update a Paystack subaccount.
+
+    Args:
+        id_or_code: Subaccount ID or code.
+        is_test: Use test or live credentials.
+        **kwargs: Fields to update (business_name, percentage_charge, etc.)
+
+    Returns:
+        Paystack API response dict.
+
+    """
+    import asyncio
+    import json
+
+    data = json.dumps(kwargs).encode()
+
+    loop = asyncio.get_event_loop()
+    try:
+        return await loop.run_in_executor(
+            None,
+            lambda: _make_paystack_request(
+                endpoint=f"/subaccount/{id_or_code}",
+                method="PUT",
+                data=data,
+                is_test=is_test,
+            ),
+        )
+    except Exception:
+        logger.exception("Failed to update Paystack subaccount: %s", id_or_code)
+        return {"status": False, "message": "Subaccount update failed"}

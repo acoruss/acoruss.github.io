@@ -121,6 +121,14 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
         # Tell Paystack to redirect back to Acoruss (not the external service)
         paystack_callback = f"{settings.SITE_URL}/payments/verify/"
 
+        # Revenue sharing: include subaccount split params if configured
+        split_kwargs: dict = {}
+        if request.service.has_subaccount:
+            split_kwargs["subaccount"] = request.service.subaccount_code
+            split_kwargs["bearer"] = request.service.charge_bearer
+            if request.service.transaction_charge is not None:
+                split_kwargs["transaction_charge"] = request.service.transaction_charge
+
         result = await services.initialise_transaction(
             email=email,
             amount_kobo=payment.amount_in_kobo,
@@ -138,6 +146,7 @@ class APIInitiatePaymentView(ServiceAuthMixin, View):
                 "exchange_rate": str(exchange_rate),
                 "settlement_amount_kes": str(settlement_amount),
             },
+            **split_kwargs,
         )
 
         if result.get("status") and result.get("data", {}).get("authorization_url"):

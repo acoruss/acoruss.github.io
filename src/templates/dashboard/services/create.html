@@ -5,7 +5,7 @@
 
 {% block breadcrumbs %}
 <li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
-<li><a href="{% url 'core:dashboard_services' %}" class="hover:text-accent">Products</a></li>
+<li><a href="{% url 'core:dashboard_services' %}" class="hover:text-accent">Payments</a></li>
 <li class="text-base-content font-medium">Create</li>
 {% endblock %}
 
@@ -115,6 +115,115 @@
             </div>
         </div>
 
+        <!-- Revenue Sharing -->
+        <div class="dash-card">
+            <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
+                Revenue Sharing
+            </h2>
+            <p class="text-xs text-base-content/50 mb-4">
+                Enable to automatically split payments with a partner via Paystack subaccounts.
+                A Paystack subaccount will be created when the product is saved.
+            </p>
+
+            <div class="form-control mb-4">
+                <label class="label py-1 cursor-pointer justify-start gap-3">
+                    <input type="checkbox" name="enable_revenue_sharing" id="id_enable_revenue_sharing"
+                        class="toggle toggle-sm toggle-accent" onchange="toggleRevenueSharing(this)" />
+                    <span class="label-text text-xs font-semibold">Enable Revenue Sharing</span>
+                </label>
+            </div>
+
+            <div id="revenue-sharing-fields" class="space-y-3 hidden">
+                <div class="form-control">
+                    <label class="label py-1" for="id_subaccount_business_name">
+                        <span class="label-text text-xs font-semibold">Partner Business Name <span class="text-error">*</span></span>
+                    </label>
+                    <input type="text" name="subaccount_business_name" id="id_subaccount_business_name"
+                        placeholder="Partner Company Ltd"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">The business name registered with the bank.</span></label>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="form-control">
+                        <label class="label py-1" for="id_bank_country">
+                            <span class="label-text text-xs font-semibold">Country</span>
+                        </label>
+                        <select name="bank_country" id="id_bank_country"
+                            class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs"
+                            onchange="loadBanks(this.value)">
+                            <option value="kenya" selected>Kenya</option>
+                            <option value="nigeria">Nigeria</option>
+                            <option value="ghana">Ghana</option>
+                            <option value="south africa">South Africa</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1" for="id_settlement_bank">
+                            <span class="label-text text-xs font-semibold">Settlement Bank <span class="text-error">*</span></span>
+                        </label>
+                        <select name="settlement_bank" id="id_settlement_bank"
+                            class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs">
+                            <option value="">Loading banks...</option>
+                        </select>
+                        <input type="hidden" name="settlement_bank_name" id="id_settlement_bank_name" />
+                    </div>
+                </div>
+
+                <div class="form-control">
+                    <label class="label py-1" for="id_account_number">
+                        <span class="label-text text-xs font-semibold">Account Number <span class="text-error">*</span></span>
+                    </label>
+                    <input type="text" name="account_number" id="id_account_number"
+                        placeholder="0123456789"
+                        class="input input-bordered input-sm w-full rounded-lg bg-base-100/50 font-mono" />
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="form-control">
+                        <label class="label py-1" for="id_percentage_charge">
+                            <span class="label-text text-xs font-semibold">Platform Fee (%) <span class="text-error">*</span></span>
+                        </label>
+                        <input type="number" name="percentage_charge" id="id_percentage_charge"
+                            placeholder="20"
+                            min="0" max="100" step="0.01"
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/30">% Acoruss keeps per transaction. Partner gets the remainder.</span></label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label py-1" for="id_transaction_charge">
+                            <span class="label-text text-xs font-semibold">Flat Fee (optional)</span>
+                        </label>
+                        <input type="number" name="transaction_charge" id="id_transaction_charge"
+                            placeholder="5000"
+                            min="0" step="1"
+                            class="input input-bordered input-sm w-full rounded-lg bg-base-100/50" />
+                        <label class="label py-0"><span class="label-text-alt text-base-content/30">Fixed amount (in smallest unit, e.g. cents) Acoruss keeps. Overrides %.</span></label>
+                    </div>
+                </div>
+
+                <div class="form-control">
+                    <label class="label py-1" for="id_charge_bearer">
+                        <span class="label-text text-xs font-semibold">Who Pays Paystack Fees?</span>
+                    </label>
+                    <select name="charge_bearer" id="id_charge_bearer"
+                        class="select select-bordered select-sm w-full rounded-lg bg-base-100/50 text-xs">
+                        <option value="account">Main Account (Acoruss)</option>
+                        <option value="subaccount">Subaccount (Partner)</option>
+                    </select>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/30">Determines who absorbs Paystack's processing fees.</span></label>
+                </div>
+
+                <div class="bg-info/5 border border-info/20 rounded-xl p-3 mt-2">
+                    <p class="text-xs text-info flex items-start gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><circle cx="12" cy="8" r="0.5" fill="currentColor"></circle></svg>
+                        <span>The Paystack subaccount will be created automatically when you save. If creation fails, you can retry from the product detail page.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Security -->
         <div class="dash-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
@@ -176,6 +285,67 @@ if (nameEl && slugEl) {
         }
     });
     slugEl.addEventListener('input', () => { slugEdited = true; });
+}
+
+// Revenue sharing toggle
+function toggleRevenueSharing(checkbox) {
+    const fields = document.getElementById('revenue-sharing-fields');
+    if (checkbox.checked) {
+        fields.classList.remove('hidden');
+        loadBanks(document.getElementById('id_bank_country').value);
+    } else {
+        fields.classList.add('hidden');
+    }
+}
+
+// Load banks from Paystack via our cached endpoint
+let banksCache = {};
+async function loadBanks(country) {
+    const select = document.getElementById('id_settlement_bank');
+    const hiddenName = document.getElementById('id_settlement_bank_name');
+    const isTest = document.getElementById('id_is_test')?.checked ? 'true' : 'false';
+
+    select.innerHTML = '<option value="">Loading banks...</option>';
+
+    const cacheKey = `${country}_${isTest}`;
+    if (banksCache[cacheKey]) {
+        populateBanks(banksCache[cacheKey], select, hiddenName);
+        return;
+    }
+
+    try {
+        const resp = await fetch(`{% url 'core:dashboard_banks' %}?country=${encodeURIComponent(country)}&is_test=${isTest}`);
+        const json = await resp.json();
+        if (json.status && json.data) {
+            banksCache[cacheKey] = json.data;
+            populateBanks(json.data, select, hiddenName);
+        } else {
+            select.innerHTML = '<option value="">Failed to load banks</option>';
+        }
+    } catch (err) {
+        select.innerHTML = '<option value="">Error loading banks</option>';
+    }
+}
+
+function populateBanks(banks, select, hiddenName) {
+    const sorted = banks
+        .filter(b => b.active)
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    select.innerHTML = '<option value="">Select a bank...</option>';
+    for (const bank of sorted) {
+        const opt = document.createElement('option');
+        opt.value = bank.code;
+        opt.textContent = bank.name;
+        opt.dataset.bankName = bank.name;
+        select.appendChild(opt);
+    }
+
+    // Update hidden bank name when selection changes
+    select.onchange = () => {
+        const selected = select.options[select.selectedIndex];
+        hiddenName.value = selected?.dataset?.bankName || '';
+    };
 }
 </script>
 {% endblock %}

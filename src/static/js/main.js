@@ -5,19 +5,27 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Acoruss web application loaded.");
-
   // Mobile drawer: close on link click
   initMobileDrawer();
 
   // Smooth scroll for hash links
   initSmoothScroll();
 
-  // Scroll animations (intersection observer)
-  initScrollAnimations();
+  // Scroll animations (intersection observer) — respects reduced motion
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    initScrollAnimations();
+  } else {
+    // Reveal all animated elements immediately
+    document.querySelectorAll("[data-animate]").forEach((el) => {
+      el.style.opacity = "1";
+    });
+  }
 
   // Tab system (services, projects)
   initTabs();
+
+  // Accessibility: mark decorative SVGs
+  initA11y();
 
   // Blog posts from Substack RSS
   initBlogLoader();
@@ -25,6 +33,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Currency display (USD default, KES for Kenya)
   initCurrencyDisplay();
 });
+
+/**
+ * Accessibility enhancements: mark decorative SVGs, ensure ARIA attributes.
+ */
+function initA11y() {
+  // Mark all inline SVGs without explicit role as decorative
+  document.querySelectorAll("svg:not([role])").forEach((svg) => {
+    if (!svg.querySelector("title") && !svg.getAttribute("aria-label")) {
+      svg.setAttribute("aria-hidden", "true");
+    }
+  });
+}
 
 /**
  * Close mobile drawer when a link inside it is clicked.

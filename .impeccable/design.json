@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-26T00:24:00.000Z",
+  "title": "Design System: Acoruss",
+  "extensions": {
+    "colorMeta": {
+      "warm-maroon": { "role": "primary", "displayName": "Warm Maroon", "canonical": "oklch(38% 0.12 25)", "tonalRamp": ["oklch(15% 0.06 25)", "oklch(22% 0.08 25)", "oklch(30% 0.10 25)", "oklch(38% 0.12 25)", "oklch(50% 0.14 25)", "oklch(62% 0.12 25)", "oklch(75% 0.08 25)", "oklch(90% 0.04 25)"] },
+      "deep-ember": { "role": "secondary", "displayName": "Deep Ember", "canonical": "oklch(25% 0.06 25)", "tonalRamp": ["oklch(12% 0.03 25)", "oklch(18% 0.04 25)", "oklch(22% 0.05 25)", "oklch(25% 0.06 25)", "oklch(35% 0.07 25)", "oklch(48% 0.06 25)", "oklch(65% 0.04 25)", "oklch(82% 0.02 25)"] },
+      "amber-gold": { "role": "tertiary", "displayName": "Amber Gold", "canonical": "oklch(72% 0.12 70)", "tonalRamp": ["oklch(25% 0.04 70)", "oklch(35% 0.06 70)", "oklch(48% 0.08 70)", "oklch(60% 0.10 70)", "oklch(72% 0.12 70)", "oklch(80% 0.10 70)", "oklch(88% 0.06 70)", "oklch(95% 0.03 70)"] },
+      "charred-earth": { "role": "neutral", "displayName": "Charred Earth", "canonical": "oklch(12% 0.008 50)", "tonalRamp": ["oklch(8% 0.005 50)", "oklch(12% 0.008 50)", "oklch(18% 0.008 50)", "oklch(25% 0.008 50)", "oklch(35% 0.006 50)", "oklch(50% 0.005 50)", "oklch(70% 0.004 50)", "oklch(90% 0.003 50)"] },
+      "warm-smoke": { "role": "neutral", "displayName": "Warm Smoke", "canonical": "oklch(18% 0.008 50)", "tonalRamp": ["oklch(10% 0.005 50)", "oklch(14% 0.007 50)", "oklch(18% 0.008 50)", "oklch(25% 0.008 50)", "oklch(35% 0.007 50)", "oklch(50% 0.005 50)", "oklch(70% 0.004 50)", "oklch(90% 0.003 50)"] },
+      "warm-cream": { "role": "neutral", "displayName": "Warm Cream", "canonical": "oklch(96% 0.008 70)", "tonalRamp": ["oklch(30% 0.004 70)", "oklch(45% 0.005 70)", "oklch(60% 0.006 70)", "oklch(72% 0.007 70)", "oklch(82% 0.007 70)", "oklch(90% 0.008 70)", "oklch(94% 0.008 70)", "oklch(96% 0.008 70)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines only. Bold, tight, commanding." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings. Same weight as display, stepped down." },
+      "title": { "displayName": "Title", "purpose": "Card headings, sub-section titles." },
+      "body": { "displayName": "Body", "purpose": "Running text. Regular weight, generous leading for dark backgrounds." },
+      "label": { "displayName": "Label", "purpose": "Section badges, pill labels, metadata. Uppercase, tracked out." }
+    },
+    "shadows": [
+      { "name": "card-hover", "value": "0 12px 40px rgba(0, 0, 0, 0.3)", "purpose": "Lift effect on card hover. Always paired with translateY(-4px)." },
+      { "name": "navbar-ambient", "value": "0 1px 2px rgba(0, 0, 0, 0.1)", "purpose": "Minimal shadow on floating pill navbar. Barely perceptible." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default easing for all state transitions (hover, sidebar collapse, nav)." },
+      { "name": "fade-in-up", "value": "translateY(20px) → translateY(0), opacity 0 → 1, 0.6s ease-out", "purpose": "Scroll-triggered entrance animation for content sections." },
+      { "name": "card-lift", "value": "translateY(-4px), 0.3s cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Card hover lift. Pairs with card-hover shadow." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA button. Pill-shaped, warm maroon fill, white text, trailing arrow icon.",
+      "html": "<button class=\"ds-btn-primary\">Get Started <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #7A1C1C; color: #FFFFFF; padding: 10px 20px; border-radius: 9999px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; border: none; cursor: pointer; transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-btn-primary:hover { background: #8B2222; } .ds-btn-primary:focus-visible { outline: 2px solid #C8956A; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary navigation-style button. Transparent, reveals fill on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Services</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; background: transparent; color: #F5F0EB; padding: 8px 12px; border-radius: 12px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-btn-ghost:hover { background: rgba(255, 255, 255, 0.1); } .ds-btn-ghost:focus-visible { outline: 2px solid #C8956A; outline-offset: 2px; }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Primary content container. Glass-effect surface floating on dark ground.",
+      "html": "<div class=\"ds-glass-card\"><h3 class=\"ds-card-title\">Custom Software</h3><p class=\"ds-card-body\">Tailored solutions that grow with your business.</p></div>",
+      "css": ".ds-glass-card { backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); background: rgba(26, 22, 18, 0.75); border: 1px solid rgba(232, 226, 218, 0.05); border-radius: 16px; padding: 20px; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .ds-glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); } .ds-card-title { font-size: 1.25rem; font-weight: 600; color: #F5F0EB; margin: 0 0 8px 0; } .ds-card-body { font-size: 1rem; color: rgba(232, 226, 218, 0.7); margin: 0; line-height: 1.6; }"
+    },
+    {
+      "name": "Glass Navbar",
+      "kind": "nav",
+      "refersTo": "nav-pill",
+      "description": "Floating pill-shaped navigation bar with glass effect. Fixed at top.",
+      "html": "<nav class=\"ds-navbar\"><span class=\"ds-nav-brand\">Acoruss</span><div class=\"ds-nav-links\"><a class=\"ds-nav-link\" href=\"#\">Services</a><a class=\"ds-nav-link\" href=\"#\">Pricing</a><a class=\"ds-nav-link\" href=\"#\">About</a></div><button class=\"ds-btn-primary ds-btn-sm\">Get Started</button></nav>",
+      "css": ".ds-navbar { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 72rem; backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); background: rgba(26, 22, 18, 0.75); border: 1px solid rgba(232, 226, 218, 0.05); border-radius: 9999px; padding: 12px 20px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); } .ds-nav-brand { font-size: 1.125rem; font-weight: 700; color: #F5F0EB; letter-spacing: -0.02em; } .ds-nav-links { display: flex; gap: 4px; } .ds-nav-link { padding: 8px 12px; border-radius: 12px; font-size: 0.875rem; font-weight: 500; color: #F5F0EB; text-decoration: none; transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-nav-link:hover { background: rgba(255, 255, 255, 0.1); } .ds-btn-sm { padding: 8px 16px; font-size: 0.8125rem; }"
+    },
+    {
+      "name": "Section Badge",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Small uppercase pill that introduces a section. Amber dot indicator on left.",
+      "html": "<span class=\"ds-section-badge\"><span class=\"ds-badge-dot\"></span>OUR SERVICES</span>",
+      "css": ".ds-section-badge { display: inline-flex; align-items: center; gap: 8px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(232, 226, 218, 0.6); } .ds-badge-dot { width: 6px; height: 6px; border-radius: 9999px; background: #C8956A; }"
+    },
+    {
+      "name": "Dashboard Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Dashboard container with backdrop-blur. Used for stats, tables, and content panels.",
+      "html": "<div class=\"ds-dash-card\"><div class=\"ds-dash-card-header\"><h3 class=\"ds-card-title\">Revenue</h3></div><p class=\"ds-card-body\">Monthly overview of payment activity.</p></div>",
+      "css": ".ds-dash-card { border-radius: 16px; border: 1px solid rgba(44, 37, 32, 0.5); background: rgba(15, 13, 11, 0.6); padding: 20px; backdrop-filter: blur(4px); } .ds-dash-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; } .ds-dash-card .ds-card-title { font-size: 1rem; font-weight: 600; color: #E8E2DA; margin: 0; } .ds-dash-card .ds-card-body { font-size: 0.875rem; color: rgba(232, 226, 218, 0.6); margin: 0; line-height: 1.5; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Standard text input. Warm dark background, cream text, amber focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Your email address\" />",
+      "css": ".ds-input { width: 100%; background: #1A1612; color: #F5F0EB; border: 1px solid rgba(44, 37, 32, 0.8); border-radius: 12px; padding: 12px 16px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1rem; transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1); } .ds-input::placeholder { color: rgba(232, 226, 218, 0.4); } .ds-input:focus { outline: none; border-color: #C8956A; box-shadow: 0 0 0 2px rgba(200, 149, 106, 0.2); } .ds-input:focus-visible { outline: 2px solid #C8956A; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Fireside Counsel",
+    "overview": "A trusted advisor's space: warm, composed, assured. The interface evokes the feeling of sitting in a well-appointed study with someone who has solved this problem before. Every surface carries the warmth of dark timber and ember-glow accents. The system never shouts, never dazzles with cheap tricks; it earns trust through craft, consistency, and restraint in the right places.\n\nThis system rejects displaced or scattered designs, generic template aesthetics, flashy gimmickry, and cold corporate impersonality. It is an agency's own proof of work: if the site itself doesn't feel expertly made, nothing it claims matters.\n\nThe color strategy is Committed: warm maroon carries identity across dark surfaces, with amber-gold as a secondary voice for emphasis. The palette works in tight harmony; no color arrives without purpose.",
+    "keyCharacteristics": [
+      "Dark warm ground with layered glass surfaces",
+      "Single-font system (Inter) using weight and scale for hierarchy",
+      "Pill-shaped primary CTAs that feel solid and inviting",
+      "Godrays and subtle radial gradients for atmospheric depth",
+      "Scroll-triggered fade animations at restrained energy",
+      "Glass-effect navbar floating above content"
+    ],
+    "rules": [
+      { "name": "The Ember Hierarchy Rule", "body": "Maroon is identity. Gold is emphasis. The darks are structure. If gold is touching maroon directly, one of them is wrong. They address different emotional registers and should not compete in the same element.", "section": "colors" },
+      { "name": "The Weight Gap Rule", "body": "Adjacent hierarchy levels must differ by at least one full weight step (e.g., 700 to 500, never 600 to 500). If two text elements feel the same weight at a glance, one of them is at the wrong level.", "section": "typography" },
+      { "name": "The Flat-at-Rest Rule", "body": "Surfaces are flat at rest. No resting shadows. Shadows appear only as a response to interaction (hover, press, drag). If a card has a shadow without being hovered, the shadow is wrong.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use the warm maroon (#7A1C1C) exclusively for CTAs and primary interactive elements. Its rarity is its power.",
+      "Do tint every \"black\" toward the warm hue. #0F0D0B, not #000000. The system has no true black or true white.",
+      "Do use the glass-effect (backdrop-blur 16px + saturate 180%) for floating navigation and elevated marketing surfaces.",
+      "Do maintain the weight gap between adjacent text levels (700 → 500 → 400, never adjacent values).",
+      "Do use scroll-triggered fade-in-up animations (0.6s ease-out) for content entering the viewport.",
+      "Do keep section spacing generous (80px between major sections) to let dark backgrounds breathe."
+    ],
+    "donts": [
+      "Don't use displaced or scattered elements that feel like unrelated parts stitched together.",
+      "Don't use generic template patterns, stock imagery, or hollow marketing copy.",
+      "Don't use flashy gimmickry, excessive particle effects, or spectacle over substance.",
+      "Don't use cold, impersonal corporate styling. No clinical whites, no steel grays.",
+      "Don't use border-left or border-right greater than 1px as colored accent stripes.",
+      "Don't use gradient text (background-clip: text).",
+      "Don't use bounce or elastic easing. Ease-out with exponential curves only.",
+      "Don't use resting shadows. Shadows respond to interaction, never decorate at rest.",
+      "Don't use true #000000 or #FFFFFF anywhere. Every neutral is tinted warm."
+    ]
+  }
+}

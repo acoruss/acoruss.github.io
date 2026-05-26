@@ -41,12 +41,16 @@ Get in touch with us. We'd love to hear about your project and help you bring it
                             <div class="form-control">
                                 <label class="label"><span class="label-text font-medium">Full Name *</span></label>
                                 <input type="text" name="name" placeholder="John Doe"
-                                    class="input input-bordered w-full rounded-xl" required>
+                                    class="input input-bordered w-full rounded-xl" required
+                                    aria-describedby="name-error">
+                                <p id="name-error" class="text-error text-xs mt-1 hidden">Please enter your name.</p>
                             </div>
                             <div class="form-control">
                                 <label class="label"><span class="label-text font-medium">Email *</span></label>
                                 <input type="email" name="email" placeholder="john@example.com"
-                                    class="input input-bordered w-full rounded-xl" required>
+                                    class="input input-bordered w-full rounded-xl" required
+                                    aria-describedby="email-error">
+                                <p id="email-error" class="text-error text-xs mt-1 hidden">Please enter a valid email address.</p>
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 gap-4 mt-4">
@@ -77,7 +81,9 @@ Get in touch with us. We'd love to hear about your project and help you bring it
                             <label class="label"><span class="label-text font-medium">Message *</span></label>
                             <textarea name="message" rows="5"
                                 placeholder="Tell us about your project, goals, and timeline..."
-                                class="textarea textarea-bordered w-full rounded-xl" required></textarea>
+                                class="textarea textarea-bordered w-full rounded-xl" required
+                                aria-describedby="message-error"></textarea>
+                            <p id="message-error" class="text-error text-xs mt-1 hidden">Please describe your project (at least 10 characters).</p>
                         </div>
                         <div class="mt-6">
                             <button type="submit" class="btn btn-primary rounded-full px-10 font-semibold">Send
@@ -174,4 +180,50 @@ Get in touch with us. We'd love to hear about your project and help you bring it
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const validators = {
+        name: { test: v => v.trim().length >= 2, errorId: 'name-error' },
+        email: { test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), errorId: 'email-error' },
+        message: { test: v => v.trim().length >= 10, errorId: 'message-error' }
+    };
+
+    function showError(input, errorId, show) {
+        const el = document.getElementById(errorId);
+        if (!el) return;
+        el.classList.toggle('hidden', !show);
+        input.classList.toggle('input-error', show);
+        input.classList.toggle('textarea-error', show && input.tagName === 'TEXTAREA');
+    }
+
+    Object.entries(validators).forEach(([name, { test, errorId }]) => {
+        const input = form.querySelector(`[name="${name}"]`);
+        if (!input) return;
+        input.addEventListener('blur', () => {
+            if (input.value) showError(input, errorId, !test(input.value));
+        });
+        input.addEventListener('input', () => {
+            if (test(input.value)) showError(input, errorId, false);
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        let valid = true;
+        Object.entries(validators).forEach(([name, { test, errorId }]) => {
+            const input = form.querySelector(`[name="${name}"]`);
+            if (!input) return;
+            const passes = test(input.value);
+            showError(input, errorId, !passes);
+            if (!passes) valid = false;
+        });
+        if (!valid) { e.preventDefault(); form.querySelector('.input-error, .textarea-error')?.focus(); }
+    });
+})();
+</script>
 {% endblock %}

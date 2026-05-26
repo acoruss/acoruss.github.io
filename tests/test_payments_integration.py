@@ -929,12 +929,12 @@ class TestDashboardPaymentManagement:
         assert "service-alpha@test.com" in content
         assert "service-beta@test.com" not in content
 
-    @patch("apps.payments.views.services.create_refund", new_callable=AsyncMock)
+    @patch("apps.payments.views.services._make_paystack_request")
     @patch("apps.payments.webhook_dispatcher.dispatch_webhook", new_callable=AsyncMock)
     def test_dashboard_refund_flow(
         self,
         mock_dispatch: AsyncMock,
-        mock_refund: AsyncMock,
+        mock_refund: MagicMock,
         admin_client: Client,
         service_a: ServiceProduct,
     ) -> None:

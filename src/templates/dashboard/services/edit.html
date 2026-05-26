@@ -1,37 +1,29 @@
 {% extends "dashboard/base.html" %}
 
-{% block title %}Create Product - Dashboard{% endblock %}
+{% block title %}Edit {{ service.name }} - Dashboard{% endblock %}
 {% block nav_services %}active bg-white/10 text-neutral-content{% endblock %}
 
 {% block breadcrumbs %}
 <li><a href="{% url 'core:dashboard' %}" class="hover:text-accent">Dashboard</a></li>
 <li><a href="{% url 'core:dashboard_services' %}" class="hover:text-accent">Payments</a></li>
-<li class="text-base-content font-medium">Create</li>
+<li><a href="{% url 'core:dashboard_service_detail' slug=service.slug %}" class="hover:text-accent">{{ service.name }}</a></li>
+<li class="text-base-content font-medium">Edit</li>
 {% endblock %}
 
 {% block dashboard_content %}
 <div class="max-w-2xl mx-auto">
-    <h1 class="text-2xl font-bold mb-6">Create Product</h1>
+    <h1 class="text-2xl font-bold mb-6">Edit {{ service.name }}</h1>
 
-    <form method="post" id="create-product-form" class="space-y-5" novalidate>
+    {% if messages %}
+    {% for message in messages %}
+    <div role="alert" class="alert alert-{{ message.tags }} text-sm rounded-xl mb-4">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <form method="post" id="edit-product-form" class="space-y-5" novalidate>
         {% csrf_token %}
-
-        {% if form.errors %}
-        <div role="alert" class="alert alert-error text-sm rounded-xl">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-            <div>
-                <p class="font-semibold">Please fix the errors below.</p>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                    <p class="text-xs mt-1">{{ field.label }}: {{ error }}</p>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                <p class="text-xs mt-1">{{ error }}</p>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
 
         <!-- Basic Info -->
         <div class="dash-card">
@@ -45,19 +37,17 @@
                         <span class="label-text text-xs font-semibold">Name <span class="text-error" aria-label="required">*</span></span>
                     </label>
                     <input type="text" name="name" id="id_name" required
-                        value="{{ form.name.value|default:'' }}"
-                        placeholder="My Product"
+                        value="{{ service.name }}"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_slug">
-                        <span class="label-text text-xs font-semibold">Slug <span class="text-error" aria-label="required">*</span></span>
+                        <span class="label-text text-xs font-semibold">Slug</span>
                     </label>
-                    <input type="text" name="slug" id="id_slug" required
-                        value="{{ form.slug.value|default:'' }}"
-                        placeholder="my-product"
-                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 font-mono" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Auto-generated from name. Used in API endpoints.</span></label>
+                    <input type="text" name="slug" id="id_slug" readonly
+                        value="{{ service.slug }}"
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 font-mono opacity-60" />
+                    <label class="label py-0"><span class="label-text-alt text-base-content/50">Cannot be changed after creation.</span></label>
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_description">
@@ -65,15 +55,24 @@
                     </label>
                     <textarea name="description" id="id_description" rows="3"
                         placeholder="Describe this product..."
-                        class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm min-h-[44px]">{{ form.description.value|default:'' }}</textarea>
+                        class="textarea textarea-bordered w-full rounded-lg bg-base-100/50 text-sm min-h-[44px]">{{ service.description|default:'' }}</textarea>
+                </div>
+                <div class="form-control">
+                    <label class="label py-1" for="id_logo_url">
+                        <span class="label-text text-xs font-semibold">Logo URL</span>
+                    </label>
+                    <input type="url" name="logo_url" id="id_logo_url"
+                        value="{{ service.logo_url|default:'' }}"
+                        placeholder="https://example.com/logo.png"
+                        class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
                 <div class="form-control">
                     <label class="label py-1 cursor-pointer justify-start gap-3">
-                        <input type="checkbox" name="is_test" id="id_is_test" {% if form.is_test.value %}checked{% endif %}
+                        <input type="checkbox" name="is_test" id="id_is_test" {% if service.is_test %}checked{% endif %}
                             class="checkbox checkbox-sm rounded" />
                         <span class="label-text text-xs font-semibold">Test Product</span>
                     </label>
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Mark this product for using Paystack test credentials.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/50">Uses Paystack test credentials when checked.</span></label>
                 </div>
             </div>
         </div>
@@ -90,7 +89,7 @@
                         <span class="label-text text-xs font-semibold">Webhook URL</span>
                     </label>
                     <input type="url" name="webhook_url" id="id_webhook_url"
-                        value="{{ form.webhook_url.value|default:'' }}"
+                        value="{{ service.webhook_url|default:'' }}"
                         placeholder="https://yoursite.com/webhook"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
@@ -99,7 +98,7 @@
                         <span class="label-text text-xs font-semibold">Default Callback URL</span>
                     </label>
                     <input type="url" name="default_callback_url" id="id_default_callback_url"
-                        value="{{ form.default_callback_url.value|default:'' }}"
+                        value="{{ service.default_callback_url|default:'' }}"
                         placeholder="https://yoursite.com/callback"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
@@ -108,7 +107,7 @@
                         <span class="label-text text-xs font-semibold">Contact Email</span>
                     </label>
                     <input type="email" name="contact_email" id="id_contact_email"
-                        value="{{ form.contact_email.value|default:'' }}"
+                        value="{{ service.contact_email|default:'' }}"
                         placeholder="team@example.com"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
                 </div>
@@ -116,34 +115,31 @@
         </div>
 
         <!-- Revenue Sharing -->
-        <div class="dash-card border-l-0 border-accent/0 transition-colors duration-200" id="revenue-card">
+        <div class="dash-card" id="revenue-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
                 Revenue Sharing
             </h2>
-            <p class="text-xs text-base-content/50 mb-4">
-                Enable to automatically split payments with a partner via Paystack subaccounts.
-            </p>
 
-            <div class="form-control mb-4">
-                <label class="label py-1 cursor-pointer justify-start gap-3" for="id_enable_revenue_sharing"
-                    aria-expanded="false" aria-controls="revenue-sharing-fields">
-                    <input type="checkbox" name="enable_revenue_sharing" id="id_enable_revenue_sharing"
-                        class="toggle toggle-sm toggle-accent" />
-                    <span class="label-text text-xs font-semibold">Enable Revenue Sharing</span>
-                </label>
+            {% if service.subaccount_code %}
+            <div class="bg-success/5 border border-success/20 rounded-xl p-3 mb-4">
+                <p class="text-xs text-success flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Paystack subaccount active: <code class="font-mono">{{ service.subaccount_code }}</code></span>
+                </p>
             </div>
+            {% endif %}
 
-            <fieldset id="revenue-sharing-fields" class="space-y-3 hidden" disabled>
+            <div class="space-y-3">
                 <div class="form-control">
                     <label class="label py-1" for="id_subaccount_business_name">
-                        <span class="label-text text-xs font-semibold">Partner Business Name <span class="text-error" aria-label="required">*</span></span>
+                        <span class="label-text text-xs font-semibold">Partner Business Name</span>
                     </label>
                     <input type="text" name="subaccount_business_name" id="id_subaccount_business_name"
+                        value="{{ service.subaccount_business_name|default:'' }}"
                         placeholder="Partner Company Ltd"
-                        required
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">The business name registered with the bank.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/50">The business name registered with the bank.</span></label>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -153,39 +149,42 @@
                         </label>
                         <select name="bank_country" id="id_bank_country"
                             class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
-                            <option value="kenya" selected>Kenya</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="ghana">Ghana</option>
-                            <option value="south africa">South Africa</option>
+                            <option value="kenya" {% if bank_country == "kenya" %}selected{% endif %}>Kenya</option>
+                            <option value="nigeria" {% if bank_country == "nigeria" %}selected{% endif %}>Nigeria</option>
+                            <option value="ghana" {% if bank_country == "ghana" %}selected{% endif %}>Ghana</option>
+                            <option value="south africa" {% if bank_country == "south africa" %}selected{% endif %}>South Africa</option>
                         </select>
                     </div>
                     <div class="form-control">
                         <label class="label py-1" for="id_settlement_bank">
-                            <span class="label-text text-xs font-semibold">Settlement Bank <span class="text-error" aria-label="required">*</span></span>
+                            <span class="label-text text-xs font-semibold">Settlement Bank</span>
                         </label>
                         <div class="relative">
-                            <select name="settlement_bank" id="id_settlement_bank" required
+                            <select name="settlement_bank" id="id_settlement_bank"
                                 class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
                                 <option value="">Select a bank...</option>
+                                {% if service.settlement_bank %}
+                                <option value="{{ service.settlement_bank }}" selected>{{ service.settlement_bank_name|default:service.settlement_bank }}</option>
+                                {% endif %}
                             </select>
                             <span id="bank-loading-indicator" class="absolute right-8 top-1/2 -translate-y-1/2 hidden">
                                 <span class="loading loading-spinner loading-xs text-accent"></span>
                             </span>
                         </div>
-                        <input type="hidden" name="settlement_bank_name" id="id_settlement_bank_name" />
+                        <input type="hidden" name="settlement_bank_name" id="id_settlement_bank_name" value="{{ service.settlement_bank_name|default:'' }}" />
                         <label class="label py-0">
-                            <span id="bank-status-text" class="label-text-alt text-base-content/40"></span>
+                            <span id="bank-status-text" class="label-text-alt text-base-content/50"></span>
                         </label>
                     </div>
                 </div>
 
                 <div class="form-control">
                     <label class="label py-1" for="id_account_number">
-                        <span class="label-text text-xs font-semibold">Account Number <span class="text-error" aria-label="required">*</span></span>
+                        <span class="label-text text-xs font-semibold">Account Number</span>
                     </label>
                     <input type="text" name="account_number" id="id_account_number"
+                        value="{{ service.account_number|default:'' }}"
                         placeholder="0123456789"
-                        required
                         inputmode="numeric"
                         pattern="[0-9]+"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 font-mono" />
@@ -194,24 +193,25 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="form-control">
                         <label class="label py-1" for="id_percentage_charge">
-                            <span class="label-text text-xs font-semibold">Platform Fee (%) <span class="text-error" aria-label="required">*</span></span>
+                            <span class="label-text text-xs font-semibold">Platform Fee (%)</span>
                         </label>
                         <input type="number" name="percentage_charge" id="id_percentage_charge"
+                            value="{{ service.percentage_charge|default:'' }}"
                             placeholder="20"
-                            required
                             min="0" max="100" step="0.01"
                             class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
-                        <label class="label py-0"><span class="label-text-alt text-base-content/40">% Acoruss keeps per transaction. Partner gets the remainder.</span></label>
+                        <label class="label py-0"><span class="label-text-alt text-base-content/50">% Acoruss keeps per transaction.</span></label>
                     </div>
                     <div class="form-control">
                         <label class="label py-1" for="id_transaction_charge">
                             <span class="label-text text-xs font-semibold">Flat Fee (optional)</span>
                         </label>
                         <input type="number" name="transaction_charge" id="id_transaction_charge"
+                            value="{{ service.transaction_charge|default:'' }}"
                             placeholder="5000"
                             min="0" step="1"
                             class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50" />
-                        <label class="label py-0"><span class="label-text-alt text-base-content/40">Fixed amount (in smallest unit, e.g. cents) Acoruss keeps. Overrides %.</span></label>
+                        <label class="label py-0"><span class="label-text-alt text-base-content/50">Fixed amount (in smallest unit) Acoruss keeps.</span></label>
                     </div>
                 </div>
 
@@ -221,22 +221,23 @@
                     </label>
                     <select name="charge_bearer" id="id_charge_bearer"
                         class="select select-bordered select-sm sm:select-md w-full rounded-lg bg-base-100/50 text-xs">
-                        <option value="account">Main Account (Acoruss)</option>
-                        <option value="subaccount">Subaccount (Partner)</option>
+                        <option value="account" {% if service.charge_bearer == "account" %}selected{% endif %}>Main Account (Acoruss)</option>
+                        <option value="subaccount" {% if service.charge_bearer == "subaccount" %}selected{% endif %}>Subaccount (Partner)</option>
                     </select>
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Determines who absorbs Paystack's processing fees.</span></label>
                 </div>
 
+                {% if service.subaccount_code %}
                 <div class="bg-info/5 border border-info/20 rounded-xl p-3 mt-2" role="note">
                     <p class="text-xs text-info flex items-start gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 mt-0.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><circle cx="12" cy="8" r="0.5" fill="currentColor"></circle></svg>
-                        <span>The Paystack subaccount will be created automatically when you save. If creation fails, you can retry from the product detail page.</span>
+                        <span>Updating bank details here will also update the subaccount on Paystack.</span>
                     </p>
                 </div>
-            </fieldset>
+                {% endif %}
+            </div>
         </div>
 
-        <!-- Security -->
+        <!-- Security & Limits -->
         <div class="dash-card">
             <h2 class="font-bold text-sm mb-4 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-accent" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -248,30 +249,30 @@
                         <span class="label-text text-xs font-semibold">Allowed Currencies</span>
                     </label>
                     <input type="text" name="allowed_currencies" id="id_allowed_currencies"
-                        value="{{ form.allowed_currencies.value|default:'' }}"
+                        value="{{ service.allowed_currencies|join:', ' }}"
                         placeholder="KES, USD, GBP"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Comma-separated. Leave empty for all currencies.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/50">Comma-separated. Leave empty for all currencies.</span></label>
                 </div>
                 <div class="form-control">
                     <label class="label py-1" for="id_allowed_ips">
                         <span class="label-text text-xs font-semibold">Allowed IPs</span>
                     </label>
                     <input type="text" name="allowed_ips" id="id_allowed_ips"
-                        value="{{ form.allowed_ips.value|default:'' }}"
+                        value="{{ service.allowed_ips|join:', ' }}"
                         placeholder="192.168.1.1, 10.0.0.1"
                         class="input input-bordered input-sm sm:input-md w-full rounded-lg bg-base-100/50 text-xs" />
-                    <label class="label py-0"><span class="label-text-alt text-base-content/40">Comma-separated. Leave empty to allow all IPs.</span></label>
+                    <label class="label py-0"><span class="label-text-alt text-base-content/50">Comma-separated. Leave empty to allow all IPs.</span></label>
                 </div>
             </div>
         </div>
 
         <!-- Actions -->
         <div class="flex items-center gap-3 justify-end">
-            <a href="{% url 'core:dashboard_services' %}" class="btn btn-ghost btn-sm sm:btn-md rounded-lg">Cancel</a>
+            <a href="{% url 'core:dashboard_service_detail' slug=service.slug %}" class="btn btn-ghost btn-sm sm:btn-md rounded-lg">Cancel</a>
             <button type="submit" class="btn btn-primary btn-sm sm:btn-md rounded-lg gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                Create Product
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Save Changes
             </button>
         </div>
     </form>
@@ -283,77 +284,31 @@
 (function() {
     'use strict';
 
-    // --- Slug auto-generation ---
-    const nameEl = document.getElementById('id_name');
-    const slugEl = document.getElementById('id_slug');
-    let slugEdited = {{ form.slug.value|yesno:"true,false,false" }};
-
-    if (nameEl && slugEl) {
-        nameEl.addEventListener('input', function() {
-            if (!slugEdited) {
-                slugEl.value = nameEl.value
-                    .toLowerCase()
-                    .replace(/[^\w\s-]/g, '')
-                    .replace(/[\s_]+/g, '-')
-                    .replace(/^-+|-+$/g, '')
-                    .slice(0, 100);
-            }
-        });
-        slugEl.addEventListener('input', function() { slugEdited = true; });
-    }
-
-    // --- Revenue sharing toggle with ARIA ---
-    const toggle = document.getElementById('id_enable_revenue_sharing');
-    const fieldset = document.getElementById('revenue-sharing-fields');
-    const toggleLabel = toggle.closest('label');
-    const revenueCard = document.getElementById('revenue-card');
-    const firstField = document.getElementById('id_subaccount_business_name');
-
-    toggle.addEventListener('change', function() {
-        const isEnabled = toggle.checked;
-
-        // Toggle visibility and disabled state
-        fieldset.classList.toggle('hidden', !isEnabled);
-        fieldset.disabled = !isEnabled;
-
-        // ARIA
-        toggleLabel.setAttribute('aria-expanded', String(isEnabled));
-
-        // Visual cue on card
-        if (isEnabled) {
-            revenueCard.classList.add('border-accent/20');
-            // Focus first field for keyboard users
-            setTimeout(function() { firstField.focus(); }, 100);
-            // Load banks
-            loadBanks(document.getElementById('id_bank_country').value);
-        } else {
-            revenueCard.classList.remove('border-accent/20');
-        }
-    });
-
-    // --- Country change loads banks ---
-    document.getElementById('id_bank_country').addEventListener('change', function() {
-        loadBanks(this.value);
-    });
-
     // --- Bank loading ---
     var banksCache = {};
     var bankSelect = document.getElementById('id_settlement_bank');
     var bankHiddenName = document.getElementById('id_settlement_bank_name');
     var bankSpinner = document.getElementById('bank-loading-indicator');
     var bankStatus = document.getElementById('bank-status-text');
+    var currentBankCode = '{{ service.settlement_bank|default:"" }}';
 
     bankSelect.addEventListener('change', function() {
         var selected = bankSelect.options[bankSelect.selectedIndex];
         bankHiddenName.value = selected ? (selected.dataset.bankName || '') : '';
     });
 
+    document.getElementById('id_bank_country').addEventListener('change', function() {
+        currentBankCode = '';
+        loadBanks(this.value);
+    });
+
+    // Load banks on page load
+    loadBanks(document.getElementById('id_bank_country').value);
+
     async function loadBanks(country) {
         var isTest = document.getElementById('id_is_test') && document.getElementById('id_is_test').checked ? 'true' : 'false';
         var cacheKey = country + '_' + isTest;
 
-        // Show loading state
-        bankSelect.innerHTML = '<option value="">Loading...</option>';
         bankSpinner.classList.remove('hidden');
         bankStatus.textContent = '';
 
@@ -407,12 +362,15 @@
             opt.textContent = label;
             opt.dataset.bankName = bank.name;
             opt.dataset.bankType = bank.type || '';
+            if (bank.code === currentBankCode) {
+                opt.selected = true;
+            }
             bankSelect.appendChild(opt);
         }
 
         bankSpinner.classList.add('hidden');
         bankStatus.textContent = sorted.length + ' banks available';
-        bankStatus.className = 'label-text-alt text-base-content/40';
+        bankStatus.className = 'label-text-alt text-base-content/50';
     }
 })();
 </script>

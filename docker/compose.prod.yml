@@ -26,7 +26,17 @@ services:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-sf", "-o", "/dev/null", "http://localhost:8083/healthz/"]
+      test:
+        - CMD
+        - curl
+        - -fsS
+        - -o
+        - /dev/null
+        - -H
+        - "Host: acoruss.com"
+        - -H
+        - "X-Forwarded-Proto: https"
+        - http://127.0.0.1:8000/healthz/
       interval: 30s
       timeout: 10s
       retries: 3

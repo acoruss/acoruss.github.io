@@ -12,6 +12,32 @@ from django.urls import reverse
 from apps.core.views import BlogFeedView
 
 
+@pytest.mark.parametrize(
+    ("host", "forwarded_proto", "expected_status"),
+    [
+        ("acoruss.com", "https", 200),
+        ("localhost", "https", 400),
+        ("acoruss.com", "http", 301),
+    ],
+)
+def test_health_check_with_production_host_validation(
+    client: Client, settings, host: str, forwarded_proto: str, expected_status: int
+) -> None:
+    settings.ALLOWED_HOSTS = ["acoruss.com"]
+    settings.SECURE_SSL_REDIRECT = True
+    settings.SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    response = client.get(
+        reverse("core:health_check"),
+        HTTP_HOST=host,
+        HTTP_X_FORWARDED_PROTO=forwarded_proto,
+    )
+
+    assert response.status_code == expected_status
+    if expected_status == 200:
+        assert response.content == b"ok"
+
+
 @pytest.mark.django_db
 class TestPublicViews:
     """Test public-facing views."""

@@ -165,6 +165,12 @@ Shadows appear only on hover as a state response, never at rest. The resting sta
 
 ## 5. Components
 
+### Brand assets
+
+Use the supplied Acoruss Logo Suite without altering its colors or proportions. The gold-mark, light-wordmark `primary-light.svg` (277:54) appears on dark navigation, footer, drawer, and dashboard surfaces at 24-40px high. The About illustration uses the stacked `secondary-light.svg` (212:111). Dark-wordmark variants are for light backgrounds only.
+
+Favicons use the standalone brown mark centered on warm-smoke squares, never the horizontal wordmark. Provide 16px/32px PNGs, a 16px/32px/48px ICO, and an opaque 180px Apple touch icon with at least 12.5% inset. Social previews use a 1200x630 warm-smoke canvas and the light primary logo. Keep source assets in `public/images`, regenerate raster derivatives with `scripts/generate_favicon.py` (Pillow required), and sync served assets using `make copy-images`.
+
 ### Buttons
 Solid and grounded. Buttons feel like they have weight.
 

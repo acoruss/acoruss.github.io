@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dashboard - Acoruss{% endblock %}</title>
+    {% include "includes/favicons.html" %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +23,7 @@
             class="dash-sidebar -translate-x-full lg:translate-x-0">
             <!-- Logo -->
             <div class="flex items-center gap-3 px-5 py-5 border-b border-white/5">
-                <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-7 sidebar-full">
+                <img src="{% static 'images/logos/primary-light.svg' %}" alt="Acoruss" width="277" height="54" class="h-7 w-auto sidebar-full">
                 <button onclick="toggleSidebarCollapse()" class="ml-auto btn btn-ghost btn-xs btn-circle hidden lg:flex text-neutral-content/50 hover:text-neutral-content" title="Collapse sidebar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="11 17 6 12 11 7"></polyline>

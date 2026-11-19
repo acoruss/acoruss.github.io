@@ -1,40 +1,35 @@
-"""Generate favicon files from the Acoruss logo."""
+"""Generate square icons and a social preview from the supplied logo suite."""
 
-import os
+from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
-src = os.path.join(os.path.dirname(__file__), "..", "src", "static", "images", "logos", "dark-rounded-bg.png")
-out_dir = os.path.join(os.path.dirname(__file__), "..", "src", "static", "images")
+ROOT = Path(__file__).resolve().parents[1]
+OUT_DIR = ROOT / "public" / "images"
+BACKGROUND = "#1A1612"
 
-img = Image.open(src)
 
-# Generate favicon.ico (multi-size)
-sizes = [(16, 16), (32, 32), (48, 48)]
-icons = []
-for size in sizes:
-    icon = img.copy()
-    icon.thumbnail(size, Image.LANCZOS)
-    icons.append(icon)
-icons[0].save(
-    os.path.join(out_dir, "favicon.ico"),
-    format="ICO",
-    sizes=[(s.width, s.height) for s in icons],
-    append_images=icons[1:],
-)
+def main() -> None:
+    with Image.open(OUT_DIR / "logos" / "icon-brown.png") as source:
+        mark = source.convert("RGBA")
 
-# Generate apple-touch-icon (180x180)
-apple = img.copy()
-apple.thumbnail((180, 180), Image.LANCZOS)
-apple.save(os.path.join(out_dir, "apple-touch-icon.png"), format="PNG")
+    def square_icon(size: int) -> Image.Image:
+        canvas = Image.new("RGBA", (size, size), BACKGROUND)
+        fitted = ImageOps.contain(mark, (size * 3 // 4, size * 3 // 4), Image.Resampling.LANCZOS)
+        canvas.alpha_composite(fitted, ((size - fitted.width) // 2, (size - fitted.height) // 2))
+        return canvas
 
-# Generate favicon-32x32.png
-f32 = img.copy()
-f32.thumbnail((32, 32), Image.LANCZOS)
-f32.save(os.path.join(out_dir, "favicon-32x32.png"), format="PNG")
+    square_icon(48).save(OUT_DIR / "favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    for size in (16, 32):
+        square_icon(size).save(OUT_DIR / f"favicon-{size}x{size}.png", optimize=True)
+    square_icon(180).convert("RGB").save(OUT_DIR / "apple-touch-icon.png", optimize=True)
 
-# Generate favicon-16x16.png
-f16 = img.copy()
-f16.thumbnail((16, 16), Image.LANCZOS)
-f16.save(os.path.join(out_dir, "favicon-16x16.png"), format="PNG")
+    preview = Image.new("RGBA", (1200, 630), BACKGROUND)
+    with Image.open(OUT_DIR / "logos" / "primary-light.png") as source:
+        logo = ImageOps.contain(source.convert("RGBA"), (900, 300), Image.Resampling.LANCZOS)
+    preview.alpha_composite(logo, ((preview.width - logo.width) // 2, (preview.height - logo.height) // 2))
+    preview.convert("RGB").save(OUT_DIR / "social-preview.png", optimize=True)
 
+
+if __name__ == "__main__":
+    main()

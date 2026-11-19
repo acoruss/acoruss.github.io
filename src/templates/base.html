@@ -19,20 +19,21 @@
         content="{% block og_description %}Software, AI, and strategic technology consulting.{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://acoruss.com">
-    <meta property="og:image" content="{% static 'images/logos/dark-name-horizontal.png' %}">
+    <meta property="og:image" content="https://acoruss.com{% static 'images/social-preview.png' %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Acoruss">
     <meta property="og:site_name" content="Acoruss">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Acoruss - Empowering Businesses Through Technology">
     <meta name="twitter:description" content="Software, AI, and strategic technology consulting.">
-    <meta name="twitter:image" content="{% static 'images/logos/dark-name-horizontal.png' %}">
+    <meta name="twitter:image" content="https://acoruss.com{% static 'images/social-preview.png' %}">
+    <meta name="twitter:image:alt" content="Acoruss">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    {% include "includes/favicons.html" %}
 
     <title>{% block title %}Acoruss - Empowering Businesses Through Technology{% endblock %}</title>
 
@@ -74,7 +75,7 @@
                         </div>
                         <a href="{% url 'core:index' %}"
                             class="btn btn-ghost text-lg font-bold tracking-tight normal-case gap-2 px-2">
-                            <span class="text-base-content">Acoruss</span>
+                            <img src="{% static 'images/logos/primary-light.svg' %}" alt="Acoruss" width="277" height="54" class="h-6 w-auto sm:h-7">
                         </a>
                     </div>
                     <div class="navbar-center hidden lg:flex">
@@ -165,7 +166,7 @@
                         <!-- Company info -->
                         <div class="sm:col-span-2 lg:col-span-1">
                             <div class="flex items-center gap-2 mb-4">
-                                <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-7">
+                                <img src="{% static 'images/logos/primary-light.svg' %}" alt="Acoruss" width="277" height="54" class="h-7 w-auto">
                             </div>
                             <p class="text-sm text-neutral-content/60 leading-relaxed mb-6">We build software and
                                 open-source tools
@@ -284,7 +285,7 @@
             <div class="menu p-6 w-72 min-h-full bg-base-200 text-base-content">
                 <div class="flex justify-between items-center mb-8">
                     <div class="flex items-center gap-2">
-                        <img src="{% static 'images/logos/white.png' %}" alt="Acoruss" class="h-6">
+                        <img src="{% static 'images/logos/primary-light.svg' %}" alt="Acoruss" width="277" height="54" class="h-6 w-auto">
                     </div>
                     <label for="mobile-drawer" class="btn btn-ghost btn-sm btn-circle" aria-label="Close menu">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"

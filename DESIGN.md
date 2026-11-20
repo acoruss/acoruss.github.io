@@ -165,6 +165,10 @@ Shadows appear only on hover as a state response, never at rest. The resting sta
 
 ## 5. Components
 
+### Portfolio ordering
+
+Zawadi.digital is the first product and the first project in the Websites and Custom Software categories. It also leads the homepage portfolio. Preserve the relative order of the remaining entries and use DOM order rather than CSS ordering so visual, keyboard, and screen-reader sequences agree.
+
 ### Brand assets
 
 Use the supplied Acoruss Logo Suite without altering its colors or proportions. The gold-mark, light-wordmark `primary-light.svg` (277:54) appears on dark navigation, footer, drawer, and dashboard surfaces at 24-40px high. The About illustration uses the stacked `secondary-light.svg` (212:111). Dark-wordmark variants are for light backgrounds only.

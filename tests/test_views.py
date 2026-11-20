@@ -1,6 +1,7 @@
 """Tests for the core app views."""
 
 import json
+import re
 from decimal import Decimal
 from unittest.mock import AsyncMock, Mock, patch
 
@@ -46,6 +47,24 @@ class TestPublicViews:
         """Test that the homepage loads successfully."""
         response = client.get(reverse("core:index"))
         assert response.status_code == 200
+
+    @pytest.mark.parametrize(
+        ("view_name", "section"),
+        [
+            ("products", "<main>"),
+            ("projects", '<div id="websites"'),
+            ("projects", '<div id="custom-software"'),
+            ("index", '<section id="projects"'),
+        ],
+    )
+    def test_zawadi_is_first_listing(self, client: Client, view_name: str, section: str) -> None:
+        response = client.get(reverse(f"core:{view_name}"))
+        assert response.status_code == 200
+        listing = response.content.decode().split(section, 1)[1]
+        first_heading = re.search(r"<h3\b[^>]*>(.*?)</h3>", listing, re.DOTALL)
+        assert first_heading is not None
+        assert first_heading.group(1).strip() == "Zawadi.digital"
+        assert 'href="https://zawadi.digital/' in listing
 
     def test_privacy_policy_loads(self, client: Client) -> None:
         """Test that the privacy policy page loads."""

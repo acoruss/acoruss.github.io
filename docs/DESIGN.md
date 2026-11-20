@@ -31,6 +31,8 @@
 
 #### Design Patterns
 
+- **Product and project ordering**: Zawadi.digital leads the Our Products grid, the Websites and Custom Software project panels, and the homepage portfolio. Keep the remaining entries in their existing relative order, with DOM order matching visual and keyboard reading order. Reuse the Zawadi project partial across relevant project categories.
+
 - **Logo assets**: Use the supplied Acoruss Logo Suite, preserving its original colors and proportions. `primary-light.svg` (277:54, gold mark and light wordmark) is for dark navigation, footer, drawer, and dashboard surfaces, displayed at 24-40px high. Use `secondary-light.svg` (212:111) for the larger About illustration. Dark-wordmark variants are reserved for light backgrounds; never stretch a horizontal logo into a square.
 - **Browser and sharing assets**: Center the standalone brown icon on a warm-smoke square with 12.5% minimum inset for 16px/32px PNGs, a 16px/32px/48px ICO, and an opaque 180px Apple touch icon. Social previews use a 1200x630 warm-smoke canvas with the light primary logo. Generate these with `scripts/generate_favicon.py` (Pillow required), then run `make copy-images`; `public/images` is the source and `src/static/images` is the served copy.
 
